@@ -1,0 +1,37 @@
+# Манифест §10 — маркер корня пакета (DECISION-0033).
+[package]
+name = "de.tax.income_for_wohngeld"
+version = "0.1.0"
+language = "0.2"
+namespace = "urn:de:tax:clir:income-for-wohngeld"
+
+[features]
+enabled = ["law.params/0.1"]
+semanticLayer = "L1"
+
+# Каталожная метадата (DECISION-0051).
+[metadata]
+act = "de-income-for-wohngeld"
+title = "Einkommensteuergesetz (EStG): нормы, которые читает Wohngeld — виды дохода § 2, Einnahmen § 8, Werbungskosten § 9 и паушали § 9a, Arbeitslohn § 19, Leibrenten § 22, ALG I § 32b, мини-джоб § 40a"
+primarySource = "ESTG"
+# Выводимые — совпадение с sources.law держат ворота.
+jurisdiction = "DE"
+instrument = "statute"
+sourceFidelity = "pinned_unofficial_copy"
+# issuer: закон принят Бундестагом; действующий текст — Bekanntmachung
+# Федерального министерства финансов от 8.10.2009 с последующими изменениями.
+issuer = "Deutscher Bundestag (Einkommensteuergesetz i. d. F. der Bekanntmachung vom 8. Oktober 2009, BGBl. I S. 3366, 3862)"
+# legalStatus: закон действует; моделируемые части — с 01.01.2023.
+legalStatus = "in_force"
+# verifiedAgainstSource: сводный текст — выдача портала, JStG 2022 — копия
+# OffeneGesetze.de; байты официального опубликования не закреплены.
+verifiedAgainstSource = false
+
+[[tests]]
+family = "de.tax.income_for_wohngeld#einkuenfte"
+regression = true
+suites = ["tests/einkuenfte.lawtest"]
+world = ["de.tax.income_for_wohngeld"]
+
+[authoring]
+local_imports = "explicit"

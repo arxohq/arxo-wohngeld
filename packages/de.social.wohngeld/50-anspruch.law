@@ -1,0 +1,124 @@
+// §§ 20, 21 WoGG: Nichtbestehen des Wohngeldanspruchs; притязание.
+//
+// § 21 Nr. 3 («soweit die Inanspruchnahme missbräuchlich wäre, insbesondere wegen
+// erheblichen Vermögens») — оценочный признак, который закон оставляет органу:
+// канал суждения §47.3, орган — Wohngeldbehörde. До её ответа притязание —
+// REQUIRES_JUDGMENT, а сумма § 19 уже известна: ответ «сколько по формуле» и
+// «полагается ли» разведены.
+
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+use self::{
+    Haushalt,
+    JaNein,
+    WOGG_19_ABS1_ED2023,
+    WOGG_19_ABS1_ED2025,
+    WOGG_19_ABS1_ED2026,
+    WOGG_20_ABS2_ED2023,
+    WOGG_20_ABS2_ED2025,
+    WOGG_20_ABS2_ED2026,
+    WOGG_21_ED2023,
+    WOGG_21_ED2025,
+    WOGG_21_ED2026,
+    WOGG_3_ABS1_ED2023,
+    WOGG_3_ABS1_ED2025,
+    WOGG_3_ABS1_ED2026,
+    anzahl_zu_beruecksichtigende_haushaltsmitglieder,
+    wohngeld_monatlich,
+    wohngeldberechtigt,
+};
+
+pub enum KeinAnspruchGrund {
+    AUSBILDUNGSFOERDERUNG_20_ABS2, WENIGER_ALS_10_EURO_21_NR1, ALLE_AUSGESCHLOSSEN_21_NR2,
+    MISSBRAEUCHLICH_21_NR3;
+    label de official "Grund, aus dem ein Wohngeldanspruch nicht besteht (§§ 20, 21)";
+    label en unofficial "ground on which no housing benefit claim exists";
+}
+
+pub relation ausbildungsfoerderung_20_abs2(h: Haushalt, allen_mitgliedern_dem_grunde_nach: JaNein,
+                                       ausschliesslich_als_darlehen: JaNein) kind empirical {
+    key(h);
+    label de official "allen Haushaltsmitgliedern steht eine Leistung nach § 20 Absatz 2 Satz 1 Nummer 1 bis 3 dem Grunde nach zu oder stünde im Fall ihres Antrages zu; ob die Leistungen ausschließlich als Darlehen gewährt werden";
+    label en unofficial "all members are in principle eligible for training support; whether only as loans";
+}
+
+pub external judgment relation missbraeuchliche_inanspruchnahme(h: Haushalt) {
+    authority Wohngeldbehoerde;
+    label de official "die Inanspruchnahme von Wohngeld wäre missbräuchlich, insbesondere wegen erheblichen Vermögens (§ 21 Nummer 3)";
+    label en unofficial "assessment by the authority: claiming housing benefit would be abusive (e.g. considerable assets)";
+}
+
+pub relation kein_wohngeldanspruch(h: Haushalt, grund: KeinAnspruchGrund) kind institutional {
+    label de official "ein Wohngeldanspruch besteht nicht";
+    label en unofficial "no housing benefit claim exists";
+}
+
+pub relation wohngeldanspruch(h: Haushalt, betrag: Money) kind institutional {
+    label de official "Anspruch auf monatliches Wohngeld (Mietzuschuss) in dieser Höhe";
+    label en unofficial "claim to monthly housing benefit of this amount";
+}
+
+relation kein_ausschluss_nach_20(h: Haushalt) kind institutional {
+    label de official "§ 20 Absatz 2 steht dem Anspruch nicht entgegen";
+    label en unofficial "sec. 20(2) does not bar the claim";
+}
+
+@source(WOGG_20_ABS2_ED2023, WOGG_20_ABS2_ED2025, WOGG_20_ABS2_ED2026)
+rule AusbildungsfoerderungSchliesstAus(h: Haushalt) strict {
+    label de official "§ 20 Absatz 2 Satz 1 bis 3: kein Wohngeldanspruch, wenn allen Haushaltsmitgliedern Ausbildungsförderung dem Grunde nach zusteht, außer bei ausschließlich darlehensweiser Gewährung";
+    label en unofficial "no claim if all members are eligible for training support other than loans";
+    when ausbildungsfoerderung_20_abs2(h, JA, NEIN);
+    then kein_wohngeldanspruch(h, AUSBILDUNGSFOERDERUNG_20_ABS2);
+}
+
+@source(WOGG_20_ABS2_ED2023, WOGG_20_ABS2_ED2025, WOGG_20_ABS2_ED2026)
+rule KeinAusschlussNachZwanzigNichtAlle(h: Haushalt, d: JaNein) strict {
+    label de official "§ 20 Absatz 2: nicht allen Haushaltsmitgliedern steht eine solche Leistung zu";
+    label en unofficial "not all members are eligible";
+    when ausbildungsfoerderung_20_abs2(h, NEIN, d);
+    then kein_ausschluss_nach_20(h);
+}
+
+@source(WOGG_20_ABS2_ED2023, WOGG_20_ABS2_ED2025, WOGG_20_ABS2_ED2026)
+rule KeinAusschlussNachZwanzigDarlehen(h: Haushalt) strict {
+    label de official "§ 20 Absatz 2 Satz 3: Satz 1 gilt nicht, wenn die Leistungen ausschließlich als Darlehen gewährt werden";
+    label en unofficial "loans only: no bar";
+    when ausbildungsfoerderung_20_abs2(h, JA, JA);
+    then kein_ausschluss_nach_20(h);
+}
+
+@source(WOGG_21_ED2023, WOGG_21_ED2025, WOGG_21_ED2026)
+rule WenigerAlsZehnEuro(h: Haushalt, w: Money) strict {
+    label de official "§ 21 Nummer 1: ein Wohngeldanspruch besteht nicht, wenn das Wohngeld weniger als 10 Euro monatlich betragen würde";
+    label en unofficial "no claim if the benefit would be less than EUR 10 a month";
+    when wohngeld_monatlich(h, w) and w < 10 EUR;
+    then kein_wohngeldanspruch(h, WENIGER_ALS_10_EURO_21_NR1);
+}
+
+@source(WOGG_21_ED2023, WOGG_21_ED2025, WOGG_21_ED2026)
+rule AlleHaushaltsmitgliederAusgeschlossen(h: Haushalt, n: Integer) strict {
+    label de official "§ 21 Nummer 2: ein Wohngeldanspruch besteht nicht, wenn alle Haushaltsmitglieder nach den §§ 7 und 8 Absatz 1 vom Wohngeld ausgeschlossen sind";
+    label en unofficial "no claim if all members are excluded";
+    when anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n == 0;
+    then kein_wohngeldanspruch(h, ALLE_AUSGESCHLOSSEN_21_NR2);
+}
+
+@source(WOGG_21_ED2023, WOGG_21_ED2025, WOGG_21_ED2026)
+rule MissbraeuchlicheInanspruchnahme(h: Haushalt) strict {
+    label de official "§ 21 Nummer 3: ein Wohngeldanspruch besteht nicht, soweit die Inanspruchnahme missbräuchlich wäre";
+    label en unofficial "no claim where claiming would be abusive";
+    when missbraeuchliche_inanspruchnahme(h);
+    then kein_wohngeldanspruch(h, MISSBRAEUCHLICH_21_NR3);
+}
+
+@source(WOGG_21_ED2023, WOGG_21_ED2025, WOGG_21_ED2026, WOGG_20_ABS2_ED2023, WOGG_20_ABS2_ED2025, WOGG_20_ABS2_ED2026, WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026, WOGG_19_ABS1_ED2023, WOGG_19_ABS1_ED2025, WOGG_19_ABS1_ED2026)
+rule Wohngeldanspruch(h: Haushalt, p: de.tax.income_for_wohngeld::Person, w: Money) strict {
+    label de official "Anspruch auf Mietzuschuss in Höhe des Wohngeldes nach § 19, wenn es mindestens 10 Euro beträgt, § 20 Absatz 2 nicht entgegensteht und die Inanspruchnahme nicht missbräuchlich wäre";
+    label en unofficial "claim to the sec. 19 amount if at least EUR 10, not barred and not abusive";
+    when wohngeldberechtigt(h, p) and wohngeld_monatlich(h, w) and w >= 10 EUR
+        and kein_ausschluss_nach_20(h)
+        and not missbraeuchliche_inanspruchnahme(h);
+    then wohngeldanspruch(h, w);
+}

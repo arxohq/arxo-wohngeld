@@ -1,0 +1,22 @@
+// WOHNGELDVERORDNUNG — ДЕЛЕГИРОВАННЫЙ АКТ, КОТОРЫЙ ЗАКОН ЧИТАЕТ.
+//
+// § 38 WoGG уполномочивает правительство определить Mietenstufen Gemeinden
+// (Nr. 2) и подробности Miete и Pauschbeträge (Nr. 3). WoGG при расчёте
+// ссылается на эти определения: § 12 Abs. 1 — на Anlage, § 9 Abs. 2 S. 2 —
+// на Pauschbeträge. Поэтому WoGG импортирует этот пакет, а не наоборот, и
+// словарь здесь собственный: `Mietverhaeltnis`, названия Land/Gemeinde/Kreis,
+// номер ступени 1…7. Перечисление ступеней I–VII принадлежит § 12 Abs. 5 WoGG.
+//
+// ТАБЛИЦА ПОРОЖДЕНА ЦЕЛИКОМ. `20-anlage-mietenstufen.law` — 1 881 правило без
+// посылок по разделам Anlage; генератор сверил множество строк портала с
+// Anlage BGBl. I 2022 S. 2166 ff. и изменениями BGBl. 2023 I Nr. 102.
+//
+// ПРАВИЛО ПОДСТАНОВКИ КРЕЙСА («Soweit die zu einem Kreis gehörenden Gemeinden
+// in den Tabellen nicht gesondert aufgeführt sind, gilt die Mietenstufe des
+// Kreises») применяет WoGG: только закон знает, что острова без
+// Festlandanschluss (§ 12 Abs. 4a WoGG) из подстановки выпадают. Здесь —
+// производитель «gesondert aufgeführt», которым подстановка ограничена.
+
+language "law.core" version "0.2";
+package de.social.wohngeld_verordnung version "0.1.0";
+namespace "urn:de:social:clir:wohngeld-verordnung";

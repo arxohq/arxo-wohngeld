@@ -1,0 +1,61 @@
+{
+  "labels": [
+    {
+      "language": "de",
+      "status": "unofficial",
+      "text": "Klimakomponente (§ 12 Abs. 7), 4"
+    },
+    {
+      "language": "en",
+      "status": "unofficial",
+      "text": "climate component (sec. 12(7)), 4"
+    }
+  ],
+  "schemaVersion": "law.params/0.1",
+  "kind": "parameter-dataset",
+  "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMitglieder4",
+  "parameter": "urn:de:social:clir:wohngeld#KlimakomponenteMitglieder4",
+  "valueType": {
+    "name": "urn:law:std#Money"
+  },
+  "timeAxis": "legal_time",
+  "granularity": "date",
+  "coverage": {
+    "start": "2023-01-01",
+    "endExclusive": "2027-01-01"
+  },
+  "values": [
+    {
+      "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMitglieder4#2023-01-01",
+      "valid": {
+        "start": "2023-01-01",
+        "endExclusive": "2027-01-01"
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "34.40",
+        "currency": "EUR"
+      },
+      "anchors": [
+        "urn:de:social:clir:wohngeld#WOGG_12_ABS7_ED2023",
+        "urn:de:social:clir:wohngeld#WOGG_12_ABS7_ED2025",
+        "urn:de:social:clir:wohngeld#WOGG_12_ABS7_ED2026"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Klimakomponente (§ 12 Abs. 7), 4: Wert ab 2023-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "climate component (sec. 12(7)), 4: value from 2023-01-01"
+        }
+      ]
+    }
+  ]
+}

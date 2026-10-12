@@ -1,0 +1,61 @@
+{
+  "labels": [
+    {
+      "language": "de",
+      "status": "unofficial",
+      "text": "Gesamtbetrag zur Entlastung bei den Heizkosten (§ 12 Abs. 6), 2"
+    },
+    {
+      "language": "en",
+      "status": "unofficial",
+      "text": "heating cost relief total (sec. 12(6)), 2"
+    }
+  ],
+  "schemaVersion": "law.params/0.1",
+  "kind": "parameter-dataset",
+  "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMitglieder2",
+  "parameter": "urn:de:social:clir:wohngeld#HeizkostenentlastungMitglieder2",
+  "valueType": {
+    "name": "urn:law:std#Money"
+  },
+  "timeAxis": "legal_time",
+  "granularity": "date",
+  "coverage": {
+    "start": "2023-01-01",
+    "endExclusive": "2027-01-01"
+  },
+  "values": [
+    {
+      "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMitglieder2#2023-01-01",
+      "valid": {
+        "start": "2023-01-01",
+        "endExclusive": "2027-01-01"
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "142.60",
+        "currency": "EUR"
+      },
+      "anchors": [
+        "urn:de:social:clir:wohngeld#WOGG_12_ABS6_ED2023",
+        "urn:de:social:clir:wohngeld#WOGG_12_ABS6_ED2025",
+        "urn:de:social:clir:wohngeld#WOGG_12_ABS6_ED2026"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Gesamtbetrag zur Entlastung bei den Heizkosten (§ 12 Abs. 6), 2: Wert ab 2023-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "heating cost relief total (sec. 12(6)), 2: value from 2023-01-01"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,566 @@
+// §§ 3–8 WoGG: wohngeldberechtigte Person, Haushaltsmitglieder, Ausschluss.
+//
+// ОТСУТСТВИЕ ФАКТА — НЕ ОТРИЦАНИЕ. Каждое лицо, для которого жильё — центр
+// жизненных отношений, должно быть установлено как Haushaltsmitglied, и у
+// каждого члена должен быть установлен статус по § 7 (получает ли он трансфер с
+// Kosten der Unterkunft — да или нет). Пока хоть один статус неизвестен, счёт
+// членов не выводится, и суммы нет. Так же с § 3 Abs. 5: гражданство и статус
+// пребывания — установленный факт, а не умолчание «немец».
+//
+// РЕКУРСИЯ § 5 Abs. 1 S. 2 («mit einem Haushaltsmitglied»): член домохозяйства —
+// и тот, кто связан не с заявителем, а с другим членом (тёща через супругу).
+// Посылка о члене — через `monotone` (§65/§110), иначе цикл не стратифицируется.
+
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+use self::{
+    WOGG_11_ABS3_ED2023,
+    WOGG_11_ABS3_ED2025,
+    WOGG_11_ABS3_ED2026,
+    WOGG_1_ABS2_ED2023,
+    WOGG_1_ABS2_ED2025,
+    WOGG_1_ABS2_ED2026,
+    WOGG_3_ABS1_ED2023,
+    WOGG_3_ABS1_ED2025,
+    WOGG_3_ABS1_ED2026,
+    WOGG_3_ABS4_ED2023,
+    WOGG_3_ABS4_ED2025,
+    WOGG_3_ABS4_ED2026,
+    WOGG_3_ABS5_ED2023,
+    WOGG_3_ABS5_ED2025,
+    WOGG_3_ABS5_ED2026,
+    WOGG_4_ED2023,
+    WOGG_4_ED2025,
+    WOGG_4_ED2026,
+    WOGG_5_ABS1_ED2023,
+    WOGG_5_ABS1_ED2025,
+    WOGG_5_ABS1_ED2026,
+    WOGG_5_ABS2_ED2023,
+    WOGG_5_ABS2_ED2025,
+    WOGG_5_ABS2_ED2026,
+    WOGG_5_ABS3_ED2023,
+    WOGG_5_ABS3_ED2025,
+    WOGG_5_ABS3_ED2026,
+    WOGG_6_ABS1_ED2023,
+    WOGG_6_ABS1_ED2025,
+    WOGG_6_ABS1_ED2026,
+    WOGG_7_ABS1_ED2023,
+    WOGG_7_ABS1_ED2025,
+    WOGG_7_ABS1_ED2026,
+    WOGG_7_ABS2_ED2023,
+    WOGG_7_ABS2_ED2025,
+    WOGG_7_ABS2_ED2026,
+    WOGG_8_ABS2_ED2023,
+    WOGG_8_ABS2_ED2025,
+    WOGG_8_ABS2_ED2026,
+};
+
+pub entity Haushalt {
+    label de official "Haushalt der wohngeldberechtigten Person (Wohnraum, für den Wohngeld beantragt wird)";
+    label en unofficial "household of the person entitled to housing benefit";
+}
+
+pub enum JaNein {
+    JA, NEIN;
+    label de unofficial "ja oder nein";
+    label en unofficial "yes or no";
+}
+
+pub enum Zuschussart {
+    MIETZUSCHUSS, LASTENZUSCHUSS;
+    label de official "Wohngeld als Zuschuss zur Miete (Mietzuschuss) oder zur Belastung (Lastenzuschuss)";
+    label en unofficial "rent subsidy or charges subsidy";
+}
+
+pub enum Nutzungsgrundlage {
+    MIETVERHAELTNIS, MIETAEHNLICHES_NUTZUNGSVERHAELTNIS, HEIM, EIGENES_HAUS_MEHR_ALS_ZWEI_WOHNUNGEN;
+    label de official "Grund der Nutzung des Wohnraums nach § 3 Absatz 1";
+    label en unofficial "legal basis of use of the living space under sec. 3(1)";
+}
+
+pub enum Beziehungsart {
+    EHEGATTE_NICHT_DAUERND_GETRENNT, LEBENSPARTNER_NICHT_DAUERND_GETRENNT,
+    VERWANDT_ODER_VERSCHWAEGERT, PFLEGEKIND, PFLEGEELTERNTEIL;
+    label de official "Beziehung zu einem Haushaltsmitglied nach § 5 Absatz 1 Satz 2 Nummer 1, 2, 4, 5 und 6";
+    label en unofficial "relationship to a household member under sec. 5(1) sentence 2 nos. 1, 2, 4, 5 and 6";
+}
+
+pub enum Aufenthaltsstatus {
+    KEIN_AUSLAENDER, FREIZUEGIGKEIT_EU, AUFENTHALTSTITEL_ODER_DULDUNG, VOELKERRECHTLICHES_ABKOMMEN,
+    AUFENTHALTSGESTATTUNG, HEIMATLOSER_AUSLAENDER, BEFREIUNG_VOM_AUFENTHALTSTITEL,
+    KEIN_STATUS_NACH_3_ABS5, VON_DEUTSCHEN_SOZIALVORSCHRIFTEN_BEFREIT, TITEL_NACH_3_ABS5_SATZ3;
+    label de official "aufenthaltsrechtliche Stellung im Sinne des § 3 Absatz 5";
+    label en unofficial "residence status within the meaning of sec. 3(5)";
+}
+
+pub enum Leistung7 {
+    KEINE, NR1_GRUNDSICHERUNGSGELD_SGB2, NR2_AUSZUBILDENDE_SGB2, NR4_VERLETZTENGELD,
+    NR5_GRUNDSICHERUNG_ALTER_ERWERBSMINDERUNG, NR6_HILFE_ZUM_LEBENSUNTERHALT, NR7_SGB14,
+    NR8_ASYLBLG, NR9_SGB8, ABS2_BEI_LEISTUNG_EINES_ANDEREN_BERUECKSICHTIGT;
+    label de official "Leistung nach § 7 Absatz 1 Satz 1 Nummer 1 bis 9 oder Berücksichtigung bei der Leistung eines anderen Haushaltsmitglieds nach § 7 Absatz 2";
+    label en unofficial "transfer benefit under sec. 7(1) nos. 1 to 9 or consideration within another member's benefit (sec. 7(2))";
+}
+
+// --- Факты дела -------------------------------------------------------------
+
+pub relation wohngeldantrag(h: Haushalt, antragsteller: de.tax.income_for_wohngeld::Person, art: Zuschussart) kind empirical {
+    key(h);
+    label de official "Antrag auf Wohngeld der (nach § 3 Absatz 3 bestimmten) Person für den Wohnraum des Haushalts";
+    label en unofficial "application for housing benefit by the designated person";
+}
+
+pub relation nutzungsgrundlage(h: Haushalt, p: de.tax.income_for_wohngeld::Person, grundlage: Nutzungsgrundlage) kind empirical {
+    key(h);
+    label de official "die Person nutzt den Wohnraum selbst auf dieser Grundlage (§ 3 Absatz 1)";
+    label en unofficial "the person uses the living space themselves on this basis";
+}
+
+pub relation lebensmittelpunkt_im_wohnraum(h: Haushalt, x: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "die Person bewohnt den Wohnraum, und er ist der Mittelpunkt ihrer Lebensbeziehungen";
+    label en unofficial "the person lives in the dwelling and it is the centre of their life";
+}
+
+pub relation beziehung(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person, art: Beziehungsart) kind empirical {
+    label de official "x steht zu y in der bezeichneten Beziehung (§ 5 Absatz 1 Satz 2)";
+    label en unofficial "x is related to y in the given way";
+}
+
+pub relation zusammenleben_ohne_familienrechtliche_beziehung(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "x lebt mit y zusammen, ohne mit y verheiratet, verpartnert, verwandt, verschwägert oder durch ein Pflegeverhältnis verbunden zu sein";
+    label en unofficial "x lives with y without a marital, family or foster relationship";
+}
+
+// Опровержение презумпции § 5 Abs. 2 — установленный результат проверки органа,
+// поданный полем `widerlegt` (JA/NEIN), а не отсутствием факта: презумпция и её
+// опровержение не должны зависеть от того, упомянуло ли дело опровержение.
+pub relation vermutungstatbestand_7_abs3a_sgb2(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person, widerlegt: JaNein) kind empirical {
+    label de official "mindestens eine der Voraussetzungen nach den Nummern 1 bis 4 des § 7 Absatz 3a des Zweiten Buches Sozialgesetzbuch ist erfüllt (§ 5 Absatz 2); ob die Vermutung widerlegt ist";
+    label en unofficial "a presumption criterion of sec. 7(3a) SGB II is met; whether the presumption is rebutted";
+}
+
+pub external judgment relation verantwortungs_und_einstehensgemeinschaft(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person) {
+    authority Wohngeldbehoerde;
+    label de official "x lebt mit y so zusammen, dass nach verständiger Würdigung der wechselseitige Wille anzunehmen ist, Verantwortung füreinander zu tragen und füreinander einzustehen (§ 5 Absatz 1 Satz 2 Nummer 3)";
+    label en unofficial "assessment by the authority: mutual will to take responsibility for each other";
+}
+
+pub relation aufenthaltsrechtlicher_status(x: de.tax.income_for_wohngeld::Person, status: Aufenthaltsstatus) kind empirical {
+    key(x);
+    label de official "aufenthaltsrechtliche Stellung der Person";
+    label en unofficial "residence status of the person";
+}
+
+pub relation tatsaechlicher_aufenthalt_im_bundesgebiet(x: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "die ausländische Person hält sich im Bundesgebiet tatsächlich auf";
+    label en unofficial "the foreign person actually resides in Germany";
+}
+
+pub relation leistungsbezug_7(x: de.tax.income_for_wohngeld::Person, art: Leistung7, kosten_der_unterkunft: JaNein, nur_darlehen: JaNein,
+                          hilfebeduerftigkeit_vermeidbar: JaNein, verzicht_8_abs2: JaNein) kind empirical {
+    key(x);
+    label de official "Bezug einer Leistung nach § 7: Art, Berücksichtigung von Kosten der Unterkunft, Gewährung ausschließlich als Darlehen, Vermeidbarkeit der Hilfebedürftigkeit durch Wohngeld (§ 7 Absatz 1 Satz 3 Nummer 2), Verzicht zur Beantragung von Wohngeld (§ 8 Absatz 2)";
+    label en unofficial "receipt of a transfer benefit and the facts relevant to exclusion";
+}
+
+// --- Выводимое --------------------------------------------------------------
+
+relation ausschliessende_leistung(art: Leistung7) kind institutional {
+    label de official "Leistung, deren Empfänger nach § 7 Absatz 1 Satz 1 vom Wohngeld ausgeschlossen sind";
+    label en unofficial "benefit whose recipients are excluded under sec. 7(1)";
+}
+
+relation aufenthaltsvoraussetzung_3_abs5_status(status: Aufenthaltsstatus) kind institutional {
+    label de official "Stellung nach § 3 Absatz 5 Satz 1 Nummer 1 bis 6";
+    label en unofficial "status under sec. 3(5) sentence 1 nos. 1 to 6";
+}
+
+relation aufenthaltsvoraussetzung_erfuellt(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "die Person erfüllt die Voraussetzungen des § 3 Absatz 5 (oder ist keine ausländische Person)";
+    label en unofficial "the residence requirements of sec. 3(5) are met";
+}
+
+relation haushaltsmitglied(h: Haushalt, x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "Haushaltsmitglied nach § 5";
+    label en unofficial "household member under sec. 5";
+}
+
+relation verantwortungsgemeinschaft_vermutet(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "wechselseitiger Wille nach § 5 Absatz 2 vermutet";
+    label en unofficial "mutual responsibility presumed under sec. 5(2)";
+}
+
+relation vermutungstatbestand_geprueft(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "für x und y ist ein Vermutungstatbestand nach § 5 Absatz 2 festgestellt (widerlegt oder nicht)";
+    label en unofficial "a presumption criterion was established for x and y";
+}
+
+relation vom_wohngeld_ausgeschlossen(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "vom Wohngeld ausgeschlossen (§ 7)";
+    label en unofficial "excluded from housing benefit (sec. 7)";
+}
+
+relation nicht_vom_wohngeld_ausgeschlossen(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "nicht vom Wohngeld ausgeschlossen (§ 7, § 8 Absatz 2)";
+    label en unofficial "not excluded from housing benefit";
+}
+
+relation ausschlussstatus_bestimmt(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "der Ausschlussstatus der Person nach § 7 ist festgestellt";
+    label en unofficial "the exclusion status of the person is established";
+}
+
+relation zu_beruecksichtigendes_haushaltsmitglied(h: Haushalt, x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "zu berücksichtigendes Haushaltsmitglied (§ 6 Absatz 1)";
+    label en unofficial "household member to be taken into account";
+}
+
+pub relation haushalt_festgestellt(h: Haushalt) kind institutional {
+    label de official "alle Bewohner sind als Haushaltsmitglieder festgestellt und bei allen ist der Ausschlussstatus bestimmt";
+    label en unofficial "household composition and exclusion statuses are fully established";
+}
+
+pub relation gesamtzahl_haushaltsmitglieder(h: Haushalt, n: Integer) kind institutional {
+    label de official "Gesamtzahl der Haushaltsmitglieder (§ 11 Absatz 3 Satz 3)";
+    label en unofficial "total number of household members";
+}
+
+pub relation anzahl_zu_beruecksichtigende_haushaltsmitglieder(h: Haushalt, n: Integer) kind institutional {
+    label de official "Anzahl der zu berücksichtigenden Haushaltsmitglieder (§ 4 Nummer 1, § 6)";
+    label en unofficial "number of household members to be taken into account";
+}
+
+pub relation wohngeldberechtigt(h: Haushalt, p: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "wohngeldberechtigte Person für den Mietzuschuss (§ 3)";
+    label en unofficial "person entitled to rent subsidy";
+}
+
+// --- § 3 Abs. 5 -------------------------------------------------------------
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AufenthaltsstatusNachDreiFuenfFreizuegigkeitEu strict {
+    label de official "§ 3 Absatz 5 Satz 1: Stellung FREIZUEGIGKEIT_EU";
+    label en unofficial "sec. 3(5) sentence 1: status FREIZUEGIGKEIT_EU";
+    then aufenthaltsvoraussetzung_3_abs5_status(FREIZUEGIGKEIT_EU);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AufenthaltsstatusNachDreiFuenfAufenthaltstitelOderDuldung strict {
+    label de official "§ 3 Absatz 5 Satz 1: Stellung AUFENTHALTSTITEL_ODER_DULDUNG";
+    label en unofficial "sec. 3(5) sentence 1: status AUFENTHALTSTITEL_ODER_DULDUNG";
+    then aufenthaltsvoraussetzung_3_abs5_status(AUFENTHALTSTITEL_ODER_DULDUNG);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AufenthaltsstatusNachDreiFuenfVoelkerrechtlichesAbkommen strict {
+    label de official "§ 3 Absatz 5 Satz 1: Stellung VOELKERRECHTLICHES_ABKOMMEN";
+    label en unofficial "sec. 3(5) sentence 1: status VOELKERRECHTLICHES_ABKOMMEN";
+    then aufenthaltsvoraussetzung_3_abs5_status(VOELKERRECHTLICHES_ABKOMMEN);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AufenthaltsstatusNachDreiFuenfAufenthaltsgestattung strict {
+    label de official "§ 3 Absatz 5 Satz 1: Stellung AUFENTHALTSGESTATTUNG";
+    label en unofficial "sec. 3(5) sentence 1: status AUFENTHALTSGESTATTUNG";
+    then aufenthaltsvoraussetzung_3_abs5_status(AUFENTHALTSGESTATTUNG);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AufenthaltsstatusNachDreiFuenfHeimatloserAuslaender strict {
+    label de official "§ 3 Absatz 5 Satz 1: Stellung HEIMATLOSER_AUSLAENDER";
+    label en unofficial "sec. 3(5) sentence 1: status HEIMATLOSER_AUSLAENDER";
+    then aufenthaltsvoraussetzung_3_abs5_status(HEIMATLOSER_AUSLAENDER);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AufenthaltsstatusNachDreiFuenfBefreiungVomAufenthaltstitel strict {
+    label de official "§ 3 Absatz 5 Satz 1: Stellung BEFREIUNG_VOM_AUFENTHALTSTITEL";
+    label en unofficial "sec. 3(5) sentence 1: status BEFREIUNG_VOM_AUFENTHALTSTITEL";
+    then aufenthaltsvoraussetzung_3_abs5_status(BEFREIUNG_VOM_AUFENTHALTSTITEL);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule KeineAuslaendischePerson(x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 3 Absatz 5 gilt nur für Ausländer im Sinne des § 2 Absatz 1 des Aufenthaltsgesetzes";
+    label en unofficial "sec. 3(5) applies only to foreigners";
+    when aufenthaltsrechtlicher_status(x, KEIN_AUSLAENDER);
+    then aufenthaltsvoraussetzung_erfuellt(x);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AuslaendischePersonMitStatus(x: de.tax.income_for_wohngeld::Person, s: Aufenthaltsstatus) strict {
+    label de official "§ 3 Absatz 5 Satz 1: ausländische Personen, die sich im Bundesgebiet tatsächlich aufhalten und eine der Stellungen nach Nummer 1 bis 6 haben";
+    label en unofficial "foreign persons actually residing in Germany with one of the listed statuses";
+    when aufenthaltsrechtlicher_status(x, s) and aufenthaltsvoraussetzung_3_abs5_status(s)
+        and tatsaechlicher_aufenthalt_im_bundesgebiet(x);
+    then aufenthaltsvoraussetzung_erfuellt(x);
+}
+
+// --- § 5: Haushaltsmitglieder ------------------------------------------------
+
+@source(WOGG_5_ABS1_ED2023, WOGG_5_ABS1_ED2025, WOGG_5_ABS1_ED2026, WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026)
+rule AntragstellerIstHaushaltsmitglied(h: Haushalt, p: de.tax.income_for_wohngeld::Person, art: Zuschussart) strict {
+    label de official "§ 5 Absatz 1 Satz 1: Haushaltsmitglied ist die wohngeldberechtigte Person, wenn der Wohnraum der Mittelpunkt ihrer Lebensbeziehungen ist";
+    label en unofficial "the applicant is a household member if the dwelling is the centre of their life";
+    when wohngeldantrag(h, p, art) and lebensmittelpunkt_im_wohnraum(h, p) and aufenthaltsvoraussetzung_erfuellt(p);
+    then haushaltsmitglied(h, p);
+}
+
+@source(WOGG_5_ABS1_ED2023, WOGG_5_ABS1_ED2025, WOGG_5_ABS1_ED2026, WOGG_5_ABS3_ED2023, WOGG_5_ABS3_ED2025, WOGG_5_ABS3_ED2026)
+rule AngehoerigerIstHaushaltsmitglied(h: Haushalt, x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person, art: Beziehungsart) strict {
+    label de official "§ 5 Absatz 1 Satz 2 Nummer 1, 2, 4, 5, 6 und Absatz 3: Ehegatte, Lebenspartner, Verwandte und Verschwägerte, Pflegekinder und Pflegeeltern eines Haushaltsmitgliedes, die den Wohnraum gemeinsam als Mittelpunkt der Lebensbeziehungen bewohnen";
+    label en unofficial "spouses, partners, relatives, foster children and foster parents of a household member living in the dwelling";
+    when lebensmittelpunkt_im_wohnraum(h, x) and beziehung(x, y, art)
+        and monotone(haushaltsmitglied(h, y)) and aufenthaltsvoraussetzung_erfuellt(x);
+    then haushaltsmitglied(h, x);
+}
+
+@source(WOGG_5_ABS2_ED2023, WOGG_5_ABS2_ED2025, WOGG_5_ABS2_ED2026)
+rule VerantwortungsgemeinschaftVermutet(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 5 Absatz 2: der wechselseitige Wille wird vermutet, wenn eine der Voraussetzungen des § 7 Absatz 3a Nummer 1 bis 4 SGB II erfüllt ist";
+    label en unofficial "mutual responsibility is presumed if a criterion of sec. 7(3a) SGB II is met";
+    when vermutungstatbestand_7_abs3a_sgb2(x, y, NEIN);
+    then verantwortungsgemeinschaft_vermutet(x, y);
+}
+
+@source(WOGG_5_ABS1_ED2023, WOGG_5_ABS1_ED2025, WOGG_5_ABS1_ED2026, WOGG_5_ABS2_ED2023, WOGG_5_ABS2_ED2025, WOGG_5_ABS2_ED2026, WOGG_5_ABS3_ED2023, WOGG_5_ABS3_ED2025, WOGG_5_ABS3_ED2026)
+rule VermutungstatbestandGeprueft(x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person, w: JaNein) strict {
+    label de official "§ 5 Absatz 2: Vermutungstatbestand festgestellt";
+    label en unofficial "presumption criterion established";
+    when vermutungstatbestand_7_abs3a_sgb2(x, y, w);
+    then vermutungstatbestand_geprueft(x, y);
+}
+
+@source(WOGG_5_ABS1_ED2023, WOGG_5_ABS1_ED2025, WOGG_5_ABS1_ED2026, WOGG_5_ABS2_ED2023, WOGG_5_ABS2_ED2025, WOGG_5_ABS2_ED2026, WOGG_5_ABS3_ED2023, WOGG_5_ABS3_ED2025, WOGG_5_ABS3_ED2026)
+rule VermuteteVerantwortungsgemeinschaftIstHaushaltsmitglied(h: Haushalt, x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 5 Absatz 1 Satz 2 Nummer 3 in Verbindung mit Absatz 2: Haushaltsmitglied bei vermutetem wechselseitigem Willen";
+    label en unofficial "member by presumed mutual responsibility";
+    when lebensmittelpunkt_im_wohnraum(h, x) and verantwortungsgemeinschaft_vermutet(x, y)
+        and monotone(haushaltsmitglied(h, y)) and aufenthaltsvoraussetzung_erfuellt(x);
+    then haushaltsmitglied(h, x);
+}
+
+@source(WOGG_5_ABS1_ED2023, WOGG_5_ABS1_ED2025, WOGG_5_ABS1_ED2026, WOGG_5_ABS3_ED2023, WOGG_5_ABS3_ED2025, WOGG_5_ABS3_ED2026)
+rule GewuerdigteVerantwortungsgemeinschaftIstHaushaltsmitglied(h: Haushalt, x: de.tax.income_for_wohngeld::Person, y: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 5 Absatz 1 Satz 2 Nummer 3: Haushaltsmitglied, wenn nach verständiger Würdigung der wechselseitige Wille anzunehmen ist";
+    label en unofficial "member if, on a reasonable assessment, mutual responsibility is found";
+    when lebensmittelpunkt_im_wohnraum(h, x) and zusammenleben_ohne_familienrechtliche_beziehung(x, y)
+        and not_known(vermutungstatbestand_geprueft(x, y))
+        and monotone(haushaltsmitglied(h, y)) and aufenthaltsvoraussetzung_erfuellt(x)
+        and verantwortungs_und_einstehensgemeinschaft(x, y);
+    then haushaltsmitglied(h, x);
+}
+
+// --- § 7, § 8 Abs. 2: Ausschluss ---------------------------------------------
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr1GrundsicherungsgeldSgb2 strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR1_GRUNDSICHERUNGSGELD_SGB2";
+    label en unofficial "sec. 7(1) sentence 1: NR1_GRUNDSICHERUNGSGELD_SGB2";
+    then ausschliessende_leistung(NR1_GRUNDSICHERUNGSGELD_SGB2);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr2AuszubildendeSgb2 strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR2_AUSZUBILDENDE_SGB2";
+    label en unofficial "sec. 7(1) sentence 1: NR2_AUSZUBILDENDE_SGB2";
+    then ausschliessende_leistung(NR2_AUSZUBILDENDE_SGB2);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr4Verletztengeld strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR4_VERLETZTENGELD";
+    label en unofficial "sec. 7(1) sentence 1: NR4_VERLETZTENGELD";
+    then ausschliessende_leistung(NR4_VERLETZTENGELD);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr5GrundsicherungAlterErwerbsminderung strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR5_GRUNDSICHERUNG_ALTER_ERWERBSMINDERUNG";
+    label en unofficial "sec. 7(1) sentence 1: NR5_GRUNDSICHERUNG_ALTER_ERWERBSMINDERUNG";
+    then ausschliessende_leistung(NR5_GRUNDSICHERUNG_ALTER_ERWERBSMINDERUNG);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr6HilfeZumLebensunterhalt strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR6_HILFE_ZUM_LEBENSUNTERHALT";
+    label en unofficial "sec. 7(1) sentence 1: NR6_HILFE_ZUM_LEBENSUNTERHALT";
+    then ausschliessende_leistung(NR6_HILFE_ZUM_LEBENSUNTERHALT);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr7Sgb14 strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR7_SGB14";
+    label en unofficial "sec. 7(1) sentence 1: NR7_SGB14";
+    then ausschliessende_leistung(NR7_SGB14);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr8Asylblg strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR8_ASYLBLG";
+    label en unofficial "sec. 7(1) sentence 1: NR8_ASYLBLG";
+    then ausschliessende_leistung(NR8_ASYLBLG);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschliessendeLeistungNr9Sgb8 strict {
+    label de official "§ 7 Absatz 1 Satz 1: NR9_SGB8";
+    label en unofficial "sec. 7(1) sentence 1: NR9_SGB8";
+    then ausschliessende_leistung(NR9_SGB8);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschlussEmpfaengerMitKostenDerUnterkunft(x: de.tax.income_for_wohngeld::Person, art: Leistung7) strict {
+    label de official "§ 7 Absatz 1 Satz 1 und 2: ausgeschlossen sind Empfänger der Leistungen, wenn bei deren Berechnung Kosten der Unterkunft berücksichtigt worden sind";
+    label en unofficial "recipients of transfer benefits covering accommodation costs are excluded";
+    when leistungsbezug_7(x, art, JA, NEIN, NEIN, NEIN) and ausschliessende_leistung(art);
+    then vom_wohngeld_ausgeschlossen(x);
+}
+
+@source(WOGG_7_ABS2_ED2023, WOGG_7_ABS2_ED2025, WOGG_7_ABS2_ED2026)
+rule AusschlussBeiLeistungEinesAnderenBeruecksichtigt(x: de.tax.income_for_wohngeld::Person, kdu: JaNein) strict {
+    label de official "§ 7 Absatz 2 Satz 1: ausgeschlossen sind auch Haushaltsmitglieder, deren Einkommen und Vermögen bei der Ermittlung der Leistung eines anderen Haushaltsmitglieds berücksichtigt worden sind";
+    label en unofficial "members whose income was taken into account in another member's benefit are excluded";
+    when leistungsbezug_7(x, ABS2_BEI_LEISTUNG_EINES_ANDEREN_BERUECKSICHTIGT, kdu, NEIN, NEIN, NEIN);
+    then vom_wohngeld_ausgeschlossen(x);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule KeineLeistungNachSieben(x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "keine Leistung nach § 7 Absatz 1 und keine Berücksichtigung nach § 7 Absatz 2";
+    label en unofficial "no transfer benefit under sec. 7";
+    when leistungsbezug_7(x, KEINE, NEIN, NEIN, NEIN, NEIN);
+    then nicht_vom_wohngeld_ausgeschlossen(x);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule LeistungOhneKostenDerUnterkunft(x: de.tax.income_for_wohngeld::Person, art: Leistung7) strict {
+    label de official "§ 7 Absatz 1 Satz 1: kein Ausschluss, wenn bei der Berechnung der Leistung keine Kosten der Unterkunft berücksichtigt worden sind";
+    label en unofficial "no exclusion if accommodation costs were not taken into account";
+    when leistungsbezug_7(x, art, NEIN, NEIN, NEIN, NEIN) and ausschliessende_leistung(art);
+    then nicht_vom_wohngeld_ausgeschlossen(x);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026, WOGG_7_ABS2_ED2023, WOGG_7_ABS2_ED2025, WOGG_7_ABS2_ED2026)
+rule KeinAusschlussBeiDarlehen(x: de.tax.income_for_wohngeld::Person, art: Leistung7, kdu: JaNein, v: JaNein, z: JaNein) strict {
+    label de official "§ 7 Absatz 1 Satz 3 Nummer 1, Absatz 2 Satz 2 Nummer 1: kein Ausschluss, wenn die Leistungen ausschließlich als Darlehen gewährt werden";
+    label en unofficial "no exclusion if benefits are granted only as a loan";
+    when leistungsbezug_7(x, art, kdu, JA, v, z);
+    then nicht_vom_wohngeld_ausgeschlossen(x);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026, WOGG_7_ABS2_ED2023, WOGG_7_ABS2_ED2025, WOGG_7_ABS2_ED2026)
+rule KeinAusschlussBeiVermeidbarerHilfebeduerftigkeit(x: de.tax.income_for_wohngeld::Person, art: Leistung7, kdu: JaNein, z: JaNein) strict {
+    label de official "§ 7 Absatz 1 Satz 3 Nummer 2, Absatz 2 Satz 2 Nummer 2: kein Ausschluss, wenn durch Wohngeld die Hilfebedürftigkeit vermieden oder beseitigt werden kann und die weiteren Voraussetzungen vorliegen";
+    label en unofficial "no exclusion if housing benefit can avoid neediness";
+    when leistungsbezug_7(x, art, kdu, NEIN, JA, z);
+    then nicht_vom_wohngeld_ausgeschlossen(x);
+}
+
+@source(WOGG_8_ABS2_ED2023, WOGG_8_ABS2_ED2025, WOGG_8_ABS2_ED2026)
+rule VerzichtHebtAusschlussAuf(x: de.tax.income_for_wohngeld::Person, art: Leistung7, kdu: JaNein) strict {
+    label de official "§ 8 Absatz 2: verzichten Haushaltsmitglieder auf die Leistungen, um Wohngeld zu beantragen, gilt ihr Ausschluss als nicht erfolgt";
+    label en unofficial "waiving the transfer benefit to claim housing benefit lifts the exclusion";
+    when leistungsbezug_7(x, art, kdu, NEIN, NEIN, JA);
+    then nicht_vom_wohngeld_ausgeschlossen(x);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschlussstatusBestimmtPositiv(x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "Ausschlussstatus festgestellt: ausgeschlossen";
+    label en unofficial "exclusion status established: excluded";
+    when vom_wohngeld_ausgeschlossen(x);
+    then ausschlussstatus_bestimmt(x);
+}
+
+@source(WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule AusschlussstatusBestimmtNegativ(x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "Ausschlussstatus festgestellt: nicht ausgeschlossen";
+    label en unofficial "exclusion status established: not excluded";
+    when nicht_vom_wohngeld_ausgeschlossen(x);
+    then ausschlussstatus_bestimmt(x);
+}
+
+// --- § 6 Abs. 1, § 11 Abs. 3 S. 3: Zählung -----------------------------------
+
+@source(WOGG_6_ABS1_ED2023, WOGG_6_ABS1_ED2025, WOGG_6_ABS1_ED2026)
+rule ZuBeruecksichtigendesHaushaltsmitglied(h: Haushalt, x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 6 Absatz 1: zu berücksichtigen sind sämtliche Haushaltsmitglieder vorbehaltlich der §§ 7 und 8";
+    label en unofficial "all members are taken into account unless excluded";
+    when haushaltsmitglied(h, x) and nicht_vom_wohngeld_ausgeschlossen(x);
+    then zu_beruecksichtigendes_haushaltsmitglied(h, x);
+}
+
+@source(WOGG_5_ABS1_ED2023, WOGG_5_ABS1_ED2025, WOGG_5_ABS1_ED2026, WOGG_6_ABS1_ED2023, WOGG_6_ABS1_ED2025, WOGG_6_ABS1_ED2026, WOGG_7_ABS1_ED2023, WOGG_7_ABS1_ED2025, WOGG_7_ABS1_ED2026)
+rule HaushaltFestgestellt(h: Haushalt, p: de.tax.income_for_wohngeld::Person, art: Zuschussart) strict {
+    label de official "jede Person, deren Lebensmittelpunkt der Wohnraum ist, ist Haushaltsmitglied, und bei jedem Haushaltsmitglied ist festgestellt, ob es nach § 7 ausgeschlossen ist";
+    label en unofficial "the household composition and every member's exclusion status are established";
+    when wohngeldantrag(h, p, art)
+        and forall b in (collect y: de.tax.income_for_wohngeld::Person where lebensmittelpunkt_im_wohnraum(h, y)) satisfies haushaltsmitglied(h, b)
+        and forall m in (collect z: de.tax.income_for_wohngeld::Person where haushaltsmitglied(h, z)) satisfies ausschlussstatus_bestimmt(m);
+    then haushalt_festgestellt(h);
+}
+
+@source(WOGG_11_ABS3_ED2023, WOGG_11_ABS3_ED2025, WOGG_11_ABS3_ED2026, WOGG_5_ABS1_ED2023, WOGG_5_ABS1_ED2025, WOGG_5_ABS1_ED2026)
+rule GesamtzahlHaushaltsmitglieder(h: Haushalt) strict {
+    label de official "Gesamtzahl der Haushaltsmitglieder";
+    label en unofficial "total number of household members";
+    when haushalt_festgestellt(h);
+    then gesamtzahl_haushaltsmitglieder(h, count(collect x: de.tax.income_for_wohngeld::Person where haushaltsmitglied(h, x)));
+}
+
+@source(WOGG_6_ABS1_ED2023, WOGG_6_ABS1_ED2025, WOGG_6_ABS1_ED2026, WOGG_4_ED2023, WOGG_4_ED2025, WOGG_4_ED2026)
+rule AnzahlZuBeruecksichtigenderHaushaltsmitglieder(h: Haushalt) strict {
+    label de official "§ 4 Nummer 1, § 6 Absatz 1: Anzahl der zu berücksichtigenden Haushaltsmitglieder";
+    label en unofficial "number of members taken into account";
+    when haushalt_festgestellt(h);
+    then anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, count(collect x: de.tax.income_for_wohngeld::Person where zu_beruecksichtigendes_haushaltsmitglied(h, x)));
+}
+
+// --- § 3 Abs. 1, 4: Wohngeldberechtigung ------------------------------------
+
+relation mietzuschuss_grundlage(g: Nutzungsgrundlage) kind institutional {
+    label de official "Nutzungsgrundlage, die nach § 3 Absatz 1 zum Mietzuschuss berechtigt und im Paket berechnet wird";
+    label en unofficial "basis of use entitling to rent subsidy and computed in this package";
+}
+
+@source(WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026)
+rule MietzuschussGrundlageMiete strict {
+    label de official "§ 3 Absatz 1 Satz 1: wer Wohnraum gemietet hat und diesen selbst nutzt";
+    label en unofficial "tenant using the dwelling";
+    then mietzuschuss_grundlage(MIETVERHAELTNIS);
+}
+
+@source(WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026)
+rule MietzuschussGrundlageMietaehnlich strict {
+    label de official "§ 3 Absatz 1 Satz 2 Nummer 1: zur mietähnlichen Nutzung berechtigte Person";
+    label en unofficial "person with a tenancy-like right of use";
+    then mietzuschuss_grundlage(MIETAEHNLICHES_NUTZUNGSVERHAELTNIS);
+}
+
+@source(WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026)
+rule MietzuschussGrundlageHeim strict {
+    label de official "§ 3 Absatz 1 Satz 2 Nummer 3: Person, die in einem Heim nicht nur vorübergehend aufgenommen ist";
+    label en unofficial "person admitted to a care home not only temporarily";
+    then mietzuschuss_grundlage(HEIM);
+}
+
+@source(WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026, WOGG_1_ABS2_ED2023, WOGG_1_ABS2_ED2025, WOGG_1_ABS2_ED2026)
+rule WohngeldberechtigtNichtAusgeschlossen(h: Haushalt, p: de.tax.income_for_wohngeld::Person, g: Nutzungsgrundlage) strict {
+    label de official "§ 3 Absatz 1: wohngeldberechtigt für den Mietzuschuss ist die Person, die den Wohnraum gemietet hat oder gleichgestellt nutzt";
+    label en unofficial "person entitled to rent subsidy";
+    when wohngeldantrag(h, p, MIETZUSCHUSS) and nutzungsgrundlage(h, p, g) and mietzuschuss_grundlage(g)
+        and haushaltsmitglied(h, p) and nicht_vom_wohngeld_ausgeschlossen(p);
+    then wohngeldberechtigt(h, p);
+}
+
+@source(WOGG_3_ABS4_ED2023, WOGG_3_ABS4_ED2025, WOGG_3_ABS4_ED2026)
+rule WohngeldberechtigtTrotzAusschluss(h: Haushalt, p: de.tax.income_for_wohngeld::Person, g: Nutzungsgrundlage, n: Integer) strict {
+    label de official "§ 3 Absatz 4: wohngeldberechtigt ist auch, wer nach den §§ 7 und 8 ausgeschlossen ist, aber mit mindestens einem zu berücksichtigenden Haushaltsmitglied Wohnraum gemeinsam bewohnt";
+    label en unofficial "an excluded person living with at least one member to be taken into account remains entitled";
+    when wohngeldantrag(h, p, MIETZUSCHUSS) and nutzungsgrundlage(h, p, g) and mietzuschuss_grundlage(g)
+        and haushaltsmitglied(h, p) and vom_wohngeld_ausgeschlossen(p)
+        and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n >= 1;
+    then wohngeldberechtigt(h, p);
+}

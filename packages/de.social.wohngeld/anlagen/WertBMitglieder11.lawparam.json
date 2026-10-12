@@ -1,0 +1,91 @@
+{
+  "labels": [
+    {
+      "language": "de",
+      "status": "unofficial",
+      "text": "Wert „b“ der Anlage 2, 11 Haushaltsmitglied(er)"
+    },
+    {
+      "language": "en",
+      "status": "unofficial",
+      "text": "value \"b\" of Annex 2, 11 household member(s)"
+    }
+  ],
+  "schemaVersion": "law.params/0.1",
+  "kind": "parameter-dataset",
+  "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder11",
+  "parameter": "urn:de:social:clir:wohngeld#WertBMitglieder11",
+  "valueType": {
+    "name": "urn:law:std#Decimal"
+  },
+  "timeAxis": "legal_time",
+  "granularity": "date",
+  "coverage": {
+    "start": "2023-01-01",
+    "endExclusive": "2027-01-01"
+  },
+  "values": [
+    {
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder11#2023-01-01",
+      "valid": {
+        "start": "2023-01-01",
+        "endExclusive": "2025-01-01"
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Decimal"
+        },
+        "value": "0.0001188"
+      },
+      "anchors": [
+        "urn:de:social:clir:wohngeld#WPG_ANLAGEN_2_3",
+        "urn:de:social:clir:wohngeld#WOGG_ANLAGE2_ED2023",
+        "urn:de:social:clir:wohngeld#WOGG_ANLAGE3_ED2023"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Wert „b“ der Anlage 2, 11 Haushaltsmitglied(er): Wert ab 2023-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "value \"b\" of Annex 2, 11 household member(s): value from 2023-01-01"
+        }
+      ]
+    },
+    {
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder11#2025-01-01",
+      "valid": {
+        "start": "2025-01-01",
+        "endExclusive": "2027-01-01"
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Decimal"
+        },
+        "value": "0.0001141"
+      },
+      "anchors": [
+        "urn:de:social:clir:wohngeld#ZWEITE_WOGFV_ANLAGEN_1_3",
+        "urn:de:social:clir:wohngeld#WOGG_ANLAGE2_ED2025",
+        "urn:de:social:clir:wohngeld#WOGG_ANLAGE2_ED2026"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Wert „b“ der Anlage 2, 11 Haushaltsmitglied(er): Wert ab 2025-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "value \"b\" of Annex 2, 11 household member(s): value from 2025-01-01"
+        }
+      ]
+    }
+  ]
+}

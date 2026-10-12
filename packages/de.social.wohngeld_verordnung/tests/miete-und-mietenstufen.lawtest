@@ -1,0 +1,219 @@
+language "law.core" version "0.2";
+package de.social.wohngeld_verordnung version "0.1.0";
+namespace "urn:de:social:clir:wohngeld-verordnung";
+
+// Строки Anlage срабатывают на запрос `mietenstufe_anfrage` (в мире WoGG его пишет
+// Wohnort домохозяйства); здесь запрос подан делом.
+// Сценарии WoGV: строки Anlage (включая ретроактивную вставку и исключение 13. ÄndVO),
+// классификация Betriebskosten § 6 Abs. 1 и пары границ Pauschbeträge § 6 Abs. 2.
+
+// BMWSB 2023 и 2025, пример № 7: «Stadt der Mietenstufe III (Weimar)».
+test "WoGV-01 Weimar, Stadt ist Mietenstufe III" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "a0": mietenstufe_anfrage("Thüringen", "Weimar, Stadt") { origin case_input; }
+    }
+    evaluate truth(mietenstufe_gemeinde("Thüringen", "Weimar, Stadt", 3));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(gemeinde_gesondert_aufgefuehrt("Thüringen", "Weimar, Stadt"));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-02 Leipzig, Stadt (II) und Kreis Leipzig (I) sind verschiedene Zeilen" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "a0": mietenstufe_anfrage("Sachsen", "Leipzig, Stadt") { origin case_input; }
+        assert "a1": mietenstufe_anfrage_kreis("Sachsen", "Leipzig") { origin case_input; }
+        assert "a2": mietenstufe_anfrage("Sachsen", "Leipzig") { origin case_input; }
+    }
+    evaluate truth(mietenstufe_gemeinde("Sachsen", "Leipzig, Stadt", 2));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(mietenstufe_kreis("Sachsen", "Leipzig", 1));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(mietenstufe_gemeinde("Sachsen", "Leipzig", 1));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+// Опечатка в названии даёт отсутствие ступени, а не ступень по умолчанию.
+test "WoGV-03 Schreibweise der Anlage ist massgeblich: Weimar ohne Zusatz ist nicht aufgefuehrt" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "a0": mietenstufe_anfrage("Thüringen", "Weimar") { origin case_input; }
+    }
+    evaluate truth(gemeinde_gesondert_aufgefuehrt("Thüringen", "Weimar"));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+// BGBl. 2023 I Nr. 102 опубликован 19.04.2023, действует с 01.01.2023: строка есть уже на первый день.
+test "WoGV-04 Bad Schoenborn: durch die 13. AendVO mit Wirkung vom 1. Januar 2023 eingefuegt" {
+    given {
+        context { legal_time @2023-01-01; decision_time @2023-01-01T09:00:00Z; knowledge_time @2023-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "a0": mietenstufe_anfrage("Baden-Württemberg", "Bad Schönborn") { origin case_input; }
+    }
+    evaluate truth(mietenstufe_gemeinde("Baden-Württemberg", "Bad Schönborn", 4));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-05 Kreis Coesfeld durch die 13. AendVO gestrichen" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "a0": mietenstufe_anfrage_kreis("Nordrhein-Westfalen", "Coesfeld") { origin case_input; }
+    }
+    evaluate truth(mietenstufe_kreis("Nordrhein-Westfalen", "Coesfeld", 1));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-06 Inseln ohne Festlandanschluss: gemeinsame Mietenstufe V" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+    }
+    evaluate truth(mietenstufe_gemeinsam("Inseln ohne Festlandanschluss", 5));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-07 vor dem 1. Januar 2023 keine modellierte Anlage" {
+    given {
+        context { legal_time @2022-12-31; decision_time @2022-12-31T09:00:00Z; knowledge_time @2022-12-31T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "a0": mietenstufe_anfrage("Thüringen", "Weimar, Stadt") { origin case_input; }
+    }
+    evaluate truth(mietenstufe_gemeinde("Thüringen", "Weimar, Stadt", 3));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+    expect issue(EDITION_NOT_APPLICABLE);
+}
+
+test "WoGV-08 Umlage fuer zentrale Heizungsanlage bleibt ausser Betracht, Grundsteuer nicht" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": umlage_betriebskosten(entity_ref("urn:de:example:wogv:mv"), BETRKV_2_NR4_A, 80.00 EUR) { origin case_input; }
+        assert "f1": umlage_betriebskosten(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_BETRIEBSKOSTEN, 40.00 EUR) { origin case_input; }
+    }
+    evaluate truth(ausser_betracht_bleibende_umlage(entity_ref("urn:de:example:wogv:mv"), BETRKV_2_NR4_A, NR1_HEIZUNG_WARMWASSER, 80.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(ausser_betracht_bleibende_umlage(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_BETRIEBSKOSTEN, NR1_HEIZUNG_WARMWASSER, 40.00 EUR));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-09 gewerbliche Waermelieferung ist Nr. 2" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": umlage_betriebskosten(entity_ref("urn:de:example:wogv:mv"), BETRKV_2_NR6_B, 95.00 EUR) { origin case_input; }
+    }
+    evaluate truth(ausser_betracht_bleibende_umlage(entity_ref("urn:de:example:wogv:mv"), BETRKV_2_NR6_B, NR2_WAERMELIEFERUNG, 95.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// § 6 Abs. 2 Nr. 1: 1,25 € × 62,5 м² = 78,125 € — текст округления не называет.
+test "WoGV-10 Pauschbetrag Heizung 1,25 EUR je Quadratmeter" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), ZENTRALHEIZUNG_ODER_WAERMELIEFERUNG) { origin case_input; }
+        assert "f1": wohnflaeche_qm(entity_ref("urn:de:example:wogv:mv"), 62.5) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), ZENTRALHEIZUNG_ODER_WAERMELIEFERUNG, 78.125 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Граница «für jede weitere»: 1 → 9, 2 → 17, 3 → 20.
+test "WoGV-11-1 Warmwasserpauschale bei 1 Bewohner(n)" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), WARMWASSER_ZENTRAL_ODER_LIEFERUNG) { origin case_input; }
+        assert "f1": anzahl_bewohner(entity_ref("urn:de:example:wogv:mv"), 1) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), WARMWASSER_ZENTRAL_ODER_LIEFERUNG, 9 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-11-2 Warmwasserpauschale bei 2 Bewohner(n)" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), WARMWASSER_ZENTRAL_ODER_LIEFERUNG) { origin case_input; }
+        assert "f1": anzahl_bewohner(entity_ref("urn:de:example:wogv:mv"), 2) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), WARMWASSER_ZENTRAL_ODER_LIEFERUNG, 17 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-11-3 Warmwasserpauschale bei 3 Bewohner(n)" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), WARMWASSER_ZENTRAL_ODER_LIEFERUNG) { origin case_input; }
+        assert "f1": anzahl_bewohner(entity_ref("urn:de:example:wogv:mv"), 3) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), WARMWASSER_ZENTRAL_ODER_LIEFERUNG, 20 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-12-1 Haushaltsenergiepauschale bei 1 Bewohner(n)" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_HAUSHALTSENERGIE) { origin case_input; }
+        assert "f1": anzahl_bewohner(entity_ref("urn:de:example:wogv:mv"), 1) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_HAUSHALTSENERGIE, 41 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-12-2 Haushaltsenergiepauschale bei 2 Bewohner(n)" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_HAUSHALTSENERGIE) { origin case_input; }
+        assert "f1": anzahl_bewohner(entity_ref("urn:de:example:wogv:mv"), 2) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_HAUSHALTSENERGIE, 74 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-12-4 Haushaltsenergiepauschale bei 4 Bewohner(n)" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_HAUSHALTSENERGIE) { origin case_input; }
+        assert "f1": anzahl_bewohner(entity_ref("urn:de:example:wogv:mv"), 4) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), UEBRIGE_HAUSHALTSENERGIE, 104 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-13 Garage 36 EUR, Zahlung an Dritte gehoert zur Miete" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), GARAGE) { origin case_input; }
+        assert "f1": zahlung_an_dritte(entity_ref("urn:de:example:wogv:mv"), 15.00 EUR) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), GARAGE, 36 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(zur_miete_gehoerende_zahlung_an_dritte(entity_ref("urn:de:example:wogv:mv"), 15.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "WoGV-14 ohne Wohnflaeche kein Heizungspauschbetrag" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": nicht_ausgewiesene_kosten(entity_ref("urn:de:example:wogv:mv"), ZENTRALHEIZUNG_ODER_WAERMELIEFERUNG) { origin case_input; }
+    }
+    evaluate truth(pauschbetrag_6_abs2(entity_ref("urn:de:example:wogv:mv"), ZENTRALHEIZUNG_ODER_WAERMELIEFERUNG, 0 EUR));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}

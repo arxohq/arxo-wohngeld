@@ -1,0 +1,11 @@
+{
+  "format": "law.package-info/0.1",
+  "purpose": "Исполнение формализованных положений: Wohngeldverordnung (WoGV): состав Miete (§§ 1, 2, 6 — Betriebskosten, Pauschbeträge) и Anlage к § 1 Abs. 3 — Mietenstufen всех Gemeinden и Kreise с 1 января 2023 года, сверенные с BGBl. I 2022 S. 2166 ff. и BGBl. 2023 I Nr. 102. Перечень предусмотренных запросов и границ — analysis/questions.json и QUESTIONS.md.",
+  "limitations": [
+    "Правила заведены у 36 закреплённых фрагментов из 40: остальные закреплены байтами публикации, но исполняемых норм не несут. Отсутствие карточки означает «в модели нормы нет», а не «право молчит».",
+    "Деонтических позиций (§§122–140) пакет не объявляет: требования выражены институциональными предикатами, и запрос positions по ним не отвечает."
+  ],
+  "examples": [
+    "tests/miete-und-mietenstufen.lawtest"
+  ]
+}

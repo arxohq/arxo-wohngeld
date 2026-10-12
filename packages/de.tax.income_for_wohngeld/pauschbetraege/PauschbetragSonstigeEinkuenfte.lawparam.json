@@ -1,0 +1,59 @@
+{
+  "labels": [
+    {
+      "language": "de",
+      "status": "unofficial",
+      "text": "Pauschbetrag für Einnahmen im Sinne des § 22 Nr. 1, 1a und 5 (§ 9a Satz 1 Nr. 3 EStG)"
+    },
+    {
+      "language": "en",
+      "status": "unofficial",
+      "text": "lump sum for receipts under sec. 22 nos. 1, 1a and 5"
+    }
+  ],
+  "schemaVersion": "law.params/0.1",
+  "kind": "parameter-dataset",
+  "id": "urn:de:tax:clir:income-for-wohngeld:param:PauschbetragSonstigeEinkuenfte",
+  "parameter": "urn:de:tax:clir:income-for-wohngeld#PauschbetragSonstigeEinkuenfte",
+  "valueType": {
+    "name": "urn:law:std#Money"
+  },
+  "timeAxis": "legal_time",
+  "granularity": "date",
+  "coverage": {
+    "start": "2023-01-01",
+    "endExclusive": null
+  },
+  "values": [
+    {
+      "id": "urn:de:tax:clir:income-for-wohngeld:param:PauschbetragSonstigeEinkuenfte#2023-01-01",
+      "valid": {
+        "start": "2023-01-01",
+        "endExclusive": null
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "102",
+        "currency": "EUR"
+      },
+      "anchors": [
+        "urn:de:tax:clir:income-for-wohngeld#ESTG_9A_S1_NR3"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Pauschbetrag für Einnahmen im Sinne des § 22 Nr. 1, 1a und 5 (§ 9a Satz 1 Nr. 3 EStG): Wert ab 2023-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "lump sum for receipts under sec. 22 nos. 1, 1a and 5: value from 2023-01-01"
+        }
+      ]
+    }
+  ]
+}

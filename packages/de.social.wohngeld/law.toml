@@ -1,0 +1,73 @@
+# Манифест §10 — маркер корня пакета (DECISION-0033).
+[package]
+name = "de.social.wohngeld"
+version = "0.1.0"
+language = "0.2"
+namespace = "urn:de:social:clir:wohngeld"
+
+# Прямые зависимости: § 14 Abs. 1 WoGG читает Einkünfte EStG, § 12 Abs. 1 и
+# § 9 Abs. 2 — Anlage и Pauschbeträge WoGV. Ни один из них WoGG не импортирует.
+[dependencies]
+"de.tax.income_for_wohngeld" = "0.1.0"
+"de.social.wohngeld_verordnung" = "0.1.0"
+
+[features]
+enabled = ["law.params/0.1"]
+semanticLayer = "L1"
+
+# Каталожная метадата (DECISION-0051).
+[metadata]
+act = "de-wohngeld"
+title = "Wohngeldgesetz (WoGG): Mietzuschuss — домохозяйство и исключения (§§ 3–8), Miete и Höchstbeträge с Heizkosten- и Klimakomponente (§§ 9, 11, 12), Gesamteinkommen (§§ 13–18), формула § 19 с Anlagen 1–3 в редакциях Wohngeld-Plus-Gesetz (2023) и 2. WoGFV (2025), §§ 20–21"
+primarySource = "WOGG"
+jurisdiction = "DE"
+instrument = "statute"
+sourceFidelity = "pinned_unofficial_copy"
+# issuer: закон принят Бундестагом с согласия Бундесрата (Art. 1 G v.
+# 24.9.2008); Anlagen 1–3 — в редакциях, установленных постановлениями
+# Федерального правительства по § 43 WoGG и Wohngeld-Plus-Gesetz.
+issuer = "Deutscher Bundestag mit Zustimmung des Bundesrates (Wohngeldgesetz vom 24. September 2008, BGBl. I S. 1856); Anlagen i. d. F. der 1. und 2. WoGFV und des Wohngeld-Plus-Gesetzes"
+legalStatus = "in_force"
+# verifiedAgainstSource: числа Anlagen сверены с выпусками BGBl (2024 —
+# официальные байты recht.bund.de; 2021, 2022 — копии OffeneGesetze.de), нормы —
+# по сводному тексту портала (два снимка из Internet Archive).
+verifiedAgainstSource = false
+
+# Официальные примеры BMWSB — независимые сценарии: ожидание из PDF, а не из
+# ответа движка. Мир — все три пакета набора.
+[[tests]]
+family = "de.social.wohngeld#bmwsb-2025"
+regression = true
+suites = ["tests/bmwsb-2025.lawtest"]
+world = ["de.social.wohngeld", "de.social.wohngeld_verordnung", "de.tax.income_for_wohngeld"]
+
+[[tests]]
+family = "de.social.wohngeld#bmwsb-2023"
+regression = true
+suites = ["tests/bmwsb-2023.lawtest"]
+world = ["de.social.wohngeld", "de.social.wohngeld_verordnung", "de.tax.income_for_wohngeld"]
+
+# Пары границ, редакции, недостаточные и противоречивые факты, исключения и
+# каналы суждения, Freibeträge — ожидания из текста закона и независимой
+# арифметики `tools/reference_calc.py`.
+[[tests]]
+family = "de.social.wohngeld#grenzen-und-redaktionen"
+regression = true
+suites = ["tests/grenzen.lawtest", "tests/redaktionen.lawtest"]
+world = ["de.social.wohngeld", "de.social.wohngeld_verordnung", "de.tax.income_for_wohngeld"]
+
+[[tests]]
+family = "de.social.wohngeld#tatsachen-ausschluss-urteil"
+regression = true
+suites = ["tests/tatsachen.lawtest", "tests/ausschluss-und-urteil.lawtest", "tests/freibetraege.lawtest"]
+world = ["de.social.wohngeld", "de.social.wohngeld_verordnung", "de.tax.income_for_wohngeld"]
+
+# Калькулятор BMWSB 2025 (закреплённый JS-модуль) — независимые ожидания.
+[[tests]]
+family = "de.social.wohngeld#rechner-2025"
+regression = true
+suites = ["tests/rechner-2025.lawtest"]
+world = ["de.social.wohngeld", "de.social.wohngeld_verordnung", "de.tax.income_for_wohngeld"]
+
+[authoring]
+local_imports = "explicit"

@@ -1,0 +1,17 @@
+{
+ "contentHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+ "dependencies": [],
+ "descriptorFormat": "law.package-descriptor/0.2",
+ "features": [
+  "core-executable",
+  "law.params/0.1"
+ ],
+ "languageSemantics": "law.core/0.2.11",
+ "name": "de.tax.income_for_wohngeld",
+ "namespace": "urn:de:tax:clir:income-for-wohngeld",
+ "registryId": "arxo",
+ "resolverUri": "registry://arxo/de.tax.income_for_wohngeld/0.1.0",
+ "sourceHash": "sha256:5810f48c49e153941bfc05bdc42d278760df5906fc831a0b99935d629de8718b",
+ "version": "0.1.0",
+ "worldHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003"
+}

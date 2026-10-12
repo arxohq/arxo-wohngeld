@@ -1,0 +1,277 @@
+{
+  "$comment": "Каталог вопросов пакета (DECISION-0190, law.package-questions/0.1). Карточка — параметризованный шаблон запроса §172, а не ответ. Свидетельства — сценарии tests/, в том числе порождённые (tests/catalog): каждый выполняет посылки правила и спрашивает его вывод.",
+  "format": "law.package-questions/0.1",
+  "package": "de.social.wohngeld_verordnung",
+  "tasks": [
+    {
+      "id": "aendvo13-inkraft",
+      "title": "AENDVO13_INKRAFT",
+      "source_units": [
+        "AENDVO13_INKRAFT"
+      ]
+    },
+    {
+      "id": "wogv-2-abs1",
+      "title": "WOGV_2_ABS1",
+      "source_units": [
+        "WOGV_2_ABS1"
+      ]
+    },
+    {
+      "id": "wogv-6-abs1",
+      "title": "WOGV_6_ABS1",
+      "source_units": [
+        "WOGV_6_ABS1"
+      ]
+    },
+    {
+      "id": "wogv-6-abs2",
+      "title": "WOGV_6_ABS2",
+      "source_units": [
+        "WOGV_6_ABS2"
+      ]
+    },
+    {
+      "id": "wogv-anlage-bb-kreis",
+      "title": "WOGV_ANLAGE_BB_KREIS",
+      "source_units": [
+        "WOGV_ANLAGE_BB_KREIS"
+      ]
+    },
+    {
+      "id": "wogv-anlage-inseln-gemeinsam",
+      "title": "WOGV_ANLAGE_INSELN_GEMEINSAM",
+      "source_units": [
+        "WOGV_ANLAGE_INSELN_GEMEINSAM"
+      ]
+    },
+    {
+      "id": "wogv-anlage-vorbemerkung",
+      "title": "WOGV_ANLAGE_VORBEMERKUNG",
+      "source_units": [
+        "WOGV_ANLAGE_VORBEMERKUNG"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "ausser-betracht-bleibende-umlage",
+      "task": "wogv-6-abs1",
+      "question": "Установлено ли по делу: ausser_betracht_bleibende_umlage?",
+      "kind": "truth",
+      "predicate": "ausser_betracht_bleibende_umlage",
+      "parameters": [
+        {
+          "name": "mv",
+          "type": "Mietverhaeltnis",
+          "role": "bound"
+        },
+        {
+          "name": "position",
+          "type": "BetriebskostenPosition",
+          "role": "bound"
+        },
+        {
+          "name": "art",
+          "type": "KostenartNeunZwei",
+          "role": "bound"
+        },
+        {
+          "name": "betrag",
+          "type": "Money",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(ausser_betracht_bleibende_umlage(<mv>, <position>, <art>, <betrag>));",
+      "tests": [
+        "WoGV-08 Umlage fuer zentrale Heizungsanlage bleibt ausser Betracht, Grundsteuer nicht",
+        "WoGV-09 gewerbliche Waermelieferung ist Nr. 2"
+      ],
+      "source_units": [
+        "WOGV_6_ABS1"
+      ]
+    },
+    {
+      "id": "gemeinde-gesondert-aufgefuehrt",
+      "task": "wogv-anlage-vorbemerkung",
+      "question": "Установлено ли по делу: gemeinde_gesondert_aufgefuehrt?",
+      "kind": "truth",
+      "predicate": "gemeinde_gesondert_aufgefuehrt",
+      "parameters": [
+        {
+          "name": "land",
+          "type": "Text",
+          "role": "bound"
+        },
+        {
+          "name": "gemeinde",
+          "type": "Text",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(gemeinde_gesondert_aufgefuehrt(<land>, <gemeinde>));",
+      "tests": [
+        "WoGV-01 Weimar, Stadt ist Mietenstufe III",
+        "WoGV-03 Schreibweise der Anlage ist massgeblich: Weimar ohne Zusatz ist nicht aufgefuehrt"
+      ],
+      "source_units": [
+        "WOGV_ANLAGE_VORBEMERKUNG"
+      ]
+    },
+    {
+      "id": "mietenstufe-gemeinsam",
+      "task": "wogv-anlage-inseln-gemeinsam",
+      "question": "Установлено ли по делу: mietenstufe_gemeinsam?",
+      "kind": "truth",
+      "predicate": "mietenstufe_gemeinsam",
+      "parameters": [
+        {
+          "name": "bezeichnung",
+          "type": "Text",
+          "role": "bound"
+        },
+        {
+          "name": "stufe",
+          "type": "Integer",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(mietenstufe_gemeinsam(<bezeichnung>, <stufe>));",
+      "tests": [
+        "WoGV-06 Inseln ohne Festlandanschluss: gemeinsame Mietenstufe V"
+      ],
+      "source_units": [
+        "WOGV_ANLAGE_INSELN_GEMEINSAM"
+      ]
+    },
+    {
+      "id": "mietenstufe-kreis",
+      "task": "wogv-anlage-bb-kreis",
+      "question": "Установлено ли по делу: mietenstufe_kreis?",
+      "kind": "truth",
+      "predicate": "mietenstufe_kreis",
+      "parameters": [
+        {
+          "name": "land",
+          "type": "Text",
+          "role": "bound"
+        },
+        {
+          "name": "kreis",
+          "type": "Text",
+          "role": "bound"
+        },
+        {
+          "name": "stufe",
+          "type": "Integer",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(mietenstufe_kreis(<land>, <kreis>, <stufe>));",
+      "tests": [
+        "WoGV-02 Leipzig, Stadt (II) und Kreis Leipzig (I) sind verschiedene Zeilen",
+        "WoGV-05 Kreis Coesfeld durch die 13. AendVO gestrichen"
+      ],
+      "source_units": [
+        "WOGV_ANLAGE_BB_KREIS"
+      ]
+    },
+    {
+      "id": "pauschbetrag-6-abs2",
+      "task": "wogv-6-abs2",
+      "question": "Установлено ли по делу: pauschbetrag_6_abs2?",
+      "kind": "truth",
+      "predicate": "pauschbetrag_6_abs2",
+      "parameters": [
+        {
+          "name": "mv",
+          "type": "Mietverhaeltnis",
+          "role": "bound"
+        },
+        {
+          "name": "art",
+          "type": "PauschalArt",
+          "role": "bound"
+        },
+        {
+          "name": "betrag",
+          "type": "Money",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(pauschbetrag_6_abs2(<mv>, <art>, <betrag>));",
+      "tests": [
+        "WoGV-10 Pauschbetrag Heizung 1,25 EUR je Quadratmeter",
+        "WoGV-11-1 Warmwasserpauschale bei 1 Bewohner(n)",
+        "WoGV-11-2 Warmwasserpauschale bei 2 Bewohner(n)",
+        "WoGV-11-3 Warmwasserpauschale bei 3 Bewohner(n)",
+        "WoGV-12-1 Haushaltsenergiepauschale bei 1 Bewohner(n)",
+        "WoGV-12-2 Haushaltsenergiepauschale bei 2 Bewohner(n)",
+        "WoGV-12-4 Haushaltsenergiepauschale bei 4 Bewohner(n)",
+        "WoGV-13 Garage 36 EUR, Zahlung an Dritte gehoert zur Miete",
+        "WoGV-14 ohne Wohnflaeche kein Heizungspauschbetrag"
+      ],
+      "source_units": [
+        "WOGV_6_ABS2"
+      ]
+    },
+    {
+      "id": "zur-miete-gehoerende-zahlung-an-dritte",
+      "task": "wogv-2-abs1",
+      "question": "Установлено ли по делу: zur_miete_gehoerende_zahlung_an_dritte?",
+      "kind": "truth",
+      "predicate": "zur_miete_gehoerende_zahlung_an_dritte",
+      "parameters": [
+        {
+          "name": "mv",
+          "type": "Mietverhaeltnis",
+          "role": "bound"
+        },
+        {
+          "name": "betrag",
+          "type": "Money",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(zur_miete_gehoerende_zahlung_an_dritte(<mv>, <betrag>));",
+      "tests": [
+        "WoGV-13 Garage 36 EUR, Zahlung an Dritte gehoert zur Miete"
+      ],
+      "source_units": [
+        "WOGV_2_ABS1"
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "granica-01",
+      "task": "aendvo13-inkraft",
+      "question": "Покрывает ли пакет весь акт — значит ли отсутствие карточки, что право молчит?",
+      "reason_kind": "not_formalized",
+      "limitation": "Правила заведены у 36 закреплённых фрагментов из 40: остальные закреплены байтами публикации, но исполняемых норм не несут. Отсутствие карточки означает «в модели нормы нет», а не «право молчит».",
+      "source_units": [
+        "AENDVO13_INKRAFT"
+      ]
+    },
+    {
+      "id": "granica-02",
+      "task": "aendvo13-inkraft",
+      "question": "Видны ли обязанности, запреты и правомочия пакета в positions?",
+      "reason_kind": "not_formalized",
+      "limitation": "Деонтических позиций (§§122–140) пакет не объявляет: требования выражены институциональными предикатами, и запрос positions по ним не отвечает.",
+      "source_units": [
+        "AENDVO13_INKRAFT"
+      ]
+    }
+  ],
+  "internal": [
+    {
+      "predicate": "heizkosten_position",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AusgewieseneHeizkostenBleibenAusserBetracht); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "mietenstufe_gemeinde",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (GemeindeGesondertAufgefuehrt); самостоятельным вопросом к пакету он не является."
+    }
+  ]
+}

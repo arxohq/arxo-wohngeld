@@ -1,0 +1,51 @@
+{
+  "format": "law.package-set/0.1",
+  "generatedAt": "2026-10-12T19:07:22+00:00",
+  "dependencyMode": "vendored",
+  "language": "en",
+  "ci": "private-hosted",
+  "ciTrigger": "push",
+  "repository": "https://github.com/arxohq/arxo-wohngeld",
+  "externalDependencies": [],
+  "clirOnlyDependencies": [],
+  "packages": [
+    {
+      "name": "de.social.wohngeld_verordnung",
+      "version": "0.1.0",
+      "contentHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+      "dependencies": [],
+      "tests": 18,
+      "outcome": "passed"
+    },
+    {
+      "name": "de.tax.income_for_wohngeld",
+      "version": "0.1.0",
+      "contentHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+      "dependencies": [],
+      "tests": 12,
+      "outcome": "passed"
+    },
+    {
+      "name": "de.social.wohngeld",
+      "version": "0.1.0",
+      "contentHash": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9",
+      "dependencies": [
+        "de.social.wohngeld_verordnung",
+        "de.tax.income_for_wohngeld"
+      ],
+      "tests": 87,
+      "outcome": "passed"
+    }
+  ],
+  "registry": {
+    "path": "registry",
+    "registryId": "arxo",
+    "packages": 3,
+    "resources": 2
+  },
+  "termsPending": [
+    "de.social.wohngeld",
+    "de.social.wohngeld_verordnung",
+    "de.tax.income_for_wohngeld"
+  ]
+}

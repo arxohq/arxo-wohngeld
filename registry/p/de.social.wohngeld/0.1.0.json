@@ -1,0 +1,33 @@
+{
+ "contentHash": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9",
+ "dependencies": [
+  {
+   "contentHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+   "name": "de.social.wohngeld_verordnung",
+   "namespace": "urn:de:social:clir:wohngeld-verordnung",
+   "registryId": "arxo",
+   "version": "0.1.0"
+  },
+  {
+   "contentHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+   "name": "de.tax.income_for_wohngeld",
+   "namespace": "urn:de:tax:clir:income-for-wohngeld",
+   "registryId": "arxo",
+   "version": "0.1.0"
+  }
+ ],
+ "descriptorFormat": "law.package-descriptor/0.2",
+ "features": [
+  "core-executable",
+  "law.params/0.1"
+ ],
+ "languageSemantics": "law.core/0.2.11",
+ "name": "de.social.wohngeld",
+ "namespace": "urn:de:social:clir:wohngeld",
+ "questionCatalogHash": "sha256:ab19013b1e3334e95af8393d5677dbde2457d87d289f910e1357cf1354626b0d",
+ "registryId": "arxo",
+ "resolverUri": "registry://arxo/de.social.wohngeld/0.1.0",
+ "sourceHash": "sha256:a01237e98253de0e0ef5092c71aeb3b60cbb9c818d117da9c7bb020cb7688a9f",
+ "version": "0.1.0",
+ "worldHash": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2"
+}

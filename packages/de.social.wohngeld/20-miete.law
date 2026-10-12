@@ -1,0 +1,714 @@
+// §§ 9, 11, 12 WoGG: Miete, zu berücksichtigende Miete, Höchstbeträge,
+// Heizkostenentlastung und Klimakomponente, Mietenstufen.
+//
+// ОДНА ФОРМУЛА ДОЛИ ВМЕСТО ЧЕТЫРЁХ. § 11 Abs. 3 велит брать долю Miete, долю
+// Höchstbetrag, долю Heizkostenentlastung и долю Klimakomponente по отношению
+// числа учитываемых членов к Gesamtzahl. Доля линейна: min(d·Miete, d·(HB+K)) +
+// d·H = d·(min(Miete, HB+K) + H). Деление на Gesamtzahl может быть неточным
+// (2/3), и текст округления здесь не называет; величина M входит в формулу
+// § 19, где Anlage 3 Nr. 2 велит считать «als Festkommazahlen mit zehn
+// Nachkommastellen». Поэтому доля считается `div_round(…, 10, "HALF_UP")` —
+// это ПРОЧТЕНИЕ (коммерческое округление при переходе к фиксированной точке),
+// оно названо в README и проверено мутацией.
+//
+// Höchstbetrag, Heizkosten- и Klimakomponente при числе членов сверх пяти —
+// значение для пяти плюс «Mehrbetrag für jedes weitere» (Anlage 1, § 12 Abs. 6,
+// 7). По § 11 Abs. 3 S. 3 все три определяются по ГЕСАМТЗАЛЬ членов.
+
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+use self::{
+    Haushalt,
+    Nutzungsgrundlage,
+    WOGG_11_ABS1_ED2023,
+    WOGG_11_ABS1_ED2025,
+    WOGG_11_ABS1_ED2026,
+    WOGG_11_ABS3_ED2023,
+    WOGG_11_ABS3_ED2025,
+    WOGG_11_ABS3_ED2026,
+    WOGG_12_ABS1_ED2023,
+    WOGG_12_ABS1_ED2025,
+    WOGG_12_ABS1_ED2026,
+    WOGG_12_ABS4A_ED2023,
+    WOGG_12_ABS4A_ED2025,
+    WOGG_12_ABS4A_ED2026,
+    WOGG_12_ABS5_ED2023,
+    WOGG_12_ABS5_ED2025,
+    WOGG_12_ABS5_ED2026,
+    WOGG_12_ABS6_ED2023,
+    WOGG_12_ABS6_ED2025,
+    WOGG_12_ABS6_ED2026,
+    WOGG_12_ABS7_ED2023,
+    WOGG_12_ABS7_ED2025,
+    WOGG_12_ABS7_ED2026,
+    WOGG_3_ABS1_ED2023,
+    WOGG_3_ABS1_ED2025,
+    WOGG_3_ABS1_ED2026,
+    WOGG_9_ABS1_ED2023,
+    WOGG_9_ABS1_ED2025,
+    WOGG_9_ABS1_ED2026,
+    WOGG_9_ABS2_ED2023,
+    WOGG_9_ABS2_ED2025,
+    WOGG_9_ABS2_ED2026,
+    WOGG_9_ABS3_ED2023,
+    WOGG_9_ABS3_ED2025,
+    WOGG_9_ABS3_ED2026,
+    anzahl_zu_beruecksichtigende_haushaltsmitglieder,
+    gesamtzahl_haushaltsmitglieder,
+    mietzuschuss_grundlage,
+    nutzungsgrundlage,
+    wohngeldberechtigt,
+};
+
+pub enum Mietenstufe {
+    MIETENSTUFE_I, MIETENSTUFE_II, MIETENSTUFE_III, MIETENSTUFE_IV,
+    MIETENSTUFE_V, MIETENSTUFE_VI, MIETENSTUFE_VII;
+    label de official "Mietenstufe nach § 12 Absatz 5";
+    label en unofficial "rent level under sec. 12(5)";
+}
+
+// --- Факты дела -------------------------------------------------------------
+
+pub relation wohnort(h: Haushalt, land: Text, gemeinde: Text) kind empirical {
+    key(h);
+    label de official "Land und Gemeinde des Wohnraums in der Schreibweise der Anlage zur Wohngeldverordnung";
+    label en unofficial "Land and municipality of the dwelling as spelled in the Annex";
+}
+
+pub relation wohnort_kreis(h: Haushalt, kreis: Text) kind empirical {
+    key(h);
+    label de official "Kreis, zu dem die Gemeinde des Wohnraums gehört, in der Schreibweise der Anlage";
+    label en unofficial "district to which the municipality belongs";
+}
+
+pub relation mietverhaeltnis_des_haushalts(h: Haushalt, mv: de.social.wohngeld_verordnung::Mietverhaeltnis) kind empirical {
+    key(h);
+    label de official "Miet- oder Nutzungsverhältnis über den Wohnraum, für den Wohngeld beantragt wird";
+    label en unofficial "tenancy of the dwelling for which housing benefit is claimed";
+}
+
+pub relation vereinbartes_entgelt(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, betrag: Money) kind empirical {
+    key(mv);
+    label de official "vereinbartes monatliches Entgelt für die Gebrauchsüberlassung von Wohnraum einschließlich Umlagen, Zuschlägen und Vergütungen (§ 9 Absatz 1)";
+    label en unofficial "agreed monthly consideration including charges and surcharges";
+}
+
+pub relation ausgewiesene_kosten_9_abs2(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, art: de.social.wohngeld_verordnung::KostenartNeunZwei, betrag: Money) kind empirical {
+    label de official "im Entgelt enthaltene, im Mietvertrag oder in Unterlagen ausgewiesene monatliche Kosten oder Vergütungen der bezeichneten Art (außer nach Nummern der Betriebskostenverordnung ausgewiesenen Umlagen)";
+    label en unofficial "monthly costs of the given kind shown in the lease and included in the consideration";
+}
+
+pub relation angaben_zur_miete_vollstaendig(mv: de.social.wohngeld_verordnung::Mietverhaeltnis) kind empirical {
+    label de official "alle im Entgelt enthaltenen Kosten nach § 9 Absatz 2 und alle Zahlungen an Dritte nach § 2 Absatz 1 WoGV sind angegeben";
+    label en unofficial "all cost items under sec. 9(2) and third-party payments are declared";
+}
+
+// --- Выводимое --------------------------------------------------------------
+
+relation insel_ohne_festlandanschluss(gemeinde: Text) kind institutional {
+    label de official "Gemeinde auf einer Insel ohne Festlandanschluss (§ 12 Absatz 4a)";
+    label en unofficial "municipality on an island without mainland connection";
+}
+
+relation mietenstufe_nummer(h: Haushalt, nummer: Integer) kind institutional {
+    label de official "Nummer der Mietenstufe des Wohnorts nach der Anlage zur Wohngeldverordnung";
+    label en unofficial "number of the rent level of the place of residence";
+}
+
+pub relation mietenstufe(h: Haushalt, stufe: Mietenstufe) kind institutional {
+    label de official "Mietenstufe der Gemeinde des Wohnraums (§ 12 Absatz 1, 5)";
+    label en unofficial "rent level of the dwelling's municipality";
+}
+
+relation abzuege_von_der_miete(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, betrag: Money) kind institutional {
+    label de official "Summe der nach § 9 Absatz 2 außer Betracht bleibenden Kosten und Vergütungen einschließlich der Pauschbeträge nach § 6 Absatz 2 WoGV";
+    label en unofficial "total of costs disregarded under sec. 9(2)";
+}
+
+relation zahlungen_an_dritte(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, betrag: Money) kind institutional {
+    label de official "Summe der zur Miete gehörenden Zahlungen an Dritte (§ 2 Absatz 1 WoGV)";
+    label en unofficial "total third-party payments forming part of the rent";
+}
+
+pub relation miete_nach_9(h: Haushalt, betrag: Money) kind institutional {
+    label de official "Miete nach § 9 (monatlich)";
+    label en unofficial "rent under sec. 9 (monthly)";
+}
+
+pub relation hoechstbetrag_mit_klimakomponente(h: Haushalt, betrag: Money) kind institutional {
+    label de official "Summe aus dem Höchstbetrag nach § 12 Absatz 1 und der Klimakomponente nach § 12 Absatz 7 für die Gesamtzahl der Haushaltsmitglieder";
+    label en unofficial "maximum amount plus climate component for the total number of members";
+}
+
+pub relation heizkostenentlastung(h: Haushalt, betrag: Money) kind institutional {
+    label de official "Gesamtbetrag zur Entlastung bei den Heizkosten nach § 12 Absatz 6 für die Gesamtzahl der Haushaltsmitglieder";
+    label en unofficial "heating cost relief for the total number of members";
+}
+
+pub relation zu_beruecksichtigende_miete(h: Haushalt, betrag: Money) kind institutional {
+    label de official "zu berücksichtigende monatliche Miete „M“ (§ 11)";
+    label en unofficial "monthly rent to be taken into account (M)";
+}
+
+// --- § 12 Abs. 4a -----------------------------------------------------------
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss01 strict {
+    label de official "§ 12 Absatz 4a: Baltrum";
+    label en unofficial "sec. 12(4a): Baltrum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Baltrum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss02 strict {
+    label de official "§ 12 Absatz 4a: Borkum (Stadt)";
+    label en unofficial "sec. 12(4a): Borkum (Stadt) lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Borkum (Stadt)");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss03 strict {
+    label de official "§ 12 Absatz 4a: Juist";
+    label en unofficial "sec. 12(4a): Juist lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Juist");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss04 strict {
+    label de official "§ 12 Absatz 4a: Langeoog";
+    label en unofficial "sec. 12(4a): Langeoog lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Langeoog");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss05 strict {
+    label de official "§ 12 Absatz 4a: Norderney (Stadt)";
+    label en unofficial "sec. 12(4a): Norderney (Stadt) lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Norderney (Stadt)");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss06 strict {
+    label de official "§ 12 Absatz 4a: Spiekeroog";
+    label en unofficial "sec. 12(4a): Spiekeroog lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Spiekeroog");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss07 strict {
+    label de official "§ 12 Absatz 4a: Wangerooge (Nordseebad)";
+    label en unofficial "sec. 12(4a): Wangerooge (Nordseebad) lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Wangerooge (Nordseebad)");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss08 strict {
+    label de official "§ 12 Absatz 4a: Nebel";
+    label en unofficial "sec. 12(4a): Nebel lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Nebel");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss09 strict {
+    label de official "§ 12 Absatz 4a: Norddorf auf Amrum";
+    label en unofficial "sec. 12(4a): Norddorf auf Amrum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Norddorf auf Amrum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss10 strict {
+    label de official "§ 12 Absatz 4a: Wittdün auf Amrum";
+    label en unofficial "sec. 12(4a): Wittdün auf Amrum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Wittdün auf Amrum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss11 strict {
+    label de official "§ 12 Absatz 4a: Alkersum";
+    label en unofficial "sec. 12(4a): Alkersum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Alkersum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss12 strict {
+    label de official "§ 12 Absatz 4a: Borgsum";
+    label en unofficial "sec. 12(4a): Borgsum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Borgsum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss13 strict {
+    label de official "§ 12 Absatz 4a: Dunsum";
+    label en unofficial "sec. 12(4a): Dunsum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Dunsum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss14 strict {
+    label de official "§ 12 Absatz 4a: Midlum";
+    label en unofficial "sec. 12(4a): Midlum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Midlum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss15 strict {
+    label de official "§ 12 Absatz 4a: Nieblum";
+    label en unofficial "sec. 12(4a): Nieblum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Nieblum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss16 strict {
+    label de official "§ 12 Absatz 4a: Oevenum";
+    label en unofficial "sec. 12(4a): Oevenum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Oevenum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss17 strict {
+    label de official "§ 12 Absatz 4a: Oldsum";
+    label en unofficial "sec. 12(4a): Oldsum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Oldsum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss18 strict {
+    label de official "§ 12 Absatz 4a: Süderende";
+    label en unofficial "sec. 12(4a): Süderende lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Süderende");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss19 strict {
+    label de official "§ 12 Absatz 4a: Utersum";
+    label en unofficial "sec. 12(4a): Utersum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Utersum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss20 strict {
+    label de official "§ 12 Absatz 4a: Witsum";
+    label en unofficial "sec. 12(4a): Witsum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Witsum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss21 strict {
+    label de official "§ 12 Absatz 4a: Wrixum";
+    label en unofficial "sec. 12(4a): Wrixum lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Wrixum");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss22 strict {
+    label de official "§ 12 Absatz 4a: Wyk auf Föhr (Stadt)";
+    label en unofficial "sec. 12(4a): Wyk auf Föhr (Stadt) lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Wyk auf Föhr (Stadt)");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss23 strict {
+    label de official "§ 12 Absatz 4a: Helgoland";
+    label en unofficial "sec. 12(4a): Helgoland lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Helgoland");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss24 strict {
+    label de official "§ 12 Absatz 4a: Gröde";
+    label en unofficial "sec. 12(4a): Gröde lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Gröde");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss25 strict {
+    label de official "§ 12 Absatz 4a: Hallig Hooge";
+    label en unofficial "sec. 12(4a): Hallig Hooge lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Hallig Hooge");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss26 strict {
+    label de official "§ 12 Absatz 4a: Langeneß";
+    label en unofficial "sec. 12(4a): Langeneß lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Langeneß");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss27 strict {
+    label de official "§ 12 Absatz 4a: Pellworm";
+    label en unofficial "sec. 12(4a): Pellworm lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Pellworm");
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026)
+rule InselOhneFestlandanschluss28 strict {
+    label de official "§ 12 Absatz 4a: Insel Hiddensee";
+    label en unofficial "sec. 12(4a): Insel Hiddensee lies on an island without mainland connection";
+    then insel_ohne_festlandanschluss("Insel Hiddensee");
+}
+
+// --- § 12 Abs. 1, 4a, 5 и Anlage WoGV: Mietenstufe --------------------------
+
+@source(WOGG_12_ABS1_ED2023, WOGG_12_ABS1_ED2025, WOGG_12_ABS1_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_1_ABS3")
+rule AnlageFuerWohnortAnwenden(h: Haushalt, land: Text, gemeinde: Text) strict {
+    label de official "§ 12 Absatz 1: die Mietenstufe ergibt sich für die Gemeinde des Wohnraums aus der Anlage zur Wohngeldverordnung";
+    label en unofficial "the Annex is applied to the municipality of the dwelling";
+    when wohnort(h, land, gemeinde);
+    then de.social.wohngeld_verordnung::mietenstufe_anfrage(land, gemeinde);
+}
+
+@source(WOGG_12_ABS1_ED2023, WOGG_12_ABS1_ED2025, WOGG_12_ABS1_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_ANLAGE_VORBEMERKUNG")
+rule AnlageFuerKreisAnwenden(h: Haushalt, land: Text, gemeinde: Text, kreis: Text) strict {
+    label de official "Anlage zur WoGV, Vorbemerkung: für eine nicht gesondert aufgeführte Gemeinde ist die Tabelle der Kreise anzuwenden";
+    label en unofficial "the district table is applied for the dwelling's district";
+    when wohnort(h, land, gemeinde) and wohnort_kreis(h, kreis);
+    then de.social.wohngeld_verordnung::mietenstufe_anfrage_kreis(land, kreis);
+}
+
+@source(WOGG_12_ABS1_ED2023, WOGG_12_ABS1_ED2025, WOGG_12_ABS1_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_1_ABS3")
+rule MietenstufeGesondertAufgefuehrteGemeinde(h: Haushalt, land: Text, gemeinde: Text, n: Integer) strict {
+    label de official "§ 12 Absatz 1 mit § 1 Absatz 3 WoGV: Mietenstufe der in der Anlage gesondert aufgeführten Gemeinde";
+    label en unofficial "rent level of a separately listed municipality";
+    when wohnort(h, land, gemeinde) and de.social.wohngeld_verordnung::mietenstufe_gemeinde(land, gemeinde, n);
+    then mietenstufe_nummer(h, n);
+}
+
+@source(WOGG_12_ABS1_ED2023, WOGG_12_ABS1_ED2025, WOGG_12_ABS1_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_ANLAGE_VORBEMERKUNG")
+rule MietenstufeDesKreises(h: Haushalt, land: Text, gemeinde: Text, kreis: Text, n: Integer) strict {
+    label de official "Anlage zur WoGV, Vorbemerkung: soweit die zu einem Kreis gehörenden Gemeinden nicht gesondert aufgeführt sind, gilt die Mietenstufe des Kreises";
+    label en unofficial "a municipality not listed separately takes the rent level of its district";
+    when wohnort(h, land, gemeinde) and wohnort_kreis(h, kreis)
+        and not_known(de.social.wohngeld_verordnung::gemeinde_gesondert_aufgefuehrt(land, gemeinde))
+        and not_known(insel_ohne_festlandanschluss(gemeinde))
+        and de.social.wohngeld_verordnung::mietenstufe_kreis(land, kreis, n);
+    then mietenstufe_nummer(h, n);
+}
+
+@source(WOGG_12_ABS4A_ED2023, WOGG_12_ABS4A_ED2025, WOGG_12_ABS4A_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_ANLAGE_INSELN_GEMEINSAM")
+rule MietenstufeInselnOhneFestlandanschluss(h: Haushalt, land: Text, gemeinde: Text, n: Integer) strict {
+    label de official "§ 12 Absatz 4a: gemeinsame Mietenstufenzuordnung der Inseln ohne Festlandanschluss";
+    label en unofficial "joint rent level of islands without mainland connection";
+    when wohnort(h, land, gemeinde) and insel_ohne_festlandanschluss(gemeinde)
+        and de.social.wohngeld_verordnung::mietenstufe_gemeinsam("Inseln ohne Festlandanschluss", n);
+    then mietenstufe_nummer(h, n);
+}
+
+@source(WOGG_12_ABS5_ED2023, WOGG_12_ABS5_ED2025, WOGG_12_ABS5_ED2026)
+rule MietenstufeNummer1IstStufeI(h: Haushalt, n: Integer) strict {
+    label de official "§ 12 Absatz 5: Mietenstufe I";
+    label en unofficial "sec. 12(5): rent level I";
+    when mietenstufe_nummer(h, n) and n == 1;
+    then mietenstufe(h, MIETENSTUFE_I);
+}
+
+@source(WOGG_12_ABS5_ED2023, WOGG_12_ABS5_ED2025, WOGG_12_ABS5_ED2026)
+rule MietenstufeNummer2IstStufeII(h: Haushalt, n: Integer) strict {
+    label de official "§ 12 Absatz 5: Mietenstufe II";
+    label en unofficial "sec. 12(5): rent level II";
+    when mietenstufe_nummer(h, n) and n == 2;
+    then mietenstufe(h, MIETENSTUFE_II);
+}
+
+@source(WOGG_12_ABS5_ED2023, WOGG_12_ABS5_ED2025, WOGG_12_ABS5_ED2026)
+rule MietenstufeNummer3IstStufeIII(h: Haushalt, n: Integer) strict {
+    label de official "§ 12 Absatz 5: Mietenstufe III";
+    label en unofficial "sec. 12(5): rent level III";
+    when mietenstufe_nummer(h, n) and n == 3;
+    then mietenstufe(h, MIETENSTUFE_III);
+}
+
+@source(WOGG_12_ABS5_ED2023, WOGG_12_ABS5_ED2025, WOGG_12_ABS5_ED2026)
+rule MietenstufeNummer4IstStufeIV(h: Haushalt, n: Integer) strict {
+    label de official "§ 12 Absatz 5: Mietenstufe IV";
+    label en unofficial "sec. 12(5): rent level IV";
+    when mietenstufe_nummer(h, n) and n == 4;
+    then mietenstufe(h, MIETENSTUFE_IV);
+}
+
+@source(WOGG_12_ABS5_ED2023, WOGG_12_ABS5_ED2025, WOGG_12_ABS5_ED2026)
+rule MietenstufeNummer5IstStufeV(h: Haushalt, n: Integer) strict {
+    label de official "§ 12 Absatz 5: Mietenstufe V";
+    label en unofficial "sec. 12(5): rent level V";
+    when mietenstufe_nummer(h, n) and n == 5;
+    then mietenstufe(h, MIETENSTUFE_V);
+}
+
+@source(WOGG_12_ABS5_ED2023, WOGG_12_ABS5_ED2025, WOGG_12_ABS5_ED2026)
+rule MietenstufeNummer6IstStufeVI(h: Haushalt, n: Integer) strict {
+    label de official "§ 12 Absatz 5: Mietenstufe VI";
+    label en unofficial "sec. 12(5): rent level VI";
+    when mietenstufe_nummer(h, n) and n == 6;
+    then mietenstufe(h, MIETENSTUFE_VI);
+}
+
+@source(WOGG_12_ABS5_ED2023, WOGG_12_ABS5_ED2025, WOGG_12_ABS5_ED2026)
+rule MietenstufeNummer7IstStufeVII(h: Haushalt, n: Integer) strict {
+    label de official "§ 12 Absatz 5: Mietenstufe VII";
+    label en unofficial "sec. 12(5): rent level VII";
+    when mietenstufe_nummer(h, n) and n == 7;
+    then mietenstufe(h, MIETENSTUFE_VII);
+}
+
+// --- Anlage 1, § 12 Abs. 6, 7: суммы по числу членов --------------------------
+//
+// Ветви параметров стоят внутри `match`/`if`, а не в `let`: жадная привязка
+// потребовала бы покрытия невыбранных параметров (замер fr.apl, 14.09.2026).
+
+function hoechstbetrag_bis_fuenf(n: Integer, s: Mietenstufe) -> Money =
+    if n == 1 then (match s {
+        MIETENSTUFE_I => HoechstbetragMitglieder1MietenstufeI;
+        MIETENSTUFE_II => HoechstbetragMitglieder1MietenstufeII;
+        MIETENSTUFE_III => HoechstbetragMitglieder1MietenstufeIII;
+        MIETENSTUFE_IV => HoechstbetragMitglieder1MietenstufeIV;
+        MIETENSTUFE_V => HoechstbetragMitglieder1MietenstufeV;
+        MIETENSTUFE_VI => HoechstbetragMitglieder1MietenstufeVI;
+        MIETENSTUFE_VII => HoechstbetragMitglieder1MietenstufeVII;
+    }) else if n == 2 then (match s {
+        MIETENSTUFE_I => HoechstbetragMitglieder2MietenstufeI;
+        MIETENSTUFE_II => HoechstbetragMitglieder2MietenstufeII;
+        MIETENSTUFE_III => HoechstbetragMitglieder2MietenstufeIII;
+        MIETENSTUFE_IV => HoechstbetragMitglieder2MietenstufeIV;
+        MIETENSTUFE_V => HoechstbetragMitglieder2MietenstufeV;
+        MIETENSTUFE_VI => HoechstbetragMitglieder2MietenstufeVI;
+        MIETENSTUFE_VII => HoechstbetragMitglieder2MietenstufeVII;
+    }) else if n == 3 then (match s {
+        MIETENSTUFE_I => HoechstbetragMitglieder3MietenstufeI;
+        MIETENSTUFE_II => HoechstbetragMitglieder3MietenstufeII;
+        MIETENSTUFE_III => HoechstbetragMitglieder3MietenstufeIII;
+        MIETENSTUFE_IV => HoechstbetragMitglieder3MietenstufeIV;
+        MIETENSTUFE_V => HoechstbetragMitglieder3MietenstufeV;
+        MIETENSTUFE_VI => HoechstbetragMitglieder3MietenstufeVI;
+        MIETENSTUFE_VII => HoechstbetragMitglieder3MietenstufeVII;
+    }) else if n == 4 then (match s {
+        MIETENSTUFE_I => HoechstbetragMitglieder4MietenstufeI;
+        MIETENSTUFE_II => HoechstbetragMitglieder4MietenstufeII;
+        MIETENSTUFE_III => HoechstbetragMitglieder4MietenstufeIII;
+        MIETENSTUFE_IV => HoechstbetragMitglieder4MietenstufeIV;
+        MIETENSTUFE_V => HoechstbetragMitglieder4MietenstufeV;
+        MIETENSTUFE_VI => HoechstbetragMitglieder4MietenstufeVI;
+        MIETENSTUFE_VII => HoechstbetragMitglieder4MietenstufeVII;
+    }) else (match s {
+        MIETENSTUFE_I => HoechstbetragMitglieder5MietenstufeI;
+        MIETENSTUFE_II => HoechstbetragMitglieder5MietenstufeII;
+        MIETENSTUFE_III => HoechstbetragMitglieder5MietenstufeIII;
+        MIETENSTUFE_IV => HoechstbetragMitglieder5MietenstufeIV;
+        MIETENSTUFE_V => HoechstbetragMitglieder5MietenstufeV;
+        MIETENSTUFE_VI => HoechstbetragMitglieder5MietenstufeVI;
+        MIETENSTUFE_VII => HoechstbetragMitglieder5MietenstufeVII;
+    });
+
+function hoechstbetrag_mehrbetrag(s: Mietenstufe) -> Money = match s {
+        MIETENSTUFE_I => HoechstbetragMehrbetragMietenstufeI;
+        MIETENSTUFE_II => HoechstbetragMehrbetragMietenstufeII;
+        MIETENSTUFE_III => HoechstbetragMehrbetragMietenstufeIII;
+        MIETENSTUFE_IV => HoechstbetragMehrbetragMietenstufeIV;
+        MIETENSTUFE_V => HoechstbetragMehrbetragMietenstufeV;
+        MIETENSTUFE_VI => HoechstbetragMehrbetragMietenstufeVI;
+        MIETENSTUFE_VII => HoechstbetragMehrbetragMietenstufeVII;
+};
+
+function hoechstbetrag(n: Integer, s: Mietenstufe) -> Money =
+    if n <= 5 then hoechstbetrag_bis_fuenf(n, s)
+    else hoechstbetrag_bis_fuenf(5, s) + hoechstbetrag_mehrbetrag(s) * (n - 5);
+
+function heizkostenentlastung_betrag(n: Integer) -> Money =
+    if n == 1 then HeizkostenentlastungMitglieder1
+    else if n == 2 then HeizkostenentlastungMitglieder2
+    else if n == 3 then HeizkostenentlastungMitglieder3
+    else if n == 4 then HeizkostenentlastungMitglieder4
+    else HeizkostenentlastungMitglieder5 + HeizkostenentlastungMehrbetrag * (n - 5);
+
+function klimakomponente_betrag(n: Integer) -> Money =
+    if n == 1 then KlimakomponenteMitglieder1
+    else if n == 2 then KlimakomponenteMitglieder2
+    else if n == 3 then KlimakomponenteMitglieder3
+    else if n == 4 then KlimakomponenteMitglieder4
+    else KlimakomponenteMitglieder5 + KlimakomponenteMehrbetrag * (n - 5);
+
+// § 11 Abs. 3: доля по отношению n / N, 10 знаков по Anlage 3 Nr. 2.
+function anteil(betrag: Money, n: Integer, gesamt: Integer) -> Money =
+    if n == gesamt then betrag else div_round(betrag * n, 1.0 * gesamt, 10, "HALF_UP");
+
+// --- § 9: Miete -------------------------------------------------------------
+
+// СУММЫ БЕЗ ПУСТОГО АГРЕГАТА. Пустая сумма §59 — отказ, а не ноль; поэтому каждая
+// группа вычетов получает НУЛЕВУЮ позицию только из объявления о полноте сведений
+// (`angaben_zur_miete_vollstaendig`). Нулевая позиция юридически верна сама по себе:
+// «прочие Betriebskosten не исключаются — 0 €», «иных выплат третьим — 0 €».
+
+relation umlage_abzug(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, position: de.social.wohngeld_verordnung::BetriebskostenPosition, betrag: Money) kind institutional {
+    label de official "nach § 9 Absatz 2 Nummer 1 und 2 außer Betracht bleibende Umlage (§ 6 Absatz 1 WoGV)";
+    label en unofficial "disregarded operating-cost charge";
+}
+
+relation kosten_abzug(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, art: de.social.wohngeld_verordnung::KostenartNeunZwei, betrag: Money) kind institutional {
+    label de official "ausgewiesene Kosten oder Vergütungen, die nach § 9 Absatz 2 außer Betracht bleiben";
+    label en unofficial "shown costs disregarded under sec. 9(2)";
+}
+
+relation pauschbetrag_abzug(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, art: de.social.wohngeld_verordnung::PauschalArt, betrag: Money) kind institutional {
+    label de official "abzusetzender Pauschbetrag (§ 9 Absatz 2 Satz 2, § 6 Absatz 2 WoGV)";
+    label en unofficial "lump sum deducted";
+}
+
+relation dritte_zuschlag(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, kennung: Integer, betrag: Money) kind institutional {
+    label de official "zur Miete gehörende Zahlung an Dritte (§ 2 Absatz 1 WoGV)";
+    label en unofficial "third-party payment added to the rent";
+}
+
+@source(WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_6_ABS1")
+rule UmlageAbzug(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, pos: de.social.wohngeld_verordnung::BetriebskostenPosition, art: de.social.wohngeld_verordnung::KostenartNeunZwei, b: Money) strict {
+    label de official "§ 9 Absatz 2 Nummer 1, 2 mit § 6 Absatz 1 WoGV: Heiz- und Warmwasserumlagen bleiben außer Betracht";
+    label en unofficial "heating and hot-water charges are disregarded";
+    when de.social.wohngeld_verordnung::ausser_betracht_bleibende_umlage(mv, pos, art, b);
+    then umlage_abzug(mv, pos, b);
+}
+
+@source(WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026)
+rule KostenAbzug(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, art: de.social.wohngeld_verordnung::KostenartNeunZwei, b: Money) strict {
+    label de official "§ 9 Absatz 2 Satz 1: ausgewiesene Kosten und Vergütungen bleiben außer Betracht";
+    label en unofficial "shown costs are disregarded";
+    when ausgewiesene_kosten_9_abs2(mv, art, b);
+    then kosten_abzug(mv, art, b);
+}
+
+@source(WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_6_ABS2")
+rule PauschbetragAbzug(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, art: de.social.wohngeld_verordnung::PauschalArt, b: Money) strict {
+    label de official "§ 9 Absatz 2 Satz 2: ergeben sich die Beträge nicht aus dem Mietvertrag, sind Pauschbeträge abzusetzen";
+    label en unofficial "lump sums are deducted where amounts are not shown";
+    when de.social.wohngeld_verordnung::pauschbetrag_6_abs2(mv, art, b);
+    then pauschbetrag_abzug(mv, art, b);
+}
+
+@source(WOGG_9_ABS1_ED2023, WOGG_9_ABS1_ED2025, WOGG_9_ABS1_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_2_ABS1")
+rule DritteZuschlag(mv: de.social.wohngeld_verordnung::Mietverhaeltnis, b: Money) strict {
+    label de official "§ 9 Absatz 1 mit § 2 Absatz 1 WoGV: Zahlungen an Dritte gehören zur Miete";
+    label en unofficial "third-party payments form part of the rent";
+    when de.social.wohngeld_verordnung::zur_miete_gehoerende_zahlung_an_dritte(mv, b);
+    then dritte_zuschlag(mv, 1, b);
+}
+
+@source(WOGG_9_ABS1_ED2023, WOGG_9_ABS1_ED2025, WOGG_9_ABS1_ED2026, WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026)
+rule NullpostenBeiVollstaendigenAngaben(mv: de.social.wohngeld_verordnung::Mietverhaeltnis) strict {
+    label de official "die Angaben zur Miete sind vollständig: übrige Betriebskosten bleiben nicht außer Betracht, weitere Kosten, Pauschbeträge und Zahlungen an Dritte sind nicht angegeben";
+    label en unofficial "declared rent data complete: zero items for the remaining groups";
+    when angaben_zur_miete_vollstaendig(mv);
+    then umlage_abzug(mv, de.social.wohngeld_verordnung::UEBRIGE_BETRIEBSKOSTEN, 0 EUR);
+}
+
+@source(WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026)
+rule NullpostenKosten(mv: de.social.wohngeld_verordnung::Mietverhaeltnis) strict {
+    label de official "vollständige Angaben: Nullposten ausgewiesener Kosten";
+    label en unofficial "zero item for shown costs";
+    when angaben_zur_miete_vollstaendig(mv);
+    then kosten_abzug(mv, de.social.wohngeld_verordnung::NR5_ZUSATZLEISTUNGEN, 0 EUR);
+}
+
+@source(WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026)
+rule NullpostenPauschbetraege(mv: de.social.wohngeld_verordnung::Mietverhaeltnis) strict {
+    label de official "vollständige Angaben: Nullposten Pauschbeträge";
+    label en unofficial "zero item for lump sums";
+    when angaben_zur_miete_vollstaendig(mv);
+    then pauschbetrag_abzug(mv, de.social.wohngeld_verordnung::GARAGE, 0 EUR);
+}
+
+@source(WOGG_9_ABS1_ED2023, WOGG_9_ABS1_ED2025, WOGG_9_ABS1_ED2026)
+rule NullpostenDritte(mv: de.social.wohngeld_verordnung::Mietverhaeltnis) strict {
+    label de official "vollständige Angaben: Nullposten Zahlungen an Dritte";
+    label en unofficial "zero item for third-party payments";
+    when angaben_zur_miete_vollstaendig(mv);
+    then dritte_zuschlag(mv, 0, 0 EUR);
+}
+
+@source(WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026)
+rule AbzuegeVonDerMiete(mv: de.social.wohngeld_verordnung::Mietverhaeltnis) strict {
+    label de official "§ 9 Absatz 2: Summe der außer Betracht bleibenden Kosten und Vergütungen einschließlich der Pauschbeträge";
+    label en unofficial "total disregarded costs";
+    when angaben_zur_miete_vollstaendig(mv);
+    then abzuege_von_der_miete(mv,
+        sum(collect all b1: Money, p1: de.social.wohngeld_verordnung::BetriebskostenPosition where umlage_abzug(mv, p1, b1))
+        + sum(collect all b2: Money, a2: de.social.wohngeld_verordnung::KostenartNeunZwei where kosten_abzug(mv, a2, b2))
+        + sum(collect all b3: Money, a3: de.social.wohngeld_verordnung::PauschalArt where pauschbetrag_abzug(mv, a3, b3)));
+}
+
+@source(WOGG_9_ABS1_ED2023, WOGG_9_ABS1_ED2025, WOGG_9_ABS1_ED2026, "urn:de:social:clir:wohngeld-verordnung#WOGV_2_ABS1")
+rule ZahlungenAnDritte(mv: de.social.wohngeld_verordnung::Mietverhaeltnis) strict {
+    label de official "§ 2 Absatz 1 WoGV: Summe der Zahlungen an Dritte";
+    label en unofficial "total third-party payments";
+    when angaben_zur_miete_vollstaendig(mv);
+    then zahlungen_an_dritte(mv, sum(collect all b: Money, k: Integer where dritte_zuschlag(mv, k, b)));
+}
+
+@source(WOGG_9_ABS1_ED2023, WOGG_9_ABS1_ED2025, WOGG_9_ABS1_ED2026, WOGG_9_ABS2_ED2023, WOGG_9_ABS2_ED2025, WOGG_9_ABS2_ED2026)
+rule MieteNachNeun(h: Haushalt, mv: de.social.wohngeld_verordnung::Mietverhaeltnis, e: Money, d: Money, a: Money) strict {
+    label de official "§ 9 Absatz 1, 2: Miete ist das vereinbarte Entgelt einschließlich Umlagen, Zuschlägen und Vergütungen abzüglich der außer Betracht bleibenden Kosten";
+    label en unofficial "rent is the agreed consideration less disregarded costs";
+    when mietverhaeltnis_des_haushalts(h, mv) and vereinbartes_entgelt(mv, e)
+        and zahlungen_an_dritte(mv, d) and abzuege_von_der_miete(mv, a);
+    then miete_nach_9(h, e + d - a);
+}
+
+// --- § 11, § 12: zu berücksichtigende Miete ---------------------------------
+
+relation miete_aus_vertrag_grundlage(g: Nutzungsgrundlage) kind institutional {
+    label de official "Nutzungsgrundlage, bei der die Miete nach § 9 Absatz 1 aus dem Vertrag zu ermitteln ist (nicht Heim, nicht Mietwert)";
+    label en unofficial "basis of use where the rent is taken from the agreement";
+}
+
+@source(WOGG_9_ABS1_ED2023, WOGG_9_ABS1_ED2025, WOGG_9_ABS1_ED2026)
+rule MieteAusMietvertrag strict {
+    label de official "§ 9 Absatz 1: Miete aus Mietvertrag";
+    label en unofficial "rent from a lease";
+    then miete_aus_vertrag_grundlage(MIETVERHAELTNIS);
+}
+
+@source(WOGG_9_ABS1_ED2023, WOGG_9_ABS1_ED2025, WOGG_9_ABS1_ED2026)
+rule MieteAusMietaehnlichemNutzungsverhaeltnis strict {
+    label de official "§ 9 Absatz 1: Miete aus ähnlichem Nutzungsverhältnis";
+    label en unofficial "rent from a tenancy-like agreement";
+    then miete_aus_vertrag_grundlage(MIETAEHNLICHES_NUTZUNGSVERHAELTNIS);
+}
+
+@source(WOGG_12_ABS1_ED2023, WOGG_12_ABS1_ED2025, WOGG_12_ABS1_ED2026, WOGG_12_ABS7_ED2023, WOGG_12_ABS7_ED2025, WOGG_12_ABS7_ED2026, WOGG_11_ABS3_ED2023, WOGG_11_ABS3_ED2025, WOGG_11_ABS3_ED2026)
+rule HoechstbetragMitKlimakomponente(h: Haushalt, s: Mietenstufe, gesamt: Integer) strict {
+    label de official "§ 12 Absatz 1 und 7 mit Anlage 1: Höchstbetrag und Klimakomponente nach der Mietenstufe und der Gesamtzahl der Haushaltsmitglieder (§ 11 Absatz 3 Satz 3)";
+    label en unofficial "maximum amount and climate component by rent level and total members";
+    when mietenstufe(h, s) and gesamtzahl_haushaltsmitglieder(h, gesamt) and gesamt >= 1;
+    then hoechstbetrag_mit_klimakomponente(h, hoechstbetrag(gesamt, s) + klimakomponente_betrag(gesamt));
+}
+
+@source(WOGG_12_ABS6_ED2023, WOGG_12_ABS6_ED2025, WOGG_12_ABS6_ED2026, WOGG_11_ABS3_ED2023, WOGG_11_ABS3_ED2025, WOGG_11_ABS3_ED2026)
+rule Heizkostenentlastung(h: Haushalt, gesamt: Integer) strict {
+    label de official "§ 12 Absatz 6: Gesamtbetrag zur Entlastung bei den Heizkosten nach der Gesamtzahl der Haushaltsmitglieder";
+    label en unofficial "heating cost relief by total members";
+    when gesamtzahl_haushaltsmitglieder(h, gesamt) and gesamt >= 1;
+    then heizkostenentlastung(h, heizkostenentlastung_betrag(gesamt));
+}
+
+@source(WOGG_11_ABS1_ED2023, WOGG_11_ABS1_ED2025, WOGG_11_ABS1_ED2026, WOGG_11_ABS3_ED2023, WOGG_11_ABS3_ED2025, WOGG_11_ABS3_ED2026)
+rule ZuBeruecksichtigendeMiete(h: Haushalt, p: de.tax.income_for_wohngeld::Person, g: Nutzungsgrundlage,
+                               m: Money, hk: Money, e: Money, n: Integer, gesamt: Integer) strict {
+    label de official "§ 11 Absatz 1 Satz 1, Absatz 3: Miete bis zur Summe aus Höchstbetrag und Klimakomponente zuzüglich Heizkostenentlastung, bei ausgeschlossenen Haushaltsmitgliedern anteilig";
+    label en unofficial "rent capped at maximum plus climate component, plus heating relief, pro rata if members are excluded";
+    when wohngeldberechtigt(h, p) and nutzungsgrundlage(h, p, g) and mietzuschuss_grundlage(g)
+        and miete_aus_vertrag_grundlage(g)
+        and miete_nach_9(h, m) and hoechstbetrag_mit_klimakomponente(h, hk) and heizkostenentlastung(h, e)
+        and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n >= 1
+        and gesamtzahl_haushaltsmitglieder(h, gesamt);
+    then zu_beruecksichtigende_miete(h, anteil(min(m, hk) + e, n, gesamt));
+}
+
+@source(WOGG_9_ABS3_ED2023, WOGG_9_ABS3_ED2025, WOGG_9_ABS3_ED2026, WOGG_11_ABS1_ED2023, WOGG_11_ABS1_ED2025, WOGG_11_ABS1_ED2026, WOGG_11_ABS3_ED2023, WOGG_11_ABS3_ED2025, WOGG_11_ABS3_ED2026, WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026)
+rule ZuBeruecksichtigendeMieteImHeim(h: Haushalt, p: de.tax.income_for_wohngeld::Person, hk: Money, e: Money,
+                                     n: Integer, gesamt: Integer) strict {
+    label de official "§ 9 Absatz 3 Satz 2, § 11 Absatz 1 Satz 2: im Heim ist die Summe aus Höchstbetrag, Heizkostenentlastung und Klimakomponente zu berücksichtigen";
+    label en unofficial "care home residents: maximum amount plus heating relief and climate component";
+    when wohngeldberechtigt(h, p) and nutzungsgrundlage(h, p, HEIM)
+        and hoechstbetrag_mit_klimakomponente(h, hk) and heizkostenentlastung(h, e)
+        and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n >= 1
+        and gesamtzahl_haushaltsmitglieder(h, gesamt);
+    then zu_beruecksichtigende_miete(h, anteil(hk + e, n, gesamt));
+}

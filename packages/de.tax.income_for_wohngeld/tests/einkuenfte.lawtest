@@ -1,0 +1,159 @@
+language "law.core" version "0.2";
+package de.tax.income_for_wohngeld version "0.1.0";
+namespace "urn:de:tax:clir:income-for-wohngeld";
+
+// Сценарии EStG-пакета. Ожидания — арифметика текста § 9a, а не ответ движка.
+
+// § 9a S. 1 Nr. 1 a: 26 880 − 1 230 = 25 650 (как у BMWSB 2025 № 7: 2 240 € × 12).
+test "EStG-01 Arbeitslohn ohne nachgewiesene Werbungskosten: Arbeitnehmer-Pauschbetrag 1 230 EUR" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 26880.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 0.00 EUR) { origin case_input; }
+    }
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 25650.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    expect applied(WerbungskostenabzugArbeit);
+}
+
+test "EStG-02 hoehere Werbungskosten nachgewiesen verdraengen den Pauschbetrag" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 26880.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 1500.00 EUR) { origin case_input; }
+    }
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 25380.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Граница «höhere Werbungskosten»: 1 230,00 — не выше паушаля; пара с EStG-04.
+test "EStG-03 Werbungskosten genau in Hoehe des Pauschbetrags: Pauschbetrag" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 26880.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 1230.00 EUR) { origin case_input; }
+    }
+    evaluate truth(werbungskostenabzug_arbeit(entity_ref("urn:de:example:estg:p"), 1230.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 25650.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "EStG-04 Werbungskosten einen Cent ueber dem Pauschbetrag" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 26880.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 1230.01 EUR) { origin case_input; }
+    }
+    evaluate truth(werbungskostenabzug_arbeit(entity_ref("urn:de:example:estg:p"), 1230.01 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 25649.99 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// § 9a S. 2: паушаль не создаёт отрицательных Einkünfte.
+test "EStG-05 Pauschbetrag hoechstens bis zur Hoehe der Einnahmen" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 600.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 0.00 EUR) { origin case_input; }
+    }
+    evaluate truth(werbungskostenabzug_arbeit(entity_ref("urn:de:example:estg:p"), 600.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 0.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Ограничение S. 2 касается только паушалей; доказанные расходы — нет.
+test "EStG-06 nachgewiesene Werbungskosten ueber den Einnahmen ergeben negative Einkuenfte" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 1000.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 2000.00 EUR) { origin case_input; }
+    }
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), -1000.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Первый день покрытия: JStG 2022 Art. 4 Nr. 3 в силе с 01.01.2023 (BMWSB 2023 № 7: 1 770 € × 12).
+test "EStG-07 Pauschbetrag 2023 gilt wie 2025" {
+    given {
+        context { legal_time @2023-01-01; decision_time @2023-01-01T09:00:00Z; knowledge_time @2023-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 21240.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 0.00 EUR) { origin case_input; }
+    }
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 20010.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// День до окна редакции: правила, анкеренные только в редакцию с 01.01.2023, снимаются
+// (§92.3, EDITION_NOT_APPLICABLE) — суммы нет, а не 0 и не значение 2023 года.
+test "EStG-08 vor dem 1. Januar 2023 keine modellierte Fassung: EDITION_NOT_APPLICABLE" {
+    given {
+        context { legal_time @2022-12-31; decision_time @2022-12-31T09:00:00Z; knowledge_time @2022-12-31T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 21240.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:estg:p"), 0.00 EUR) { origin case_input; }
+    }
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 20010.00 EUR));
+    expect truth_status == NEITHER;
+    expect issue(EDITION_NOT_APPLICABLE);
+}
+
+// Недостаток сведений: без факта о расходах вычет не выбирается и суммы нет.
+test "EStG-09 ohne Angabe zu Werbungskosten keine Einkuenfte" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslohn_in_geld(entity_ref("urn:de:example:estg:p"), 26880.00 EUR) { origin case_input; }
+    }
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 25650.00 EUR));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+test "EStG-10 Leibrente: steuerpflichtiger Anteil abzueglich 102 EUR" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": leibrente_gesetzliche_rentenversicherung(entity_ref("urn:de:example:estg:p"), 15600.00 EUR, 12480.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_sonstige(entity_ref("urn:de:example:estg:p"), 0.00 EUR) { origin case_input; }
+    }
+    evaluate truth(sonstige_einkuenfte_leibrente(entity_ref("urn:de:example:estg:p"), 12378.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "EStG-11 Pauschbetrag 102 EUR hoechstens bis zur Hoehe des steuerpflichtigen Anteils" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": leibrente_gesetzliche_rentenversicherung(entity_ref("urn:de:example:estg:p"), 1200.00 EUR, 60.00 EUR) { origin case_input; }
+        assert "f1": nachgewiesene_werbungskosten_sonstige(entity_ref("urn:de:example:estg:p"), 0.00 EUR) { origin case_input; }
+    }
+    evaluate truth(sonstige_einkuenfte_leibrente(entity_ref("urn:de:example:estg:p"), 0.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+test "EStG-12 Arbeitslosengeld ist Lohnersatzleistung, Minijob-Entgelt bleibt ausser Ansatz" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "f0": arbeitslosengeld_sgb3(entity_ref("urn:de:example:estg:p"), 16200.00 EUR) { origin case_input; }
+        assert "f1": arbeitsentgelt_40a_pauschal_besteuert(entity_ref("urn:de:example:estg:p"), 6672.00 EUR) { origin case_input; }
+    }
+    evaluate truth(lohnersatzleistung_32b_abs1_nr1a(entity_ref("urn:de:example:estg:p"), 16200.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(pauschal_besteuerter_arbeitslohn_40a(entity_ref("urn:de:example:estg:p"), 6672.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(einkuenfte_nichtselbstaendige_arbeit(entity_ref("urn:de:example:estg:p"), 6672.00 EUR));
+    expect truth_status == NEITHER;
+}

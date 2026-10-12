@@ -1,0 +1,386 @@
+{
+  "$comment": "Каталог вопросов пакета (DECISION-0190, law.package-questions/0.1). Карточка — параметризованный шаблон запроса §172, а не ответ. Свидетельства — сценарии tests/, в том числе порождённые (tests/catalog): каждый выполняет посылки правила и спрашивает вывод.",
+  "format": "law.package-questions/0.1",
+  "package": "de.social.wohngeld",
+  "tasks": [
+    {
+      "id": "bmwsb-2023-bsp1",
+      "title": "BMWSB_2023_BSP1",
+      "source_units": [
+        "BMWSB_2023_BSP1"
+      ]
+    },
+    {
+      "id": "wogg-18-ed2023",
+      "title": "WOGG_18_ED2023",
+      "source_units": [
+        "WOGG_18_ED2023"
+      ]
+    },
+    {
+      "id": "wogg-21-ed2023",
+      "title": "WOGG_21_ED2023",
+      "source_units": [
+        "WOGG_21_ED2023"
+      ]
+    },
+    {
+      "id": "wogg-3-abs5-ed2023",
+      "title": "WOGG_3_ABS5_ED2023",
+      "source_units": [
+        "WOGG_3_ABS5_ED2023"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "abzug-13",
+      "task": "wogg-18-ed2023",
+      "question": "Установлено ли по делу: abzug_13?",
+      "kind": "truth",
+      "predicate": "abzug_13",
+      "parameters": [
+        {
+          "name": "h",
+          "type": "Haushalt",
+          "role": "bound"
+        },
+        {
+          "name": "grund",
+          "type": "Abzugsgrund",
+          "role": "bound"
+        },
+        {
+          "name": "person",
+          "type": "Person",
+          "role": "bound"
+        },
+        {
+          "name": "betrag",
+          "type": "Money",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(abzug_13(<h>, <grund>, <person>, <betrag>));",
+      "tests": [
+        "Wohngeldrechner-Abweichung: Kind mit Arbeitslohn 150 EUR — § 17 Nr. 4 ergibt 382 EUR, der Rechner 357 EUR",
+        "§ 17 Nr. 2: Opfer der nationalsozialistischen Verfolgung — 750 EUR",
+        "§ 17 Nr. 3: nicht ausschließlich mit Kindern — kein Alleinerziehenden-Freibetrag",
+        "§ 17 Nr. 4: Kind 24 Jahre, eigene Einnahmen 1 800 EUR — Freibetrag höchstens 1 200 EUR",
+        "§ 17 Nr. 4: Kind 25 Jahre — kein Freibetrag",
+        "§ 18 S. 1 Nr. 3: Unterhalt 7 000 EUR an früheren Ehegatten — höchstens 6 000 EUR",
+        "§ 18 S. 1 Nr. 4: sonstige Person — höchstens 3 000 EUR",
+        "§ 18 S. 2: Unterhaltstitel über 6 500 EUR — bis zum festgelegten Betrag"
+      ],
+      "source_units": [
+        "WOGG_18_ED2023"
+      ]
+    },
+    {
+      "id": "ausserhalb-des-modells",
+      "task": "wogg-3-abs5-ed2023",
+      "question": "Установлено ли по делу: ausserhalb_des_modells?",
+      "kind": "truth",
+      "predicate": "ausserhalb_des_modells",
+      "parameters": [
+        {
+          "name": "h",
+          "type": "Haushalt",
+          "role": "bound"
+        },
+        {
+          "name": "grund",
+          "type": "AusserhalbGrund",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(ausserhalb_des_modells(<h>, <grund>));",
+      "tests": [
+        "außerhalb des Modells: Lastenzuschuss (BMWSB-Beispiele 4 und 11) — kein Betrag"
+      ],
+      "source_units": [
+        "WOGG_3_ABS5_ED2023"
+      ]
+    },
+    {
+      "id": "kein-wohngeldanspruch",
+      "task": "wogg-21-ed2023",
+      "question": "Установлено ли по делу: kein_wohngeldanspruch?",
+      "kind": "truth",
+      "predicate": "kein_wohngeldanspruch",
+      "parameters": [
+        {
+          "name": "h",
+          "type": "Haushalt",
+          "role": "bound"
+        },
+        {
+          "name": "grund",
+          "type": "KeinAnspruchGrund",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(kein_wohngeldanspruch(<h>, <grund>));",
+      "tests": [
+        "Grenze § 21 Nr. 1: Wohngeld 10 EUR (z4 = 9,5034872592) — Anspruch besteht",
+        "Grenze § 21 Nr. 1: Wohngeld 9 EUR (z4 = 9,4997719845) — kein Anspruch",
+        "§ 20 Abs. 2: allen Haushaltsmitgliedern steht Ausbildungsförderung dem Grunde nach zu — kein Anspruch",
+        "§ 21 Nr. 3 Behörde bejaht Missbrauch: kein Anspruch",
+        "§ 7 Abs. 1 Nr. 1, § 21 Nr. 2: alleinstehender Empfänger von Grundsicherungsgeld mit Kosten der Unterkunft — kein Anspruch"
+      ],
+      "source_units": [
+        "WOGG_21_ED2023"
+      ]
+    },
+    {
+      "id": "wohngeldanspruch",
+      "task": "wogg-21-ed2023",
+      "question": "Установлено ли по делу: wohngeldanspruch?",
+      "kind": "truth",
+      "predicate": "wohngeldanspruch",
+      "parameters": [
+        {
+          "name": "h",
+          "type": "Haushalt",
+          "role": "bound"
+        },
+        {
+          "name": "betrag",
+          "type": "Money",
+          "role": "bound"
+        }
+      ],
+      "template": "evaluate truth(wohngeldanspruch(<h>, <betrag>));",
+      "tests": [
+        "BMWSB 2023 Rechenbeispiel 7: Ehepaar mit zwei Kindern, Weimar (Mietenstufe III) — 570 EUR",
+        "BMWSB 2025 Rechenbeispiel 10: Vater Rentner, Sohn vom Wohngeld ausgeschlossen, Lübeck (Mietenstufe IV) — 191 EUR",
+        "BMWSB 2025 Rechenbeispiel 1: alleinstehende Rentnerin, Jüterbog (Mietenstufe I) — 110 EUR",
+        "BMWSB 2025 Rechenbeispiel 5: Alleinerziehende mit zwei Kindern, Wiesbaden (Mietenstufe VI) — 372 EUR",
+        "BMWSB 2025 Rechenbeispiel 7: Ehepaar mit zwei Kindern, Weimar (Mietenstufe III) — 485 EUR",
+        "Grenze § 21 Nr. 1: Wohngeld 10 EUR (z4 = 9,5034872592) — Anspruch besteht",
+        "Grenze § 21 Nr. 1: Wohngeld 9 EUR (z4 = 9,4997719845) — kein Anspruch",
+        "§ 20 Abs. 2: allen Haushaltsmitgliedern steht Ausbildungsförderung dem Grunde nach zu — kein Anspruch",
+        "§ 21 Nr. 3 Behörde bejaht Missbrauch: kein Anspruch",
+        "§ 21 Nr. 3 Behörde verneint Missbrauch: Anspruch 202 EUR",
+        "§ 21 Nr. 3 ohne Würdigung der Wohngeldbehörde: Betrag berechnet, Anspruch verlangt Urteil (REQUIRES_JUDGMENT)"
+      ],
+      "source_units": [
+        "WOGG_21_ED2023"
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "granica-01",
+      "task": "bmwsb-2023-bsp1",
+      "question": "Покрывает ли пакет весь акт — значит ли отсутствие карточки, что право молчит?",
+      "reason_kind": "not_formalized",
+      "limitation": "Правила заведены у 114 закреплённых фрагментов из 167: остальные закреплены байтами публикации, но исполняемых норм не несут. Отсутствие карточки означает «в модели нормы нет», а не «право молчит».",
+      "source_units": [
+        "BMWSB_2023_BSP1"
+      ]
+    },
+    {
+      "id": "granica-02",
+      "task": "bmwsb-2023-bsp1",
+      "question": "Можно ли спросить вывод, у которого нет порождённого сценария?",
+      "reason_kind": "engine_limit",
+      "limitation": "5 выводов пакета остались без исполнимого свидетельства: их посылки содержат дизъюнкцию, текстовое значение или вызов терма, либо голова вычисляемая. Такие выводы записаны в internal и станут карточками вместе со сценариями, написанными руками.",
+      "source_units": [
+        "BMWSB_2023_BSP1"
+      ]
+    },
+    {
+      "id": "granica-03",
+      "task": "bmwsb-2023-bsp1",
+      "question": "Видны ли обязанности, запреты и правомочия пакета в positions?",
+      "reason_kind": "not_formalized",
+      "limitation": "Деонтических позиций (§§122–140) пакет не объявляет: требования выражены институциональными предикатами, и запрос positions по ним не отвечает.",
+      "source_units": [
+        "BMWSB_2023_BSP1"
+      ]
+    }
+  ],
+  "internal": [
+    {
+      "predicate": "dritte_zuschlag",
+      "reason": "Вывод без исполнимого свидетельства: посылки правила содержат формы, которых порождённый сценарий не строит (дизъюнкция, текстовое значение или вызов терма), либо голова вычисляемая. Карточка появится вместе со сценарием, написанным руками."
+    },
+    {
+      "predicate": "einnahmeposten_14",
+      "reason": "Вывод без исполнимого свидетельства: посылки правила содержат формы, которых порождённый сценарий не строит (дизъюнкция, текстовое значение или вызов терма), либо голова вычисляемая. Карточка появится вместе со сценарием, написанным руками."
+    },
+    {
+      "predicate": "kosten_abzug",
+      "reason": "Вывод без исполнимого свидетельства: посылки правила содержат формы, которых порождённый сценарий не строит (дизъюнкция, текстовое значение или вызов терма), либо голова вычисляемая. Карточка появится вместе со сценарием, написанным руками."
+    },
+    {
+      "predicate": "pauschbetrag_abzug",
+      "reason": "Вывод без исполнимого свидетельства: посылки правила содержат формы, которых порождённый сценарий не строит (дизъюнкция, текстовое значение или вызов терма), либо голова вычисляемая. Карточка появится вместе со сценарием, написанным руками."
+    },
+    {
+      "predicate": "umlage_abzug",
+      "reason": "Вывод без исполнимого свидетельства: посылки правила содержат формы, которых порождённый сценарий не строит (дизъюнкция, текстовое значение или вызов терма), либо голова вычисляемая. Карточка появится вместе со сценарием, написанным руками."
+    },
+    {
+      "predicate": "abzuege_von_der_miete",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (MieteNachNeun); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AlleHaushaltsmitgliederAusgeschlossen, Gesamteinkommen, MNachAnlageDrei…); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "aufenthaltsvoraussetzung_3_abs5_status",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AuslaendischePersonMitStatus); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "aufenthaltsvoraussetzung_erfuellt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AngehoerigerIstHaushaltsmitglied, AntragstellerIstHaushaltsmitglied, GewuerdigteVerantwortungsgemeinschaftIstHaushaltsmitglied…); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "aufwendungen_40a_bestimmt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (PauschalLohnOhneAufwendungen); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "ausschliessende_leistung",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AusschlussEmpfaengerMitKostenDerUnterkunft, LeistungOhneKostenDerUnterkunft); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "ausschlussstatus_bestimmt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (HaushaltFestgestellt); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "einkommensangabe_unvollstaendig",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (SummeEinnahmen14); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "einkuenfte_arbeit_bestimmt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (ArbeitslohnOhneBetrag); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "erwerbseinnahme",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (FreibetragErwerbseinkommenKind); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "gesamteinkommen",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (MonatlichesGesamteinkommen, YNachAnlageDrei); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "gesamtzahl_haushaltsmitglieder",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (Heizkostenentlastung, HoechstbetragMitKlimakomponente, ZuBeruecksichtigendeMiete…); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "haushalt_festgestellt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AnzahlZuBeruecksichtigenderHaushaltsmitglieder, GesamtzahlHaushaltsmitglieder); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "haushaltsmitglied",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AlleHaushaltsmitgliederAusgeschlossen, AngehoerigerIstHaushaltsmitglied, FreibetragAlleinerziehend…); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "heizkostenentlastung",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (ZuBeruecksichtigendeMiete, ZuBeruecksichtigendeMieteImHeim); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "hoechstbetrag_mit_klimakomponente",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (ZuBeruecksichtigendeMiete, ZuBeruecksichtigendeMieteImHeim); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "insel_ohne_festlandanschluss",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (MietenstufeDesKreises, MietenstufeInselnOhneFestlandanschluss); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "jahreseinkommen",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (Gesamteinkommen, JahreseinkommenBestimmt); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "jahreseinkommen_bestimmt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (Gesamteinkommen); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "kein_ausschluss_nach_20",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (Wohngeldanspruch); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "m_nach_anlage3",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (WohngeldUngerundet); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "miete_aus_vertrag_grundlage",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (ZuBeruecksichtigendeMiete); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "miete_nach_9",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (ZuBeruecksichtigendeMiete); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "mietenstufe",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (HoechstbetragMitKlimakomponente, MietenstufeDesKreises, MietenstufeGesondertAufgefuehrteGemeinde…); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "mietenstufe_nummer",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (MietenstufeNummer1IstStufeI, MietenstufeNummer2IstStufeII, MietenstufeNummer3IstStufeIII…); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "mietzuschuss_grundlage",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (WohngeldberechtigtNichtAusgeschlossen, WohngeldberechtigtTrotzAusschluss, ZuBeruecksichtigendeMiete); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "monatliches_gesamteinkommen",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (YNachAnlageDrei); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "nicht_vom_wohngeld_ausgeschlossen",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AusschlussstatusBestimmtNegativ, WohngeldberechtigtNichtAusgeschlossen, ZuBeruecksichtigendesHaushaltsmitglied); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "sonstige_einkuenfte_bestimmt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (LeibrenteOhneBetrag); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "summe_einnahmen_14",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (Jahreseinkommen); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "verantwortungsgemeinschaft_vermutet",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (VermuteteVerantwortungsgemeinschaftIstHaushaltsmitglied); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "vermutungstatbestand_geprueft",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (GewuerdigteVerantwortungsgemeinschaftIstHaushaltsmitglied); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "vom_wohngeld_ausgeschlossen",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (AusschlussstatusBestimmtNegativ, AusschlussstatusBestimmtPositiv, WohngeldberechtigtNichtAusgeschlossen…); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "wohngeld_monatlich",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (WenigerAlsZehnEuro, Wohngeldanspruch); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "wohngeld_ungerundet",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (WohngeldGerundetBisZwoelf, WohngeldUeberZwoelfMitglieder); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "wohngeldberechtigt",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (Wohngeldanspruch, ZuBeruecksichtigendeMiete, ZuBeruecksichtigendeMieteImHeim); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "y_nach_anlage3",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (WohngeldUngerundet); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "zahlungen_an_dritte",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (MieteNachNeun); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "zu_beruecksichtigende_miete",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (MNachAnlageDrei, WohngeldUeberZwoelfMitglieder); самостоятельным вопросом к пакету он не является."
+    },
+    {
+      "predicate": "zu_beruecksichtigendes_haushaltsmitglied",
+      "reason": "Промежуточное звено: предикат выводится правилом пакета и читается телами других правил (FreibetragAlleinerziehend, FreibetragErwerbseinkommenKind, FreibetragNsVerfolgung…); самостоятельным вопросом к пакету он не является."
+    }
+  ]
+}

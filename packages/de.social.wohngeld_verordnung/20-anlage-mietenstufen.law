@@ -1,0 +1,2821 @@
+language "law.core" version "0.2";
+package de.social.wohngeld_verordnung version "0.1.0";
+namespace "urn:de:social:clir:wohngeld-verordnung";
+
+use self::{
+    WOGV_ANLAGE_BB_GEMEINDE,
+    WOGV_ANLAGE_BB_KREIS,
+    WOGV_ANLAGE_BE_GEMEINDE,
+    WOGV_ANLAGE_BW_GEMEINDE,
+    WOGV_ANLAGE_BW_KREIS,
+    WOGV_ANLAGE_BY_GEMEINDE,
+    WOGV_ANLAGE_BY_KREIS,
+    WOGV_ANLAGE_HB_GEMEINDE,
+    WOGV_ANLAGE_HE_GEMEINDE,
+    WOGV_ANLAGE_HE_KREIS,
+    WOGV_ANLAGE_HH_GEMEINDE,
+    WOGV_ANLAGE_INSELN_GEMEINSAM,
+    WOGV_ANLAGE_MV_GEMEINDE,
+    WOGV_ANLAGE_MV_KREIS,
+    WOGV_ANLAGE_NI_GEMEINDE,
+    WOGV_ANLAGE_NI_KREIS,
+    WOGV_ANLAGE_NW_GEMEINDE,
+    WOGV_ANLAGE_NW_KREIS,
+    WOGV_ANLAGE_RP_GEMEINDE,
+    WOGV_ANLAGE_RP_KREIS,
+    WOGV_ANLAGE_SH_GEMEINDE,
+    WOGV_ANLAGE_SH_KREIS,
+    WOGV_ANLAGE_SL_GEMEINDE,
+    WOGV_ANLAGE_SL_KREIS,
+    WOGV_ANLAGE_SN_GEMEINDE,
+    WOGV_ANLAGE_SN_KREIS,
+    WOGV_ANLAGE_ST_GEMEINDE,
+    WOGV_ANLAGE_ST_KREIS,
+    WOGV_ANLAGE_TH_GEMEINDE,
+    WOGV_ANLAGE_TH_KREIS,
+    mietenstufe_anfrage,
+    mietenstufe_anfrage_kreis,
+    mietenstufe_gemeinde,
+    mietenstufe_gemeinsam,
+    mietenstufe_kreis,
+};
+
+// ПОРОЖДЁННЫЙ ФАЙЛ. Правится только corpus/tools/sources/sync/sync_de_wohngeld.py;
+// байты кладёт corpus/tools/sources/fetch/fetch_de_wohngeld_texts.py.
+
+
+// Anlage (zu § 1 Absatz 3) WoGV: «Mietenstufen der Gemeinden nach Ländern ab
+// 1. Januar 2023». Строки таблицы сгруппированы по (Land, раздел, ступень):
+// одно правило на группу, анкер — фрагмент раздела, условие — название в
+// написании Anlage. Правило срабатывает только для ЗАПРОШЕННОЙ пары
+// (`mietenstufe_anfrage` — Wohnort домохозяйства, её пишет WoGG): таблица из
+// 1 881 строки не материализуется целиком в каждом вычислении.
+// Ступень — номер 1…7 вместо римской цифры: перечисление ступеней принадлежит
+// § 12 Abs. 5 WoGG, а WoGV закон не импортирует.
+
+@source(WOGV_ANLAGE_BW_GEMEINDE)
+rule MietenstufeBWGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Baden-Württemberg — Gemeinden der Mietenstufe III (75)";
+    label en unofficial "Baden-Württemberg: municipalities with rent level III (75)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Baden-Württemberg"
+        and (gemeinde == "Aalen, Stadt"
+        or gemeinde == "Bad Dürrheim, Stadt"
+        or gemeinde == "Bad Mergentheim, Stadt"
+        or gemeinde == "Bad Rappenau, Stadt"
+        or gemeinde == "Biberach an der Riß, Stadt"
+        or gemeinde == "Birkenfeld"
+        or gemeinde == "Blaubeuren, Stadt"
+        or gemeinde == "Brackenheim, Stadt"
+        or gemeinde == "Bretten, Stadt"
+        or gemeinde == "Bruchsal, Stadt"
+        or gemeinde == "Brühl"
+        or gemeinde == "Bühl, Stadt"
+        or gemeinde == "Edingen-Neckarhausen"
+        or gemeinde == "Ehingen (Donau), Stadt"
+        or gemeinde == "Ellwangen (Jagst), Stadt"
+        or gemeinde == "Endingen am Kaiserstuhl, Stadt"
+        or gemeinde == "Engen, Stadt"
+        or gemeinde == "Eppingen, Stadt"
+        or gemeinde == "Erbach, Stadt"
+        or gemeinde == "Freudenstadt, Stadt"
+        or gemeinde == "Gaggenau, Stadt"
+        or gemeinde == "Geislingen an der Steige, Stadt"
+        or gemeinde == "Gengenbach, Stadt"
+        or gemeinde == "Gernsbach, Stadt"
+        or gemeinde == "Göppingen, Stadt"
+        or gemeinde == "Gottmadingen"
+        or gemeinde == "Graben-Neudorf"
+        or gemeinde == "Heddesheim"
+        or gemeinde == "Hemsbach, Stadt"
+        or gemeinde == "Herbolzheim, Stadt"
+        or gemeinde == "Hockenheim, Stadt"
+        or gemeinde == "Isny im Allgäu, Stadt"
+        or gemeinde == "Karlsbad"
+        or gemeinde == "Karlsdorf-Neuthard"
+        or gemeinde == "Kehl, Stadt"
+        or gemeinde == "Künzelsau, Stadt"
+        or gemeinde == "Lahr/Schwarzwald, Stadt"
+        or gemeinde == "Laichingen, Stadt"
+        or gemeinde == "Langenau, Stadt"
+        or gemeinde == "Laupheim, Stadt"
+        or gemeinde == "Linkenheim-Hochstetten"
+        or gemeinde == "Lorch, Stadt"
+        or gemeinde == "Malsch"
+        or gemeinde == "Mosbach, Stadt"
+        or gemeinde == "Mühlacker, Stadt"
+        or gemeinde == "Neckargemünd, Stadt"
+        or gemeinde == "Niefern-Öschelbronn"
+        or gemeinde == "Oberderdingen"
+        or gemeinde == "Obersulm"
+        or gemeinde == "Offenburg, Stadt"
+        or gemeinde == "Pfinztal"
+        or gemeinde == "Rastatt, Stadt"
+        or gemeinde == "Remshalden"
+        or gemeinde == "Rottweil, Stadt"
+        or gemeinde == "Salem"
+        or gemeinde == "Sankt Leon-Rot"
+        or gemeinde == "Schopfheim, Stadt"
+        or gemeinde == "Schwäbisch Gmünd, Stadt"
+        or gemeinde == "Schwäbisch Hall, Stadt"
+        or gemeinde == "Schwaigern, Stadt"
+        or gemeinde == "Sinsheim, Stadt"
+        or gemeinde == "Spaichingen, Stadt"
+        or gemeinde == "Stutensee, Stadt"
+        or gemeinde == "Süßen, Stadt"
+        or gemeinde == "Teningen"
+        or gemeinde == "Ubstadt-Weiher"
+        or gemeinde == "Uhingen, Stadt"
+        or gemeinde == "Vaihingen an der Enz, Stadt"
+        or gemeinde == "Villingen-Schwenningen, Stadt"
+        or gemeinde == "Waghäusel, Stadt"
+        or gemeinde == "Waldshut-Tiengen, Stadt"
+        or gemeinde == "Wangen im Allgäu, Stadt"
+        or gemeinde == "Weilheim an der Teck, Stadt"
+        or gemeinde == "Weingarten, Baden"
+        or gemeinde == "Welzheim, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_BW_GEMEINDE)
+rule MietenstufeBWGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Baden-Württemberg — Gemeinden der Mietenstufe II (48)";
+    label en unofficial "Baden-Württemberg: municipalities with rent level II (48)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Baden-Württemberg"
+        and (gemeinde == "Achern, Stadt"
+        or gemeinde == "Albstadt, Stadt"
+        or gemeinde == "Altensteig, Stadt"
+        or gemeinde == "Appenweier"
+        or gemeinde == "Aulendorf, Stadt"
+        or gemeinde == "Bad Saulgau, Stadt"
+        or gemeinde == "Bad Waldsee, Stadt"
+        or gemeinde == "Bad Wildbad, Stadt"
+        or gemeinde == "Bad Wurzach, Stadt"
+        or gemeinde == "Baiersbronn"
+        or gemeinde == "Balingen, Stadt"
+        or gemeinde == "Bopfingen, Stadt"
+        or gemeinde == "Bretzfeld"
+        or gemeinde == "Buchen (Odenwald), Stadt"
+        or gemeinde == "Crailsheim, Stadt"
+        or gemeinde == "Donaueschingen, Stadt"
+        or gemeinde == "Donzdorf, Stadt"
+        or gemeinde == "Eberbach, Stadt"
+        or gemeinde == "Ettenheim, Stadt"
+        or gemeinde == "Friesenheim"
+        or gemeinde == "Gaildorf, Stadt"
+        or gemeinde == "Giengen an der Brenz, Stadt"
+        or gemeinde == "Herbrechtingen, Stadt"
+        or gemeinde == "Horb am Neckar, Stadt"
+        or gemeinde == "Königsbach-Stein"
+        or gemeinde == "Leutkirch im Allgäu, Stadt"
+        or gemeinde == "Meßstetten, Stadt"
+        or gemeinde == "Münsingen, Stadt"
+        or gemeinde == "Murrhardt, Stadt"
+        or gemeinde == "Neuenstadt am Kocher, Stadt"
+        or gemeinde == "Oberkirch, Stadt"
+        or gemeinde == "Oberndorf am Neckar, Stadt"
+        or gemeinde == "Östringen, Stadt"
+        or gemeinde == "Pfullendorf, Stadt"
+        or gemeinde == "Phillipsburg, Stadt"
+        or gemeinde == "Remchingen"
+        or gemeinde == "Rheinau, Stadt"
+        or gemeinde == "Riedlingen, Stadt"
+        or gemeinde == "Rudersberg"
+        or gemeinde == "St. Georgen i. Schwarzwald, Stadt"
+        or gemeinde == "Schramberg, Stadt"
+        or gemeinde == "Sigmaringen, Stadt"
+        or gemeinde == "Stockach, Stadt"
+        or gemeinde == "Straubenhardt"
+        or gemeinde == "Sulz am Neckar, Stadt"
+        or gemeinde == "Titisee-Neustadt, Stadt"
+        or gemeinde == "Wertheim, Stadt"
+        or gemeinde == "Wildberg, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_BW_GEMEINDE)
+rule MietenstufeBWGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Baden-Württemberg — Gemeinden der Mietenstufe IV (69)";
+    label en unofficial "Baden-Württemberg: municipalities with rent level IV (69)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Baden-Württemberg"
+        and (gemeinde == "Ammerbuch"
+        or gemeinde == "Backnang, Stadt"
+        or gemeinde == "Bad Friedrichshall, Stadt"
+        or gemeinde == "Bad Säckingen, Stadt"
+        or gemeinde == "Bad Schönborn"
+        or gemeinde == "Bad Urach, Stadt"
+        or gemeinde == "Baden-Baden, Stadt"
+        or gemeinde == "Breisach am Rhein, Stadt"
+        or gemeinde == "Calw, Stadt"
+        or gemeinde == "Denzlingen"
+        or gemeinde == "Durmersheim"
+        or gemeinde == "Ebersbach an der Fils, Stadt"
+        or gemeinde == "Eggenstein-Leopoldshafen"
+        or gemeinde == "Eislingen/Fils, Stadt"
+        or gemeinde == "Emmendingen, Stadt"
+        or gemeinde == "Eningen unter Achalm"
+        or gemeinde == "Ettlingen, Stadt"
+        or gemeinde == "Gärtringen"
+        or gemeinde == "Hechingen, Stadt"
+        or gemeinde == "Heidenheim an der Brenz, Stadt"
+        or gemeinde == "Heilbronn, Stadt"
+        or gemeinde == "Karlsruhe, Stadt"
+        or gemeinde == "Kenzingen, Stadt"
+        or gemeinde == "Ketsch"
+        or gemeinde == "Ladenburg, Stadt"
+        or gemeinde == "Lauffen am Neckar, Stadt"
+        or gemeinde == "Leimen, Stadt"
+        or gemeinde == "Leingarten, Stadt"
+        or gemeinde == "Leutenbach"
+        or gemeinde == "Markgröningen, Stadt"
+        or gemeinde == "Meckenbeuren"
+        or gemeinde == "Mössingen, Stadt"
+        or gemeinde == "Müllheim, Stadt"
+        or gemeinde == "Nagold, Stadt"
+        or gemeinde == "Neckarsulm, Stadt"
+        or gemeinde == "Nürtingen, Stadt"
+        or gemeinde == "Öhringen, Stadt"
+        or gemeinde == "Oftersheim"
+        or gemeinde == "Pforzheim, Stadt"
+        or gemeinde == "Pfullingen, Stadt"
+        or gemeinde == "Plankstadt"
+        or gemeinde == "Radolfzell am Bodensee, Stadt"
+        or gemeinde == "Reutlingen, Stadt"
+        or gemeinde == "Rheinfelden (Baden), Stadt"
+        or gemeinde == "Rheinstetten, Stadt"
+        or gemeinde == "Rielasingen-Worblingen"
+        or gemeinde == "Rottenburg am Neckar, Stadt"
+        or gemeinde == "Sachsenheim, Stadt"
+        or gemeinde == "Sandhausen"
+        or gemeinde == "Schorndorf, Stadt"
+        or gemeinde == "Schönaich"
+        or gemeinde == "Schriesheim, Stadt"
+        or gemeinde == "Schwetzingen, Stadt"
+        or gemeinde == "Sindelfingen, Stadt"
+        or gemeinde == "Singen (Hohentwiel), Stadt"
+        or gemeinde == "Sinzheim"
+        or gemeinde == "Steinheim an der Murr, Stadt"
+        or gemeinde == "Trossingen, Stadt"
+        or gemeinde == "Tuttlingen, Stadt"
+        or gemeinde == "Überlingen, Stadt"
+        or gemeinde == "Ulm, Universitätsstadt"
+        or gemeinde == "Waldbronn"
+        or gemeinde == "Waldkirch, Stadt"
+        or gemeinde == "Walldorf, Stadt"
+        or gemeinde == "Wehr, Stadt"
+        or gemeinde == "Weinheim, Stadt"
+        or gemeinde == "Weinsberg, Stadt"
+        or gemeinde == "Wendlingen am Neckar, Stadt"
+        or gemeinde == "Wiesloch, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_BW_GEMEINDE)
+rule MietenstufeBWGemeindeV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Baden-Württemberg — Gemeinden der Mietenstufe V (44)";
+    label en unofficial "Baden-Württemberg: municipalities with rent level V (44)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Baden-Württemberg"
+        and (gemeinde == "Asperg, Stadt"
+        or gemeinde == "Bad Krozingen, Stadt"
+        or gemeinde == "Besigheim, Stadt"
+        or gemeinde == "Bietigheim-Bissingen, Stadt"
+        or gemeinde == "Blaustein, Stadt"
+        or gemeinde == "Denkendorf"
+        or gemeinde == "Ditzingen, Stadt"
+        or gemeinde == "Dossenheim"
+        or gemeinde == "Eppelheim, Stadt"
+        or gemeinde == "Esslingen am Neckar, Stadt"
+        or gemeinde == "Fellbach, Stadt"
+        or gemeinde == "Filderstadt, Stadt"
+        or gemeinde == "Friedrichshafen, Stadt"
+        or gemeinde == "Grenzach-Wyhlen"
+        or gemeinde == "Gundelfingen"
+        or gemeinde == "Heidelberg, Stadt"
+        or gemeinde == "Herrenberg, Stadt"
+        or gemeinde == "Kernen im Remstal"
+        or gemeinde == "Kirchheim unter Teck, Stadt"
+        or gemeinde == "Korb"
+        or gemeinde == "Konstanz, Universitätsstadt"
+        or gemeinde == "Lörrach, Stadt"
+        or gemeinde == "Mannheim, Universitätsstadt"
+        or gemeinde == "Marbach am Neckar, Stadt"
+        or gemeinde == "Markdorf, Stadt"
+        or gemeinde == "Metzingen, Stadt"
+        or gemeinde == "Möglingen"
+        or gemeinde == "Neuenburg am Rhein, Stadt"
+        or gemeinde == "Neuhausen auf den Fildern"
+        or gemeinde == "Nußloch"
+        or gemeinde == "Ostfildern, Stadt"
+        or gemeinde == "Plochingen, Stadt"
+        or gemeinde == "Ravensburg, Stadt"
+        or gemeinde == "Remseck am Neckar, Stadt"
+        or gemeinde == "Renningen, Stadt"
+        or gemeinde == "Rutesheim, Stadt"
+        or gemeinde == "Tettnang, Stadt"
+        or gemeinde == "Waiblingen, Stadt"
+        or gemeinde == "Weil am Rhein, Stadt"
+        or gemeinde == "Weil der Stadt, Stadt"
+        or gemeinde == "Weingarten, Stadt"
+        or gemeinde == "Weinstadt, Stadt"
+        or gemeinde == "Wernau (Neckar), Stadt"
+        or gemeinde == "Winnenden, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 5);
+}
+
+@source(WOGV_ANLAGE_BW_GEMEINDE)
+rule MietenstufeBWGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Baden-Württemberg — Gemeinden der Mietenstufe I (8)";
+    label en unofficial "Baden-Württemberg: municipalities with rent level I (8)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Baden-Württemberg"
+        and (gemeinde == "Blumberg, Stadt"
+        or gemeinde == "Burladingen, Stadt"
+        or gemeinde == "Gerstetten"
+        or gemeinde == "Haigerloch, Stadt"
+        or gemeinde == "Kraichtal, Stadt"
+        or gemeinde == "Lauda-Königshofen, Stadt"
+        or gemeinde == "Tauberbischofsheim, Stadt"
+        or gemeinde == "Walldürn, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_BW_GEMEINDE)
+rule MietenstufeBWGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Baden-Württemberg — Gemeinden der Mietenstufe VI (14)";
+    label en unofficial "Baden-Württemberg: municipalities with rent level VI (14)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Baden-Württemberg"
+        and (gemeinde == "Böblingen, Stadt"
+        or gemeinde == "Freiberg am Neckar, Stadt"
+        or gemeinde == "Freiburg im Breisgau, Stadt"
+        or gemeinde == "Gerlingen, Stadt"
+        or gemeinde == "Holzgerlingen, Stadt"
+        or gemeinde == "Korntal-Münchingen, Stadt"
+        or gemeinde == "Kornwestheim, Stadt"
+        or gemeinde == "Leinfelden-Echterdingen, Stadt"
+        or gemeinde == "Leonberg, Stadt"
+        or gemeinde == "Ludwigsburg, Stadt"
+        or gemeinde == "Schwieberdingen"
+        or gemeinde == "Stuttgart, Landeshauptstadt"
+        or gemeinde == "Tamm"
+        or gemeinde == "Weil im Schönbuch");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_BW_GEMEINDE)
+rule MietenstufeBWGemeindeVII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Baden-Württemberg — Gemeinden der Mietenstufe VII (1)";
+    label en unofficial "Baden-Württemberg: municipalities with rent level VII (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Baden-Württemberg"
+        and (gemeinde == "Tübingen, Universitätsstadt");
+    then mietenstufe_gemeinde(land, gemeinde, 7);
+}
+
+@source(WOGV_ANLAGE_BW_KREIS)
+rule MietenstufeBWKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Baden-Württemberg — Kreise der Mietenstufe II (15)";
+    label en unofficial "Baden-Württemberg: districts with rent level II (15)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Baden-Württemberg"
+        and (kreis == "Alb-Donau-Kreis"
+        or kreis == "Biberach"
+        or kreis == "Calw"
+        or kreis == "Emmendingen"
+        or kreis == "Göppingen"
+        or kreis == "Heidenheim"
+        or kreis == "Karlsruhe"
+        or kreis == "Ortenaukreis"
+        or kreis == "Ostalbkreis"
+        or kreis == "Rastatt"
+        or kreis == "Ravensburg"
+        or kreis == "Rhein-Neckar-Kreis"
+        or kreis == "Schwarzwald-Baar-Kreis"
+        or kreis == "Tuttlingen"
+        or kreis == "Waldshut");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_BW_KREIS)
+rule MietenstufeBWKreisIV(land: Text, kreis: Text) strict {
+    label de official "Land: Baden-Württemberg — Kreise der Mietenstufe IV (5)";
+    label en unofficial "Baden-Württemberg: districts with rent level IV (5)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Baden-Württemberg"
+        and (kreis == "Bodenseekreis"
+        or kreis == "Breisgau-Hochschwarzwald"
+        or kreis == "Esslingen"
+        or kreis == "Ludwigsburg"
+        or kreis == "Tübingen");
+    then mietenstufe_kreis(land, kreis, 4);
+}
+
+@source(WOGV_ANLAGE_BW_KREIS)
+rule MietenstufeBWKreisV(land: Text, kreis: Text) strict {
+    label de official "Land: Baden-Württemberg — Kreise der Mietenstufe V (1)";
+    label en unofficial "Baden-Württemberg: districts with rent level V (1)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Baden-Württemberg"
+        and (kreis == "Böblingen");
+    then mietenstufe_kreis(land, kreis, 5);
+}
+
+@source(WOGV_ANLAGE_BW_KREIS)
+rule MietenstufeBWKreisIII(land: Text, kreis: Text) strict {
+    label de official "Land: Baden-Württemberg — Kreise der Mietenstufe III (6)";
+    label en unofficial "Baden-Württemberg: districts with rent level III (6)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Baden-Württemberg"
+        and (kreis == "Enzkreis"
+        or kreis == "Heilbronn"
+        or kreis == "Konstanz"
+        or kreis == "Lörrach"
+        or kreis == "Rems-Murr-Kreis"
+        or kreis == "Reutlingen");
+    then mietenstufe_kreis(land, kreis, 3);
+}
+
+@source(WOGV_ANLAGE_BW_KREIS)
+rule MietenstufeBWKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Baden-Württemberg — Kreise der Mietenstufe I (8)";
+    label en unofficial "Baden-Württemberg: districts with rent level I (8)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Baden-Württemberg"
+        and (kreis == "Freudenstadt"
+        or kreis == "Hohenlohekreis"
+        or kreis == "Main-Tauber-Kreis"
+        or kreis == "Neckar-Odenwald-Kreis"
+        or kreis == "Rottweil"
+        or kreis == "Schwäbisch-Hall"
+        or kreis == "Sigmaringen"
+        or kreis == "Zollernalbkreis");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_BY_GEMEINDE)
+rule MietenstufeBYGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bayern — Gemeinden der Mietenstufe III (51)";
+    label en unofficial "Bayern: municipalities with rent level III (51)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bayern"
+        and (gemeinde == "Abensberg, Stadt"
+        or gemeinde == "Aichach, Stadt"
+        or gemeinde == "Altdorf, Markt"
+        or gemeinde == "Ansbach, Stadt"
+        or gemeinde == "Bad Abbach, Markt"
+        or gemeinde == "Bad Reichenhall, Stadt"
+        or gemeinde == "Bad Wörishofen, Stadt"
+        or gemeinde == "Bamberg, Stadt"
+        or gemeinde == "Bayreuth, Stadt"
+        or gemeinde == "Burghausen, Stadt"
+        or gemeinde == "Burgthann"
+        or gemeinde == "Cadolzburg, Markt"
+        or gemeinde == "Eckental, Markt"
+        or gemeinde == "Eichstätt, Stadt"
+        or gemeinde == "Forchheim, Stadt"
+        or gemeinde == "Freilassing, Stadt"
+        or gemeinde == "Friedberg, Stadt"
+        or gemeinde == "Füssen, Stadt"
+        or gemeinde == "Geisenfeld, Stadt"
+        or gemeinde == "Gersthofen, Stadt"
+        or gemeinde == "Goldbach, Markt"
+        or gemeinde == "Hersbruck, Stadt"
+        or gemeinde == "Höchstadt a. d. Aisch, Stadt"
+        or gemeinde == "Illertissen, Stadt"
+        or gemeinde == "Immenstadt i. Allgäu, Stadt"
+        or gemeinde == "Kaufbeuren, Stadt"
+        or gemeinde == "Kelheim, Stadt"
+        or gemeinde == "Langenzenn, Stadt"
+        or gemeinde == "Lappersdorf, Markt"
+        or gemeinde == "Lenggries"
+        or gemeinde == "Lindenberg i. Allgäu, Stadt"
+        or gemeinde == "Mainburg, Stadt"
+        or gemeinde == "Marktoberdorf, Stadt"
+        or gemeinde == "Meitingen, Markt"
+        or gemeinde == "Memmingen, Stadt"
+        or gemeinde == "Mindelheim, Stadt"
+        or gemeinde == "Mühldorf am Inn, Stadt"
+        or gemeinde == "Neumarkt i. d. Oberpfalz, Stadt"
+        or gemeinde == "Passau, Stadt"
+        or gemeinde == "Peiting, Markt"
+        or gemeinde == "Raubling"
+        or gemeinde == "Röthenbach a. d. Pegnitz, Stadt"
+        or gemeinde == "Schongau, Stadt"
+        or gemeinde == "Schwabach, Stadt"
+        or gemeinde == "Schwabmünchen, Stadt"
+        or gemeinde == "Sonthofen, Stadt"
+        or gemeinde == "Traunreut, Stadt"
+        or gemeinde == "Traunstein, Stadt"
+        or gemeinde == "Weißenhorn, Stadt"
+        or gemeinde == "Wolnzach, Markt"
+        or gemeinde == "Zirndorf, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_BY_GEMEINDE)
+rule MietenstufeBYGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bayern — Gemeinden der Mietenstufe II (49)";
+    label en unofficial "Bayern: municipalities with rent level II (49)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bayern"
+        and (gemeinde == "Altdorf bei Nürnberg, Stadt"
+        or gemeinde == "Altötting, Stadt"
+        or gemeinde == "Alzenau i. Ufr., Stadt"
+        or gemeinde == "Amberg, Stadt"
+        or gemeinde == "Bad Kissingen, Stadt"
+        or gemeinde == "Bad Windsheim, Stadt"
+        or gemeinde == "Bogen"
+        or gemeinde == "Burgau, Stadt"
+        or gemeinde == "Burglengenfeld, Stadt"
+        or gemeinde == "Coburg, Stadt"
+        or gemeinde == "Deggendorf, Stadt"
+        or gemeinde == "Dillingen a. d. Donau, Stadt"
+        or gemeinde == "Dingolfing, Stadt"
+        or gemeinde == "Donauwörth, Stadt"
+        or gemeinde == "Eggenfelden, Stadt"
+        or gemeinde == "Erlenbach am Main, Stadt"
+        or gemeinde == "Essenbach, Markt"
+        or gemeinde == "Feuchtwangen, Stadt"
+        or gemeinde == "Großostheim, Markt"
+        or gemeinde == "Günzburg, Stadt"
+        or gemeinde == "Haßfurt, Stadt"
+        or gemeinde == "Hilpoltstein, Stadt"
+        or gemeinde == "Hösbach, Markt"
+        or gemeinde == "Karlstadt, Stadt"
+        or gemeinde == "Kitzingen, Stadt"
+        or gemeinde == "Kronach, Stadt"
+        or gemeinde == "Krumbach (Schwaben), Stadt"
+        or gemeinde == "Lauingen (Donau), Stadt"
+        or gemeinde == "Lohr am Main, Stadt"
+        or gemeinde == "Marktheidenfeld, Stadt"
+        or gemeinde == "Maxhütte-Haidhof, Stadt"
+        or gemeinde == "Neustadt an der Aisch, Stadt"
+        or gemeinde == "Neustadt an der Donau, Stadt"
+        or gemeinde == "Nördlingen, Stadt"
+        or gemeinde == "Ochsenfurt, Stadt"
+        or gemeinde == "Pegnitz, Stadt"
+        or gemeinde == "Pfarrkirchen, Stadt"
+        or gemeinde == "Plattling, Stadt"
+        or gemeinde == "Regenstauf, Markt"
+        or gemeinde == "Roßtal, Markt"
+        or gemeinde == "Roth, Stadt"
+        or gemeinde == "Schrobenhausen, Stadt"
+        or gemeinde == "Schwandorf, Stadt"
+        or gemeinde == "Schweinfurt, Stadt"
+        or gemeinde == "Straubing, Stadt"
+        or gemeinde == "Taufkirchen"
+        or gemeinde == "Trostberg, Stadt"
+        or gemeinde == "Vilsbiburg, Stadt"
+        or gemeinde == "Waldkraiburg, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_BY_GEMEINDE)
+rule MietenstufeBYGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bayern — Gemeinden der Mietenstufe I (34)";
+    label en unofficial "Bayern: municipalities with rent level I (34)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bayern"
+        and (gemeinde == "Altusried, Markt"
+        or gemeinde == "Bad Neustadt a. d. Saale, Stadt"
+        or gemeinde == "Bad Staffelstein, Stadt"
+        or gemeinde == "Burgkirchen a. d. Alz"
+        or gemeinde == "Cham, Stadt"
+        or gemeinde == "Dinkelsbühl, Stadt"
+        or gemeinde == "Gemünden am Main, Stadt"
+        or gemeinde == "Gunzenhausen, Stadt"
+        or gemeinde == "Hammelburg, Stadt"
+        or gemeinde == "Hauzenberg, Stadt"
+        or gemeinde == "Hirschaid, Markt"
+        or gemeinde == "Hof, Stadt"
+        or gemeinde == "Kulmbach, Stadt"
+        or gemeinde == "Landau an der Isar, Stadt"
+        or gemeinde == "Lichtenfels, Stadt"
+        or gemeinde == "Marktredwitz, Stadt"
+        or gemeinde == "Mömbris, Markt"
+        or gemeinde == "Münchberg, Stadt"
+        or gemeinde == "Neustadt bei Coburg, Stadt"
+        or gemeinde == "Osterhofen, Stadt"
+        or gemeinde == "Pocking, Stadt"
+        or gemeinde == "Regen, Stadt"
+        or gemeinde == "Roding, Stadt"
+        or gemeinde == "Rödental, Stadt"
+        or gemeinde == "Rothenburg ob der Tauber, Stadt"
+        or gemeinde == "Selb, Stadt"
+        or gemeinde == "Simbach a. Inn, Stadt"
+        or gemeinde == "Sulzbach-Rosenberg, Stadt"
+        or gemeinde == "Treuchtlingen, Stadt"
+        or gemeinde == "Vilshofen a. d. Donau, Stadt"
+        or gemeinde == "Waldkirchen, Stadt"
+        or gemeinde == "Weiden i. d. Oberpfalz, Stadt"
+        or gemeinde == "Weißenburg i. Bayern, Stadt"
+        or gemeinde == "Werneck, Markt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_BY_GEMEINDE)
+rule MietenstufeBYGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bayern — Gemeinden der Mietenstufe IV (37)";
+    label en unofficial "Bayern: municipalities with rent level IV (37)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bayern"
+        and (gemeinde == "Aschaffenburg, Stadt"
+        or gemeinde == "Bobingen, Stadt"
+        or gemeinde == "Bruckmühl, Markt"
+        or gemeinde == "Buchloe, Stadt"
+        or gemeinde == "Diedorf, Markt"
+        or gemeinde == "Dorfen, Stadt"
+        or gemeinde == "Ergolding, Markt"
+        or gemeinde == "Erlangen, Stadt"
+        or gemeinde == "Feucht, Markt"
+        or gemeinde == "Fürth, Stadt"
+        or gemeinde == "Geretsried, Stadt"
+        or gemeinde == "Herzogenaurach, Stadt"
+        or gemeinde == "Kaufering, Markt"
+        or gemeinde == "Kempten (Allgäu), Stadt"
+        or gemeinde == "Kissing"
+        or gemeinde == "Königsbrunn, Stadt"
+        or gemeinde == "Kolbermoor, Stadt"
+        or gemeinde == "Landshut, Stadt"
+        or gemeinde == "Lauf a. d. Pegnitz, Stadt"
+        or gemeinde == "Mering, Markt"
+        or gemeinde == "Miesbach, Stadt"
+        or gemeinde == "Neuburg an der Donau, Stadt"
+        or gemeinde == "Neusäß, Stadt"
+        or gemeinde == "Neutraubling, Stadt"
+        or gemeinde == "Oberasbach, Stadt"
+        or gemeinde == "Peißenberg, Markt"
+        or gemeinde == "Penzberg, Stadt"
+        or gemeinde == "Pfaffenhofen a. d. Ilm, Stadt"
+        or gemeinde == "Prien am Chiemsee, Markt"
+        or gemeinde == "Senden, Stadt"
+        or gemeinde == "Stadtbergen, Markt"
+        or gemeinde == "Stein, Stadt"
+        or gemeinde == "Stephanskirchen"
+        or gemeinde == "Vöhringen, Stadt"
+        or gemeinde == "Wasserburg am Inn, Stadt"
+        or gemeinde == "Wendelstein, Markt"
+        or gemeinde == "Würzburg, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_BY_GEMEINDE)
+rule MietenstufeBYGemeindeV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bayern — Gemeinden der Mietenstufe V (16)";
+    label en unofficial "Bayern: municipalities with rent level V (16)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bayern"
+        and (gemeinde == "Augsburg, Stadt"
+        or gemeinde == "Bad Aibling, Stadt"
+        or gemeinde == "Bad Tölz, Stadt"
+        or gemeinde == "Dießen a. Ammersee, Markt"
+        or gemeinde == "Feldkirchen-Westerham"
+        or gemeinde == "Gaimersheim, Markt"
+        or gemeinde == "Herrsching a. Ammersee"
+        or gemeinde == "Ingolstadt"
+        or gemeinde == "Lindau (Bodensee), Stadt"
+        or gemeinde == "Manching, Markt"
+        or gemeinde == "Neu-Ulm, Stadt"
+        or gemeinde == "Nürnberg, Stadt"
+        or gemeinde == "Regensburg, Stadt"
+        or gemeinde == "Rosenheim"
+        or gemeinde == "Taufkirchen (Vils)"
+        or gemeinde == "Weilheim i. OB, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 5);
+}
+
+@source(WOGV_ANLAGE_BY_GEMEINDE)
+rule MietenstufeBYGemeindeVII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bayern — Gemeinden der Mietenstufe VII (31)";
+    label en unofficial "Bayern: municipalities with rent level VII (31)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bayern"
+        and (gemeinde == "Dachau, Stadt"
+        or gemeinde == "Eching"
+        or gemeinde == "Eichenau"
+        or gemeinde == "Freising, Stadt"
+        or gemeinde == "Fürstenfeldbruck, Stadt"
+        or gemeinde == "Garching bei München, Stadt"
+        or gemeinde == "Germering, Stadt"
+        or gemeinde == "Gilching"
+        or gemeinde == "Gräfelfing"
+        or gemeinde == "Grafing bei München, Stadt"
+        or gemeinde == "Gröbenzell"
+        or gemeinde == "Grünwald"
+        or gemeinde == "Haar"
+        or gemeinde == "Hallbergmoos"
+        or gemeinde == "Höhenkirchen-Siegertsbrunn"
+        or gemeinde == "Karlsfeld"
+        or gemeinde == "Markt Schwaben, Markt"
+        or gemeinde == "München"
+        or gemeinde == "Neubiberg"
+        or gemeinde == "Neufahrn bei Freising"
+        or gemeinde == "Oberhaching"
+        or gemeinde == "Oberschleißheim"
+        or gemeinde == "Olching"
+        or gemeinde == "Ottobrunn"
+        or gemeinde == "Planegg"
+        or gemeinde == "Puchheim"
+        or gemeinde == "Starnberg, Stadt"
+        or gemeinde == "Unterföhring"
+        or gemeinde == "Unterhaching"
+        or gemeinde == "Unterschleißheim"
+        or gemeinde == "Vaterstetten");
+    then mietenstufe_gemeinde(land, gemeinde, 7);
+}
+
+@source(WOGV_ANLAGE_BY_GEMEINDE)
+rule MietenstufeBYGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bayern — Gemeinden der Mietenstufe VI (15)";
+    label en unofficial "Bayern: municipalities with rent level VI (15)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bayern"
+        and (gemeinde == "Ebersberg, Stadt"
+        or gemeinde == "Erding, Stadt"
+        or gemeinde == "Garmisch-Partenkirchen, Markt"
+        or gemeinde == "Gauting"
+        or gemeinde == "Holzkirchen, Markt"
+        or gemeinde == "Ismaning"
+        or gemeinde == "Kirchheim bei München"
+        or gemeinde == "Kirchseeon, Markt"
+        or gemeinde == "Landsberg a. Lech, Stadt"
+        or gemeinde == "Maisach"
+        or gemeinde == "Markt Indersdorf, Markt"
+        or gemeinde == "Moosburg an der Isar, Stadt"
+        or gemeinde == "Murnau am Staffelsee, Markt"
+        or gemeinde == "Poing"
+        or gemeinde == "Wolfratshausen, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_BY_KREIS)
+rule MietenstufeBYKreisIII(land: Text, kreis: Text) strict {
+    label de official "Land: Bayern — Kreise der Mietenstufe III (8)";
+    label en unofficial "Bayern: districts with rent level III (8)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Bayern"
+        and (kreis == "Aichach-Friedberg"
+        or kreis == "Berchtesgadener Land"
+        or kreis == "Eichstätt"
+        or kreis == "Erlangen-Höchstadt"
+        or kreis == "Landsberg a. Lech"
+        or kreis == "Neu-Ulm"
+        or kreis == "Pfaffenhofen a. d. Ilm"
+        or kreis == "Weilheim-Schongau");
+    then mietenstufe_kreis(land, kreis, 3);
+}
+
+@source(WOGV_ANLAGE_BY_KREIS)
+rule MietenstufeBYKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Bayern — Kreise der Mietenstufe I (40)";
+    label en unofficial "Bayern: districts with rent level I (40)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Bayern"
+        and (kreis == "Altötting"
+        or kreis == "Amberg-Sulzbach"
+        or kreis == "Ansbach"
+        or kreis == "Bad Kissingen"
+        or kreis == "Bamberg"
+        or kreis == "Bayreuth"
+        or kreis == "Cham"
+        or kreis == "Coburg"
+        or kreis == "Deggendorf"
+        or kreis == "Dillingen a. d. Donau"
+        or kreis == "Dingolfing-Landau"
+        or kreis == "Donau-Ries"
+        or kreis == "Forchheim"
+        or kreis == "Freyung-Grafenau"
+        or kreis == "Günzburg"
+        or kreis == "Haßberge"
+        or kreis == "Hof"
+        or kreis == "Kelheim"
+        or kreis == "Kitzingen"
+        or kreis == "Kronach"
+        or kreis == "Kulmbach"
+        or kreis == "Lichtenfels"
+        or kreis == "Main-Spessart"
+        or kreis == "Miltenberg"
+        or kreis == "Mühldorf a. Inn"
+        or kreis == "Neumarkt i. d. Oberpfalz"
+        or kreis == "Neustadt/Aisch-Bad Windsheim"
+        or kreis == "Neustadt a. d. Waldnaab"
+        or kreis == "Ostallgäu"
+        or kreis == "Passau"
+        or kreis == "Regen"
+        or kreis == "Rhön-Grabfeld"
+        or kreis == "Rottal-Inn"
+        or kreis == "Schwandorf"
+        or kreis == "Schweinfurt"
+        or kreis == "Straubing-Bogen"
+        or kreis == "Tirschenreuth"
+        or kreis == "Unterallgäu"
+        or kreis == "Weißenburg-Gunzenhausen"
+        or kreis == "Wunsiedel im Fichtelgebirge");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_BY_KREIS)
+rule MietenstufeBYKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Bayern — Kreise der Mietenstufe II (12)";
+    label en unofficial "Bayern: districts with rent level II (12)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Bayern"
+        and (kreis == "Aschaffenburg"
+        or kreis == "Augsburg"
+        or kreis == "Fürth"
+        or kreis == "Landshut"
+        or kreis == "Lindau (Bodensee)"
+        or kreis == "Neuburg-Schrobenhausen"
+        or kreis == "Nürnberger Land"
+        or kreis == "Oberallgäu"
+        or kreis == "Regensburg"
+        or kreis == "Roth"
+        or kreis == "Traunstein"
+        or kreis == "Würzburg");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_BY_KREIS)
+rule MietenstufeBYKreisIV(land: Text, kreis: Text) strict {
+    label de official "Land: Bayern — Kreise der Mietenstufe IV (6)";
+    label en unofficial "Bayern: districts with rent level IV (6)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Bayern"
+        and (kreis == "Bad Tölz-Wolfratshausen"
+        or kreis == "Erding"
+        or kreis == "Freising"
+        or kreis == "Garmisch-Partenkirchen"
+        or kreis == "Miesbach"
+        or kreis == "Rosenheim");
+    then mietenstufe_kreis(land, kreis, 4);
+}
+
+@source(WOGV_ANLAGE_BY_KREIS)
+rule MietenstufeBYKreisV(land: Text, kreis: Text) strict {
+    label de official "Land: Bayern — Kreise der Mietenstufe V (2)";
+    label en unofficial "Bayern: districts with rent level V (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Bayern"
+        and (kreis == "Dachau"
+        or kreis == "Starnberg");
+    then mietenstufe_kreis(land, kreis, 5);
+}
+
+@source(WOGV_ANLAGE_BY_KREIS)
+rule MietenstufeBYKreisVI(land: Text, kreis: Text) strict {
+    label de official "Land: Bayern — Kreise der Mietenstufe VI (2)";
+    label en unofficial "Bayern: districts with rent level VI (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Bayern"
+        and (kreis == "Ebersberg"
+        or kreis == "Fürstenfeldbruck");
+    then mietenstufe_kreis(land, kreis, 6);
+}
+
+@source(WOGV_ANLAGE_BY_KREIS)
+rule MietenstufeBYKreisVII(land: Text, kreis: Text) strict {
+    label de official "Land: Bayern — Kreise der Mietenstufe VII (1)";
+    label en unofficial "Bayern: districts with rent level VII (1)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Bayern"
+        and (kreis == "München");
+    then mietenstufe_kreis(land, kreis, 7);
+}
+
+@source(WOGV_ANLAGE_BE_GEMEINDE)
+rule MietenstufeBEGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Berlin — Gemeinden der Mietenstufe IV (1)";
+    label en unofficial "Berlin: municipalities with rent level IV (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Berlin"
+        and (gemeinde == "Berlin, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_BB_GEMEINDE)
+rule MietenstufeBBGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Brandenburg — Gemeinden der Mietenstufe II (22)";
+    label en unofficial "Brandenburg: municipalities with rent level II (22)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Brandenburg"
+        and (gemeinde == "Ahrensfelde-Blumberg"
+        or gemeinde == "Angermünde, Stadt"
+        or gemeinde == "Beelitz, Stadt"
+        or gemeinde == "Bad Belzig"
+        or gemeinde == "Brandenburg a. d. Havel, Stadt"
+        or gemeinde == "Cottbus, Stadt"
+        or gemeinde == "Eisenhüttenstadt, Stadt"
+        or gemeinde == "Finsterwalde, Stadt"
+        or gemeinde == "Frankfurt (Oder), Stadt"
+        or gemeinde == "Fürstenwalde/Spree, Stadt"
+        or gemeinde == "Lübben/Spreewald, Stadt"
+        or gemeinde == "Luckenwalde, Stadt"
+        or gemeinde == "Neuruppin, Stadt"
+        or gemeinde == "Prenzlau, Stadt"
+        or gemeinde == "Rüdersdorf bei Berlin"
+        or gemeinde == "Schorfheide"
+        or gemeinde == "Schwedt/Oder, Stadt"
+        or gemeinde == "Senftenberg, Stadt"
+        or gemeinde == "Spremberg, Stadt"
+        or gemeinde == "Strausberg, Stadt"
+        or gemeinde == "Templin, Stadt"
+        or gemeinde == "Zossen");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_BB_GEMEINDE)
+rule MietenstufeBBGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Brandenburg — Gemeinden der Mietenstufe I (12)";
+    label en unofficial "Brandenburg: municipalities with rent level I (12)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Brandenburg"
+        and (gemeinde == "Bad Freienwalde (Oder), Stadt"
+        or gemeinde == "Forst (Lausitz), Stadt"
+        or gemeinde == "Guben, Stadt"
+        or gemeinde == "Jüterbog, Stadt"
+        or gemeinde == "Lauchhammer, Stadt"
+        or gemeinde == "Lübbenau/Spreewald, Stadt"
+        or gemeinde == "Perleberg, Stadt"
+        or gemeinde == "Pritzwalk, Stadt"
+        or gemeinde == "Rathenow, Stadt"
+        or gemeinde == "Wittstock/Dosse, Stadt"
+        or gemeinde == "Wittenberge, Stadt"
+        or gemeinde == "Zehdenick, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_BB_GEMEINDE)
+rule MietenstufeBBGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Brandenburg — Gemeinden der Mietenstufe III (15)";
+    label en unofficial "Brandenburg: municipalities with rent level III (15)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Brandenburg"
+        and (gemeinde == "Bernau bei Berlin, Stadt"
+        or gemeinde == "Eberswalde, Stadt"
+        or gemeinde == "Hennigsdorf, Stadt"
+        or gemeinde == "Kloster Lehnin"
+        or gemeinde == "Königs Wusterhausen, Stadt"
+        or gemeinde == "Ludwigsfelde, Stadt"
+        or gemeinde == "Mühlenbecker Land"
+        or gemeinde == "Nauen, Stadt"
+        or gemeinde == "Neuenhagen bei Berlin"
+        or gemeinde == "Oberkrämer"
+        or gemeinde == "Oranienburg, Stadt"
+        or gemeinde == "Petershagen/Eggersdorf"
+        or gemeinde == "Rangsdorf"
+        or gemeinde == "Velten, Stadt"
+        or gemeinde == "Zeuthen");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_BB_GEMEINDE)
+rule MietenstufeBBGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Brandenburg — Gemeinden der Mietenstufe IV (16)";
+    label en unofficial "Brandenburg: municipalities with rent level IV (16)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Brandenburg"
+        and (gemeinde == "Blankenfelde-Mahlow"
+        or gemeinde == "Brieselang"
+        or gemeinde == "Erkner, Stadt"
+        or gemeinde == "Falkensee, Stadt"
+        or gemeinde == "Fredersdorf-Vogelsdorf"
+        or gemeinde == "Hohen Neuendorf"
+        or gemeinde == "Panketal"
+        or gemeinde == "Potsdam, Stadt"
+        or gemeinde == "Schöneiche bei Berlin"
+        or gemeinde == "Schönefeld"
+        or gemeinde == "Schwielowsee"
+        or gemeinde == "Stahnsdorf"
+        or gemeinde == "Teltow, Stadt"
+        or gemeinde == "Wandlitz"
+        or gemeinde == "Werder (Havel), Stadt"
+        or gemeinde == "Wildau");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_BB_GEMEINDE)
+rule MietenstufeBBGemeindeV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Brandenburg — Gemeinden der Mietenstufe V (4)";
+    label en unofficial "Brandenburg: municipalities with rent level V (4)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Brandenburg"
+        and (gemeinde == "Dallgow-Döberitz"
+        or gemeinde == "Hoppegarten"
+        or gemeinde == "Kleinmachnow"
+        or gemeinde == "Michendorf");
+    then mietenstufe_gemeinde(land, gemeinde, 5);
+}
+
+@source(WOGV_ANLAGE_BB_GEMEINDE)
+rule MietenstufeBBGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Brandenburg — Gemeinden der Mietenstufe VI (1)";
+    label en unofficial "Brandenburg: municipalities with rent level VI (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Brandenburg"
+        and (gemeinde == "Glienicke/Nordbahn");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_BB_KREIS)
+rule MietenstufeBBKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Brandenburg — Kreise der Mietenstufe II (4)";
+    label en unofficial "Brandenburg: districts with rent level II (4)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Brandenburg"
+        and (kreis == "Barnim"
+        or kreis == "Dahme-Spreewald"
+        or kreis == "Havelland"
+        or kreis == "Potsdam-Mittelmark");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_BB_KREIS)
+rule MietenstufeBBKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Brandenburg — Kreise der Mietenstufe I (9)";
+    label en unofficial "Brandenburg: districts with rent level I (9)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Brandenburg"
+        and (kreis == "Elbe-Elster"
+        or kreis == "Märkisch-Oderland"
+        or kreis == "Oberhavel"
+        or kreis == "Oberspreewald-Lausitz"
+        or kreis == "Ostprignitz-Ruppin"
+        or kreis == "Prignitz"
+        or kreis == "Spree-Neiße"
+        or kreis == "Teltow-Fläming"
+        or kreis == "Uckermark");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_BB_KREIS)
+rule MietenstufeBBKreisIII(land: Text, kreis: Text) strict {
+    label de official "Land: Brandenburg — Kreise der Mietenstufe III (1)";
+    label en unofficial "Brandenburg: districts with rent level III (1)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Brandenburg"
+        and (kreis == "Oder-Spree");
+    then mietenstufe_kreis(land, kreis, 3);
+}
+
+@source(WOGV_ANLAGE_HB_GEMEINDE)
+rule MietenstufeHBGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bremen — Gemeinden der Mietenstufe IV (1)";
+    label en unofficial "Bremen: municipalities with rent level IV (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bremen"
+        and (gemeinde == "Bremen, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_HB_GEMEINDE)
+rule MietenstufeHBGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Bremen — Gemeinden der Mietenstufe II (1)";
+    label en unofficial "Bremen: municipalities with rent level II (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Bremen"
+        and (gemeinde == "Bremerhaven");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_HH_GEMEINDE)
+rule MietenstufeHHGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hamburg — Gemeinden der Mietenstufe VI (1)";
+    label en unofficial "Hamburg: municipalities with rent level VI (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hamburg"
+        and (gemeinde == "Hamburg, Freie und Hansestadt");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_HE_GEMEINDE)
+rule MietenstufeHEGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hessen — Gemeinden der Mietenstufe I (37)";
+    label en unofficial "Hessen: municipalities with rent level I (37)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hessen"
+        and (gemeinde == "Alsfeld, Stadt"
+        or gemeinde == "Arolsen, Stadt"
+        or gemeinde == "Bad Hersfeld, Kreisstadt"
+        or gemeinde == "Bad Wildungen, Stadt"
+        or gemeinde == "Bebra, Stadt"
+        or gemeinde == "Biedenkopf, Stadt"
+        or gemeinde == "Borken (Hessen), Stadt"
+        or gemeinde == "Dautphetal"
+        or gemeinde == "Eichenzell"
+        or gemeinde == "Eschwege, Kreisstadt"
+        or gemeinde == "Felsberg, Stadt"
+        or gemeinde == "Frankenberg (Eder), Stadt"
+        or gemeinde == "Fritzlar, Stadt"
+        or gemeinde == "Fuldatal"
+        or gemeinde == "Grünberg, Stadt"
+        or gemeinde == "Hadamar, Stadt"
+        or gemeinde == "Haiger, Stadt"
+        or gemeinde == "Hessisch Lichtenau, Stadt"
+        or gemeinde == "Hofgeismar, Stadt"
+        or gemeinde == "Homberg (Efze), Stadt"
+        or gemeinde == "Hünfeld, Stadt"
+        or gemeinde == "Kirchhain, Stadt"
+        or gemeinde == "Korbach, Stadt"
+        or gemeinde == "Lauterbach (Hessen), Stadt"
+        or gemeinde == "Melsungen, Stadt"
+        or gemeinde == "Neuhof"
+        or gemeinde == "Neustadt"
+        or gemeinde == "Oberzent"
+        or gemeinde == "Rotenburg a. d. Fulda, Stadt"
+        or gemeinde == "Schauenburg"
+        or gemeinde == "Schotten, Stadt"
+        or gemeinde == "Schwalmstadt, Stadt"
+        or gemeinde == "Solms, Stadt"
+        or gemeinde == "Wald-Michelbach"
+        or gemeinde == "Weilburg, Stadt"
+        or gemeinde == "Witzenhausen, Stadt"
+        or gemeinde == "Wolfhagen, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_HE_GEMEINDE)
+rule MietenstufeHEGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hessen — Gemeinden der Mietenstufe II (32)";
+    label en unofficial "Hessen: municipalities with rent level II (32)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hessen"
+        and (gemeinde == "Altenstadt"
+        or gemeinde == "Bad Camberg, Stadt"
+        or gemeinde == "Bad Soden-Salmünster, Stadt"
+        or gemeinde == "Büdingen, Stadt"
+        or gemeinde == "Bürstadt, Stadt"
+        or gemeinde == "Buseck"
+        or gemeinde == "Dillenburg, Stadt"
+        or gemeinde == "Fürth"
+        or gemeinde == "Fulda, Stadt"
+        or gemeinde == "Gladenbach, Stadt"
+        or gemeinde == "Gründau"
+        or gemeinde == "Herborn, Stadt"
+        or gemeinde == "Hünstetten"
+        or gemeinde == "Hüttenberg"
+        or gemeinde == "Hungen, Stadt"
+        or gemeinde == "Kaufungen"
+        or gemeinde == "Künzell"
+        or gemeinde == "Langgöns"
+        or gemeinde == "Lich, Stadt"
+        or gemeinde == "Limburg an der Lahn, Stadt"
+        or gemeinde == "Lohfelden"
+        or gemeinde == "Moerlenbach"
+        or gemeinde == "Nidda, Stadt"
+        or gemeinde == "Niestetal"
+        or gemeinde == "Petersberg"
+        or gemeinde == "Pohlheim, Stadt"
+        or gemeinde == "Reiskirchen"
+        or gemeinde == "Schlüchtern, Stadt"
+        or gemeinde == "Stadtallendorf, Stadt"
+        or gemeinde == "Steinau an der Straße, Stadt"
+        or gemeinde == "Vellmar, Stadt"
+        or gemeinde == "Wächtersbach, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_HE_GEMEINDE)
+rule MietenstufeHEGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hessen — Gemeinden der Mietenstufe III (29)";
+    label en unofficial "Hessen: municipalities with rent level III (29)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hessen"
+        and (gemeinde == "Asslar, Stadt"
+        or gemeinde == "Babenhausen, Stadt"
+        or gemeinde == "Bad Orb, Stadt"
+        or gemeinde == "Baunatal, Stadt"
+        or gemeinde == "Biebertal"
+        or gemeinde == "Braunfels, Stadt"
+        or gemeinde == "Bruchköbel, Stadt"
+        or gemeinde == "Butzbach, Stadt"
+        or gemeinde == "Erbach, Kreisstadt"
+        or gemeinde == "Freigericht"
+        or gemeinde == "Gernsheim"
+        or gemeinde == "Groß-Umstadt, Stadt"
+        or gemeinde == "Hainburg"
+        or gemeinde == "Heppenheim (Bergstr.), Stadt"
+        or gemeinde == "Höchst i. Odenwald"
+        or gemeinde == "Idstein, Stadt"
+        or gemeinde == "Kassel, Stadt"
+        or gemeinde == "Lampertheim, Stadt"
+        or gemeinde == "Langenselbold, Stadt"
+        or gemeinde == "Linden, Stadt"
+        or gemeinde == "Lollar"
+        or gemeinde == "Lorsch, Stadt"
+        or gemeinde == "Michelstadt, Stadt"
+        or gemeinde == "Nidderau, Stadt"
+        or gemeinde == "Rodenbach"
+        or gemeinde == "Seligenstadt, Stadt"
+        or gemeinde == "Viernheim, Stadt"
+        or gemeinde == "Wettenberg"
+        or gemeinde == "Wetzlar, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_HE_GEMEINDE)
+rule MietenstufeHEGemeindeVII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hessen — Gemeinden der Mietenstufe VII (3)";
+    label en unofficial "Hessen: municipalities with rent level VII (3)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hessen"
+        and (gemeinde == "Bad Homburg v.d. Höhe, Stadt"
+        or gemeinde == "Königstein im Taunus, Stadt"
+        or gemeinde == "Raunheim, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 7);
+}
+
+@source(WOGV_ANLAGE_HE_GEMEINDE)
+rule MietenstufeHEGemeindeV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hessen — Gemeinden der Mietenstufe V (23)";
+    label en unofficial "Hessen: municipalities with rent level V (23)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hessen"
+        and (gemeinde == "Bad Nauheim, Stadt"
+        or gemeinde == "Dieburg, Stadt"
+        or gemeinde == "Eltville am Rhein, Stadt"
+        or gemeinde == "Eppstein, Stadt"
+        or gemeinde == "Giessen, Universitätsstadt"
+        or gemeinde == "Griesheim, Stadt"
+        or gemeinde == "Groß-Gerau, Stadt"
+        or gemeinde == "Hanau, Stadt"
+        or gemeinde == "Hochheim am Main, Stadt"
+        or gemeinde == "Hofheim am Taunus, Stadt"
+        or gemeinde == "Kriftel"
+        or gemeinde == "Maintal, Stadt"
+        or gemeinde == "Marburg, Stadt"
+        or gemeinde == "Mörfelden-Walldorf, Stadt"
+        or gemeinde == "Mühlheim am Main, Stadt"
+        or gemeinde == "Ober-Ramstadt, Stadt"
+        or gemeinde == "Obertshausen, Stadt"
+        or gemeinde == "Rodgau, Stadt"
+        or gemeinde == "Rödermark, Stadt"
+        or gemeinde == "Rossdorf"
+        or gemeinde == "Rüsselsheim, Stadt"
+        or gemeinde == "Trebur"
+        or gemeinde == "Weiterstadt, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 5);
+}
+
+@source(WOGV_ANLAGE_HE_GEMEINDE)
+rule MietenstufeHEGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hessen — Gemeinden der Mietenstufe IV (27)";
+    label en unofficial "Hessen: municipalities with rent level IV (27)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hessen"
+        and (gemeinde == "Bad Schwalbach, Kreisstadt"
+        or gemeinde == "Bensheim, Stadt"
+        or gemeinde == "Bischofsheim"
+        or gemeinde == "Büttelborn"
+        or gemeinde == "Egelsbach"
+        or gemeinde == "Erlensee"
+        or gemeinde == "Friedberg (Hessen), Stadt"
+        or gemeinde == "Geisenheim, Stadt"
+        or gemeinde == "Gelnhausen, Stadt"
+        or gemeinde == "Ginsheim-Gustavsburg"
+        or gemeinde == "Groß-Zimmern"
+        or gemeinde == "Karben, Stadt"
+        or gemeinde == "Kelsterbach, Stadt"
+        or gemeinde == "Münster"
+        or gemeinde == "Nauheim"
+        or gemeinde == "Neu-Anspach"
+        or gemeinde == "Niedernhausen"
+        or gemeinde == "Oestrich-Winkel, Stadt"
+        or gemeinde == "Pfungstadt, Stadt"
+        or gemeinde == "Reinheim, Stadt"
+        or gemeinde == "Riedstadt"
+        or gemeinde == "Rosbach v. d. Höhe, Stadt"
+        or gemeinde == "Schöneck"
+        or gemeinde == "Seeheim-Jugenheim"
+        or gemeinde == "Steinbach (Taunus)"
+        or gemeinde == "Taunusstein, Stadt"
+        or gemeinde == "Usingen, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_HE_GEMEINDE)
+rule MietenstufeHEGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Hessen — Gemeinden der Mietenstufe VI (20)";
+    label en unofficial "Hessen: municipalities with rent level VI (20)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Hessen"
+        and (gemeinde == "Bad Soden am Taunus, Stadt"
+        or gemeinde == "Bad Vilbel, Stadt"
+        or gemeinde == "Darmstadt, Stadt"
+        or gemeinde == "Dietzenbach, Stadt"
+        or gemeinde == "Dreieich, Stadt"
+        or gemeinde == "Eschborn, Stadt"
+        or gemeinde == "Flörsheim am Main, Stadt"
+        or gemeinde == "Frankfurt am Main, Stadt"
+        or gemeinde == "Friedrichsdorf, Stadt"
+        or gemeinde == "Hattersheim am Main, Stadt"
+        or gemeinde == "Heusenstamm, Stadt"
+        or gemeinde == "Kelkheim (Taunus), Stadt"
+        or gemeinde == "Kronberg im Taunus, Stadt"
+        or gemeinde == "Langen (Hessen), Stadt"
+        or gemeinde == "Mühltal"
+        or gemeinde == "Neu-Isenburg, Stadt"
+        or gemeinde == "Oberursel (Taunus), Stadt"
+        or gemeinde == "Offenbach am Main, Stadt"
+        or gemeinde == "Schwalbach am Taunus, Stadt"
+        or gemeinde == "Wiesbaden, Landeshaupstadt");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_HE_KREIS)
+rule MietenstufeHEKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Hessen — Kreise der Mietenstufe II (5)";
+    label en unofficial "Hessen: districts with rent level II (5)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Hessen"
+        and (kreis == "Bergstraße"
+        or kreis == "Giessen"
+        or kreis == "Main-Kinzig-Kreis"
+        or kreis == "Odenwaldkreis"
+        or kreis == "Wetteraukreis");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_HE_KREIS)
+rule MietenstufeHEKreisIV(land: Text, kreis: Text) strict {
+    label de official "Land: Hessen — Kreise der Mietenstufe IV (3)";
+    label en unofficial "Hessen: districts with rent level IV (3)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Hessen"
+        and (kreis == "Darmstadt-Dieburg"
+        or kreis == "Groß-Gerau"
+        or kreis == "Hochtaunuskreis");
+    then mietenstufe_kreis(land, kreis, 4);
+}
+
+@source(WOGV_ANLAGE_HE_KREIS)
+rule MietenstufeHEKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Hessen — Kreise der Mietenstufe I (10)";
+    label en unofficial "Hessen: districts with rent level I (10)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Hessen"
+        and (kreis == "Fulda"
+        or kreis == "Hersfeld-Rotenburg"
+        or kreis == "Kassel"
+        or kreis == "Lahn-Dill-Kreis"
+        or kreis == "Limburg-Weilburg"
+        or kreis == "Marburg-Biedenkopf"
+        or kreis == "Schwalm-Eder-Kreis"
+        or kreis == "Vogelsbergkreis"
+        or kreis == "Waldeck-Frankenberg"
+        or kreis == "Werra-Meißner-Kreis");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_HE_KREIS)
+rule MietenstufeHEKreisVII(land: Text, kreis: Text) strict {
+    label de official "Land: Hessen — Kreise der Mietenstufe VII (1)";
+    label en unofficial "Hessen: districts with rent level VII (1)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Hessen"
+        and (kreis == "Main-Taunus-Kreis");
+    then mietenstufe_kreis(land, kreis, 7);
+}
+
+@source(WOGV_ANLAGE_HE_KREIS)
+rule MietenstufeHEKreisIII(land: Text, kreis: Text) strict {
+    label de official "Land: Hessen — Kreise der Mietenstufe III (2)";
+    label en unofficial "Hessen: districts with rent level III (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Hessen"
+        and (kreis == "Offenbach"
+        or kreis == "Rheingau-Taunus-Kreis");
+    then mietenstufe_kreis(land, kreis, 3);
+}
+
+@source(WOGV_ANLAGE_MV_GEMEINDE)
+rule MietenstufeMVGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Mecklenburg-Vorpommern — Gemeinden der Mietenstufe II (13)";
+    label en unofficial "Mecklenburg-Vorpommern: municipalities with rent level II (13)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Mecklenburg-Vorpommern"
+        and (gemeinde == "Anklam, Stadt"
+        or gemeinde == "Bergen auf Rügen, Stadt"
+        or gemeinde == "Boizenburg/Elbe, Stadt"
+        or gemeinde == "Grevesmühlen, Stadt"
+        or gemeinde == "Güstrow, Stadt"
+        or gemeinde == "Neubrandenburg, Stadt"
+        or gemeinde == "Neustrelitz, Stadt"
+        or gemeinde == "Parchim, Stadt"
+        or gemeinde == "Ribnitz-Damgarten, Stadt"
+        or gemeinde == "Schwerin, Landeshauptstadt"
+        or gemeinde == "Stralsund, Stadt"
+        or gemeinde == "Waren (Müritz), Stadt"
+        or gemeinde == "Wolgast, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_MV_GEMEINDE)
+rule MietenstufeMVGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Mecklenburg-Vorpommern — Gemeinden der Mietenstufe III (4)";
+    label en unofficial "Mecklenburg-Vorpommern: municipalities with rent level III (4)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Mecklenburg-Vorpommern"
+        and (gemeinde == "Bad Doberan, Stadt"
+        or gemeinde == "Greifswald, Stadt"
+        or gemeinde == "Rostock, Hansestadt"
+        or gemeinde == "Wismar, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_MV_GEMEINDE)
+rule MietenstufeMVGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Mecklenburg-Vorpommern — Gemeinden der Mietenstufe I (3)";
+    label en unofficial "Mecklenburg-Vorpommern: municipalities with rent level I (3)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Mecklenburg-Vorpommern"
+        and (gemeinde == "Demmin, Stadt"
+        or gemeinde == "Hagenow, Stadt"
+        or gemeinde == "Ludwigslust, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_MV_KREIS)
+rule MietenstufeMVKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Mecklenburg-Vorpommern — Kreise der Mietenstufe I (3)";
+    label en unofficial "Mecklenburg-Vorpommern: districts with rent level I (3)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Mecklenburg-Vorpommern"
+        and (kreis == "Mecklenburgische Seenplatte"
+        or kreis == "Vorpommern-Greifswald"
+        or kreis == "Ludwigslust-Parchim");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_MV_KREIS)
+rule MietenstufeMVKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Mecklenburg-Vorpommern — Kreise der Mietenstufe II (3)";
+    label en unofficial "Mecklenburg-Vorpommern: districts with rent level II (3)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Mecklenburg-Vorpommern"
+        and (kreis == "Landkreis Rostock"
+        or kreis == "Vorpommern-Rügen"
+        or kreis == "Nordwestmecklenburg");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_NI_GEMEINDE)
+rule MietenstufeNIGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Niedersachsen — Gemeinden der Mietenstufe III (26)";
+    label en unofficial "Niedersachsen: municipalities with rent level III (26)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Niedersachsen"
+        and (gemeinde == "Achim, Stadt"
+        or gemeinde == "Bovenden, Flecken"
+        or gemeinde == "Burgdorf, Stadt"
+        or gemeinde == "Burgwedel"
+        or gemeinde == "Celle, Stadt"
+        or gemeinde == "Delmenhorst, Stadt"
+        or gemeinde == "Gehrden, Stadt"
+        or gemeinde == "Gifhorn, Stadt"
+        or gemeinde == "Harsefeld, Flecken"
+        or gemeinde == "Hildesheim, Stadt"
+        or gemeinde == "Isernhagen"
+        or gemeinde == "Lehre"
+        or gemeinde == "Lehrte, Stadt"
+        or gemeinde == "Lilienthal"
+        or gemeinde == "Oyten"
+        or gemeinde == "Pattensen, Stadt"
+        or gemeinde == "Peine, Stadt"
+        or gemeinde == "Ritterhude"
+        or gemeinde == "Rosdorf"
+        or gemeinde == "Seelze, Stadt"
+        or gemeinde == "Sehnde, Stadt"
+        or gemeinde == "Tostedt"
+        or gemeinde == "Wedemark"
+        or gemeinde == "Weyhe"
+        or gemeinde == "Wolfenbüttel, Stadt"
+        or gemeinde == "Wunstorf, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_NI_GEMEINDE)
+rule MietenstufeNIGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Niedersachsen — Gemeinden der Mietenstufe IV (17)";
+    label en unofficial "Niedersachsen: municipalities with rent level IV (17)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Niedersachsen"
+        and (gemeinde == "Adendorf"
+        or gemeinde == "Braunschweig, Stadt"
+        or gemeinde == "Garbsen, Stadt"
+        or gemeinde == "Göttingen, Stadt"
+        or gemeinde == "Hemmingen"
+        or gemeinde == "Jork"
+        or gemeinde == "Laatzen, Stadt"
+        or gemeinde == "Langenhagen, Stadt"
+        or gemeinde == "Lüneburg, Stadt"
+        or gemeinde == "Oldenburg (Oldenburg), Stadt"
+        or gemeinde == "Osnabrück, Stadt"
+        or gemeinde == "Ronnenberg, Stadt"
+        or gemeinde == "Rosengarten"
+        or gemeinde == "Stade, Stadt"
+        or gemeinde == "Stelle"
+        or gemeinde == "Winsen (Luhe), Stadt"
+        or gemeinde == "Wolfsburg, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_NI_GEMEINDE)
+rule MietenstufeNIGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Niedersachsen — Gemeinden der Mietenstufe I (87)";
+    label en unofficial "Niedersachsen: municipalities with rent level I (87)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Niedersachsen"
+        and (gemeinde == "Aerzen, Flecken"
+        or gemeinde == "Alfeld (Leine), Stadt"
+        or gemeinde == "Apen"
+        or gemeinde == "Aurich, Stadt"
+        or gemeinde == "Bad Essen"
+        or gemeinde == "Bad Fallingbostel, Stadt"
+        or gemeinde == "Bad Lauterberg im Harz, Stadt"
+        or gemeinde == "Bad Münder am Deister, Stadt"
+        or gemeinde == "Bad Pyrmont, Stadt"
+        or gemeinde == "Barßel"
+        or gemeinde == "Bergen, Stadt"
+        or gemeinde == "Beverstedt"
+        or gemeinde == "Bissendorf"
+        or gemeinde == "Bohmte"
+        or gemeinde == "Bramsche, Stadt"
+        or gemeinde == "Bückeburg, Stadt"
+        or gemeinde == "Clausthal-Zellerfeld"
+        or gemeinde == "Damme, Stadt"
+        or gemeinde == "Diepholz, Stadt"
+        or gemeinde == "Dinklage, Stadt"
+        or gemeinde == "Duderstadt, Stadt"
+        or gemeinde == "Einbeck, Stadt"
+        or gemeinde == "Emsbueren"
+        or gemeinde == "Emstek"
+        or gemeinde == "Friedeburg"
+        or gemeinde == "Friesoythe, Stadt"
+        or gemeinde == "Garrel"
+        or gemeinde == "Geeste"
+        or gemeinde == "Gronau (Leine), Stadt"
+        or gemeinde == "Grossefehn"
+        or gemeinde == "Hagen im Bremischen"
+        or gemeinde == "Hagen am Teutoburger Wald"
+        or gemeinde == "Hambühren"
+        or gemeinde == "Haren (Ems), Stadt"
+        or gemeinde == "Haselünne, Stadt"
+        or gemeinde == "Helmstedt, Stadt"
+        or gemeinde == "Herzberg am Harz, Stadt"
+        or gemeinde == "Hessisch Oldendorf, Stadt"
+        or gemeinde == "Hilter am Teutoburger Wald"
+        or gemeinde == "Holzminden, Stadt"
+        or gemeinde == "Hude (Oldenburg)"
+        or gemeinde == "Ihlow"
+        or gemeinde == "Jever, Stadt"
+        or gemeinde == "Krummhörn"
+        or gemeinde == "Langelsheim, Stadt"
+        or gemeinde == "Lingen (Ems), Stadt"
+        or gemeinde == "Löningen, Stadt"
+        or gemeinde == "Loxstedt"
+        or gemeinde == "Melle, Stadt"
+        or gemeinde == "Meppen, Stadt"
+        or gemeinde == "Moormerland"
+        or gemeinde == "Hann. Münden, Stadt"
+        or gemeinde == "Neuenhaus, Stadt"
+        or gemeinde == "Osterode am Harz, Stadt"
+        or gemeinde == "Ostrhauderfehn"
+        or gemeinde == "Papenburg, Stadt"
+        or gemeinde == "Rehburg-Loccum, Stadt"
+        or gemeinde == "Rhauderfehn"
+        or gemeinde == "Rinteln, Stadt"
+        or gemeinde == "Sassenburg"
+        or gemeinde == "Saterland"
+        or gemeinde == "Scheeßel"
+        or gemeinde == "Schiffdorf"
+        or gemeinde == "Schöningen, Stadt"
+        or gemeinde == "Schortens"
+        or gemeinde == "Schüttorf, Stadt"
+        or gemeinde == "Seesen, Stadt"
+        or gemeinde == "Steinfeld (Oldenburg)"
+        or gemeinde == "Südbrookmerland"
+        or gemeinde == "Südheide"
+        or gemeinde == "Twistringen, Stadt"
+        or gemeinde == "Uplengen"
+        or gemeinde == "Uslar, Stadt"
+        or gemeinde == "Varel, Stadt"
+        or gemeinde == "Vechelde"
+        or gemeinde == "Wallenhorst"
+        or gemeinde == "Weener, Stadt"
+        or gemeinde == "Wendeburg"
+        or gemeinde == "Werlte"
+        or gemeinde == "Westerstede, Stadt"
+        or gemeinde == "Westoverledingen"
+        or gemeinde == "Wiesmoor"
+        or gemeinde == "Wietmarschen"
+        or gemeinde == "Wittingen, Stadt"
+        or gemeinde == "Wittmund, Stadt"
+        or gemeinde == "Wurster Nordseeküste"
+        or gemeinde == "Zetel");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_NI_GEMEINDE)
+rule MietenstufeNIGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Niedersachsen — Gemeinden der Mietenstufe II (70)";
+    label en unofficial "Niedersachsen: municipalities with rent level II (70)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Niedersachsen"
+        and (gemeinde == "Bad Bentheim, Stadt"
+        or gemeinde == "Bad Harzburg, Stadt"
+        or gemeinde == "Bad Iburg, Stadt"
+        or gemeinde == "Bad Nenndorf"
+        or gemeinde == "Bad Salzdetfurth, Stadt"
+        or gemeinde == "Bad Zwischenahn"
+        or gemeinde == "Barsinghausen, Stadt"
+        or gemeinde == "Bassum, Stadt"
+        or gemeinde == "Belm"
+        or gemeinde == "Brake (Unterweser), Stadt"
+        or gemeinde == "Bremervörde, Stadt"
+        or gemeinde == "Cloppenburg, Stadt"
+        or gemeinde == "Cremlingen"
+        or gemeinde == "Cuxhaven, Stadt"
+        or gemeinde == "Dissen am Teutoburger Wald"
+        or gemeinde == "Drochtersen"
+        or gemeinde == "Edemissen"
+        or gemeinde == "Edewecht"
+        or gemeinde == "Emden, Stadt"
+        or gemeinde == "Friedland"
+        or gemeinde == "Ganderkesee"
+        or gemeinde == "Geestland, Stadt"
+        or gemeinde == "Georgsmarienhütte, Stadt"
+        or gemeinde == "Goslar, Stadt"
+        or gemeinde == "Grossenkneten"
+        or gemeinde == "Hameln, Stadt"
+        or gemeinde == "Harsum"
+        or gemeinde == "Hasbergen"
+        or gemeinde == "Hatten"
+        or gemeinde == "Ilsede"
+        or gemeinde == "Königslutter am Elm, Stadt"
+        or gemeinde == "Langwedel, Flecken"
+        or gemeinde == "Leer (Ostfriesland), Stadt"
+        or gemeinde == "Lengede"
+        or gemeinde == "Lohne (Oldenburg), Stadt"
+        or gemeinde == "Munster, Stadt"
+        or gemeinde == "Neustadt am Rübenberge, Stadt"
+        or gemeinde == "Nienburg (Weser), Stadt"
+        or gemeinde == "Norden, Stadt"
+        or gemeinde == "Nordenham, Stadt"
+        or gemeinde == "Nordhorn, Stadt"
+        or gemeinde == "Nordstemmen"
+        or gemeinde == "Northeim, Stadt"
+        or gemeinde == "Osterholz-Scharmbeck, Stadt"
+        or gemeinde == "Ottersberg, Flecken"
+        or gemeinde == "Quakenbrück, Stadt"
+        or gemeinde == "Rastede"
+        or gemeinde == "Rotenburg (Wümme), Stadt"
+        or gemeinde == "Salzgitter, Stadt"
+        or gemeinde == "Sarstedt, Stadt"
+        or gemeinde == "Schneverdingen, Stadt"
+        or gemeinde == "Schwanewede"
+        or gemeinde == "Soltau, Stadt"
+        or gemeinde == "Springe, Stadt"
+        or gemeinde == "Stadthagen, Stadt"
+        or gemeinde == "Stuhr"
+        or gemeinde == "Sulingen, Stadt"
+        or gemeinde == "Syke, Stadt"
+        or gemeinde == "Uelzen, Stadt"
+        or gemeinde == "Uetze"
+        or gemeinde == "Vechta, Stadt"
+        or gemeinde == "Verden (Aller), Stadt"
+        or gemeinde == "Walsrode, Stadt"
+        or gemeinde == "Wardenburg"
+        or gemeinde == "Wennigsen (Deister)"
+        or gemeinde == "Wiefelstede"
+        or gemeinde == "Wildeshausen, Stadt"
+        or gemeinde == "Wilhelmshaven, Stadt"
+        or gemeinde == "Winsen (Aller)"
+        or gemeinde == "Zeven, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_NI_GEMEINDE)
+rule MietenstufeNIGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Niedersachsen — Gemeinden der Mietenstufe VI (2)";
+    label en unofficial "Niedersachsen: municipalities with rent level VI (2)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Niedersachsen"
+        and (gemeinde == "Buchholz i. d. Nordheide, Stadt"
+        or gemeinde == "Neu Wulmstorf");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_NI_GEMEINDE)
+rule MietenstufeNIGemeindeV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Niedersachsen — Gemeinden der Mietenstufe V (3)";
+    label en unofficial "Niedersachsen: municipalities with rent level V (3)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Niedersachsen"
+        and (gemeinde == "Buxtehude, Stadt"
+        or gemeinde == "Hannover, Landeshauptstadt"
+        or gemeinde == "Seevetal");
+    then mietenstufe_gemeinde(land, gemeinde, 5);
+}
+
+@source(WOGV_ANLAGE_NI_KREIS)
+rule MietenstufeNIKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Niedersachsen — Kreise der Mietenstufe I (32)";
+    label en unofficial "Niedersachsen: districts with rent level I (32)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Niedersachsen"
+        and (kreis == "Aurich"
+        or kreis == "Celle"
+        or kreis == "Cloppenburg"
+        or kreis == "Cuxhaven"
+        or kreis == "Diepholz"
+        or kreis == "Emsland"
+        or kreis == "Friesland"
+        or kreis == "Gifhorn"
+        or kreis == "Göttingen"
+        or kreis == "Goslar"
+        or kreis == "Grafschaft Bentheim"
+        or kreis == "Hameln-Pyrmont"
+        or kreis == "Helmstedt"
+        or kreis == "Hildesheim"
+        or kreis == "Holzminden"
+        or kreis == "Leer"
+        or kreis == "Lüchow-Dannenberg"
+        or kreis == "Nienburg (Weser)"
+        or kreis == "Northeim"
+        or kreis == "Oldenburg"
+        or kreis == "Osnabrück"
+        or kreis == "Osterholz"
+        or kreis == "Peine"
+        or kreis == "Rotenburg (Wümme)"
+        or kreis == "Schaumburg"
+        or kreis == "Soltau-Fallingbostel (Heidekreis)"
+        or kreis == "Uelzen"
+        or kreis == "Vechta"
+        or kreis == "Verden"
+        or kreis == "Wesermarsch"
+        or kreis == "Wittmund"
+        or kreis == "Wolfenbüttel");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_NI_KREIS)
+rule MietenstufeNIKreisIII(land: Text, kreis: Text) strict {
+    label de official "Land: Niedersachsen — Kreise der Mietenstufe III (1)";
+    label en unofficial "Niedersachsen: districts with rent level III (1)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Niedersachsen"
+        and (kreis == "Harburg");
+    then mietenstufe_kreis(land, kreis, 3);
+}
+
+@source(WOGV_ANLAGE_NI_KREIS)
+rule MietenstufeNIKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Niedersachsen — Kreise der Mietenstufe II (2)";
+    label en unofficial "Niedersachsen: districts with rent level II (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Niedersachsen"
+        and (kreis == "Lüneburg"
+        or kreis == "Stade");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_NW_GEMEINDE)
+rule MietenstufeNWGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Gemeinden der Mietenstufe IV (31)";
+    label en unofficial "Nordrhein-Westfalen: municipalities with rent level IV (31)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Nordrhein-Westfalen"
+        and (gemeinde == "Aachen, Stadt"
+        or gemeinde == "Alfter"
+        or gemeinde == "Bad Honnef, Stadt"
+        or gemeinde == "Bornheim, Stadt"
+        or gemeinde == "Burscheid, Stadt"
+        or gemeinde == "Dormagen, Stadt"
+        or gemeinde == "Erkrath, Stadt"
+        or gemeinde == "Frechen, Stadt"
+        or gemeinde == "Haan, Stadt"
+        or gemeinde == "Heiligenhaus, Stadt"
+        or gemeinde == "Hennef (Sieg), Stadt"
+        or gemeinde == "Kerpen, Kolpingstadt"
+        or gemeinde == "Königswinter, Stadt"
+        or gemeinde == "Krefeld, Stadt"
+        or gemeinde == "Langenfeld (Rheinland), Stadt"
+        or gemeinde == "Leichlingen (Rheinland), Stadt"
+        or gemeinde == "Leverkusen, Stadt"
+        or gemeinde == "Lohmar, Stadt"
+        or gemeinde == "Mettmann, Stadt"
+        or gemeinde == "Mülheim an der Ruhr, Stadt"
+        or gemeinde == "Münster, Stadt"
+        or gemeinde == "Neuss, Stadt"
+        or gemeinde == "Niederkassel, Stadt"
+        or gemeinde == "Overath"
+        or gemeinde == "Rommerskirchen"
+        or gemeinde == "Sankt Augustin, Stadt"
+        or gemeinde == "Siegburg, Stadt"
+        or gemeinde == "Troisdorf, Stadt"
+        or gemeinde == "Wachtberg"
+        or gemeinde == "Wesseling, Stadt"
+        or gemeinde == "Willich, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_NW_GEMEINDE)
+rule MietenstufeNWGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Gemeinden der Mietenstufe II (142)";
+    label en unofficial "Nordrhein-Westfalen: municipalities with rent level II (142)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Nordrhein-Westfalen"
+        and (gemeinde == "Ahaus, Stadt"
+        or gemeinde == "Ahlen, Stadt"
+        or gemeinde == "Alsdorf, Stadt"
+        or gemeinde == "Altenberge"
+        or gemeinde == "Ascheberg"
+        or gemeinde == "Attendorn, Stadt"
+        or gemeinde == "Bad Lippspringe, Stadt"
+        or gemeinde == "Bad Münstereifel, Stadt"
+        or gemeinde == "Bad Oeynhausen, Stadt"
+        or gemeinde == "Bad Salzuflen, Stadt"
+        or gemeinde == "Bad Sassendorf"
+        or gemeinde == "Baesweiler, Stadt"
+        or gemeinde == "Beckum, Stadt"
+        or gemeinde == "Bedburg, Stadt"
+        or gemeinde == "Bedburg-Hau"
+        or gemeinde == "Bergneustadt, Stadt"
+        or gemeinde == "Billerbeck, Stadt"
+        or gemeinde == "Bönen"
+        or gemeinde == "Borken, Stadt"
+        or gemeinde == "Brüggen"
+        or gemeinde == "Burbach"
+        or gemeinde == "Coesfeld, Stadt"
+        or gemeinde == "Datteln, Stadt"
+        or gemeinde == "Delbrück, Stadt"
+        or gemeinde == "Detmold, Stadt"
+        or gemeinde == "Dorsten, Stadt"
+        or gemeinde == "Drensteinfurt, Stadt"
+        or gemeinde == "Drolshagen, Stadt"
+        or gemeinde == "Dülmen, Stadt"
+        or gemeinde == "Düren, Stadt"
+        or gemeinde == "Eitorf"
+        or gemeinde == "Emmerich am Rhein, Stadt"
+        or gemeinde == "Emsdetten, Stadt"
+        or gemeinde == "Erkelenz, Stadt"
+        or gemeinde == "Espelkamp, Stadt"
+        or gemeinde == "Freudenberg, Stadt"
+        or gemeinde == "Fröndenberg/Ruhr, Stadt"
+        or gemeinde == "Gangelt"
+        or gemeinde == "Geilenkirchen, Stadt"
+        or gemeinde == "Geldern, Stadt"
+        or gemeinde == "Gelsenkirchen, Stadt"
+        or gemeinde == "Gescher, Stadt"
+        or gemeinde == "Gevelsberg, Stadt"
+        or gemeinde == "Gladbeck, Stadt"
+        or gemeinde == "Goch, Stadt"
+        or gemeinde == "Grefrath, Sport- und Freizeitgemeinde"
+        or gemeinde == "Greven, Stadt"
+        or gemeinde == "Gronau (Westfalen), Stadt"
+        or gemeinde == "Gummersbach, Stadt"
+        or gemeinde == "Hagen, Stadt"
+        or gemeinde == "Halle (Westfalen), Stadt"
+        or gemeinde == "Hamm, Stadt"
+        or gemeinde == "Hamminkeln, Stadt"
+        or gemeinde == "Harsewinkel, Stadt"
+        or gemeinde == "Heinsberg, Stadt"
+        or gemeinde == "Hemer, Stadt"
+        or gemeinde == "Herford, Stadt"
+        or gemeinde == "Herne, Stadt"
+        or gemeinde == "Herten, Stadt"
+        or gemeinde == "Herzebrock-Clarholz"
+        or gemeinde == "Hiddenhausen"
+        or gemeinde == "Hilchenbach, Stadt"
+        or gemeinde == "Hückelhoven, Stadt"
+        or gemeinde == "Hünxe"
+        or gemeinde == "Ibbenbüren, Stadt"
+        or gemeinde == "Iserlohn, Stadt"
+        or gemeinde == "Issum"
+        or gemeinde == "Jülich, Stadt"
+        or gemeinde == "Kalkar, Stadt"
+        or gemeinde == "Kall"
+        or gemeinde == "Kerken"
+        or gemeinde == "Kevelaer, Stadt"
+        or gemeinde == "Kierspe, Stadt"
+        or gemeinde == "Kranenburg"
+        or gemeinde == "Kreuzau"
+        or gemeinde == "Kreuztal, Stadt"
+        or gemeinde == "Lemgo, Stadt"
+        or gemeinde == "Lengerich, Stadt"
+        or gemeinde == "Lennestadt, Stadt"
+        or gemeinde == "Leopoldshöhe"
+        or gemeinde == "Lindlar"
+        or gemeinde == "Linnich, Stadt"
+        or gemeinde == "Lippstadt, Stadt"
+        or gemeinde == "Löhne, Stadt"
+        or gemeinde == "Lotte"
+        or gemeinde == "Lüdinghausen, Stadt"
+        or gemeinde == "Marienheide"
+        or gemeinde == "Mechernich, Stadt"
+        or gemeinde == "Meinerzhagen, Stadt"
+        or gemeinde == "Menden (Sauerland), Stadt"
+        or gemeinde == "Minden, Stadt"
+        or gemeinde == "Monschau, Stadt"
+        or gemeinde == "Netphen"
+        or gemeinde == "Nettetal, Stadt"
+        or gemeinde == "Neuenrade, Stadt"
+        or gemeinde == "Neunkirchen"
+        or gemeinde == "Nideggen, Stadt"
+        or gemeinde == "Niederkrüchten"
+        or gemeinde == "Niederzier"
+        or gemeinde == "Nörvenich"
+        or gemeinde == "Nottuln"
+        or gemeinde == "Nümbrecht"
+        or gemeinde == "Oberhausen, Stadt"
+        or gemeinde == "Oer-Erkenschwick, Stadt"
+        or gemeinde == "Oerlinghausen, Stadt"
+        or gemeinde == "Olfen, Stadt"
+        or gemeinde == "Olpe, Stadt"
+        or gemeinde == "Ostbevern"
+        or gemeinde == "Paderborn, Stadt"
+        or gemeinde == "Rees, Stadt"
+        or gemeinde == "Rhede, Stadt"
+        or gemeinde == "Rheine, Stadt"
+        or gemeinde == "Ruppichteroth"
+        or gemeinde == "Sassenberg, Stadt"
+        or gemeinde == "Schalksmühle"
+        or gemeinde == "Schermbeck"
+        or gemeinde == "Schloß Holte-Stukenbrock"
+        or gemeinde == "Schwalmtal"
+        or gemeinde == "Selfkant"
+        or gemeinde == "Selm, Stadt"
+        or gemeinde == "Senden"
+        or gemeinde == "Sendenhorst, Stadt"
+        or gemeinde == "Simmerath"
+        or gemeinde == "Soest, Stadt"
+        or gemeinde == "Stadtlohn, Stadt"
+        or gemeinde == "Steinfurt, Stadt"
+        or gemeinde == "Steinhagen"
+        or gemeinde == "Straelen, Stadt"
+        or gemeinde == "Übach-Palenberg, Stadt"
+        or gemeinde == "Verl"
+        or gemeinde == "Waldbröl, Stadt"
+        or gemeinde == "Waltrop, Stadt"
+        or gemeinde == "Warendorf, Stadt"
+        or gemeinde == "Wassenberg, Stadt"
+        or gemeinde == "Weeze"
+        or gemeinde == "Wegberg, Stadt"
+        or gemeinde == "Werl, Stadt"
+        or gemeinde == "Werne, Stadt"
+        or gemeinde == "Wickede (Ruhr)"
+        or gemeinde == "Wiehl, Stadt"
+        or gemeinde == "Wipperfürth, Stadt"
+        or gemeinde == "Zülpich, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_NW_GEMEINDE)
+rule MietenstufeNWGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Gemeinden der Mietenstufe III (74)";
+    label en unofficial "Nordrhein-Westfalen: municipalities with rent level III (74)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Nordrhein-Westfalen"
+        and (gemeinde == "Aldenhoven"
+        or gemeinde == "Alpen"
+        or gemeinde == "Bergheim, Stadt"
+        or gemeinde == "Bergkamen, Stadt"
+        or gemeinde == "Bielefeld, Stadt"
+        or gemeinde == "Bocholt, Stadt"
+        or gemeinde == "Bochum, Stadt"
+        or gemeinde == "Bottrop, Stadt"
+        or gemeinde == "Castrop-Rauxel, Stadt"
+        or gemeinde == "Dinslaken, Stadt"
+        or gemeinde == "Dortmund, Stadt"
+        or gemeinde == "Duisburg, Stadt"
+        or gemeinde == "Elsdorf"
+        or gemeinde == "Engelskirchen"
+        or gemeinde == "Ennepetal, Stadt"
+        or gemeinde == "Erftstadt, Stadt"
+        or gemeinde == "Eschweiler, Stadt"
+        or gemeinde == "Essen, Stadt"
+        or gemeinde == "Euskirchen, Stadt"
+        or gemeinde == "Grevenbroich, Stadt"
+        or gemeinde == "Gütersloh, Stadt"
+        or gemeinde == "Haltern am See, Stadt"
+        or gemeinde == "Halver, Stadt"
+        or gemeinde == "Hattingen, Stadt"
+        or gemeinde == "Havixbeck"
+        or gemeinde == "Herdecke, Stadt"
+        or gemeinde == "Herzogenrath, Stadt"
+        or gemeinde == "Holzwickede"
+        or gemeinde == "Hückeswagen, Stadt"
+        or gemeinde == "Jüchen"
+        or gemeinde == "Kamen, Stadt"
+        or gemeinde == "Kamp-Lintfort, Stadt"
+        or gemeinde == "Kempen, Stadt"
+        or gemeinde == "Kleve, Stadt"
+        or gemeinde == "Korschenbroich, Stadt"
+        or gemeinde == "Kürten"
+        or gemeinde == "Lüdenscheid, Stadt"
+        or gemeinde == "Lünen, Stadt"
+        or gemeinde == "Marl, Stadt"
+        or gemeinde == "Meckenheim, Stadt"
+        or gemeinde == "Mönchengladbach, Stadt"
+        or gemeinde == "Moers, Stadt"
+        or gemeinde == "Much"
+        or gemeinde == "Neukirchen-Vluyn, Stadt"
+        or gemeinde == "Neunkirchen-Seelscheid"
+        or gemeinde == "Odenthal"
+        or gemeinde == "Radevormwald, Stadt auf der Höhe"
+        or gemeinde == "Recklinghausen, Stadt"
+        or gemeinde == "Remscheid, Stadt"
+        or gemeinde == "Rheda-Wiedenbrück, Stadt"
+        or gemeinde == "Rheinbach, Stadt"
+        or gemeinde == "Rheinberg, Stadt"
+        or gemeinde == "Schwelm, Stadt"
+        or gemeinde == "Schwerte, Hansestadt a. d. Ruhr"
+        or gemeinde == "Siegen, Universitätsstadt"
+        or gemeinde == "Solingen, Klingenstadt"
+        or gemeinde == "Sprockhövel, Stadt"
+        or gemeinde == "Stolberg (Rheinland), Kupferstadt"
+        or gemeinde == "Swisttal"
+        or gemeinde == "Telgte, Stadt"
+        or gemeinde == "Tönisvorst, Stadt"
+        or gemeinde == "Unna, Stadt"
+        or gemeinde == "Velbert, Stadt"
+        or gemeinde == "Viersen, Stadt"
+        or gemeinde == "Voerde (Niederrhein), Stadt"
+        or gemeinde == "Weilerswist"
+        or gemeinde == "Wermelskirchen, Stadt"
+        or gemeinde == "Wesel, Stadt"
+        or gemeinde == "Wetter (Ruhr), Stadt"
+        or gemeinde == "Witten, Stadt"
+        or gemeinde == "Wülfrath, Stadt"
+        or gemeinde == "Würselen, Stadt"
+        or gemeinde == "Wuppertal, Stadt"
+        or gemeinde == "Xanten, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_NW_GEMEINDE)
+rule MietenstufeNWGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Gemeinden der Mietenstufe I (83)";
+    label en unofficial "Nordrhein-Westfalen: municipalities with rent level I (83)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Nordrhein-Westfalen"
+        and (gemeinde == "Altena, Stadt"
+        or gemeinde == "Anröchte"
+        or gemeinde == "Arnsberg, Stadt"
+        or gemeinde == "Augustdorf"
+        or gemeinde == "Bad Berleburg, Stadt"
+        or gemeinde == "Bad Driburg, Stadt"
+        or gemeinde == "Bad Laasphe, Stadt"
+        or gemeinde == "Bad Wünnenberg, Stadt"
+        or gemeinde == "Balve, Stadt"
+        or gemeinde == "Bestwig"
+        or gemeinde == "Beverungen, Stadt"
+        or gemeinde == "Blomberg, Stadt"
+        or gemeinde == "Borchen"
+        or gemeinde == "Brakel, Stadt"
+        or gemeinde == "Brilon, Stadt"
+        or gemeinde == "Bünde, Stadt"
+        or gemeinde == "Büren, Stadt"
+        or gemeinde == "Enger, Widukindstadt"
+        or gemeinde == "Ennigerloh, Stadt"
+        or gemeinde == "Ense"
+        or gemeinde == "Erwitte, Stadt"
+        or gemeinde == "Extertal"
+        or gemeinde == "Finnentrop"
+        or gemeinde == "Geseke, Stadt"
+        or gemeinde == "Hille"
+        or gemeinde == "Hörstel, Stadt"
+        or gemeinde == "Hövelhof, Sennegemeinde"
+        or gemeinde == "Höxter, Stadt"
+        or gemeinde == "Horn-Bad Meinberg, Stadt"
+        or gemeinde == "Hüllhorst"
+        or gemeinde == "Isselburg, Stadt"
+        or gemeinde == "Kalletal"
+        or gemeinde == "Kirchhundem"
+        or gemeinde == "Kirchlengern"
+        or gemeinde == "Lage, Stadt"
+        or gemeinde == "Langerwehe"
+        or gemeinde == "Lichtenau, Stadt"
+        or gemeinde == "Lippetal"
+        or gemeinde == "Lübbecke, Stadt"
+        or gemeinde == "Marsberg, Stadt"
+        or gemeinde == "Meschede, Stadt"
+        or gemeinde == "Mettingen"
+        or gemeinde == "Möhnesee"
+        or gemeinde == "Morsbach"
+        or gemeinde == "Neuenkirchen"
+        or gemeinde == "Nordkirchen"
+        or gemeinde == "Ochtrup, Stadt"
+        or gemeinde == "Oelde, Stadt"
+        or gemeinde == "Olsberg, Stadt"
+        or gemeinde == "Petershagen, Stadt"
+        or gemeinde == "Plettenberg, Stadt"
+        or gemeinde == "Porta Westfalica, Stadt"
+        or gemeinde == "Preußisch Oldendorf, Stadt"
+        or gemeinde == "Raesfeld"
+        or gemeinde == "Rahden, Stadt"
+        or gemeinde == "Recke"
+        or gemeinde == "Reichshof"
+        or gemeinde == "Reken"
+        or gemeinde == "Rietberg, Stadt"
+        or gemeinde == "Rosendahl"
+        or gemeinde == "Rüthen, Stadt"
+        or gemeinde == "Salzkotten, Stadt"
+        or gemeinde == "Schleiden, Stadt"
+        or gemeinde == "Schmallenberg, Stadt"
+        or gemeinde == "Spenge, Stadt"
+        or gemeinde == "Steinheim, Stadt"
+        or gemeinde == "Stemwede"
+        or gemeinde == "Sundern (Sauerland), Stadt"
+        or gemeinde == "Velen"
+        or gemeinde == "Versmold, Stadt"
+        or gemeinde == "Vlotho, Stadt"
+        or gemeinde == "Vreden, Stadt"
+        or gemeinde == "Wadersloh"
+        or gemeinde == "Warburg, Hansestadt"
+        or gemeinde == "Warstein, Stadt"
+        or gemeinde == "Welver"
+        or gemeinde == "Wenden"
+        or gemeinde == "Werdohl, Stadt"
+        or gemeinde == "Werther (Westf.), Stadt"
+        or gemeinde == "Westerkappeln"
+        or gemeinde == "Wilnsdorf"
+        or gemeinde == "Windeck"
+        or gemeinde == "Winterberg, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_NW_GEMEINDE)
+rule MietenstufeNWGemeindeV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Gemeinden der Mietenstufe V (10)";
+    label en unofficial "Nordrhein-Westfalen: municipalities with rent level V (10)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Nordrhein-Westfalen"
+        and (gemeinde == "Bergisch-Gladbach, Stadt"
+        or gemeinde == "Bonn, Stadt"
+        or gemeinde == "Brühl, Stadt"
+        or gemeinde == "Hilden, Stadt"
+        or gemeinde == "Hürth, Stadt"
+        or gemeinde == "Kaarst, Stadt"
+        or gemeinde == "Meerbusch, Stadt"
+        or gemeinde == "Pulheim, Stadt"
+        or gemeinde == "Ratingen, Stadt"
+        or gemeinde == "Rösrath");
+    then mietenstufe_gemeinde(land, gemeinde, 5);
+}
+
+@source(WOGV_ANLAGE_NW_GEMEINDE)
+rule MietenstufeNWGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Gemeinden der Mietenstufe VI (3)";
+    label en unofficial "Nordrhein-Westfalen: municipalities with rent level VI (3)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Nordrhein-Westfalen"
+        and (gemeinde == "Düsseldorf, Stadt"
+        or gemeinde == "Köln, Stadt"
+        or gemeinde == "Monheim am Rhein, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_NW_KREIS)
+rule MietenstufeNWKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Kreise der Mietenstufe II (7)";
+    label en unofficial "Nordrhein-Westfalen: districts with rent level II (7)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Nordrhein-Westfalen"
+        and (kreis == "Städteregion Aachen"
+        or kreis == "Düren"
+        or kreis == "Ennepe-Ruhr-Kreis"
+        or kreis == "Gütersloh"
+        or kreis == "Kleve"
+        or kreis == "Märkischer Kreis"
+        or kreis == "Wesel");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_NW_KREIS)
+rule MietenstufeNWKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Nordrhein-Westfalen — Kreise der Mietenstufe I (11)";
+    label en unofficial "Nordrhein-Westfalen: districts with rent level I (11)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Nordrhein-Westfalen"
+        and (kreis == "Borken"
+        or kreis == "Euskirchen"
+        or kreis == "Heinsberg"
+        or kreis == "Herford"
+        or kreis == "Hochsauerlandkreis"
+        or kreis == "Höxter"
+        or kreis == "Lippe"
+        or kreis == "Paderborn"
+        or kreis == "Siegen-Wittgenstein"
+        or kreis == "Steinfurt"
+        or kreis == "Warendorf");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_RP_GEMEINDE)
+rule MietenstufeRPGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Gemeinden der Mietenstufe III (18)";
+    label en unofficial "Rheinland-Pfalz: municipalities with rent level III (18)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Rheinland-Pfalz"
+        and (gemeinde == "Alzey, Stadt"
+        or gemeinde == "Bad Dürkheim, Stadt"
+        or gemeinde == "Bad Kreuznach, Stadt"
+        or gemeinde == "Bad Neuenahr-Ahrweiler, Stadt"
+        or gemeinde == "Bingen am Rhein, Stadt"
+        or gemeinde == "Böhl-Iggelheim"
+        or gemeinde == "Frankenthal (Pfalz), Stadt"
+        or gemeinde == "Germersheim, Stadt"
+        or gemeinde == "Koblenz, Stadt"
+        or gemeinde == "Landau i. d. Pfalz, Stadt"
+        or gemeinde == "Limburgerhof"
+        or gemeinde == "Neustadt (a. d. Weinstr.), Stadt"
+        or gemeinde == "Remagen, Stadt"
+        or gemeinde == "Schifferstadt, Stadt"
+        or gemeinde == "Speyer, Stadt"
+        or gemeinde == "Trier, Stadt"
+        or gemeinde == "Wörth am Rhein, Stadt"
+        or gemeinde == "Worms, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_RP_GEMEINDE)
+rule MietenstufeRPGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Gemeinden der Mietenstufe II (18)";
+    label en unofficial "Rheinland-Pfalz: municipalities with rent level II (18)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Rheinland-Pfalz"
+        and (gemeinde == "Andernach, Stadt"
+        or gemeinde == "Bendorf, Stadt"
+        or gemeinde == "Bitburg, Stadt"
+        or gemeinde == "Bobenheim-Roxheim"
+        or gemeinde == "Diez, Stadt"
+        or gemeinde == "Grafschaft"
+        or gemeinde == "Grünstadt, Stadt"
+        or gemeinde == "Hassloch"
+        or gemeinde == "Herxheim b. Landau/Pfalz"
+        or gemeinde == "Kaiserslautern, Stadt"
+        or gemeinde == "Konz, Stadt"
+        or gemeinde == "Lahnstein, Stadt"
+        or gemeinde == "Mayen, Stadt"
+        or gemeinde == "Montabaur, Stadt"
+        or gemeinde == "Mutterstadt"
+        or gemeinde == "Neuwied, Stadt"
+        or gemeinde == "Sinzig, Stadt"
+        or gemeinde == "Wittlich, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_RP_GEMEINDE)
+rule MietenstufeRPGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Gemeinden der Mietenstufe I (7)";
+    label en unofficial "Rheinland-Pfalz: municipalities with rent level I (7)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Rheinland-Pfalz"
+        and (gemeinde == "Betzdorf, Stadt"
+        or gemeinde == "Boppard, Stadt"
+        or gemeinde == "Idar-Oberstein, Stadt"
+        or gemeinde == "Morbach"
+        or gemeinde == "Mülheim-Kärlich, Stadt"
+        or gemeinde == "Pirmasens, Stadt"
+        or gemeinde == "Zweibrücken, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_RP_GEMEINDE)
+rule MietenstufeRPGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Gemeinden der Mietenstufe IV (3)";
+    label en unofficial "Rheinland-Pfalz: municipalities with rent level IV (3)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Rheinland-Pfalz"
+        and (gemeinde == "Ingelheim am Rhein, Stadt"
+        or gemeinde == "Ludwigshafen am Rhein, Stadt"
+        or gemeinde == "Nieder-Olm, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_RP_GEMEINDE)
+rule MietenstufeRPGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Gemeinden der Mietenstufe VI (1)";
+    label en unofficial "Rheinland-Pfalz: municipalities with rent level VI (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Rheinland-Pfalz"
+        and (gemeinde == "Mainz, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_RP_KREIS)
+rule MietenstufeRPKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Kreise der Mietenstufe I (18)";
+    label en unofficial "Rheinland-Pfalz: districts with rent level I (18)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Rheinland-Pfalz"
+        and (kreis == "Ahrweiler"
+        or kreis == "Altenkirchen (Westerwald)"
+        or kreis == "Bad Kreuznach"
+        or kreis == "Bernkastel-Wittlich"
+        or kreis == "Birkenfeld"
+        or kreis == "Bitburg-Prüm"
+        or kreis == "Cochem-Zell"
+        or kreis == "Vulkaneifel"
+        or kreis == "Donnersbergkreis"
+        or kreis == "Kaiserslautern"
+        or kreis == "Kusel"
+        or kreis == "Mayen-Koblenz"
+        or kreis == "Neuwied"
+        or kreis == "Südwestpfalz"
+        or kreis == "Rhein-Hunsrück-Kreis"
+        or kreis == "Rhein-Lahn-Kreis"
+        or kreis == "Trier-Saarburg"
+        or kreis == "Westerwaldkreis");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_RP_KREIS)
+rule MietenstufeRPKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Kreise der Mietenstufe II (4)";
+    label en unofficial "Rheinland-Pfalz: districts with rent level II (4)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Rheinland-Pfalz"
+        and (kreis == "Alzey-Worms"
+        or kreis == "Bad Dürkheim"
+        or kreis == "Germersheim"
+        or kreis == "Südliche Weinstraße");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_RP_KREIS)
+rule MietenstufeRPKreisIII(land: Text, kreis: Text) strict {
+    label de official "Land: Rheinland-Pfalz — Kreise der Mietenstufe III (2)";
+    label en unofficial "Rheinland-Pfalz: districts with rent level III (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Rheinland-Pfalz"
+        and (kreis == "Rhein-Pfalz-Kreis"
+        or kreis == "Mainz-Bingen");
+    then mietenstufe_kreis(land, kreis, 3);
+}
+
+@source(WOGV_ANLAGE_SL_GEMEINDE)
+rule MietenstufeSLGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Saarland — Gemeinden der Mietenstufe I (20)";
+    label en unofficial "Saarland: municipalities with rent level I (20)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Saarland"
+        and (gemeinde == "Beckingen"
+        or gemeinde == "Bexbach, Stadt"
+        or gemeinde == "Blieskastel, Stadt"
+        or gemeinde == "Eppelborn"
+        or gemeinde == "Illingen"
+        or gemeinde == "Lebach, Stadt"
+        or gemeinde == "Losheim am See"
+        or gemeinde == "Mandelbachtal"
+        or gemeinde == "Mettlach"
+        or gemeinde == "Neunkirchen, Stadt"
+        or gemeinde == "Ottweiler, Stadt"
+        or gemeinde == "Püttlingen, Stadt"
+        or gemeinde == "Quierschied"
+        or gemeinde == "Saarwellingen"
+        or gemeinde == "Sankt Wendel, Stadt"
+        or gemeinde == "Schiffweiler"
+        or gemeinde == "Schmelz"
+        or gemeinde == "Spiesen-Elversberg"
+        or gemeinde == "Tholey"
+        or gemeinde == "Wadern, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_SL_GEMEINDE)
+rule MietenstufeSLGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Saarland — Gemeinden der Mietenstufe II (15)";
+    label en unofficial "Saarland: municipalities with rent level II (15)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Saarland"
+        and (gemeinde == "Dillingen/Saar, Stadt"
+        or gemeinde == "Heusweiler"
+        or gemeinde == "Homburg, Stadt"
+        or gemeinde == "Kirkel"
+        or gemeinde == "Kleinblittersdorf"
+        or gemeinde == "Merzig, Kreisstadt"
+        or gemeinde == "Rehlingen-Siersburg"
+        or gemeinde == "Riegelsberg"
+        or gemeinde == "Saarlouis, Stadt"
+        or gemeinde == "Sankt Ingbert, Stadt"
+        or gemeinde == "Schwalbach"
+        or gemeinde == "Sulzbach/Saar, Stadt"
+        or gemeinde == "Überherrn"
+        or gemeinde == "Völklingen, Stadt"
+        or gemeinde == "Wadgassen");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_SL_GEMEINDE)
+rule MietenstufeSLGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Saarland — Gemeinden der Mietenstufe III (1)";
+    label en unofficial "Saarland: municipalities with rent level III (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Saarland"
+        and (gemeinde == "Saarbrücken, Landeshauptstadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_SL_KREIS)
+rule MietenstufeSLKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Saarland — Kreise der Mietenstufe I (6)";
+    label en unofficial "Saarland: districts with rent level I (6)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Saarland"
+        and (kreis == "Merzig-Wadern"
+        or kreis == "Neunkirchen"
+        or kreis == "Saarlouis"
+        or kreis == "Saar-Pfalz-Kreis"
+        or kreis == "Sankt Wendel"
+        or kreis == "Regionalverband Saarbrücken");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_SN_GEMEINDE)
+rule MietenstufeSNGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Sachsen — Gemeinden der Mietenstufe I (44)";
+    label en unofficial "Sachsen: municipalities with rent level I (44)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Sachsen"
+        and (gemeinde == "Annaberg-Buchholz, Stadt"
+        or gemeinde == "Aue-Bad Schlema"
+        or gemeinde == "Auerbach/Vogtl., Stadt"
+        or gemeinde == "Bautzen, Stadt"
+        or gemeinde == "Borna, Stadt"
+        or gemeinde == "Burgstädt, Stadt"
+        or gemeinde == "Chemnitz, Stadt"
+        or gemeinde == "Crimmitschau, Stadt"
+        or gemeinde == "Dippoldiswalde, Stadt"
+        or gemeinde == "Döbeln, Stadt"
+        or gemeinde == "Ebersbach-Neugersdorf, Stadt"
+        or gemeinde == "Flöha, Stadt"
+        or gemeinde == "Frankenberg/Sachsen, Stadt"
+        or gemeinde == "Frohburg"
+        or gemeinde == "Görlitz, Stadt"
+        or gemeinde == "Grimma, Stadt"
+        or gemeinde == "Großenhain, Stadt"
+        or gemeinde == "Hohenstein-Ernstthal"
+        or gemeinde == "Hoyerswerda, Stadt"
+        or gemeinde == "Kamenz, Stadt"
+        or gemeinde == "Lichtenstein/Sa., Stadt"
+        or gemeinde == "Limbach-Oberfrohna, Stadt"
+        or gemeinde == "Löbau, Stadt"
+        or gemeinde == "Marienberg, Stadt"
+        or gemeinde == "Meerane, Stadt"
+        or gemeinde == "Mittweida, Stadt"
+        or gemeinde == "Mülsen"
+        or gemeinde == "Neustadt i. Sa., Stadt"
+        or gemeinde == "Nossen, Stadt"
+        or gemeinde == "Oelsnitz/Vogtland, Stadt"
+        or gemeinde == "Oelsnitz/Erzgeb., Stadt"
+        or gemeinde == "Olbernhau, Stadt"
+        or gemeinde == "Plauen, Stadt"
+        or gemeinde == "Reichenbach/Vogtl., Stadt"
+        or gemeinde == "Riesa, Stadt"
+        or gemeinde == "Schneeberg, Stadt"
+        or gemeinde == "Schwarzenberg/Erzgeb., Stadt"
+        or gemeinde == "Torgau, Stadt"
+        or gemeinde == "Weißwasser/O.L., Stadt"
+        or gemeinde == "Werdau, Stadt"
+        or gemeinde == "Wurzen, Stadt"
+        or gemeinde == "Zittau, Stadt"
+        or gemeinde == "Zwickau, Stadt"
+        or gemeinde == "Zwönitz, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_SN_GEMEINDE)
+rule MietenstufeSNGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Sachsen — Gemeinden der Mietenstufe III (4)";
+    label en unofficial "Sachsen: municipalities with rent level III (4)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Sachsen"
+        and (gemeinde == "Bannewitz"
+        or gemeinde == "Dresden, Stadt"
+        or gemeinde == "Markkleeberg, Stadt"
+        or gemeinde == "Taucha, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_SN_GEMEINDE)
+rule MietenstufeSNGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Sachsen — Gemeinden der Mietenstufe II (20)";
+    label en unofficial "Sachsen: municipalities with rent level II (20)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Sachsen"
+        and (gemeinde == "Bischofswerda, Stadt"
+        or gemeinde == "Coswig, Stadt"
+        or gemeinde == "Delitzsch, Stadt"
+        or gemeinde == "Eilenburg, Stadt"
+        or gemeinde == "Freiberg, Stadt"
+        or gemeinde == "Freital, Stadt"
+        or gemeinde == "Glauchau, Stadt"
+        or gemeinde == "Heidenau, Stadt"
+        or gemeinde == "Klipphausen"
+        or gemeinde == "Leipzig, Stadt"
+        or gemeinde == "Markranstädt, Stadt"
+        or gemeinde == "Meißen, Stadt"
+        or gemeinde == "Oschatz, Stadt"
+        or gemeinde == "Pirna, Stadt"
+        or gemeinde == "Radeberg, Stadt"
+        or gemeinde == "Radebeul, Stadt"
+        or gemeinde == "Schkeuditz, Stadt"
+        or gemeinde == "Stollberg/Erzgeb., Stadt"
+        or gemeinde == "Weinböhla"
+        or gemeinde == "Wilsdruff, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_SN_KREIS)
+rule MietenstufeSNKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Sachsen — Kreise der Mietenstufe I (10)";
+    label en unofficial "Sachsen: districts with rent level I (10)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Sachsen"
+        and (kreis == "Erzgebirgskreis"
+        or kreis == "Mittelsachsen"
+        or kreis == "Vogtlandkreis"
+        or kreis == "Zwickau"
+        or kreis == "Bautzen"
+        or kreis == "Görlitz"
+        or kreis == "Meißen"
+        or kreis == "Sächsische Schweiz - Osterzgebirge"
+        or kreis == "Leipzig"
+        or kreis == "Nordsachsen");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_ST_GEMEINDE)
+rule MietenstufeSTGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Sachsen-Anhalt — Gemeinden der Mietenstufe II (28)";
+    label en unofficial "Sachsen-Anhalt: municipalities with rent level II (28)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Sachsen-Anhalt"
+        and (gemeinde == "Aschersleben, Stadt"
+        or gemeinde == "Braunsbedra, Stadt"
+        or gemeinde == "Burg, Stadt"
+        or gemeinde == "Gardelegen, Hansestadt"
+        or gemeinde == "Genthin, Stadt"
+        or gemeinde == "Gommern, Stadt"
+        or gemeinde == "Gräfenhainichen, Stadt"
+        or gemeinde == "Halberstadt, Stadt"
+        or gemeinde == "Hohe Börde"
+        or gemeinde == "Jessen (Elster), Stadt"
+        or gemeinde == "Landsberg, Stadt"
+        or gemeinde == "Muldestausee"
+        or gemeinde == "Oberharz am Brocken"
+        or gemeinde == "Oschersleben (Bode), Stadt"
+        or gemeinde == "Quedlinburg, Stadt"
+        or gemeinde == "Querfurt, Stadt"
+        or gemeinde == "Salzatal"
+        or gemeinde == "Salzwedel, Hansestadt"
+        or gemeinde == "Staßfurt, Stadt"
+        or gemeinde == "Stendal, Hansestadt"
+        or gemeinde == "Südliches Anhalt, Stadt"
+        or gemeinde == "Tangermünde, Stadt"
+        or gemeinde == "Teutschenthal"
+        or gemeinde == "Thale, Stadt"
+        or gemeinde == "Wanzleben-Börde, Stadt"
+        or gemeinde == "Wolmirstedt, Stadt"
+        or gemeinde == "Zeitz, Stadt"
+        or gemeinde == "Zerbst/Anhalt, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_ST_GEMEINDE)
+rule MietenstufeSTGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Sachsen-Anhalt — Gemeinden der Mietenstufe III (22)";
+    label en unofficial "Sachsen-Anhalt: municipalities with rent level III (22)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Sachsen-Anhalt"
+        and (gemeinde == "Bad Dürrenberg, Stadt"
+        or gemeinde == "Bernburg (Saale), Stadt"
+        or gemeinde == "Bitterfeld-Wolfen, Stadt"
+        or gemeinde == "Dessau-Roßlau, Stadt"
+        or gemeinde == "Eisleben, Lutherstadt"
+        or gemeinde == "Haldensleben, Stadt"
+        or gemeinde == "Halle (Saale), Stadt"
+        or gemeinde == "Hettstedt, Stadt"
+        or gemeinde == "Köthen (Anhalt), Stadt"
+        or gemeinde == "Leuna, Stadt"
+        or gemeinde == "Magdeburg, Landeshauptstadt"
+        or gemeinde == "Merseburg, Stadt"
+        or gemeinde == "Naumburg (Saale), Stadt"
+        or gemeinde == "Oebisfelde-Weferlingen"
+        or gemeinde == "Sandersdorf-Brehna"
+        or gemeinde == "Sangerhausen, Stadt"
+        or gemeinde == "Schkopau"
+        or gemeinde == "Schönebeck (Elbe), Stadt"
+        or gemeinde == "Tangerhütte, Stadt"
+        or gemeinde == "Weißenfels, Stadt"
+        or gemeinde == "Wernigerode, Stadt"
+        or gemeinde == "Wittenberg, Lutherstadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_ST_GEMEINDE)
+rule MietenstufeSTGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Sachsen-Anhalt — Gemeinden der Mietenstufe I (4)";
+    label en unofficial "Sachsen-Anhalt: municipalities with rent level I (4)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Sachsen-Anhalt"
+        and (gemeinde == "Blankenburg (Harz), Stadt"
+        or gemeinde == "Coswig (Anhalt), Stadt"
+        or gemeinde == "Möckern, Stadt"
+        or gemeinde == "Osterwieck, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_ST_KREIS)
+rule MietenstufeSTKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Sachsen-Anhalt — Kreise der Mietenstufe II (9)";
+    label en unofficial "Sachsen-Anhalt: districts with rent level II (9)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Sachsen-Anhalt"
+        and (kreis == "Anhalt-Bitterfeld"
+        or kreis == "Salzlandkreis"
+        or kreis == "Wittenberg"
+        or kreis == "Burgenlandkreis"
+        or kreis == "Mansfeld-Südharz"
+        or kreis == "Saalekreis"
+        or kreis == "Börde"
+        or kreis == "Jerichower Land"
+        or kreis == "Stendal");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_ST_KREIS)
+rule MietenstufeSTKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Sachsen-Anhalt — Kreise der Mietenstufe I (2)";
+    label en unofficial "Sachsen-Anhalt: districts with rent level I (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Sachsen-Anhalt"
+        and (kreis == "Harz"
+        or kreis == "Altmarkkreis-Salzwedel");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_SH_GEMEINDE)
+rule MietenstufeSHGemeindeVI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Schleswig-Holstein — Gemeinden der Mietenstufe VI (9)";
+    label en unofficial "Schleswig-Holstein: municipalities with rent level VI (9)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Schleswig-Holstein"
+        and (gemeinde == "Ahrensburg, Stadt"
+        or gemeinde == "Bargteheide, Stadt"
+        or gemeinde == "Barsbüttel"
+        or gemeinde == "Halstenbek"
+        or gemeinde == "Norderstedt, Stadt"
+        or gemeinde == "Reinbek, Stadt"
+        or gemeinde == "Rellingen"
+        or gemeinde == "Wedel, Stadt"
+        or gemeinde == "Wentorf bei Hamburg");
+    then mietenstufe_gemeinde(land, gemeinde, 6);
+}
+
+@source(WOGV_ANLAGE_SH_GEMEINDE)
+rule MietenstufeSHGemeindeIV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Schleswig-Holstein — Gemeinden der Mietenstufe IV (17)";
+    label en unofficial "Schleswig-Holstein: municipalities with rent level IV (17)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Schleswig-Holstein"
+        and (gemeinde == "Altenholz"
+        or gemeinde == "Bad Oldesloe, Stadt"
+        or gemeinde == "Bad Schwartau, Stadt"
+        or gemeinde == "Bad Segeberg, Stadt"
+        or gemeinde == "Barmstedt"
+        or gemeinde == "Eckernförde, Stadt"
+        or gemeinde == "Elmshorn, Stadt"
+        or gemeinde == "Kaltenkirchen, Stadt"
+        or gemeinde == "Kronshagen"
+        or gemeinde == "Lauenburg/Elbe, Stadt"
+        or gemeinde == "Lübeck, Stadt"
+        or gemeinde == "Preetz, Stadt"
+        or gemeinde == "Ratekau"
+        or gemeinde == "Scharbeutz"
+        or gemeinde == "Schwarzenbek, Stadt"
+        or gemeinde == "Stockelsdorf"
+        or gemeinde == "Uetersen, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 4);
+}
+
+@source(WOGV_ANLAGE_SH_GEMEINDE)
+rule MietenstufeSHGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Schleswig-Holstein — Gemeinden der Mietenstufe III (15)";
+    label en unofficial "Schleswig-Holstein: municipalities with rent level III (15)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Schleswig-Holstein"
+        and (gemeinde == "Bad Bramstedt, Stadt"
+        or gemeinde == "Büdelsdorf"
+        or gemeinde == "Eutin, Stadt"
+        or gemeinde == "Flensburg, Stadt"
+        or gemeinde == "Fehmarn, Stadt"
+        or gemeinde == "Harrislee"
+        or gemeinde == "Husum, Stadt"
+        or gemeinde == "Itzehoe, Stadt"
+        or gemeinde == "Malente"
+        or gemeinde == "Mölln, Stadt"
+        or gemeinde == "Neumünster, Stadt"
+        or gemeinde == "Neustadt in Holstein, Stadt"
+        or gemeinde == "Ratzeburg, Stadt"
+        or gemeinde == "Rendsburg, Stadt"
+        or gemeinde == "Schleswig, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_SH_GEMEINDE)
+rule MietenstufeSHGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Schleswig-Holstein — Gemeinden der Mietenstufe I (1)";
+    label en unofficial "Schleswig-Holstein: municipalities with rent level I (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Schleswig-Holstein"
+        and (gemeinde == "Brunsbüttel, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_SH_GEMEINDE)
+rule MietenstufeSHGemeindeV(land: Text, gemeinde: Text) strict {
+    label de official "Land: Schleswig-Holstein — Gemeinden der Mietenstufe V (9)";
+    label en unofficial "Schleswig-Holstein: municipalities with rent level V (9)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Schleswig-Holstein"
+        and (gemeinde == "Geesthacht, Stadt"
+        or gemeinde == "Glinde, Stadt"
+        or gemeinde == "Henstedt-Ulzburg"
+        or gemeinde == "Kiel, Landeshauptstadt"
+        or gemeinde == "Pinneberg, Stadt"
+        or gemeinde == "Quickborn, Stadt"
+        or gemeinde == "Schwentinental"
+        or gemeinde == "Sylt"
+        or gemeinde == "Tornesch");
+    then mietenstufe_gemeinde(land, gemeinde, 5);
+}
+
+@source(WOGV_ANLAGE_SH_GEMEINDE)
+rule MietenstufeSHGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Schleswig-Holstein — Gemeinden der Mietenstufe II (4)";
+    label en unofficial "Schleswig-Holstein: municipalities with rent level II (4)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Schleswig-Holstein"
+        and (gemeinde == "Glückstadt, Stadt"
+        or gemeinde == "Handewitt"
+        or gemeinde == "Heide, Stadt"
+        or gemeinde == "Niebüll");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_SH_GEMEINDE)
+rule MietenstufeSHGemeindeVII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Schleswig-Holstein — Gemeinden der Mietenstufe VII (1)";
+    label en unofficial "Schleswig-Holstein: municipalities with rent level VII (1)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Schleswig-Holstein"
+        and (gemeinde == "Schenefeld, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 7);
+}
+
+@source(WOGV_ANLAGE_SH_KREIS)
+rule MietenstufeSHKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Schleswig-Holstein — Kreise der Mietenstufe I (3)";
+    label en unofficial "Schleswig-Holstein: districts with rent level I (3)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Schleswig-Holstein"
+        and (kreis == "Dithmarschen"
+        or kreis == "Nordfriesland"
+        or kreis == "Schleswig-Flensburg");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_SH_KREIS)
+rule MietenstufeSHKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Schleswig-Holstein — Kreise der Mietenstufe II (4)";
+    label en unofficial "Schleswig-Holstein: districts with rent level II (4)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Schleswig-Holstein"
+        and (kreis == "Herzogtum Lauenburg"
+        or kreis == "Rendsburg-Eckernförde"
+        or kreis == "Segeberg"
+        or kreis == "Steinburg");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_SH_KREIS)
+rule MietenstufeSHKreisIII(land: Text, kreis: Text) strict {
+    label de official "Land: Schleswig-Holstein — Kreise der Mietenstufe III (2)";
+    label en unofficial "Schleswig-Holstein: districts with rent level III (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Schleswig-Holstein"
+        and (kreis == "Ostholstein"
+        or kreis == "Plön");
+    then mietenstufe_kreis(land, kreis, 3);
+}
+
+@source(WOGV_ANLAGE_SH_KREIS)
+rule MietenstufeSHKreisIV(land: Text, kreis: Text) strict {
+    label de official "Land: Schleswig-Holstein — Kreise der Mietenstufe IV (2)";
+    label en unofficial "Schleswig-Holstein: districts with rent level IV (2)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Schleswig-Holstein"
+        and (kreis == "Pinneberg"
+        or kreis == "Stormarn");
+    then mietenstufe_kreis(land, kreis, 4);
+}
+
+@source(WOGV_ANLAGE_TH_GEMEINDE)
+rule MietenstufeTHGemeindeI(land: Text, gemeinde: Text) strict {
+    label de official "Land: Thüringen — Gemeinden der Mietenstufe I (17)";
+    label en unofficial "Thüringen: municipalities with rent level I (17)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Thüringen"
+        and (gemeinde == "Altenburg, Stadt"
+        or gemeinde == "Apolda, Stadt"
+        or gemeinde == "Bad Frankenhausen/Kyff"
+        or gemeinde == "Bad Salzungen, Stadt"
+        or gemeinde == "Bad Langensalza, Stadt"
+        or gemeinde == "Bleicherode, Stadt"
+        or gemeinde == "Eisenberg, Stadt"
+        or gemeinde == "Gera, Stadt"
+        or gemeinde == "Greiz, Stadt"
+        or gemeinde == "Hildburghausen, Stadt"
+        or gemeinde == "Leinefelde-Worbis"
+        or gemeinde == "Mühlhausen/Thüringen, Stadt"
+        or gemeinde == "Schmalkalden, Kurort, Stadt"
+        or gemeinde == "Schmölln, Stadt"
+        or gemeinde == "Sonneberg, Stadt"
+        or gemeinde == "Waltershausen, Stadt"
+        or gemeinde == "Zeulenroda Triebes, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 1);
+}
+
+@source(WOGV_ANLAGE_TH_GEMEINDE)
+rule MietenstufeTHGemeindeII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Thüringen — Gemeinden der Mietenstufe II (15)";
+    label en unofficial "Thüringen: municipalities with rent level II (15)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Thüringen"
+        and (gemeinde == "Arnstadt, Stadt"
+        or gemeinde == "Eisenach, Stadt"
+        or gemeinde == "Gotha, Stadt"
+        or gemeinde == "Heilbad Heiligenstadt, Stadt"
+        or gemeinde == "Ilmenau, Stadt"
+        or gemeinde == "Meiningen, Stadt"
+        or gemeinde == "Nordhausen, Stadt"
+        or gemeinde == "Pößneck, Stadt"
+        or gemeinde == "Rudolstadt, Stadt"
+        or gemeinde == "Saalfeld/Saale, Stadt"
+        or gemeinde == "Schleusingen, Stadt"
+        or gemeinde == "Sömmerda, Stadt"
+        or gemeinde == "Sondershausen, Stadt"
+        or gemeinde == "Suhl, Stadt"
+        or gemeinde == "Zella-Mehlis, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 2);
+}
+
+@source(WOGV_ANLAGE_TH_GEMEINDE)
+rule MietenstufeTHGemeindeIII(land: Text, gemeinde: Text) strict {
+    label de official "Land: Thüringen — Gemeinden der Mietenstufe III (3)";
+    label en unofficial "Thüringen: municipalities with rent level III (3)";
+    when mietenstufe_anfrage(land, gemeinde) and land == "Thüringen"
+        and (gemeinde == "Erfurt, Stadt"
+        or gemeinde == "Jena, Stadt"
+        or gemeinde == "Weimar, Stadt");
+    then mietenstufe_gemeinde(land, gemeinde, 3);
+}
+
+@source(WOGV_ANLAGE_TH_KREIS)
+rule MietenstufeTHKreisI(land: Text, kreis: Text) strict {
+    label de official "Land: Thüringen — Kreise der Mietenstufe I (16)";
+    label en unofficial "Thüringen: districts with rent level I (16)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Thüringen"
+        and (kreis == "Eichsfeld"
+        or kreis == "Nordhausen"
+        or kreis == "Wartburgkreis"
+        or kreis == "Unstrut-Hainich-Kreis"
+        or kreis == "Kyffhäuserkreis"
+        or kreis == "Schmalkalden-Meiningen"
+        or kreis == "Gotha"
+        or kreis == "Sömmerda"
+        or kreis == "Hildburghausen"
+        or kreis == "Ilm-Kreis"
+        or kreis == "Sonneberg"
+        or kreis == "Saalfeld-Rudolstadt"
+        or kreis == "Saale-Holzland-Kreis"
+        or kreis == "Saale-Orla-Kreis"
+        or kreis == "Greiz"
+        or kreis == "Altenburger Land");
+    then mietenstufe_kreis(land, kreis, 1);
+}
+
+@source(WOGV_ANLAGE_TH_KREIS)
+rule MietenstufeTHKreisII(land: Text, kreis: Text) strict {
+    label de official "Land: Thüringen — Kreise der Mietenstufe II (1)";
+    label en unofficial "Thüringen: districts with rent level II (1)";
+    when mietenstufe_anfrage_kreis(land, kreis) and land == "Thüringen"
+        and (kreis == "Weimarer Land");
+    then mietenstufe_kreis(land, kreis, 2);
+}
+
+@source(WOGV_ANLAGE_INSELN_GEMEINSAM)
+rule MietenstufeInselnOhneFestlandanschluss strict {
+    label de official "Gemeinsame Mietenstufe: Inseln ohne Festlandanschluss | V";
+    label en unofficial "joint rent level of islands without mainland connection: V";
+    then mietenstufe_gemeinsam("Inseln ohne Festlandanschluss", 5);
+}

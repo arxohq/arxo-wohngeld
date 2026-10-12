@@ -1,0 +1,17 @@
+{
+ "contentHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+ "dependencies": [],
+ "descriptorFormat": "law.package-descriptor/0.2",
+ "features": [
+  "core-executable"
+ ],
+ "languageSemantics": "law.core/0.2.11",
+ "name": "de.social.wohngeld_verordnung",
+ "namespace": "urn:de:social:clir:wohngeld-verordnung",
+ "questionCatalogHash": "sha256:fd16c3dee7601c8b77d5a29135dd96816c8135f6211fcd0aac634b9df5e82ba2",
+ "registryId": "arxo",
+ "resolverUri": "registry://arxo/de.social.wohngeld_verordnung/0.1.0",
+ "sourceHash": "sha256:abc9c484506610077a70cfa2a6f57a1afc3ee5459d086916910d7997924e3513",
+ "version": "0.1.0",
+ "worldHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c"
+}
