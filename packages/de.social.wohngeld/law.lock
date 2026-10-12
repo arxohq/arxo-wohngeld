@@ -1,0 +1,870 @@
+{
+  "dependencyEdges": [
+    {
+      "features": [],
+      "from": "de.social.wohngeld",
+      "requested": "0.1.0",
+      "resolved": "0.1.0",
+      "to": "de.social.wohngeld_verordnung"
+    },
+    {
+      "features": [],
+      "from": "de.social.wohngeld",
+      "requested": "0.1.0",
+      "resolved": "0.1.0",
+      "to": "de.tax.income_for_wohngeld"
+    }
+  ],
+  "languageSemantics": "law.core/0.2.11",
+  "lockVersion": "0.4",
+  "packages": [
+    {
+      "artifactHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+      "features": [
+        "core-executable"
+      ],
+      "name": "de.social.wohngeld_verordnung",
+      "namespace": "urn:de:social:clir:wohngeld-verordnung",
+      "registryId": "law-dsl-dev",
+      "resolverUri": "registry://law-dsl-dev/de.social.wohngeld_verordnung/0.1.0",
+      "sourceHash": "sha256:abc9c484506610077a70cfa2a6f57a1afc3ee5459d086916910d7997924e3513",
+      "version": "0.1.0"
+    },
+    {
+      "artifactHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+      "features": [
+        "core-executable",
+        "law.params/0.1"
+      ],
+      "name": "de.tax.income_for_wohngeld",
+      "namespace": "urn:de:tax:clir:income-for-wohngeld",
+      "registryId": "law-dsl-dev",
+      "resolverUri": "registry://law-dsl-dev/de.tax.income_for_wohngeld/0.1.0",
+      "sourceHash": "sha256:5810f48c49e153941bfc05bdc42d278760df5906fc831a0b99935d629de8718b",
+      "version": "0.1.0"
+    }
+  ],
+  "resolutionHash": "sha256:094cdbc029fe147b5051acd4540f3abe255f02c56e0bfe088bb878cb9a6bc040",
+  "resources": [
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:bff2ef6acf77e541785cf75f848dbc887f7838f4fb024e5abb1124e18c01f609",
+      "id": "urn:de:social:clir:wohngeld:param:FormelFaktor",
+      "kind": "parameter-dataset",
+      "path": "anlagen/FormelFaktor.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:eced9aa03361321772d5efd8c4908e128031e3e59220a72a158c0f6e716f9ac2",
+      "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMehrbetrag",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HeizkostenentlastungMehrbetrag.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:2cf589662992f86275b662afb4268e52a547de4d9f140aeb1b4a7756b54ebb23",
+      "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMitglieder1",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HeizkostenentlastungMitglieder1.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:b8ffcd163ea23ea9dc6f0bae58c0bec82b214d96d3210e3efb927bd30679b8d4",
+      "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMitglieder2",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HeizkostenentlastungMitglieder2.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:9a83771ce8f42ea2cf963943e16cbda35129f33e7cf46f6e3bd8c6be16eeb1c5",
+      "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMitglieder3",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HeizkostenentlastungMitglieder3.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:5d0d6beff2f2d1422b455772c054e316007e17b94733b879f7fbbf5df7f3eb44",
+      "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMitglieder4",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HeizkostenentlastungMitglieder4.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a96c774365f4a9ae8889a4a1af06dd950b670bb01caa958f2ba9f963ecd1f4bb",
+      "id": "urn:de:social:clir:wohngeld:param:HeizkostenentlastungMitglieder5",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HeizkostenentlastungMitglieder5.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:660737780acb5447dc9b4cc9999b75119180836911e4c06506671298b8672692",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMehrbetragMietenstufeI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMehrbetragMietenstufeI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:58860de75d7e9e1d632cd9c9cc2767ebee882fbe4f1d21880d5b27fb9e2f71dd",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMehrbetragMietenstufeII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMehrbetragMietenstufeII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:698a112c51cc7eb9419f1d9a439c09b79bef26036090eb23e42fe12949f661ca",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMehrbetragMietenstufeIII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMehrbetragMietenstufeIII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:b8bf212227139c8f9b1ccd97d1157f413bd635767bd0400db87d5f0ad6418cd1",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMehrbetragMietenstufeIV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMehrbetragMietenstufeIV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:5af21417af728955da5e8eff84b0c2a8b1bd04bd9310b8acb0b89a0ce658bea0",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMehrbetragMietenstufeV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMehrbetragMietenstufeV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:47eb2a7b6317611aec716599d4d0655180883c28a27b11f84238695f04f5aa2b",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMehrbetragMietenstufeVI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMehrbetragMietenstufeVI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:8e2ec62bb69279a735d056822c24ed3182bfd8baf44e8c24e9a81fce22a512aa",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMehrbetragMietenstufeVII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMehrbetragMietenstufeVII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:5c55c7599ce9ff58d18d11f2f25c01bef6898505b1b7bfd09e8c009cf286cc0b",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder1MietenstufeI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder1MietenstufeI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:8dec905c3f217985235665bc3be131e2fad99d11ee29bc2969672202944c81e8",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder1MietenstufeII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder1MietenstufeII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:03808349d5e43bd67b1c1f25818cd003d279a02733698aac155763c7829a9508",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder1MietenstufeIII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder1MietenstufeIII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:afb9093ed40e56acd5dc4b62e3b8164f7c5823c1d7f1e84f8b3d8fa2307fb913",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder1MietenstufeIV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder1MietenstufeIV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:af20e3734c26f6d5206bd0c873b8224710e84ac7aae1bf28d339b019c313f015",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder1MietenstufeV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder1MietenstufeV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:4593812c91b70e3d38623d7fd48697725ed3428404315e909f86350fa7f0f33d",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder1MietenstufeVI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder1MietenstufeVI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:9f045ee91e7b7e6eeabe64ce41543a3635dead77ca23e15c512dcb94effdb1b5",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder1MietenstufeVII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder1MietenstufeVII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:712368f91e4a4c9a7f9bbd12f1fdeb3fdc5649e29c03552540f679e092dd8980",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder2MietenstufeI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder2MietenstufeI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:e1f023c92f8517a506ec48daf59f2a9a4afe40ea5bfb79f40b1271248d841c52",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder2MietenstufeII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder2MietenstufeII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:28edea93011324bff3e8b4fc65a521b0782e6a7f70c1a6af980a31dd97fc43b3",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder2MietenstufeIII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder2MietenstufeIII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:9218967393828371de00ff9214c985c8187eaf1fff0d1a60629fc0aab6e55316",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder2MietenstufeIV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder2MietenstufeIV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:4978899992233d88e5237dd7b694c01828b1ca00144b14d0d6c2bf6a2557863f",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder2MietenstufeV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder2MietenstufeV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:9589ea73dc27cf2c41119994e86d774c9b4638968342c57ef785fdd3e68489fa",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder2MietenstufeVI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder2MietenstufeVI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:6ad17aa4e085928e6fe02bf568445a13f8e1029ae640317b19c464ce1ffc21e1",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder2MietenstufeVII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder2MietenstufeVII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:77b79c843b8d61a673c55660e578fe281dfebfc1c3110751c8c555873d9c0c3c",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder3MietenstufeI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder3MietenstufeI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:7d7c816d7a4061858ab264492a7b7849e401dbd8ed6df19af58aea5065645472",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder3MietenstufeII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder3MietenstufeII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:c9502b3f63eeda547ce11bb4133e52ba977f8da5d3fc735eb18e64f621afa297",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder3MietenstufeIII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder3MietenstufeIII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:14265935ab76d616deb2c39c59b2aaede56b0fadb565520d7bfc6c5995313d74",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder3MietenstufeIV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder3MietenstufeIV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:b645d622543058adfec18352119f9116d89dc863d5e90d10570db59a067f09ad",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder3MietenstufeV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder3MietenstufeV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:e7c797d78c641da12dee54367a9d80308262b7da9dbe9eb0946b1230b7896e40",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder3MietenstufeVI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder3MietenstufeVI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:8d2358628ce9403532312ec4ca61a232a87957a103c70307e12233d2154254df",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder3MietenstufeVII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder3MietenstufeVII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:2414121bd2be72a12468e0d046693f69a879612c518557b1d16c093794e3f674",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder4MietenstufeI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder4MietenstufeI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a5c4d2055e3aeb01ac742ce127a1ab2de535683976a8721f2c192c21aa4e93a1",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder4MietenstufeII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder4MietenstufeII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a09cc3bd857405f6ece475823d7ac6766ab0c1a53839cac8b57bd287e3dea7cd",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder4MietenstufeIII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder4MietenstufeIII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:cef2ec01e71ee6093c1032038ed9e72dfe1678f1ff32aed39ebc3ef1225dc86c",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder4MietenstufeIV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder4MietenstufeIV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:946f88b87a09b679f20797ecb81617a7c418fb4f0031fbb6d8aa8b6e61086c4b",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder4MietenstufeV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder4MietenstufeV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:c786bb2a7496ce3712b01769dbe7510a6c507547d7a3b920f81722ca4c649009",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder4MietenstufeVI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder4MietenstufeVI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:f6ab172d9ee766010ac5319b78da3d0becee7a7bea82766f42a2cbc59cd5c2c7",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder4MietenstufeVII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder4MietenstufeVII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:abc51ed27f6f6596f6c3501e93e40060c18f208aa5cf1981b09647a525268524",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder5MietenstufeI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:fbf8f45e57e9184016153ba48fe69def2d3ed99c35152c35cda2e602d8344d03",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder5MietenstufeII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:ce0ecfedaa50d374394290f1c7b7dcbc6af69f0fcb3da38349da01820a65db39",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeIII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder5MietenstufeIII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a80b7e4e3cfedfe23c3276c29306fc414957e6286ba54ac6ed9362d2d2912ae4",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeIV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder5MietenstufeIV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:98a40317943109cdde32e9b861344b08325b910561d3f03f78e77bba4e949dba",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeV",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder5MietenstufeV.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:f871810a21e2bbefbec6f7ee8ad025c1609e4f312513522e93b11abf48f21369",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeVI",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder5MietenstufeVI.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:19aa18ff169559a28f7145440ddcb0302814b265d50fadf116b459349775c189",
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeVII",
+      "kind": "parameter-dataset",
+      "path": "anlagen/HoechstbetragMitglieder5MietenstufeVII.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:ffa56d6f5d1222d140372c206a5815f11e06bade87e4cd7c8e8a2baf3f9d8f55",
+      "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMehrbetrag",
+      "kind": "parameter-dataset",
+      "path": "anlagen/KlimakomponenteMehrbetrag.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:17eddc325a0f28180545ee637d516e0f50f0f4fdf96080dbe9108d8d4bc6b939",
+      "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMitglieder1",
+      "kind": "parameter-dataset",
+      "path": "anlagen/KlimakomponenteMitglieder1.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:fce39759c06f83495af6e769d2276845b70908024e08de6f0c7973c1fd968f8f",
+      "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMitglieder2",
+      "kind": "parameter-dataset",
+      "path": "anlagen/KlimakomponenteMitglieder2.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a3adabc5fb7afc1681756369ff0a283f2b3c44a712ab07704d00f2354749d914",
+      "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMitglieder3",
+      "kind": "parameter-dataset",
+      "path": "anlagen/KlimakomponenteMitglieder3.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:999b8a662b2219a067056bb146db9cedd9a0cbf6391beaf9df6f7e0a10af257b",
+      "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMitglieder4",
+      "kind": "parameter-dataset",
+      "path": "anlagen/KlimakomponenteMitglieder4.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:30a60b2fdea21ed06b56133c53c99b664100e6a9e062981efcad22184eae1d46",
+      "id": "urn:de:social:clir:wohngeld:param:KlimakomponenteMitglieder5",
+      "kind": "parameter-dataset",
+      "path": "anlagen/KlimakomponenteMitglieder5.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:5c9ccaba43ef794c5f1774e5cddcb20f87073a2eb9686e50072fd5f3a45e7874",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder1",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder1.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:6ae4ce9552e864e4a4f9ac602d5b6092ac773f368270f09b3c36e252dbea8767",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder10",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder10.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:77749a39be6a21725c3882d47c114d142bb16afa8b0146fe65e02181195d4c66",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder11",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder11.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:5f73f5718e220ab3a63d4c8ca0c30a6fd7428fa2b692126ae57c0a55c69c1c60",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder12",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder12.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:251db58fad1f982c262d3f274d670934defdd40ac47153ad5dd59b2087c4c339",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder2",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder2.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:9c8c2616dc5d8559e217ed8a4da48e6b568c00af9fe84a577174e86aa789787d",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder3",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder3.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a82e7f7720789788a1e0e472f199d44bdede21b80133846ac31a97fafbad5f00",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder4",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder4.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:3c249864ebaf9cc119acca894eb7db736e30c81dbb6a357f3ae90f9050d32df2",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder5",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder5.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:8938daf7f5f5fc78a631558de81f3382176ab6896b77a895f7d469ac51c7bb21",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder6",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder6.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:057b3a32480288dcc4b18cdf55f1b161d6b1cab7fd7f3323fc2206e084e27f21",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder7",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder7.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a2302d7262c664a085a45b0b62811a2b7a7618c57495f6d8c8a993860fa67a45",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder8",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder8.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a3ecabe5436ba2a51639583b2d484fe7f7ac0fe5648fae05d6f3f379efb9a62b",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertMMitglieder9",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertMMitglieder9.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:b17f54cd047d701185eb35a7da82bc609f8dd79cae5da133da7bee2ebfa67a25",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder1",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder1.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:3b17f0dfa07a21430d9d5367323ec6746c96836e91207106399a3334b5958843",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder10",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder10.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:afbdaf45ea66639fefbf4282b8e6948bcf8fe704b61f140553dd34111b5c70fb",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder11",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder11.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:6e143376d661e1d7fb9e3d1549170f301a7327673d282cde93f7445abaa54766",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder12",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder12.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:4c9959aca76ac9fb5dfa18bd26cccc571ceb38d8cbf3ba6e254c5f89124e628f",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder2",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder2.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a5fa5e0411d16b4cb98de0af5c73a484537e9a90cebaa5fd24c6a44a4a2411a0",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder3",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder3.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:d114d863ace58bda76e6126beced50c4b7a284b923df3725d5e7ef5ef8fbc852",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder4",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder4.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:055b32a338edb3f689a48c17001ce05bb9887e198b92525e909ee0eee026671a",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder5",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder5.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:6ba8482e28cad2b88c1150241b98561dc683de0b3ac412efebbe069fc6b0f994",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder6",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder6.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:5d934410c640f229bca6a942b9e383c64c34b5de69dec94f4b0d421d8c1e2858",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder7",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder7.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:a38bab60ee8d9827c4c13811b3ba1dc4cf67a22fb30827badc21bff5e03d23ed",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder8",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder8.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:0d326e03f341f21a8ff088b40906d30981205241ad0d4c5b85d4bc64884aedb7",
+      "id": "urn:de:social:clir:wohngeld:param:MindestwertYMitglieder9",
+      "kind": "parameter-dataset",
+      "path": "anlagen/MindestwertYMitglieder9.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:c67ee311de383ddb6b4893857e8a29bbab39d2923eb77e0a716c84278d181dfe",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder1",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder1.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:e7fcd9c592f98d79448c4c1e67523bd6543c36f3333585421ba2e1c17d9f84f6",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder10",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder10.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:7233f91ca13fc574b73dfac2b5eeb8f46be51e215ebd904698932b5b775279e9",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder11",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder11.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:8bb17a7fe684d04d3afb0b5a21dcd659c8bded3e9367f94de84c6d7d1ec0bce6",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder12",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder12.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:5c080b7760a343d4da688ff9c0ea7778d2cc788150673fee2c92ed530ba02c5b",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder2",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder2.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:18217a3bf7174c70c69534c24c404cbd19579de7cae46fd5288d0b50ac7239c9",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder3",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder3.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:307db4dc80ebbe8d64349c50e13ee5083a8ee4bc56cb22879fdc62dad58431a5",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder4",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder4.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:8b920c6c80430684223ea133d77ee9b9d3610e919315f44f057b5422ab9b4db6",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder5",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder5.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:116e4d096fdaad6d14c7e40a7099bb4aa4422eec9c11a08ea0d913ca8c3b02f8",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder6",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder6.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:7ee64a0d7a047c33323b7a8b284e4c112c3d65fec031d480385d83629ee704b1",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder7",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder7.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:ac96955f635143e41021b807dd5e4790b8219b5334ad0b1bf1046053f0c20f4f",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder8",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder8.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:cf1dbcb7a66c86446b97ef2c824ae30326adff8b9ceb5c1f107df31d4fbcc3f3",
+      "id": "urn:de:social:clir:wohngeld:param:WertAMitglieder9",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertAMitglieder9.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:e9341cb3b26363f5c2187c3a24d1441f892d79a1e5ea5b315bd739821cc64507",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder1",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder1.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:67613e9196eb5a3a24a19ac4dce54d3ab4cbffa0f2f587fb7d09effc88e797c6",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder10",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder10.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:2ff3ce915cdda159bfe72112900e0de9b02609209ea62177954726cd403f544d",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder11",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder11.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:61980a465a22ac9bf178ccf91a772fdff4a7c70cdfdd50fe0998f2595c0bc040",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder12",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder12.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:ac8bcc455db9211fdd2c434b60c57cff94ec4ae7f98060480404baed4255211e",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder2",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder2.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:19bbd62aa7812ab78271b238dec98dbedc19675a2399756664fa7d5faf549ac4",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder3",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder3.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:aa935947b7f7791032a7a9b71bc89e84af3916caa6711f5f1714ad65435c92a4",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder4",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder4.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:713c89a1ddec6fe767763a8f70ae7eed8717d9943a15ea91c1926b1d2b4fb305",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder5",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder5.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:71a36bc1dc7077c6bb8c1caa93d1565f89b998f610e01779215b4ea3c7c85b9a",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder6",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder6.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:cd7801f5456aa75faea7f7037692c7d841d0d887d7f1856dbcedd098579b835d",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder7",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder7.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:42e6d36e07614180de94c689bc7ca23caaf41628111b5ae1862f2e658331a785",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder8",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder8.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:42722fb7ed753c33714ac1e95b9db1ded3a407c7f5c1c44e5ee43a6fd42bf922",
+      "id": "urn:de:social:clir:wohngeld:param:WertBMitglieder9",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertBMitglieder9.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:f83a28b85e959758e13a9d03f705f2fc646afebad8575f5873daaab66f4705e1",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder1",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder1.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:f25962420b54ddd8ab420937d8937f585baf4ec375d8bbd02921469670e150a0",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder10",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder10.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:6c41e21cda63e42cb574871ff0c852a952288df5f7df99245e75d829a74f3422",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder11",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder11.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:2eebc69235793e6fb2996d95ed274870e78226ba6614fe9cf54ecfdbfc17dc03",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder12",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder12.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:14adf36977f3fc4a5af84201b956b5ddb7d69a056fe1c72d17d947e34187964b",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder2",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder2.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:9318a2a30beb88da813755b237705fbdcd6d5c36643fd3f5af8bf4efda9560ef",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder3",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder3.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:c21b4d25d4d16f60dcdf07093f2b65ec3e5afdbbd09c2ac0279ceb9234b935ad",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder4",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder4.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:b12ea56da12da48e0bea317867217c8d705ac3cf352af063e9c1c634ccfdf693",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder5",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder5.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:d655acb43a37d1ad7134606c00993c338e438f844e72bf298d2263ecc9281bbc",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder6",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder6.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:0e48c5177a98c5b18c01e3292467cc2af28b658bc9696e4d1d382f2ff8bf8f01",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder7",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder7.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:dd5c2bfdae403441558d75113e60e6f213aa2be61e75d0d40d006f4a8bbc99f2",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder8",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder8.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:9e1cd970db7b7bd3297105b66b82961ef01158fd8a15e0116e2dcae06347e05f",
+      "id": "urn:de:social:clir:wohngeld:param:WertCMitglieder9",
+      "kind": "parameter-dataset",
+      "path": "anlagen/WertCMitglieder9.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:b15031868d9aa79185700e53fc9df8330191ac45df48ce46d0cf084c64c4b9a4",
+      "id": "urn:de:social:clir:wohngeld:param:ZusatzbetragJeWeiteresMitglied",
+      "kind": "parameter-dataset",
+      "path": "anlagen/ZusatzbetragJeWeiteresMitglied.lawparam.json"
+    }
+  ],
+  "root": {
+    "artifactHash": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9",
+    "name": "de.social.wohngeld",
+    "namespace": "urn:de:social:clir:wohngeld",
+    "sourceHash": "sha256:a01237e98253de0e0ef5092c71aeb3b60cbb9c818d117da9c7bb020cb7688a9f",
+    "version": "0.1.0"
+  },
+  "semanticLayer": "L1"
+}

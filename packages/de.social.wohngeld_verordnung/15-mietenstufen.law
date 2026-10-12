@@ -1,0 +1,50 @@
+// § 1 Abs. 3 WoGV и Anlage: Mietenstufen Gemeinden. Строки таблицы — в
+// порождённом `20-anlage-mietenstufen.law`; здесь — сигнатуры и производитель
+// «gesondert aufgeführt», которым WoGG ограничивает подстановку Kreis.
+
+language "law.core" version "0.2";
+package de.social.wohngeld_verordnung version "0.1.0";
+namespace "urn:de:social:clir:wohngeld-verordnung";
+
+use self::{
+    WOGV_1_ABS3,
+    WOGV_ANLAGE_VORBEMERKUNG,
+};
+
+pub relation mietenstufe_anfrage(land: Text, gemeinde: Text) kind institutional {
+    label de official "die Anlage ist auf diese Gemeinde des Landes anzuwenden (Gemeinde des Wohnraums, für den Wohngeld beantragt wird)";
+    label en unofficial "the Annex is to be applied to this municipality (place of the dwelling)";
+}
+
+pub relation mietenstufe_anfrage_kreis(land: Text, kreis: Text) kind institutional {
+    label de official "die Anlage ist auf diesen Kreis des Landes anzuwenden (Kreis der Gemeinde des Wohnraums)";
+    label en unofficial "the Annex is to be applied to this district";
+}
+
+pub relation mietenstufe_gemeinde(land: Text, gemeinde: Text, stufe: Integer) kind institutional {
+    label de official "Mietenstufe einer in der Anlage gesondert aufgeführten Gemeinde (1 bis 7 für I bis VII)";
+    label en unofficial "rent level of a municipality listed separately in the Annex (1 to 7 for I to VII)";
+}
+
+pub relation mietenstufe_kreis(land: Text, kreis: Text, stufe: Integer) kind institutional {
+    label de official "Mietenstufe eines Kreises nach der Anlage (1 bis 7 für I bis VII)";
+    label en unofficial "rent level of a district under the Annex (1 to 7 for I to VII)";
+}
+
+pub relation mietenstufe_gemeinsam(bezeichnung: Text, stufe: Integer) kind institutional {
+    label de official "gemeinsame Mietenstufe nach der Anlage (Inseln ohne Festlandanschluss)";
+    label en unofficial "joint rent level under the Annex (islands without mainland connection)";
+}
+
+pub relation gemeinde_gesondert_aufgefuehrt(land: Text, gemeinde: Text) kind institutional {
+    label de official "die Gemeinde ist in der Tabelle des Landes gesondert aufgeführt";
+    label en unofficial "the municipality is listed separately in the table of the Land";
+}
+
+@source(WOGV_ANLAGE_VORBEMERKUNG, WOGV_1_ABS3)
+rule GemeindeGesondertAufgefuehrt(land: Text, gemeinde: Text, stufe: Integer) strict {
+    label de official "Anlage, Vorbemerkung: gesondert aufgeführt ist eine Gemeinde, die in der Tabelle der Gemeinden des Landes steht";
+    label en unofficial "a municipality is separately listed if it appears in the municipal table of the Land";
+    when mietenstufe_gemeinde(land, gemeinde, stufe);
+    then gemeinde_gesondert_aufgefuehrt(land, gemeinde);
+}

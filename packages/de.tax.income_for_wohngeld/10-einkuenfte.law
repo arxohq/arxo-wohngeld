@@ -1,0 +1,179 @@
+// § 2 Abs. 1 S. 1 Nr. 4, Nr. 7; § 2 Abs. 2 S. 1 Nr. 2; §§ 8, 9, 9a, 19, 22,
+// 32b, 40a EStG — ровно те части, которые читает Wohngeld.
+
+language "law.core" version "0.2";
+package de.tax.income_for_wohngeld version "0.1.0";
+namespace "urn:de:tax:clir:income-for-wohngeld";
+
+use self::{
+    ESTG_19_ABS1_S1_NR1,
+    ESTG_22_NR1_S3_A_AA,
+    ESTG_2_ABS1_S1_NR4,
+    ESTG_2_ABS1_S1_NR7,
+    ESTG_2_ABS2_S1_NR2,
+    ESTG_32B_ABS1_S1_NR1_A,
+    ESTG_40A_ABS2,
+    ESTG_40A_ABS5_S1,
+    ESTG_40_ABS3_S3,
+    ESTG_8_ABS1_S1,
+    ESTG_9A_S1_NR1A,
+    ESTG_9A_S1_NR3,
+    ESTG_9A_S2,
+    ESTG_9_ABS1_S1,
+};
+
+pub entity Person {
+    label de official "natürliche Person (Steuerpflichtiger)";
+    label en unofficial "natural person (taxpayer)";
+}
+
+// --- Исходные факты: годовые суммы, ожидаемые за двенадцать месяцев --------
+
+pub relation arbeitslohn_in_geld(p: Person, betrag: Money) kind empirical {
+    key(p);
+    label de official "Gehälter, Löhne und andere Bezüge für eine Beschäftigung, die dem Steuerpflichtigen in Geld zufließen (Jahresbetrag, ohne pauschal besteuerten Arbeitslohn)";
+    label en unofficial "wages and salaries received in cash (annual amount, excluding flat-rate taxed wages)";
+}
+
+pub relation nachgewiesene_werbungskosten_arbeit(p: Person, betrag: Money) kind empirical {
+    key(p);
+    label de official "nachgewiesene Werbungskosten bei den Einkünften aus nichtselbständiger Arbeit (Jahresbetrag; 0 EUR, wenn keine nachgewiesen werden)";
+    label en unofficial "proven income-related expenses for employment income (annual; 0 EUR if none are proven)";
+}
+
+pub relation leibrente_gesetzliche_rentenversicherung(p: Person, jahresbetrag: Money,
+                                                       der_besteuerung_unterliegender_anteil: Money) kind empirical {
+    key(p);
+    label de official "Leibrente aus der gesetzlichen Rentenversicherung: Jahresbetrag und der nach § 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. aa der Besteuerung unterliegende Anteil";
+    label en unofficial "life annuity from the statutory pension insurance: annual amount and the portion subject to tax";
+}
+
+pub relation nachgewiesene_werbungskosten_sonstige(p: Person, betrag: Money) kind empirical {
+    key(p);
+    label de official "nachgewiesene Werbungskosten bei den sonstigen Einkünften im Sinne des § 22 Nr. 1 (Jahresbetrag; 0 EUR, wenn keine nachgewiesen werden)";
+    label en unofficial "proven income-related expenses for other income under sec. 22 no. 1 (annual; 0 EUR if none)";
+}
+
+pub relation arbeitslosengeld_sgb3(p: Person, betrag: Money) kind empirical {
+    key(p);
+    label de official "Arbeitslosengeld nach dem Dritten Buch Sozialgesetzbuch (Jahresbetrag)";
+    label en unofficial "unemployment benefit under Book III of the Social Code (annual amount)";
+}
+
+pub relation arbeitsentgelt_40a_pauschal_besteuert(p: Person, betrag: Money) kind empirical {
+    key(p);
+    label de official "Arbeitsentgelt aus einer Beschäftigung, für das der Arbeitgeber die Lohnsteuer nach § 40a pauschal erhebt (Jahresbetrag)";
+    label en unofficial "wages for which the employer levies flat-rate wage tax under sec. 40a (annual amount)";
+}
+
+// --- Квалификация и суммы -------------------------------------------------
+
+pub relation einnahmen_nichtselbstaendige_arbeit(p: Person, betrag: Money) kind institutional {
+    label de official "Einnahmen aus nichtselbständiger Arbeit (§ 8 Abs. 1, § 19 Abs. 1 Satz 1 Nr. 1)";
+    label en unofficial "receipts from employment";
+}
+
+pub relation werbungskostenabzug_arbeit(p: Person, betrag: Money) kind institutional {
+    label de official "bei den Einkünften aus nichtselbständiger Arbeit abzuziehende Werbungskosten oder Arbeitnehmer-Pauschbetrag (§ 9a Satz 1 Nr. 1 Buchst. a, Satz 2)";
+    label en unofficial "deduction of expenses or employee lump sum for employment income";
+}
+
+pub relation einkuenfte_nichtselbstaendige_arbeit(p: Person, betrag: Money) kind institutional {
+    label de official "Einkünfte aus nichtselbständiger Arbeit (§ 2 Abs. 1 Satz 1 Nr. 4, Abs. 2 Satz 1 Nr. 2)";
+    label en unofficial "income from employment (receipts less expenses)";
+}
+
+pub relation einnahmen_leibrente_steuerpflichtig(p: Person, betrag: Money) kind institutional {
+    label de official "Einnahmen im Sinne des § 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. aa: der Besteuerung unterliegender Anteil der Leibrente";
+    label en unofficial "taxable portion of the statutory pension (receipts under sec. 22 no. 1)";
+}
+
+pub relation werbungskostenabzug_sonstige(p: Person, betrag: Money) kind institutional {
+    label de official "bei den sonstigen Einkünften abzuziehende Werbungskosten oder Pauschbetrag (§ 9a Satz 1 Nr. 3, Satz 2)";
+    label en unofficial "deduction of expenses or lump sum for other income";
+}
+
+pub relation sonstige_einkuenfte_leibrente(p: Person, betrag: Money) kind institutional {
+    label de official "sonstige Einkünfte im Sinne des § 22 aus der Leibrente (§ 2 Abs. 1 Satz 1 Nr. 7, Abs. 2 Satz 1 Nr. 2)";
+    label en unofficial "other income under sec. 22 from the life annuity";
+}
+
+pub relation lohnersatzleistung_32b_abs1_nr1a(p: Person, betrag: Money) kind institutional {
+    label de official "Leistung im Sinne des § 32b Abs. 1 Satz 1 Nr. 1 Buchst. a (Arbeitslosengeld nach dem SGB III)";
+    label en unofficial "wage replacement benefit under sec. 32b(1) sentence 1 no. 1(a)";
+}
+
+pub relation pauschal_besteuerter_arbeitslohn_40a(p: Person, betrag: Money) kind institutional {
+    label de official "nach § 40a pauschal besteuertes Arbeitsentgelt, das bei einer Veranlagung außer Ansatz bleibt (§ 40a Abs. 5, § 40 Abs. 3 Satz 3)";
+    label en unofficial "flat-rate taxed wages disregarded in the income tax assessment";
+}
+
+// § 9a S. 1 (вводная часть) и S. 2: паушаль — если не доказаны БОЛЬШИЕ расходы;
+// паушаль не превышает Einnahmen, доказанные расходы — могут (отрицательные
+// Einkünfte). Доказанные расходы, не превышающие паушаль, паушаль не вытесняют.
+function abzug_werbungskosten(einnahmen: Money, nachgewiesen: Money, pauschbetrag: Money) -> Money =
+    if nachgewiesen > pauschbetrag then nachgewiesen else min(pauschbetrag, einnahmen);
+
+@source(ESTG_19_ABS1_S1_NR1, ESTG_8_ABS1_S1)
+rule EinnahmenAusNichtselbstaendigerArbeit(p: Person, b: Money) strict {
+    label de official "§ 19 Abs. 1 Satz 1 Nr. 1, § 8 Abs. 1: Gehälter und Löhne in Geld sind Einnahmen aus nichtselbständiger Arbeit";
+    label en unofficial "cash wages are receipts from employment";
+    when arbeitslohn_in_geld(p, b);
+    then einnahmen_nichtselbstaendige_arbeit(p, b);
+}
+
+@source(ESTG_9A_S1_NR1A, ESTG_9A_S2, ESTG_9_ABS1_S1)
+rule WerbungskostenabzugArbeit(p: Person, e: Money, w: Money) strict {
+    label de official "§ 9a Satz 1 Nr. 1 Buchst. a, Satz 2: Arbeitnehmer-Pauschbetrag, wenn nicht höhere Werbungskosten nachgewiesen werden, höchstens bis zur Höhe der Einnahmen";
+    label en unofficial "employee lump sum unless higher expenses are proven, capped at receipts";
+    when einnahmen_nichtselbstaendige_arbeit(p, e) and nachgewiesene_werbungskosten_arbeit(p, w);
+    then werbungskostenabzug_arbeit(p, abzug_werbungskosten(e, w, ArbeitnehmerPauschbetrag));
+}
+
+@source(ESTG_2_ABS1_S1_NR4, ESTG_2_ABS2_S1_NR2)
+rule EinkuenfteAusNichtselbstaendigerArbeit(p: Person, e: Money, a: Money) strict {
+    label de official "§ 2 Abs. 1 Satz 1 Nr. 4, Abs. 2 Satz 1 Nr. 2: Einkünfte sind der Überschuss der Einnahmen über die Werbungskosten";
+    label en unofficial "employment income is receipts less expenses";
+    when einnahmen_nichtselbstaendige_arbeit(p, e) and werbungskostenabzug_arbeit(p, a);
+    then einkuenfte_nichtselbstaendige_arbeit(p, e - a);
+}
+
+@source(ESTG_22_NR1_S3_A_AA)
+rule EinnahmenLeibrente(p: Person, jahr: Money, anteil: Money) strict {
+    label de official "§ 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. aa: Leibrenten aus der gesetzlichen Rentenversicherung, soweit sie der Besteuerung unterliegen";
+    label en unofficial "statutory pensions are other income to the extent they are subject to tax";
+    when leibrente_gesetzliche_rentenversicherung(p, jahr, anteil);
+    then einnahmen_leibrente_steuerpflichtig(p, anteil);
+}
+
+@source(ESTG_9A_S1_NR3, ESTG_9A_S2)
+rule WerbungskostenabzugSonstige(p: Person, e: Money, w: Money) strict {
+    label de official "§ 9a Satz 1 Nr. 3, Satz 2: Pauschbetrag von 102 Euro für Einnahmen im Sinne des § 22 Nr. 1, höchstens bis zur Höhe der Einnahmen";
+    label en unofficial "102 EUR lump sum for pension receipts unless higher expenses are proven, capped at receipts";
+    when einnahmen_leibrente_steuerpflichtig(p, e) and nachgewiesene_werbungskosten_sonstige(p, w);
+    then werbungskostenabzug_sonstige(p, abzug_werbungskosten(e, w, PauschbetragSonstigeEinkuenfte));
+}
+
+@source(ESTG_2_ABS1_S1_NR7, ESTG_2_ABS2_S1_NR2)
+rule SonstigeEinkuenfteLeibrente(p: Person, e: Money, a: Money) strict {
+    label de official "§ 2 Abs. 1 Satz 1 Nr. 7, Abs. 2 Satz 1 Nr. 2: sonstige Einkünfte sind der Überschuss der Einnahmen über die Werbungskosten";
+    label en unofficial "other income is receipts less expenses";
+    when einnahmen_leibrente_steuerpflichtig(p, e) and werbungskostenabzug_sonstige(p, a);
+    then sonstige_einkuenfte_leibrente(p, e - a);
+}
+
+@source(ESTG_32B_ABS1_S1_NR1_A)
+rule ArbeitslosengeldIstLohnersatzleistung(p: Person, b: Money) strict {
+    label de official "§ 32b Abs. 1 Satz 1 Nr. 1 Buchst. a: Arbeitslosengeld nach dem Dritten Buch Sozialgesetzbuch";
+    label en unofficial "unemployment benefit under SGB III is a wage replacement benefit";
+    when arbeitslosengeld_sgb3(p, b);
+    then lohnersatzleistung_32b_abs1_nr1a(p, b);
+}
+
+@source(ESTG_40A_ABS2, ESTG_40A_ABS5_S1, ESTG_40_ABS3_S3)
+rule PauschalBesteuertesArbeitsentgelt(p: Person, b: Money) strict {
+    label de official "§ 40a Abs. 2, Abs. 5, § 40 Abs. 3 Satz 3: pauschal besteuertes Arbeitsentgelt bleibt bei der Veranlagung außer Ansatz";
+    label en unofficial "flat-rate taxed wages are disregarded in the assessment";
+    when arbeitsentgelt_40a_pauschal_besteuert(p, b);
+    then pauschal_besteuerter_arbeitslohn_40a(p, b);
+}

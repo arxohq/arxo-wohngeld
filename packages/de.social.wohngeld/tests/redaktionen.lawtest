@@ -1,0 +1,327 @@
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+// Переход редакций и границы покрытия параметров.
+
+// Последний день редакции Wohngeld-Plus-Gesetz: Anlagen 2, 3 (BGBl. I 2022 S. 2160), Anlage 1 (1. WoGFV).
+// Та же семья, что в BMWSB 2025 № 7 (доход 1 710,00, M 777,80). z4 — `tools/reference_calc.py`: 463,2504131300.
+test "Redaktionswechsel: dieselbe Familie am 2024-12-31 — 463 EUR" {
+    given {
+        context { legal_time @2024-12-31; decision_time @2024-12-31T09:00:00Z; knowledge_time @2024-12-31T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann")) { origin case_input; }
+        assert "kind1-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1")) { origin case_input; }
+        assert "kind1-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind1-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind1-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1")) { origin case_input; }
+        assert "kind1-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1"), 10) { origin case_input; }
+        assert "kind1-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau")) { origin case_input; }
+        assert "kind1-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann")) { origin case_input; }
+        assert "kind1-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind1")) { origin case_input; }
+        assert "kind2-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2")) { origin case_input; }
+        assert "kind2-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind2-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind2-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2")) { origin case_input; }
+        assert "kind2-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2"), 6) { origin case_input; }
+        assert "kind2-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehefrau")) { origin case_input; }
+        assert "kind2-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:ehemann")) { origin case_input; }
+        assert "kind2-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:kind2")) { origin case_input; }
+    }
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:redaktion-2024-12-31:haushalt"), 463 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Первый день 2. WoGFV (BGBl. 2024 I Nr. 314, Art. 3). § 44 Abs. 1 WoGG: с даты вступления
+// Fortschreibung решение принимается по новым Berechnungsgrößen — сумма меняется без изменения фактов.
+test "Redaktionswechsel: dieselbe Familie am 2025-01-01 — 485 EUR" {
+    given {
+        context { legal_time @2025-01-01; decision_time @2025-01-01T09:00:00Z; knowledge_time @2025-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann")) { origin case_input; }
+        assert "kind1-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1")) { origin case_input; }
+        assert "kind1-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind1-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind1-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1")) { origin case_input; }
+        assert "kind1-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1"), 10) { origin case_input; }
+        assert "kind1-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau")) { origin case_input; }
+        assert "kind1-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann")) { origin case_input; }
+        assert "kind1-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind1")) { origin case_input; }
+        assert "kind2-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2")) { origin case_input; }
+        assert "kind2-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind2-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind2-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2")) { origin case_input; }
+        assert "kind2-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2"), 6) { origin case_input; }
+        assert "kind2-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehefrau")) { origin case_input; }
+        assert "kind2-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:ehemann")) { origin case_input; }
+        assert "kind2-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:kind2")) { origin case_input; }
+    }
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:redaktion-2025-01-01:haushalt"), 485 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Последний день покрытия параметров: § 43 Abs. 1 WoGG велит следующую Fortschreibung к 01.01.2027.
+test "Redaktionswechsel: dieselbe Familie am 2026-12-31 — 485 EUR" {
+    given {
+        context { legal_time @2026-12-31; decision_time @2026-12-31T09:00:00Z; knowledge_time @2026-12-31T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann")) { origin case_input; }
+        assert "kind1-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1")) { origin case_input; }
+        assert "kind1-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind1-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind1-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1")) { origin case_input; }
+        assert "kind1-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1"), 10) { origin case_input; }
+        assert "kind1-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau")) { origin case_input; }
+        assert "kind1-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann")) { origin case_input; }
+        assert "kind1-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind1")) { origin case_input; }
+        assert "kind2-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2")) { origin case_input; }
+        assert "kind2-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind2-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind2-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2")) { origin case_input; }
+        assert "kind2-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2"), 6) { origin case_input; }
+        assert "kind2-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehefrau")) { origin case_input; }
+        assert "kind2-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:ehemann")) { origin case_input; }
+        assert "kind2-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:kind2")) { origin case_input; }
+    }
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:redaktion-2026-12-31:haushalt"), 485 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Miete 1 225 € выше потолка обеих редакций: 1. WoGFV — 4 Mitglieder, VII: 1 095 + 34,40 = 1 129,40;
+// 2. WoGFV — 1 139 + 34,40 = 1 173,40 (пример 2025 № 6: M 1 371,20, 691 €). Сумма 621 — `tools/reference_calc.py`.
+test "Redaktionswechsel am Höchstbetrag: Familie aus BMWSB 2025 Nr. 6 am 31.12.2024 — M 1 327,20, 621 EUR" {
+    given {
+        context { legal_time @2024-12-31; decision_time @2024-12-31T09:00:00Z; knowledge_time @2024-12-31T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), "Bayern", "München") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:mietverhaeltnis"), 1225.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt")) { origin adjudicated; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), JA, JA, JA) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann")) { origin case_input; }
+        assert "ehemann-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), 29880.00 EUR) { origin case_input; }
+        assert "ehemann-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), 0.00 EUR) { origin case_input; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-minijob": de.tax.income_for_wohngeld::arbeitsentgelt_40a_pauschal_besteuert(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau"), 6672.00 EUR) { origin case_input; }
+        assert "ehefrau-minijob-aufwendungen": aufwendungen_pauschal_besteuertes_arbeitsentgelt(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "kind1-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1")) { origin case_input; }
+        assert "kind1-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind1-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind1-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1")) { origin case_input; }
+        assert "kind1-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1"), 8) { origin case_input; }
+        assert "kind1-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann")) { origin case_input; }
+        assert "kind1-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau")) { origin case_input; }
+        assert "kind1-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind1")) { origin case_input; }
+        assert "kind2-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2")) { origin case_input; }
+        assert "kind2-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind2-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind2-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2")) { origin case_input; }
+        assert "kind2-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2"), 5) { origin case_input; }
+        assert "kind2-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehemann")) { origin case_input; }
+        assert "kind2-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:ehefrau")) { origin case_input; }
+        assert "kind2-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:kind2")) { origin case_input; }
+    }
+    evaluate truth(hoechstbetrag_mit_klimakomponente(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), 1129.40 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(zu_beruecksichtigende_miete(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), 1327.20 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:redaktion-hb-2024-12-31:haushalt"), 621 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+}
+
+// Правительственный проект изменений на 2027 год не принят; значения после 31.12.2026 не закреплены.
+test "außerhalb der Abdeckung: am 1. Januar 2027 kein Wert der Anlagen — MISSING_PARAMETER_VALUE, nicht 0" {
+    given {
+        context { legal_time @2027-01-01; decision_time @2027-01-01T09:00:00Z; knowledge_time @2027-01-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann")) { origin case_input; }
+        assert "kind1-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1")) { origin case_input; }
+        assert "kind1-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind1-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind1-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1")) { origin case_input; }
+        assert "kind1-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1"), 10) { origin case_input; }
+        assert "kind1-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau")) { origin case_input; }
+        assert "kind1-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann")) { origin case_input; }
+        assert "kind1-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind1")) { origin case_input; }
+        assert "kind2-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2")) { origin case_input; }
+        assert "kind2-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind2-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind2-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2")) { origin case_input; }
+        assert "kind2-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2"), 6) { origin case_input; }
+        assert "kind2-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehefrau")) { origin case_input; }
+        assert "kind2-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:ehemann")) { origin case_input; }
+        assert "kind2-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:kind2")) { origin case_input; }
+    }
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:redaktion-2027-01-01:haushalt"), 485 EUR));
+    expect truth_status == NEITHER;
+    expect issue(MISSING_PARAMETER_VALUE);
+}
+
+test "vor dem 1. Januar 2023: keine modellierte Fassung — EDITION_NOT_APPLICABLE" {
+    given {
+        context { legal_time @2022-12-31; decision_time @2022-12-31T09:00:00Z; knowledge_time @2022-12-31T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann")) { origin case_input; }
+        assert "kind1-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1")) { origin case_input; }
+        assert "kind1-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind1-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind1-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind1-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1")) { origin case_input; }
+        assert "kind1-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1"), 10) { origin case_input; }
+        assert "kind1-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau")) { origin case_input; }
+        assert "kind1-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann")) { origin case_input; }
+        assert "kind1-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind1")) { origin case_input; }
+        assert "kind2-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2")) { origin case_input; }
+        assert "kind2-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "kind2-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau"), VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+        assert "kind2-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "kind2-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2")) { origin case_input; }
+        assert "kind2-alter": alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2"), 6) { origin case_input; }
+        assert "kind2-kind-von-ehefrau": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehefrau")) { origin case_input; }
+        assert "kind2-kind-von-ehemann": kind_von(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2"), entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:ehemann")) { origin case_input; }
+        assert "kind2-kindergeld": kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:kind2")) { origin case_input; }
+    }
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:redaktion-2022-12-31:haushalt"), 485 EUR));
+    expect truth_status == NEITHER;
+    expect issue(EDITION_NOT_APPLICABLE);
+}

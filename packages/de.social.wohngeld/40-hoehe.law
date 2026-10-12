@@ -1,0 +1,177 @@
+// § 19 WoGG mit Anlagen 2 und 3: Höhe des Wohngeldes.
+//
+// ШАГИ ANLAGE 3 — ОТДЕЛЬНЫМИ ПРАВИЛАМИ. Nr. 1 (замена M и Y табличными
+// минимумами), Nr. 2 (z1 … z4 «als Festkommazahlen mit zehn Nachkommastellen»),
+// Nr. 3 (до евро: «bis unter 0,50 Euro … abzurunden sowie von 0,50 Euro an …
+// aufzurunden» — HALF_UP) видны в proof каждый своим узлом.
+//
+// ФИКСИРОВАННАЯ ТОЧКА — ПРОЧТЕНИЕ. Текст говорит «mit zehn Nachkommastellen zu
+// berechnen», но не называет способ приведения к десяти знакам. Пакет берёт
+// коммерческое округление HALF_UP — тот же способ, которым Anlage 3 Nr. 3 и
+// § 43 Abs. 4–9 округляют сами. Расхождение с усечением возможно лишь при
+// z4 в пределах 10⁻¹⁰ от x,5; сценарий `rundung-anlage3` и мутация
+// показывают, где это наблюдаемо.
+//
+// ЧИСЛО ЧЛЕНОВ ДЛЯ a, b, c, M_min, Y_min — учитываемые члены (§ 19 Abs. 1:
+// «nach der Anzahl der zu berücksichtigenden Haushaltsmitglieder»); сверх 12
+// формула считается для 12 и увеличивается по § 19 Abs. 3.
+
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+use self::{
+    Haushalt,
+    WOGG_19_ABS1_ED2023,
+    WOGG_19_ABS1_ED2025,
+    WOGG_19_ABS1_ED2026,
+    WOGG_19_ABS2_ED2023,
+    WOGG_19_ABS2_ED2025,
+    WOGG_19_ABS2_ED2026,
+    WOGG_19_ABS3_ED2023,
+    WOGG_19_ABS3_ED2025,
+    WOGG_19_ABS3_ED2026,
+    anzahl_zu_beruecksichtigende_haushaltsmitglieder,
+    monatliches_gesamteinkommen,
+    zu_beruecksichtigende_miete,
+};
+
+pub relation m_nach_anlage3(h: Haushalt, m: Decimal) kind institutional {
+    label de official "Wert „M“ nach Anlage 3 Nummer 1 (in Euro)";
+    label en unofficial "value M after annex 3 no. 1";
+}
+
+pub relation y_nach_anlage3(h: Haushalt, y: Decimal) kind institutional {
+    label de official "Wert „Y“ nach Anlage 3 Nummer 1 (in Euro)";
+    label en unofficial "value Y after annex 3 no. 1";
+}
+
+pub relation wohngeld_ungerundet(h: Haushalt, z4: Decimal) kind institutional {
+    label de official "ungerundetes monatliches Wohngeld z4 nach Anlage 3 Nummer 2";
+    label en unofficial "unrounded monthly housing benefit z4";
+}
+
+pub relation wohngeld_monatlich(h: Haushalt, betrag: Money) kind institutional {
+    label de official "monatliches Wohngeld nach § 19 (gerundet nach Anlage 3 Nummer 3, erhöht nach § 19 Absatz 3)";
+    label en unofficial "monthly housing benefit under sec. 19";
+}
+
+function formel_mitglieder(n: Integer) -> Integer = if n > 12 then 12 else n;
+
+function wert_a(k: Integer) -> Decimal =
+    if k == 1 then WertAMitglieder1
+    else if k == 2 then WertAMitglieder2
+    else if k == 3 then WertAMitglieder3
+    else if k == 4 then WertAMitglieder4
+    else if k == 5 then WertAMitglieder5
+    else if k == 6 then WertAMitglieder6
+    else if k == 7 then WertAMitglieder7
+    else if k == 8 then WertAMitglieder8
+    else if k == 9 then WertAMitglieder9
+    else if k == 10 then WertAMitglieder10
+    else if k == 11 then WertAMitglieder11
+    else WertAMitglieder12;
+
+function wert_b(k: Integer) -> Decimal =
+    if k == 1 then WertBMitglieder1
+    else if k == 2 then WertBMitglieder2
+    else if k == 3 then WertBMitglieder3
+    else if k == 4 then WertBMitglieder4
+    else if k == 5 then WertBMitglieder5
+    else if k == 6 then WertBMitglieder6
+    else if k == 7 then WertBMitglieder7
+    else if k == 8 then WertBMitglieder8
+    else if k == 9 then WertBMitglieder9
+    else if k == 10 then WertBMitglieder10
+    else if k == 11 then WertBMitglieder11
+    else WertBMitglieder12;
+
+function wert_c(k: Integer) -> Decimal =
+    if k == 1 then WertCMitglieder1
+    else if k == 2 then WertCMitglieder2
+    else if k == 3 then WertCMitglieder3
+    else if k == 4 then WertCMitglieder4
+    else if k == 5 then WertCMitglieder5
+    else if k == 6 then WertCMitglieder6
+    else if k == 7 then WertCMitglieder7
+    else if k == 8 then WertCMitglieder8
+    else if k == 9 then WertCMitglieder9
+    else if k == 10 then WertCMitglieder10
+    else if k == 11 then WertCMitglieder11
+    else WertCMitglieder12;
+
+function mindestwert_m(k: Integer) -> Money =
+    if k == 1 then MindestwertMMitglieder1
+    else if k == 2 then MindestwertMMitglieder2
+    else if k == 3 then MindestwertMMitglieder3
+    else if k == 4 then MindestwertMMitglieder4
+    else if k == 5 then MindestwertMMitglieder5
+    else if k == 6 then MindestwertMMitglieder6
+    else if k == 7 then MindestwertMMitglieder7
+    else if k == 8 then MindestwertMMitglieder8
+    else if k == 9 then MindestwertMMitglieder9
+    else if k == 10 then MindestwertMMitglieder10
+    else if k == 11 then MindestwertMMitglieder11
+    else MindestwertMMitglieder12;
+
+function mindestwert_y(k: Integer) -> Money =
+    if k == 1 then MindestwertYMitglieder1
+    else if k == 2 then MindestwertYMitglieder2
+    else if k == 3 then MindestwertYMitglieder3
+    else if k == 4 then MindestwertYMitglieder4
+    else if k == 5 then MindestwertYMitglieder5
+    else if k == 6 then MindestwertYMitglieder6
+    else if k == 7 then MindestwertYMitglieder7
+    else if k == 8 then MindestwertYMitglieder8
+    else if k == 9 then MindestwertYMitglieder9
+    else if k == 10 then MindestwertYMitglieder10
+    else if k == 11 then MindestwertYMitglieder11
+    else MindestwertYMitglieder12;
+
+function z4_berechnen(k: Integer, m: Decimal, y: Decimal) -> Decimal {
+    let z1: Decimal = round(wert_a(k) + wert_b(k) * m + wert_c(k) * y, 10, "HALF_UP");
+    let z2: Decimal = round(z1 * y, 10, "HALF_UP");
+    let z3: Decimal = m - z2;
+    return round(FormelFaktor * z3, 10, "HALF_UP");
+}
+
+@source(WOGG_19_ABS2_ED2023, WOGG_19_ABS2_ED2025, WOGG_19_ABS2_ED2026, WOGG_19_ABS1_ED2023, WOGG_19_ABS1_ED2025, WOGG_19_ABS1_ED2026)
+rule MNachAnlageDrei(h: Haushalt, miete: Money, n: Integer) strict {
+    label de official "Anlage 3 Nummer 1: Werte für „M“, die unterhalb der Tabellenwerte liegen, werden durch diese ersetzt";
+    label en unofficial "M below the table value is replaced by it";
+    when zu_beruecksichtigende_miete(h, miete) and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n >= 1;
+    then m_nach_anlage3(h, max(miete, mindestwert_m(formel_mitglieder(n))) / 1.00 EUR);
+}
+
+@source(WOGG_19_ABS2_ED2023, WOGG_19_ABS2_ED2025, WOGG_19_ABS2_ED2026, WOGG_19_ABS1_ED2023, WOGG_19_ABS1_ED2025, WOGG_19_ABS1_ED2026)
+rule YNachAnlageDrei(h: Haushalt, eink: Money, n: Integer) strict {
+    label de official "Anlage 3 Nummer 1: Werte für „Y“, die unterhalb der Tabellenwerte liegen, werden durch diese ersetzt";
+    label en unofficial "Y below the table value is replaced by it";
+    when monatliches_gesamteinkommen(h, eink) and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n >= 1;
+    then y_nach_anlage3(h, max(eink, mindestwert_y(formel_mitglieder(n))) / 1.00 EUR);
+}
+
+@source(WOGG_19_ABS1_ED2023, WOGG_19_ABS1_ED2025, WOGG_19_ABS1_ED2026, WOGG_19_ABS2_ED2023, WOGG_19_ABS2_ED2025, WOGG_19_ABS2_ED2026)
+rule WohngeldUngerundet(h: Haushalt, m: Decimal, y: Decimal, n: Integer) strict {
+    label de official "§ 19 Absatz 1, Anlage 3 Nummer 2: z1 = a + b · M + c · Y, z2 = z1 · Y, z3 = M – z2, z4 = 1,15 · z3, als Festkommazahlen mit zehn Nachkommastellen";
+    label en unofficial "formula steps z1 to z4 with ten decimal places";
+    when m_nach_anlage3(h, m) and y_nach_anlage3(h, y) and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n);
+    then wohngeld_ungerundet(h, z4_berechnen(formel_mitglieder(n), m, y));
+}
+
+@source(WOGG_19_ABS2_ED2023, WOGG_19_ABS2_ED2025, WOGG_19_ABS2_ED2026)
+rule WohngeldGerundetBisZwoelf(h: Haushalt, z4: Decimal, n: Integer) strict {
+    label de official "Anlage 3 Nummer 3: bis unter 0,50 Euro auf den nächsten vollen Euro-Betrag abzurunden, von 0,50 Euro an aufzurunden";
+    label en unofficial "rounded to the nearest full euro, 0.50 rounded up";
+    when wohngeld_ungerundet(h, z4) and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n <= 12;
+    then wohngeld_monatlich(h, 1.00 EUR * round(z4, 0, "HALF_UP"));
+}
+
+@source(WOGG_19_ABS3_ED2023, WOGG_19_ABS3_ED2025, WOGG_19_ABS3_ED2026, WOGG_19_ABS2_ED2023, WOGG_19_ABS2_ED2025, WOGG_19_ABS2_ED2026)
+rule WohngeldUeberZwoelfMitglieder(h: Haushalt, z4: Decimal, n: Integer, miete: Money) strict {
+    label de official "§ 19 Absatz 3: für das 13. und jedes weitere zu berücksichtigende Haushaltsmitglied erhöht sich das Wohngeld um jeweils den Zusatzbetrag, höchstens bis zur Höhe der zu berücksichtigenden Miete";
+    label en unofficial "increase per 13th and further member, capped at the rent";
+    when wohngeld_ungerundet(h, z4) and anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n > 12
+        and zu_beruecksichtigende_miete(h, miete);
+    then wohngeld_monatlich(h, min(1.00 EUR * round(z4, 0, "HALF_UP") + ZusatzbetragJeWeiteresMitglied * (n - 12), miete));
+}

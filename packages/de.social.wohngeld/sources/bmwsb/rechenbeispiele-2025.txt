@@ -1,0 +1,610 @@
+BMWSB
+
+Beispiele für die Berechnung des Wohngelds
+Vorbemerkung
+Das Wohngeld wird für jede Bürgerin und jeden Bürger, der anspruchsberechtigt ist
+und einen Antrag stellt, individuell berechnet. In die Berechnung fließen die
+Haushaltsgröße, die zu berücksichtigende Miete und bei selbstgenutztem
+Wohneigentum die Belastung sowie das Gesamteinkommen des Haushalts mit ein
+(vgl. § 4 des Wohngeldgesetzes).
+Um das zu berücksichtigende Gesamteinkommen zu berechnen, werden vom
+Brutto-Einkommen verschiedene Abzüge vorgenommen, die sich teilweise am
+Steuerrecht orientieren und teilweise pauschal erfolgen.
+Die nachfolgenden 11 Beispiele stellen typische Fallkonstellationen dar. Ein
+Schwerpunkt liegt dabei auf der Berechnung des Gesamteinkommens.
+Beim Gesamteinkommen werden häufig folgende Abzüge vorgenommen:
+Werbungskosten: In den untenstehenden Beispielen werden die Werbungskosten in
+der Höhe der jeweils anzuwendenden Pauschalen abgezogen (d. h. 102,50 Euro bei
+Erwerbstätigen als Arbeitnehmer-Pauschbetrag und 8,50 Euro bei Rentnern). Falls
+jedoch höhere Kosten anfallen, können diese geltend gemacht werden.
+Pauschale Abzüge: Bei der Berechnung des wohngeldrechtlichen Einkommens
+werden vom Bruttoeinkommen jeweils 10 % pauschal abgezogen, wenn Steuern vom
+Einkommen, Pflichtbeiträge zur gesetzlichen Kranken- und Pflegeversicherung
+und/oder Pflichtbeiträge zur gesetzlichen Rentenversicherung gezahlt werden.
+Werden beispielsweise Einkommenssteuer und beide Pflichtbeiträge gezahlt, werden
+vom Bruttoeinkommen insgesamt 30 % abgezogen.
+Freibeträge: Vom Bruttoeinkommen werden nach Abzug der pauschalen Abzüge
+auch Freibeträge abgezogen. Freibeträge können beispielsweise bei
+Schwerbehinderung erfolgen, wenn 33 Jahre an Grundrentenzeiten erreicht sind,
+wenn ein Kind unter 18 Jahren in einem Alleinerziehenden-Haushalt lebt oder ein
+Kind im Haushalt erwerbstätig ist.
+Die nachfolgenden Beispiele dienen ausschließlich der Veranschaulichung und
+begründen keinen Rechtsanspruch. Eine rechtsverbindliche Entscheidung zu einem
+Wohngeldanspruch kann nur Ihre zuständige Wohngeldbehörde treffen. Dort
+können Sie sich auch individuell beraten lassen.
+Stand ist der 1. Januar 2025.
+
+BMWSB
+
+Rechenbeispiel 1 für ein zu berücksichtigendes Haushaltsmitglied
+Alleinstehende Rentnerin
+Einkommen: Rente, kein Erreichen von 33 Jahren an Grundrentenzeiten, Beiträge
+zur gesetzlichen Kranken- und Pflegeversicherung, keine Steuern vom Einkommen
+Wohnort: Gemeinde der Mietenstufe I (Jüterbog, Stadt)
+Monatliche Bruttorente
+
+1.300,00 €
+
+Werbungskosten-Pauschbetrag
+
+- 8,50 €
+1.291,50 €
+
+Pauschaler Abzug (10 %)
+
+- 129,15 €
+
+Monatliches
+Gesamteinkommen
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+
+1.162,35 €
+
+Zu berücksichtigende Miete
+Wohngeld
+
+335,00 €
+361,00 € (plus 19,20 € Klimakomponente)
+445,40 €
+(335,00 € Bruttokaltmiete plus 110,40 €
+Gesamtbetrag zur Entlastung bei den Heizkosten)
+110,00 €
+
+BMWSB
+
+Rechenbeispiel 2 für ein zu berücksichtigendes Haushaltsmitglied
+Alleinstehender
+Einkommen: Arbeitslosengeld I (ALG I), keine Beiträge zur gesetzlichen Krankenund Pflegeversicherung, keine Steuern vom Einkommen
+Wohnort: Gemeinde der Mietenstufe IV (Ludwigshafen am Rhein)
+Monatliches Arbeitslosengeld*
+
+1.350,00 €
+
+Monatliches
+Gesamteinkommen
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+
+1.350,00 €
+
+Zu berücksichtigende Miete
+Wohngeld
+
+470,00 €
+511,00 € (plus 19,20 € Klimakomponente)
+580,40 €
+(470,00 € Bruttokaltmiete plus 110,40 €
+Gesamtbetrag zur Entlastung bei den Heizkosten)
+88,00 €
+
+* Beim Bezug von ALG I wird kein Arbeitnehmer-Pauschbetrag abgesetzt.
+
+BMWSB
+
+Rechenbeispiel 3 für zwei zu berücksichtigende Haushaltsmitglieder
+Ehepaar
+Einkommen: Renten, Beiträge zur gesetzlichen Kranken- und Pflegeversicherung,
+keine Steuern vom Einkommen, Ehemann schwerbehindert (Grad der Behinderung
+100)
+Wohnort: Stadt der Mietenstufe II (Leipzig, Stadt)
+Ehemann
+
+Ehefrau
+
+Monatliche Bruttorente
+
+1.410,00 €
+
+540,00 €
+
+WerbungskostenPauschbetrag
+
+- 8,50 €
+
+- 8,50 €
+
+1.401,50 €
+
+531,50 €
+
+- 140,15 €
+
+- 53,15 €
+
+1.231,35 €
+
+478,35 €
+
+Pauschaler Abzug (10 %)
+
+Summe der Einkommen
+
+1.739,70 €
+
+abzüglich Freibetrag für eine
+Person mit einem Grad der
+Behinderung von 100
+(jährlich: 1.800 €)
+Monatliches
+Gesamteinkommen
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+
+-150,00 €
+
+Zu berücksichtigende Miete
+Wohngeld
+
+1.589,70 €
+480,00 €
+493,00 € (plus 24,80 € Klimakomponente)
+622,60 €
+(480,00 € Bruttokaltmiete plus 142,60 €
+Gesamtbetrag zur Entlastung bei den Heizkosten)
+166,00 €
+
+BMWSB
+
+Rechenbeispiel 4 für drei zu berücksichtigende Haushaltsmitglieder
+Familie, Ehepaar mit einem Kind, leben im Eigenheim
+Einkommen: Ehemann ist Arbeitnehmer, Beiträge zur gesetzlichen Kranken- und
+Pflegeversicherung und zur gesetzlichen Rentenversicherung, keine Steuern vom
+Einkommen; Ehefrau ist arbeitslos ohne Anspruch auf ALG I
+Wohnort: Kreis der Mietenstufe I (Kreis Schleswig-Flensburg)
+Monatliches Bruttoeinkommen
+(ohne Kindergeld)
+Arbeitnehmer-Pauschbetrag
+
+2.150,00 €
+- 102,50 €
+2.047,50 €
+
+Pauschaler Abzug (20 %)
+Monatliches
+Gesamteinkommen
+Belastung durch das Eigenheim
+monatlich
+Höchstbetrag
+
+Zu berücksichtigende
+Belastung
+Wohngeld (als Lastenzuschuss)
+
+- 409,50 €
+1.638,00 €
+750,00 €
+521,00 € (plus 29,60 € Klimakomponente)
+720,80 €
+(521,00 € Höchstbetrag plus 29,60
+Klimakomponente plus 170,20 € Gesamtbetrag zur
+Entlastung bei den Heizkosten)
+320,00 €
+
+Hinzu kommen Leistungen aus dem Bildungs- und Teilhabepaket sowie Kindergeld
+in Höhe von 250 Euro pro Kind. Darüber hinaus kann ein Anspruch auf
+Kinderzuschlag in Höhe von bis zu 292 Euro pro Kind bestehen.
+
+BMWSB
+
+Rechenbeispiel 5 für drei zu berücksichtigende Haushaltsmitglieder
+Familie, Alleinerziehende mit 2 Kindern (9 und 13 Jahre)
+Einkommen: Alleinerziehende ist Arbeitnehmerin, Beiträge zur gesetzlichen
+Kranken- und Pflegeversicherung und zur gesetzlichen Rentenversicherung, keine
+Steuern vom Einkommen; Unterhaltsvorschuss für die Kinder
+Wohnort: Gemeinde der Mietenstufe VI (Wiesbaden)
+
+Monatliches Bruttoeinkommen
+(ohne Kindergeld)
+Arbeitnehmer-Pauschbetrag
+
+Pauschaler Abzug (20 %)
+
+Alleinerziehende
+
+Unterhaltsvorschuss
+für die Kinder
+
+1.530,00 €
+
+696,00 €
+
+- 102,50 €
+
+0€
+
+1.427,50 €
+
+696,00 €
+
+- 285,50 €
+
+0€
+
+1.142,00 €
+
+696,00 €
+
+Summe der Einkommen
+
+1.838,00 €
+
+abzüglich AlleinerziehendenFreibetrag (jährlich: 1.320 €)
+Monatliches Gesamteinkommen
+
+- 110,00 €
+
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+Zu berücksichtigende Miete
+
+Wohngeld
+
+1.728,00 €
+700,00 €
+887,00 € (plus 29,60 € Klimakomponente)
+870,20 €
+(700,00 € Bruttokaltmiete plus 170,20 €
+Gesamtbetrag zur Entlastung bei den
+Heizkosten)
+372,00 €
+
+Hinzu kommen Leistungen aus dem Bildungs- und Teilhabepaket sowie Kindergeld
+in Höhe von 250 Euro pro Kind. Darüber hinaus kann ein Anspruch auf
+Kinderzuschlag in Höhe von bis zu 292 Euro pro Kind bestehen.
+
+BMWSB
+
+Rechenbeispiel 6 für vier zu berücksichtigende Haushaltsmitglieder
+Ehepaar mit 2 Kindern
+Einkommen: Eheleute sind Arbeitnehmer, nur Ehemann entrichtet Beiträge zur
+gesetzlichen Kranken- und Pflegeversicherung, zur gesetzlichen Rentenversicherung
+und zahlt Steuern vom Einkommen. Ehefrau mit Minijob (Pauschalversteuerung)
+ohne Werbungskostenabzug.
+Wohnort: Stadt der Mietenstufe VII (München)
+
+Monatliches Bruttoeinkommen
+(ohne Kindergeld)
+Arbeitnehmer-Pauschbetrag
+
+Pauschaler Abzug (30 % /0 %)
+
+Monatliches
+Gesamteinkommen
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+Zu berücksichtigende Miete
+
+Wohngeld
+
+Ehemann
+
+Ehefrau
+
+2.490,00 €
+
+556,00 €
+
+- 102,50 €
+
+0,00 €
+
+2.387,50 €
+
+556,00 €
+
+- 716,25 €
+
+0,00 €
+
+1.671,25 €
+
+556,00 €
+2.227,25 €
+1225,00 €
+
+1.139,00 € (plus 34,40 € Klimakomponente)
+1.371,20 €
+(1.139,00 € Höchstbetrag plus 34,40 €
+Klimakomponente plus 197,80 € Gesamtbetrag zur
+Entlastung bei den Heizkosten)
+691,00 €
+
+Hinzu kommen Leistungen aus dem Bildungs- und Teilhabepaket sowie Kindergeld
+in Höhe von 250 Euro pro Kind. Darüber hinaus kann ein Anspruch auf
+Kinderzuschlag in Höhe von bis zu 292 Euro pro Kind bestehen.
+
+BMWSB
+
+Rechenbeispiel 7 für vier zu berücksichtigende Haushaltsmitglieder
+Ehepaar mit zwei Kindern
+Einkommen: Ehefrau ist Arbeitnehmerin, Beiträge zur gesetzlichen Kranken- und
+Pflegeversicherung und zur gesetzlichen Rentenversicherung, keine Steuern vom
+Einkommen; Ehemann ist arbeitslos ohne Anspruch auf ALG I
+Wohnort: Stadt der Mietenstufe III (Weimar)
+Monatliches Bruttoeinkommen
+(ohne Kindergeld)
+Arbeitnehmer-Pauschbetrag
+
+2.240,00 €
+- 102,50 €
+2.137,50 €
+
+Pauschaler Abzug (20 %)
+Monatliches
+Gesamteinkommen
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+
+Zu berücksichtigende Miete
+Wohngeld
+
+- 427,50 €
+1.710,00 €
+580,00 €
+766,00 € (plus 34,40 € Klimakomponente)
+777,80 €
+(580,00 € Bruttokaltmiete plus 197,80 €
+Gesamtbetrag zur Entlastung bei den Heizkosten)
+485,00 €
+
+Hinzu kommen Leistungen aus dem Bildungs- und Teilhabepaket sowie Kindergeld
+in Höhe von 250 Euro pro Kind. Darüber hinaus kann ein Anspruch auf
+Kinderzuschlag in Höhe von bis zu 292 Euro pro Kind bestehen.
+
+BMWSB
+
+Rechenbeispiel 8 für fünf zu berücksichtigende Haushaltsmitglieder
+Ehepaar mit 3 Kindern
+Einkommen: Ehemann ist Arbeitnehmer, Beiträge zur gesetzlichen Kranken- und
+Pflegeversicherung, zur gesetzlichen Rentenversicherung und zahlt Steuern vom
+Einkommen; Ehefrau ist arbeitslos ohne Anspruch auf ALG I; Tochter (15 Jahre) hat
+einen Job als Zeitungszustellerin (hierfür ist kein Arbeitnehmer-Pauschbetrag
+abzusetzen)
+Wohnort: Stadt der Mietenstufe V (Friedrichshafen)
+Ehemann
+Monatliches Bruttoeinkommen
+(ohne Kindergeld)
+Arbeitnehmer-Pauschbetrag
+
+Pauschaler Abzug (30 % / 0 %)
+
+Tochter
+
+2.750,00 €
+
+60,00 €
+
+- 102,50 €
+
+0,00 €
+
+2.647,50 €
+
+60,00 €
+
+- 794,25 €
+
+0,00 €
+
+1.853,25 €
+
+60,00 €
+
+Summe der Einkommen
+
+1.913,25 €
+
+Abzüglich Freibetrag für Kinder
+mit Erwerbseinkommen
+(jährlich bis 1.200 €)
+Monatliches
+Gesamteinkommen
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+
+-60,00 €
+
+Zu berücksichtigende Miete
+Wohngeld
+
+1.853,25 €
+870,00 €
+1.080,00 € (plus 39,20 € Klimakomponente)
+1.095,40 €
+(870,00 € Bruttokaltmiete plus 225,40 €
+Gesamtbetrag zur Entlastung bei den Heizkosten)
+747,00 €
+
+Hinzu kommen Leistungen aus dem Bildungs- und Teilhabepaket sowie Kindergeld
+in Höhe von 250 Euro pro Kind. Darüber hinaus kann ein Anspruch auf
+Kinderzuschlag in Höhe von bis zu 292 Euro pro Kind bestehen.
+
+BMWSB
+
+Rechenbeispiel 9 für sechs zu berücksichtigende Haushaltsmitglieder
+Ehepaar mit 3 Kindern, Schwiegermutter
+Einkommen: Ehefrau ist Arbeitnehmerin, zahlt Steuern, Beiträge zur gesetzlichen
+Kranken- und Pflegeversicherung sowie zur gesetzlichen Rentenversicherung;
+Ehemann ist arbeitslos ohne Anspruch auf ALG I, Schwiegermutter bezieht Rente,
+zahlt Beiträge zur gesetzlichen Kranken- und Pflegeversicherung, jedoch keine
+Steuern vom Einkommen
+Wohnort: Gemeinde der Mietenstufe II (Attendorn, Stadt)
+Ehefrau
+Monatliches
+Bruttoeinkommen
+Arbeitnehmer-Pauschbetrag
+WerbungskostenPauschbetrag
+
+Pauschaler Abzug (30 % / 10 %)
+
+Monatliches
+Gesamteinkommen
+Zu zahlende monatliche
+Bruttokaltmiete
+Höchstbetrag
+Zu berücksichtigende Miete
+Wohngeld
+
+Schwiegermutter
+4.000,00 €
+
+645,00 €
+
+- 102,50 €
+
+0,00 €
+
+0,00 €
+
+- 8,50 €
+
+3.897,50 €
+
+636,50 €
+
+- 1.169,25 €
+
+- 63,65 €
+
+2.728,25 €
+
+572,85 €
+3.301,10 €
+780,00 €
+
+876,00 € (plus 44 € Klimakomponente)
+1.033,00 €
+(780,00 € Bruttokaltmiete plus 253,00 €
+Gesamtbetrag zur Entlastung bei den Heizkosten)
+343,00 €
+
+Hinzu kommen Leistungen aus dem Bildungs- und Teilhabepaket sowie Kindergeld
+in Höhe von 250 Euro pro Kind. Darüber hinaus kann ein Anspruch auf
+Kinderzuschlag in Höhe von bis zu 292 Euro pro Kind bestehen.
+
+BMWSB
+
+Rechenbeispiel 10 für ein zu berücksichtigendes Haushaltsmitglied und ein vom
+Wohngeld ausgeschlossenes Haushaltsmitglied
+Vater ist Rentner, zahlt Beiträge zur gesetzlichen Kranken- und Pflegeversicherung
+aber keine Steuern vom Einkommen. Sohn ist arbeitslos und bezieht
+Arbeitslosengeld II
+Zu berücksichtigendes Haushaltsmitglied ist als Mieter der Wohnung nur der Vater.
+Der Sohn ist aufgrund des Empfangs einer Transferleistung vom Wohngeld
+ausgeschlossen; im Rahmen des Arbeitslosengeldes II wird sein Mietanteil
+berücksichtigt, das heißt, die Miete wird beim Wohngeld hier hälftig berücksichtigt.
+Wohnort: Stadt der Mietenstufe IV (Lübeck)
+Vater
+
+Sohn
+
+Monatliche Bruttorente
+
+880,00 €
+
+Werbungskosten-Pauschbetrag
+
+- 8,50 €
+
+vom Wohngeld
+ausgeschlossen
+
+871,50 €
+Pauschaler Abzug (10 %)
+Monatliches
+Gesamteinkommen
+Anteilige monatliche
+Bruttokaltmiete
+Höchstbetrag
+
+Zu berücksichtigende Miete
+
+Wohngeld
+
+- 87,15 €
+784,35 €
+285,00 € (50 % von 570 €)
+321,90 € (50 % von der Summe aus 619 € plus
+24,80 € Klimakomponente)
+356,30 €
+(285,00 € anteilige Bruttokaltmiete plus 50 % von
+142,60 € Gesamtbetrag zur Entlastung bei den
+Heizkosten)
+191,00 €
+
+BMWSB
+
+Rechenbeispiel 11 für ein zu berücksichtigendes Haushaltsmitglied mit
+Grundrentenfreibetrag
+Alleinstehende Rentnerin, lebt im Eigenheim
+Einkommen: Rente, Erreichen von 33 Jahren an Grundrentenzeiten, Beiträge zur
+gesetzlichen Kranken- und Pflegeversicherung, keine Steuern vom Einkommen
+Wohnort: Gemeinde der Mietenstufe II (Neubrandenburg, Stadt)
+Monatliche Bruttorente (mit
+Grundrentenzuschlag)
+Werbungskosten-Pauschbetrag
+
+945,00 €
+- 8,50 €
+936,50 €
+
+Pauschaler Abzug (10 %)
+
+- 93,65€
+
+Summe des Einkommens
+
+842,85 €
+
+Abzüglich
+Grundrentenfreibetrag
+(monatlich max. 281,50 €)
+Monatliches
+Gesamteinkommen
+Belastung durch das Eigenheim
+monatlich
+Höchstbetrag
+
+- 281,50 €
+
+Zu berücksichtigende
+Belastung
+Wohngeld (als Lastenzuschuss)
+
+561,35 €
+345,00 €
+408,00 € (plus 19,20 € Klimakomponente)
+455,40 €
+(345,00 € Bruttokaltmiete plus 110,40 €
+Gesamtbetrag zur Entlastung bei den Heizkosten)
+342,00 €
+
+

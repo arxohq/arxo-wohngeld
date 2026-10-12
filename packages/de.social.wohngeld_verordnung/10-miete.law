@@ -1,0 +1,176 @@
+// §§ 1, 2, 6 WoGV — состав Miete в смысле § 9 WoGG.
+
+language "law.core" version "0.2";
+package de.social.wohngeld_verordnung version "0.1.0";
+namespace "urn:de:social:clir:wohngeld-verordnung";
+
+use self::{
+    WOGV_1_ABS1,
+    WOGV_2_ABS1,
+    WOGV_6_ABS1,
+    WOGV_6_ABS2,
+};
+
+pub entity Mietverhaeltnis {
+    label de official "Miet- oder mietähnliches Nutzungsverhältnis über Wohnraum";
+    label en unofficial "tenancy or tenancy-like right of use of living space";
+}
+
+// Номера § 2 Betriebskostenverordnung, на которые ссылается § 6 Abs. 1 WoGV.
+pub enum BetriebskostenPosition {
+    BETRKV_2_NR4_A, BETRKV_2_NR4_B, BETRKV_2_NR4_C, BETRKV_2_NR4_D,
+    BETRKV_2_NR5_A, BETRKV_2_NR5_B, BETRKV_2_NR5_C,
+    BETRKV_2_NR6_A, BETRKV_2_NR6_B, BETRKV_2_NR6_C,
+    UEBRIGE_BETRIEBSKOSTEN;
+    label de official "Betriebskosten nach Nummern des § 2 der Betriebskostenverordnung";
+    label en unofficial "operating costs by item number of sec. 2 of the Operating Costs Ordinance";
+}
+
+// Nr. 1–5 § 9 Abs. 2 S. 1 WoGG — что при определении Miete «außer Betracht bleibt».
+pub enum KostenartNeunZwei {
+    NR1_HEIZUNG_WARMWASSER, NR2_WAERMELIEFERUNG, NR3_HAUSHALTSENERGIE,
+    NR4_GARAGE_STELLPLATZ, NR5_ZUSATZLEISTUNGEN;
+    label de official "Kosten und Vergütungen, die nach § 9 Absatz 2 Satz 1 Nummer 1 bis 5 des Wohngeldgesetzes außer Betracht bleiben";
+    label en unofficial "cost categories disregarded under sec. 9(2) sentence 1 nos. 1 to 5 of the Housing Benefit Act";
+}
+
+pub enum PauschalArt {
+    ZENTRALHEIZUNG_ODER_WAERMELIEFERUNG, WARMWASSER_ZENTRAL_ODER_LIEFERUNG,
+    UEBRIGE_HAUSHALTSENERGIE, GARAGE, STELLPLATZ;
+    label de official "Kosten, für die § 6 Absatz 2 Nummer 1 bis 4 einen Pauschbetrag bestimmt";
+    label en unofficial "costs for which sec. 6(2) nos. 1 to 4 fixes a lump sum";
+}
+
+// --- Факты договора -------------------------------------------------------
+
+pub relation umlage_betriebskosten(mv: Mietverhaeltnis, position: BetriebskostenPosition, betrag: Money) kind empirical {
+    label de official "im Mietvertrag ausgewiesene monatliche Umlage für Betriebskosten der bezeichneten Nummer";
+    label en unofficial "monthly operating-cost charge shown in the lease for the given item";
+}
+
+pub relation zahlung_an_dritte(mv: Mietverhaeltnis, betrag: Money) kind empirical {
+    label de official "Beträge, die im Zusammenhang mit dem Nutzungsverhältnis auf Grund eines Vertrages an einen Dritten zu zahlen sind (monatlich)";
+    label en unofficial "monthly amounts payable to a third party under a contract connected with the tenancy";
+}
+
+pub relation nicht_ausgewiesene_kosten(mv: Mietverhaeltnis, art: PauschalArt) kind empirical {
+    label de official "die Miete enthält Kosten dieser Art, die sich nicht aus dem Mietvertrag oder entsprechenden Unterlagen ergeben";
+    label en unofficial "the rent includes costs of this kind that are not shown in the lease or documents";
+}
+
+pub relation wohnflaeche_qm(mv: Mietverhaeltnis, qm: Decimal) kind empirical {
+    key(mv);
+    label de official "Wohnfläche in Quadratmetern";
+    label en unofficial "living space in square metres";
+}
+
+pub relation anzahl_bewohner(mv: Mietverhaeltnis, n: Integer) kind empirical {
+    key(mv);
+    label de official "Anzahl der Bewohnerinnen und Bewohner";
+    label en unofficial "number of occupants";
+}
+
+// --- Выводимое ------------------------------------------------------------
+
+pub relation heizkosten_position(position: BetriebskostenPosition, art: KostenartNeunZwei) kind institutional {
+    label de official "Betriebskosten dieser Nummer bleiben nach § 9 Absatz 2 Nummer 1 oder 2 WoGG außer Betracht (§ 6 Absatz 1)";
+    label en unofficial "operating costs of this item are disregarded as heating or hot-water costs";
+}
+
+pub relation ausser_betracht_bleibende_umlage(mv: Mietverhaeltnis, position: BetriebskostenPosition,
+                                              art: KostenartNeunZwei, betrag: Money) kind institutional {
+    label de official "ausgewiesene Umlage, die als Kosten nach § 9 Absatz 2 Nummer 1 oder 2 WoGG außer Betracht bleibt";
+    label en unofficial "shown charge disregarded as heating or hot-water costs";
+}
+
+pub relation zur_miete_gehoerende_zahlung_an_dritte(mv: Mietverhaeltnis, betrag: Money) kind institutional {
+    label de official "zur Miete im Sinne des § 9 Absatz 1 WoGG gehörende Zahlung an einen Dritten (§ 2 Absatz 1)";
+    label en unofficial "payment to a third party forming part of the rent";
+}
+
+pub relation pauschbetrag_6_abs2(mv: Mietverhaeltnis, art: PauschalArt, betrag: Money) kind institutional {
+    label de official "von der Miete abzusetzender Pauschbetrag nach § 6 Absatz 2";
+    label en unofficial "lump sum to be deducted from the rent under sec. 6(2)";
+}
+
+@source(WOGV_6_ABS1)
+rule HeizkostenpositionNr4A strict { label de official "§ 6 Abs. 1 Nr. 1: § 2 Nr. 4 Buchstabe a BetrKV"; label en unofficial "sec. 6(1) no. 1: item 4(a)"; then heizkosten_position(BETRKV_2_NR4_A, NR1_HEIZUNG_WARMWASSER); }
+@source(WOGV_6_ABS1)
+rule HeizkostenpositionNr4B strict { label de official "§ 6 Abs. 1 Nr. 1: § 2 Nr. 4 Buchstabe b BetrKV"; label en unofficial "sec. 6(1) no. 1: item 4(b)"; then heizkosten_position(BETRKV_2_NR4_B, NR1_HEIZUNG_WARMWASSER); }
+@source(WOGV_6_ABS1)
+rule HeizkostenpositionNr4D strict { label de official "§ 6 Abs. 1 Nr. 1: § 2 Nr. 4 Buchstabe d BetrKV"; label en unofficial "sec. 6(1) no. 1: item 4(d)"; then heizkosten_position(BETRKV_2_NR4_D, NR1_HEIZUNG_WARMWASSER); }
+@source(WOGV_6_ABS1)
+rule HeizkostenpositionNr5A strict { label de official "§ 6 Abs. 1 Nr. 1: § 2 Nr. 5 Buchstabe a BetrKV"; label en unofficial "sec. 6(1) no. 1: item 5(a)"; then heizkosten_position(BETRKV_2_NR5_A, NR1_HEIZUNG_WARMWASSER); }
+@source(WOGV_6_ABS1)
+rule HeizkostenpositionNr5C strict { label de official "§ 6 Abs. 1 Nr. 1: § 2 Nr. 5 Buchstabe c BetrKV"; label en unofficial "sec. 6(1) no. 1: item 5(c)"; then heizkosten_position(BETRKV_2_NR5_C, NR1_HEIZUNG_WARMWASSER); }
+@source(WOGV_6_ABS1)
+rule HeizkostenpositionNr6A strict { label de official "§ 6 Abs. 1 Nr. 1: § 2 Nr. 6 Buchstabe a BetrKV"; label en unofficial "sec. 6(1) no. 1: item 6(a)"; then heizkosten_position(BETRKV_2_NR6_A, NR1_HEIZUNG_WARMWASSER); }
+@source(WOGV_6_ABS1)
+rule HeizkostenpositionNr6C strict { label de official "§ 6 Abs. 1 Nr. 1: § 2 Nr. 6 Buchstabe c BetrKV"; label en unofficial "sec. 6(1) no. 1: item 6(c)"; then heizkosten_position(BETRKV_2_NR6_C, NR1_HEIZUNG_WARMWASSER); }
+@source(WOGV_6_ABS1)
+rule WaermelieferungNr4C strict { label de official "§ 6 Abs. 1 Nr. 2: § 2 Nr. 4 Buchstabe c BetrKV"; label en unofficial "sec. 6(1) no. 2: item 4(c)"; then heizkosten_position(BETRKV_2_NR4_C, NR2_WAERMELIEFERUNG); }
+@source(WOGV_6_ABS1)
+rule WaermelieferungNr5B strict { label de official "§ 6 Abs. 1 Nr. 2: § 2 Nr. 5 Buchstabe b BetrKV"; label en unofficial "sec. 6(1) no. 2: item 5(b)"; then heizkosten_position(BETRKV_2_NR5_B, NR2_WAERMELIEFERUNG); }
+@source(WOGV_6_ABS1)
+rule WaermelieferungNr6B strict { label de official "§ 6 Abs. 1 Nr. 2: § 2 Nr. 6 Buchstabe b BetrKV"; label en unofficial "sec. 6(1) no. 2: item 6(b)"; then heizkosten_position(BETRKV_2_NR6_B, NR2_WAERMELIEFERUNG); }
+
+@source(WOGV_6_ABS1, WOGV_1_ABS1)
+rule AusgewieseneHeizkostenBleibenAusserBetracht(mv: Mietverhaeltnis, position: BetriebskostenPosition,
+                                                  art: KostenartNeunZwei, b: Money) strict {
+    label de official "§ 6 Abs. 1: ausgewiesene Umlagen für Heizungs-, Brennstoff- und Warmwasseranlagen und für die eigenständig gewerbliche Lieferung von Wärme und Warmwasser bleiben außer Betracht";
+    label en unofficial "shown charges for heating and hot water are disregarded";
+    when umlage_betriebskosten(mv, position, b) and heizkosten_position(position, art);
+    then ausser_betracht_bleibende_umlage(mv, position, art, b);
+}
+
+@source(WOGV_2_ABS1)
+rule ZahlungAnDritteGehoertZurMiete(mv: Mietverhaeltnis, b: Money) strict {
+    label de official "§ 2 Abs. 1: zur Miete gehören auch Beträge, die im Zusammenhang mit dem Nutzungsverhältnis an einen Dritten zu zahlen sind";
+    label en unofficial "payments to third parties connected with the tenancy are part of the rent";
+    when zahlung_an_dritte(mv, b);
+    then zur_miete_gehoerende_zahlung_an_dritte(mv, b);
+}
+
+// § 6 Abs. 2 Nr. 2 и 3: суммы за первого и второго жильца, «für jede weitere» — надбавка.
+function pauschbetrag_nach_bewohnern(n: Integer, einer: Money, zwei: Money, weitere: Money) -> Money =
+    if n <= 1 then einer else zwei + weitere * (n - 2);
+
+@source(WOGV_6_ABS2)
+rule PauschbetragZentralheizung(mv: Mietverhaeltnis, qm: Decimal) strict {
+    label de official "§ 6 Abs. 2 Nr. 1: 1,25 Euro monatlich je Quadratmeter Wohnfläche";
+    label en unofficial "central heating or heat supply: EUR 1.25 per square metre per month";
+    when nicht_ausgewiesene_kosten(mv, ZENTRALHEIZUNG_ODER_WAERMELIEFERUNG) and wohnflaeche_qm(mv, qm);
+    then pauschbetrag_6_abs2(mv, ZENTRALHEIZUNG_ODER_WAERMELIEFERUNG, 1.25 EUR * qm);
+}
+
+@source(WOGV_6_ABS2)
+rule PauschbetragWarmwasser(mv: Mietverhaeltnis, n: Integer) strict {
+    label de official "§ 6 Abs. 2 Nr. 2: 9 Euro für eine Bewohnerin oder einen Bewohner, 17 Euro für zwei, 3 Euro für jede weitere";
+    label en unofficial "hot water: EUR 9 for one occupant, EUR 17 for two, EUR 3 for each further occupant";
+    when nicht_ausgewiesene_kosten(mv, WARMWASSER_ZENTRAL_ODER_LIEFERUNG) and anzahl_bewohner(mv, n) and n >= 1;
+    then pauschbetrag_6_abs2(mv, WARMWASSER_ZENTRAL_ODER_LIEFERUNG, pauschbetrag_nach_bewohnern(n, 9 EUR, 17 EUR, 3 EUR));
+}
+
+@source(WOGV_6_ABS2)
+rule PauschbetragHaushaltsenergie(mv: Mietverhaeltnis, n: Integer) strict {
+    label de official "§ 6 Abs. 2 Nr. 3: 41 Euro für eine Bewohnerin oder einen Bewohner, 74 Euro für zwei, 15 Euro für jede weitere";
+    label en unofficial "other household energy: EUR 41 for one occupant, EUR 74 for two, EUR 15 for each further occupant";
+    when nicht_ausgewiesene_kosten(mv, UEBRIGE_HAUSHALTSENERGIE) and anzahl_bewohner(mv, n) and n >= 1;
+    then pauschbetrag_6_abs2(mv, UEBRIGE_HAUSHALTSENERGIE, pauschbetrag_nach_bewohnern(n, 41 EUR, 74 EUR, 15 EUR));
+}
+
+@source(WOGV_6_ABS2)
+rule PauschbetragGarage(mv: Mietverhaeltnis) strict {
+    label de official "§ 6 Abs. 2 Nr. 4: für die Überlassung einer Garage 36 Euro monatlich";
+    label en unofficial "garage: EUR 36 per month";
+    when nicht_ausgewiesene_kosten(mv, GARAGE);
+    then pauschbetrag_6_abs2(mv, GARAGE, 36 EUR);
+}
+
+@source(WOGV_6_ABS2)
+rule PauschbetragStellplatz(mv: Mietverhaeltnis) strict {
+    label de official "§ 6 Abs. 2 Nr. 4: für die Überlassung eines Stellplatzes 25 Euro monatlich";
+    label en unofficial "parking space: EUR 25 per month";
+    when nicht_ausgewiesene_kosten(mv, STELLPLATZ);
+    then pauschbetrag_6_abs2(mv, STELLPLATZ, 25 EUR);
+}

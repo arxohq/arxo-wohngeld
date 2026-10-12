@@ -1,0 +1,7 @@
+{
+ "format": "law.package-versions/0.1",
+ "name": "de.tax.income_for_wohngeld",
+ "versions": [
+  "0.1.0"
+ ]
+}

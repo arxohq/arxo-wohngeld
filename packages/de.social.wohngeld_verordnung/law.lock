@@ -1,0 +1,16 @@
+{
+  "dependencyEdges": [],
+  "languageSemantics": "law.core/0.2.11",
+  "lockVersion": "0.4",
+  "packages": [],
+  "resolutionHash": "sha256:39f58e7b8952550807ad284448a163494202b80fd33c0d182a0cb8d3828d6062",
+  "resources": [],
+  "root": {
+    "artifactHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+    "name": "de.social.wohngeld_verordnung",
+    "namespace": "urn:de:social:clir:wohngeld-verordnung",
+    "sourceHash": "sha256:abc9c484506610077a70cfa2a6f57a1afc3ee5459d086916910d7997924e3513",
+    "version": "0.1.0"
+  },
+  "semanticLayer": "L1"
+}

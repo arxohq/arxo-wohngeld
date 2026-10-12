@@ -1,0 +1,238 @@
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+// Недостаточные и противоречивые факты.
+
+// Доход считается, сумма — нет: без Mietenstufe нет Höchstbetrag.
+test "unzureichende Tatsachen: ohne Wohnort keine Mietenstufe und kein Wohngeld (nicht 0)" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-wohnort:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:ohne-wohnort:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-wohnort:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehemann"), entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-wohnort:ehemann")) { origin case_input; }
+    }
+    evaluate truth(monatliches_gesamteinkommen(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), 1710.00 EUR));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:ohne-wohnort:haushalt"), 0 EUR));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+test "unzureichende Tatsachen: ohne vereinbartes Entgelt keine Miete und kein Wohngeld" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-miete:mietverhaeltnis")) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-miete:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), entity_ref("urn:de:example:wohngeld:ohne-miete:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:ohne-miete:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:ohne-miete:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:ohne-miete:ehemann"), entity_ref("urn:de:example:wohngeld:ohne-miete:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:ohne-miete:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:ohne-miete:ehemann")) { origin case_input; }
+    }
+    evaluate truth(mietenstufe(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), MIETENSTUFE_III));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(zu_beruecksichtigende_miete(entity_ref("urn:de:example:wohngeld:ohne-miete:haushalt"), 0 EUR));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+// Отсутствие факта о трансфере — не установленное «не получает».
+test "unzureichende Tatsachen: Ausschlussstatus des Ehemanns nach § 7 unbekannt — keine Mitgliederzahl, kein Wohngeld" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), entity_ref("urn:de:example:wohngeld:status-offen:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:status-offen:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:status-offen:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:status-offen:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:status-offen:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), entity_ref("urn:de:example:wohngeld:status-offen:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:status-offen:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), entity_ref("urn:de:example:wohngeld:status-offen:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:status-offen:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:status-offen:ehemann"), entity_ref("urn:de:example:wohngeld:status-offen:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:status-offen:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:status-offen:ehemann")) { origin case_input; }
+    }
+    evaluate truth(haushalt_festgestellt(entity_ref("urn:de:example:wohngeld:status-offen:haushalt")));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(anzahl_zu_beruecksichtigende_haushaltsmitglieder(entity_ref("urn:de:example:wohngeld:status-offen:haushalt"), 2));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+test "unzureichende Tatsachen: Arbeitslohn ohne Angabe zu Werbungskosten — Jahreseinkommen nicht ermittelbar" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), entity_ref("urn:de:example:wohngeld:einkommen-offen:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:einkommen-offen:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:einkommen-offen:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), entity_ref("urn:de:example:wohngeld:einkommen-offen:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehemann"), entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehemann")) { origin case_input; }
+    }
+    evaluate truth(einkommensangabe_unvollstaendig(entity_ref("urn:de:example:wohngeld:einkommen-offen:ehefrau")));
+    expect truth_status == TRUE_ONLY;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(monatliches_gesamteinkommen(entity_ref("urn:de:example:wohngeld:einkommen-offen:haushalt"), 1710.00 EUR));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+test "unzureichende Tatsachen: Mitbewohner ohne festgestellte Beziehung — Haushalt nicht festgestellt" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehemann"), entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:ehemann")) { origin case_input; }
+        assert "extra-0": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:gast")) { origin case_input; }
+    }
+    evaluate truth(haushalt_festgestellt(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt")));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:unbekannter-bewohner:haushalt"), 485 EUR));
+    expect truth_status == NEITHER;
+    expect evaluation_status == COMPUTED;
+}
+
+// key(mv) у vereinbartes_entgelt: два разных значения — конфликт ключа §40, а не выбор одного из них.
+test "widersprüchliche Tatsachen: zwei verschiedene vereinbarte Entgelte für ein Mietverhältnis" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-miete:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:widerspruch-miete:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-miete:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehemann"), entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-miete:ehemann")) { origin case_input; }
+        assert "extra-0": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:widerspruch-miete:mietverhaeltnis"), 650.00 EUR) { origin case_input; }
+    }
+    evaluate truth(wohngeld_monatlich(entity_ref("urn:de:example:wohngeld:widerspruch-miete:haushalt"), 485 EUR));
+    expect issue(KEY_CONFLICT);
+}
+
+// Паракосистентный ответ §-логики: утверждение и отрицание одного факта дают BOTH, а не молчаливый выбор.
+test "widersprüchliche Tatsachen: Lebensmittelpunkt des Ehemanns zugleich behauptet und bestritten — BOTH" {
+    given {
+        context { legal_time @2025-03-01; decision_time @2025-03-01T09:00:00Z; knowledge_time @2025-03-01T09:00:00Z; timezone "Europe/Berlin"; }
+        assert "antrag": wohngeldantrag(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), MIETZUSCHUSS) { origin case_input; }
+        assert "grundlage": nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), MIETVERHAELTNIS) { origin case_input; }
+        assert "fact-wohnort": wohnort(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+        assert "mv": mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:mietverhaeltnis")) { origin case_input; }
+        assert "entgelt": vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+        assert "bafoeg": ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), NEIN, NEIN) { origin case_input; }
+        assert "miete-vollstaendig": angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:mietverhaeltnis")) { origin case_input; }
+        assert "freibetraege-vollstaendig": angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt")) { origin case_input; }
+        assert "behoerde-21-nr3": not missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt")) { origin adjudicated; }
+        assert "ehefrau-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau")) { origin case_input; }
+        assert "ehefrau-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehefrau-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehefrau-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), NEIN, JA, JA) { origin case_input; }
+        assert "ehefrau-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau")) { origin case_input; }
+        assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), 26880.00 EUR) { origin case_input; }
+        assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), 0.00 EUR) { origin case_input; }
+        assert "ehemann-lebensmittelpunkt": lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann")) { origin case_input; }
+        assert "ehemann-aufenthalt": aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann"), KEIN_AUSLAENDER) { origin case_input; }
+        assert "ehemann-leistung7": leistungsbezug_7(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann"), KEINE, NEIN, NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-beziehung": beziehung(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau"), EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+        assert "ehemann-abzug16": abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann"), NEIN, NEIN, NEIN) { origin case_input; }
+        assert "ehemann-einkommen-vollstaendig": einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann")) { origin case_input; }
+        assert "extra-0": not lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann")) { origin case_input; }
+    }
+    evaluate truth(lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt"), entity_ref("urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann")));
+    expect truth_status == BOTH;
+}

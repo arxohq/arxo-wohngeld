@@ -1,0 +1,91 @@
+{
+  "labels": [
+    {
+      "language": "de",
+      "status": "unofficial",
+      "text": "Höchstbetrag für Miete und Belastung, 5 zu berücksichtigende(s) Haushaltsmitglied(er), Mietenstufe VI"
+    },
+    {
+      "language": "en",
+      "status": "unofficial",
+      "text": "maximum rent, 5 household member(s), rent level VI"
+    }
+  ],
+  "schemaVersion": "law.params/0.1",
+  "kind": "parameter-dataset",
+  "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeVI",
+  "parameter": "urn:de:social:clir:wohngeld#HoechstbetragMitglieder5MietenstufeVI",
+  "valueType": {
+    "name": "urn:law:std#Money"
+  },
+  "timeAxis": "legal_time",
+  "granularity": "date",
+  "coverage": {
+    "start": "2023-01-01",
+    "endExclusive": "2027-01-01"
+  },
+  "values": [
+    {
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeVI#2023-01-01",
+      "valid": {
+        "start": "2023-01-01",
+        "endExclusive": "2025-01-01"
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "1137",
+        "currency": "EUR"
+      },
+      "anchors": [
+        "urn:de:social:clir:wohngeld#ERSTE_WOGFV_ANLAGE1"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Höchstbetrag für Miete und Belastung, 5 zu berücksichtigende(s) Haushaltsmitglied(er), Mietenstufe VI: Wert ab 2023-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "maximum rent, 5 household member(s), rent level VI: value from 2023-01-01"
+        }
+      ]
+    },
+    {
+      "id": "urn:de:social:clir:wohngeld:param:HoechstbetragMitglieder5MietenstufeVI#2025-01-01",
+      "valid": {
+        "start": "2025-01-01",
+        "endExclusive": "2027-01-01"
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "1183",
+        "currency": "EUR"
+      },
+      "anchors": [
+        "urn:de:social:clir:wohngeld#ZWEITE_WOGFV_ANLAGEN_1_3",
+        "urn:de:social:clir:wohngeld#WOGG_ANLAGE1_ED2025",
+        "urn:de:social:clir:wohngeld#WOGG_ANLAGE1_ED2026"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Höchstbetrag für Miete und Belastung, 5 zu berücksichtigende(s) Haushaltsmitglied(er), Mietenstufe VI: Wert ab 2025-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "maximum rent, 5 household member(s), rent level VI: value from 2025-01-01"
+        }
+      ]
+    }
+  ]
+}

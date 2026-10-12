@@ -1,0 +1,31 @@
+{
+  "dependencyEdges": [],
+  "languageSemantics": "law.core/0.2.11",
+  "lockVersion": "0.4",
+  "packages": [],
+  "resolutionHash": "sha256:9df7f2ffa1423333d6fefe9006ccf8865be926867800a506bbe8f6d31350256c",
+  "resources": [
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:614f2a7a256ca8467042836a9a79abc22bc9e28536378e1e926e075747a80a76",
+      "id": "urn:de:tax:clir:income-for-wohngeld:param:ArbeitnehmerPauschbetrag",
+      "kind": "parameter-dataset",
+      "path": "pauschbetraege/ArbeitnehmerPauschbetrag.lawparam.json"
+    },
+    {
+      "capability": "compile_time",
+      "contentHash": "sha256:72228390f242ce21d730de6602f87f246ae3004b8f8f5d0e21f1ec53c4cd3f55",
+      "id": "urn:de:tax:clir:income-for-wohngeld:param:PauschbetragSonstigeEinkuenfte",
+      "kind": "parameter-dataset",
+      "path": "pauschbetraege/PauschbetragSonstigeEinkuenfte.lawparam.json"
+    }
+  ],
+  "root": {
+    "artifactHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+    "name": "de.tax.income_for_wohngeld",
+    "namespace": "urn:de:tax:clir:income-for-wohngeld",
+    "sourceHash": "sha256:5810f48c49e153941bfc05bdc42d278760df5906fc831a0b99935d629de8718b",
+    "version": "0.1.0"
+  },
+  "semanticLayer": "L1"
+}

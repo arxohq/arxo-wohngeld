@@ -1,0 +1,473 @@
+// §§ 13–18 WoGG: Jahreseinkommen, pauschale Abzüge, Freibeträge, Unterhalt,
+// Gesamteinkommen.
+//
+// ПОЗИЦИИ ДОХОДА И НОЛЬ ПО ОБЪЯВЛЕНИЮ. Годовой доход члена — сумма позиций
+// § 14 (положительные Einkünfte EStG по видам, мини-джоб § 14 Abs. 1 S. 3 Nr. 2,
+// части пенсии, Lohnersatz, UVG). Пустая сумма §59 — не ноль, а отказ, и это
+// правильно: у члена без объявления о полноте сведений дохода нет. Нулевая
+// позиция появляется ТОЛЬКО из факта `einkommensangaben_vollstaendig` — дело
+// заявляет, что иных видов дохода нет. Если заявлен источник, из которого
+// сумма не выводится (зарплата без факта о расходах), доход не считается.
+//
+// § 14 Abs. 1 S. 4: отрицательные Einkünfte одного вида не зачитываются —
+// каждый вид берётся как max(Einkünfte, 0).
+
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+use self::{
+    Haushalt,
+    JaNein,
+    WOGG_13_ABS1_ED2023,
+    WOGG_13_ABS1_ED2025,
+    WOGG_13_ABS1_ED2026,
+    WOGG_13_ABS2_ED2023,
+    WOGG_13_ABS2_ED2025,
+    WOGG_13_ABS2_ED2026,
+    WOGG_14_ABS1_ED2023,
+    WOGG_14_ABS1_ED2025,
+    WOGG_14_ABS1_ED2026,
+    WOGG_14_ABS2_EINGANG_ED2023,
+    WOGG_14_ABS2_EINGANG_ED2025,
+    WOGG_14_ABS2_EINGANG_ED2026,
+    WOGG_14_ABS2_NR21_ED2023,
+    WOGG_14_ABS2_NR21_ED2025,
+    WOGG_14_ABS2_NR21_ED2026,
+    WOGG_14_ABS2_NR3_ED2023,
+    WOGG_14_ABS2_NR3_ED2025,
+    WOGG_14_ABS2_NR3_ED2026,
+    WOGG_14_ABS2_NR6_ED2023,
+    WOGG_14_ABS2_NR6_ED2025,
+    WOGG_14_ABS2_NR6_ED2026,
+    WOGG_15_ABS1_ED2023,
+    WOGG_15_ABS1_ED2025,
+    WOGG_15_ABS1_ED2026,
+    WOGG_16_ED2023,
+    WOGG_16_ED2025,
+    WOGG_16_ED2026,
+    WOGG_17_ED2023,
+    WOGG_17_ED2025,
+    WOGG_17_ED2026,
+    WOGG_18_ED2023,
+    WOGG_18_ED2025,
+    WOGG_18_ED2026,
+    WOGG_19_ABS2_ED2023,
+    WOGG_19_ABS2_ED2025,
+    WOGG_19_ABS2_ED2026,
+    Zuschussart,
+    anzahl_zu_beruecksichtigende_haushaltsmitglieder,
+    haushaltsmitglied,
+    lebensmittelpunkt_im_wohnraum,
+    wohngeldantrag,
+    zu_beruecksichtigendes_haushaltsmitglied,
+};
+
+pub enum Einnahmeart {
+    POSITIVE_EINKUENFTE_NICHTSELBSTAENDIGE_ARBEIT, POSITIVE_SONSTIGE_EINKUENFTE_LEIBRENTE,
+    PAUSCHAL_BESTEUERTES_ARBEITSENTGELT, LEIBRENTE_NICHT_BESTEUERTER_TEIL, LOHNERSATZLEISTUNG,
+    UNTERHALTSVORSCHUSS, KEINE_WEITEREN;
+    label de official "Bestandteil des Jahreseinkommens nach § 14";
+    label en unofficial "component of annual income under sec. 14";
+}
+
+pub enum Abzugsgrund {
+    SCHWERBEHINDERUNG_17_NR1, NS_VERFOLGUNG_17_NR2, ALLEINERZIEHEND_17_NR3,
+    ERWERBSEINKOMMEN_KIND_17_NR4, UNTERHALT_18, KEINE_WEITEREN;
+    label de official "Freibetrag nach § 17 oder Abzugsbetrag nach § 18";
+    label en unofficial "allowance under sec. 17 or maintenance deduction under sec. 18";
+}
+
+pub enum Unterhaltsart {
+    NR1_AUSWAERTS_WEGEN_BERUFSAUSBILDUNG, NR2_KIND_BEIM_ANDEREN_ELTERNTEIL,
+    NR3_FRUEHERER_ODER_GETRENNT_LEBENDER_EHEGATTE, NR4_SONSTIGE_PERSON;
+    label de official "Unterhaltsverpflichtung nach § 18 Satz 1 Nummer 1 bis 4";
+    label en unofficial "maintenance obligation under sec. 18 sentence 1 nos. 1 to 4";
+}
+
+// --- Факты дела -------------------------------------------------------------
+
+pub relation einkommensangaben_vollstaendig(x: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "für die Person sind alle zu erwartenden Einnahmen angegeben; andere als die angegebenen Einkünfte und Einnahmen nach § 14 sind nicht zu erwarten";
+    label en unofficial "all expected income of the person has been declared";
+}
+
+pub relation aufwendungen_pauschal_besteuertes_arbeitsentgelt(x: de.tax.income_for_wohngeld::Person, betrag: Money) kind empirical {
+    key(x);
+    label de official "Aufwendungen zur Erwerbung, Sicherung oder Erhaltung des pauschal besteuerten Arbeitsentgelts (Jahresbetrag; 0 EUR, wenn keine)";
+    label en unofficial "expenses for earning flat-rate taxed wages (annual; 0 EUR if none)";
+}
+
+pub relation unterhaltsvorschuss(x: de.tax.income_for_wohngeld::Person, betrag: Money) kind empirical {
+    key(x);
+    label de official "Leistungen nach dem Unterhaltsvorschussgesetz (Jahresbetrag)";
+    label en unofficial "advance maintenance payments (annual amount)";
+}
+
+pub relation abzugsmerkmale_16(x: de.tax.income_for_wohngeld::Person, steuern_vom_einkommen: JaNein, kranken_und_pflegeversicherung: JaNein,
+                           rentenversicherung: JaNein) kind empirical {
+    key(x);
+    label de official "im Bewilligungszeitraum sind zu leisten: Steuern vom Einkommen; Pflichtbeiträge (oder entsprechende laufende Beiträge) zur Kranken- und Pflegeversicherung; zur Rentenversicherung (§ 16)";
+    label en unofficial "expected payment of income taxes, health/care insurance and pension contributions";
+}
+
+pub relation alter_in_vollendeten_jahren(x: de.tax.income_for_wohngeld::Person, jahre: Integer) kind empirical {
+    key(x);
+    label de official "Alter der Person in vollendeten Lebensjahren im Bewilligungszeitraum";
+    label en unofficial "age in completed years";
+}
+
+pub relation kind_von(kind: de.tax.income_for_wohngeld::Person, elternteil: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "die Person ist Kind des Elternteils";
+    label en unofficial "child of the parent";
+}
+
+pub relation kindergeld_gewaehrt(kind: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "für das Kind wird Kindergeld nach dem Einkommensteuergesetz oder dem Bundeskindergeldgesetz oder eine Leistung nach § 65 Absatz 1 Satz 1 EStG gewährt";
+    label en unofficial "child benefit is granted for the child";
+}
+
+pub relation schwerbehinderung(x: de.tax.income_for_wohngeld::Person, grad_der_behinderung: Integer) kind empirical {
+    key(x);
+    label de official "die Person ist schwerbehindert mit dem festgestellten Grad der Behinderung";
+    label en unofficial "severely disabled with the established degree of disability";
+}
+
+pub relation pflegebeduerftig_mit_haeuslicher_pflege(x: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "Pflegebedürftigkeit im Sinne des § 14 SGB XI und gleichzeitige häusliche oder teilstationäre Pflege oder Kurzzeitpflege";
+    label en unofficial "in need of care with home, day or short-term care";
+}
+
+pub relation ns_verfolgte_person(x: de.tax.income_for_wohngeld::Person) kind empirical {
+    label de official "Opfer der nationalsozialistischen Verfolgung oder ihm im Sinne des Bundesentschädigungsgesetzes gleichgestellt";
+    label en unofficial "victim of Nazi persecution or equivalent";
+}
+
+pub relation unterhaltsaufwendung_18(h: Haushalt, empfaenger: de.tax.income_for_wohngeld::Person, art: Unterhaltsart, betrag: Money,
+                                 festgelegt_durch_titel: JaNein, titelbetrag: Money) kind empirical {
+    label de official "zu erwartende jährliche Aufwendungen zur Erfüllung einer gesetzlichen Unterhaltsverpflichtung; ob eine notariell beurkundete Unterhaltsvereinbarung, ein Unterhaltstitel oder ein Bescheid vorliegt und welcher Jahresbetrag darin festgelegt ist";
+    label en unofficial "expected annual maintenance payments and any title fixing the amount";
+}
+
+pub relation angaben_freibetraege_vollstaendig(h: Haushalt) kind empirical {
+    label de official "alle Umstände für Freibeträge nach § 17 und Abzugsbeträge nach § 18 sind angegeben";
+    label en unofficial "all facts relevant to allowances and maintenance deductions are declared";
+}
+
+// --- Выводимое --------------------------------------------------------------
+
+pub relation einnahmeposten_14(x: de.tax.income_for_wohngeld::Person, art: Einnahmeart, betrag: Money) kind institutional {
+    label de official "Bestandteil des Jahreseinkommens vor Abzügen nach § 16";
+    label en unofficial "annual income component before sec. 16 deductions";
+}
+
+relation einkommensangabe_unvollstaendig(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "eine angegebene Einnahmequelle ergibt keinen Betrag, weil eine erforderliche Angabe fehlt";
+    label en unofficial "a declared income source cannot be quantified";
+}
+
+relation erwerbseinnahme(x: de.tax.income_for_wohngeld::Person, art: Einnahmeart, betrag: Money) kind institutional {
+    label de official "eigene Einnahme aus Erwerbstätigkeit (§ 17 Nummer 4)";
+    label en unofficial "own earnings from employment";
+}
+
+pub relation summe_einnahmen_14(x: de.tax.income_for_wohngeld::Person, betrag: Money) kind institutional {
+    label de official "Betrag, der sich nach §§ 14 und 15 ergibt";
+    label en unofficial "amount under secs. 14 and 15";
+}
+
+pub relation jahreseinkommen(x: de.tax.income_for_wohngeld::Person, betrag: Money) kind institutional {
+    label de official "Jahreseinkommen nach § 14 nach Abzug der Beträge nach § 16";
+    label en unofficial "annual income after sec. 16 deductions";
+}
+
+pub relation abzug_13(h: Haushalt, grund: Abzugsgrund, person: de.tax.income_for_wohngeld::Person, betrag: Money) kind institutional {
+    label de official "jährlicher Freibetrag (§ 17) oder Abzugsbetrag für Unterhaltsleistungen (§ 18)";
+    label en unofficial "annual allowance or maintenance deduction";
+}
+
+pub relation gesamteinkommen(h: Haushalt, betrag: Money) kind institutional {
+    label de official "Gesamteinkommen nach § 13 Absatz 1";
+    label en unofficial "total annual household income";
+}
+
+pub relation monatliches_gesamteinkommen(h: Haushalt, betrag: Money) kind institutional {
+    label de official "monatliches Gesamteinkommen „Y“ nach § 13 Absatz 2 (ein Zwölftel; zehn Nachkommastellen nach Anlage 3 Nummer 2)";
+    label en unofficial "monthly total income Y";
+}
+
+// --- § 14: позиции ----------------------------------------------------------
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule PositiveEinkuenfteNichtselbstaendigeArbeit(x: de.tax.income_for_wohngeld::Person, e: Money) strict {
+    label de official "§ 14 Absatz 1 Satz 1 und 4: positive Einkünfte aus nichtselbständiger Arbeit; kein Ausgleich mit negativen Einkünften";
+    label en unofficial "positive employment income, no loss offsetting";
+    when de.tax.income_for_wohngeld::einkuenfte_nichtselbstaendige_arbeit(x, e);
+    then einnahmeposten_14(x, POSITIVE_EINKUENFTE_NICHTSELBSTAENDIGE_ARBEIT, max(e, 0 EUR));
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule PositiveSonstigeEinkuenfteLeibrente(x: de.tax.income_for_wohngeld::Person, e: Money) strict {
+    label de official "§ 14 Absatz 1 Satz 1 und 4: positive sonstige Einkünfte aus der Leibrente";
+    label en unofficial "positive other income from the pension";
+    when de.tax.income_for_wohngeld::sonstige_einkuenfte_leibrente(x, e);
+    then einnahmeposten_14(x, POSITIVE_SONSTIGE_EINKUENFTE_LEIBRENTE, max(e, 0 EUR));
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule PauschalBesteuertesArbeitsentgelt(x: de.tax.income_for_wohngeld::Person, b: Money, a: Money) strict {
+    label de official "§ 14 Absatz 1 Satz 3 Nummer 2: der nach § 40a EStG pauschal besteuerte Arbeitslohn abzüglich der Aufwendungen, höchstens bis zur Höhe dieser Einnahmen";
+    label en unofficial "flat-rate taxed wages less expenses, not below zero";
+    when de.tax.income_for_wohngeld::pauschal_besteuerter_arbeitslohn_40a(x, b) and aufwendungen_pauschal_besteuertes_arbeitsentgelt(x, a);
+    then einnahmeposten_14(x, PAUSCHAL_BESTEUERTES_ARBEITSENTGELT, b - min(a, b));
+}
+
+@source(WOGG_14_ABS2_EINGANG_ED2023, WOGG_14_ABS2_EINGANG_ED2025, WOGG_14_ABS2_EINGANG_ED2026, WOGG_14_ABS2_NR3_ED2023, WOGG_14_ABS2_NR3_ED2025, WOGG_14_ABS2_NR3_ED2026)
+rule NichtBesteuerterTeilDerLeibrente(x: de.tax.income_for_wohngeld::Person, j: Money, anteil: Money) strict {
+    label de official "§ 14 Absatz 2 Nummer 3: die den der Besteuerung unterliegenden Anteil nach § 22 Nr. 1 Satz 3 Buchst. a EStG übersteigenden Teile von Leibrenten";
+    label en unofficial "portion of the pension exceeding the taxable portion";
+    when de.tax.income_for_wohngeld::leibrente_gesetzliche_rentenversicherung(x, j, anteil);
+    then einnahmeposten_14(x, LEIBRENTE_NICHT_BESTEUERTER_TEIL, max(j - anteil, 0 EUR));
+}
+
+@source(WOGG_14_ABS2_EINGANG_ED2023, WOGG_14_ABS2_EINGANG_ED2025, WOGG_14_ABS2_EINGANG_ED2026, WOGG_14_ABS2_NR6_ED2023, WOGG_14_ABS2_NR6_ED2025, WOGG_14_ABS2_NR6_ED2026)
+rule Lohnersatzleistung(x: de.tax.income_for_wohngeld::Person, b: Money) strict {
+    label de official "§ 14 Absatz 2 Nummer 6: die Lohn- und Einkommensersatzleistungen nach § 32b Absatz 1 Satz 1 Nummer 1 EStG";
+    label en unofficial "wage replacement benefits";
+    when de.tax.income_for_wohngeld::lohnersatzleistung_32b_abs1_nr1a(x, b);
+    then einnahmeposten_14(x, LOHNERSATZLEISTUNG, b);
+}
+
+@source(WOGG_14_ABS2_EINGANG_ED2023, WOGG_14_ABS2_EINGANG_ED2025, WOGG_14_ABS2_EINGANG_ED2026, WOGG_14_ABS2_NR21_ED2023, WOGG_14_ABS2_NR21_ED2025, WOGG_14_ABS2_NR21_ED2026)
+rule Unterhaltsvorschuss(x: de.tax.income_for_wohngeld::Person, b: Money) strict {
+    label de official "§ 14 Absatz 2 Nummer 21: die Leistungen nach dem Unterhaltsvorschussgesetz";
+    label en unofficial "advance maintenance payments";
+    when unterhaltsvorschuss(x, b);
+    then einnahmeposten_14(x, UNTERHALTSVORSCHUSS, b);
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026, WOGG_15_ABS1_ED2023, WOGG_15_ABS1_ED2025, WOGG_15_ABS1_ED2026)
+rule KeineWeiterenEinnahmen(x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 15 Absatz 1: zugrunde zu legen ist das zu erwartende Einkommen; die Angaben sind vollständig";
+    label en unofficial "the declared income is complete";
+    when einkommensangaben_vollstaendig(x);
+    then einnahmeposten_14(x, KEINE_WEITEREN, 0 EUR);
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule ArbeitslohnOhneBetrag(x: de.tax.income_for_wohngeld::Person, b: Money) strict {
+    label de official "angegebener Arbeitslohn, aus dem sich keine Einkünfte ergeben (fehlende Angabe zu Werbungskosten)";
+    label en unofficial "declared wages without computable income";
+    when de.tax.income_for_wohngeld::arbeitslohn_in_geld(x, b) and not_known(einkuenfte_arbeit_bestimmt(x));
+    then einkommensangabe_unvollstaendig(x);
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule LeibrenteOhneBetrag(x: de.tax.income_for_wohngeld::Person, j: Money, anteil: Money) strict {
+    label de official "angegebene Leibrente, aus der sich keine sonstigen Einkünfte ergeben (fehlende Angabe zu Werbungskosten)";
+    label en unofficial "declared pension without computable income";
+    when de.tax.income_for_wohngeld::leibrente_gesetzliche_rentenversicherung(x, j, anteil) and not_known(sonstige_einkuenfte_bestimmt(x));
+    then einkommensangabe_unvollstaendig(x);
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule PauschalLohnOhneAufwendungen(x: de.tax.income_for_wohngeld::Person, b: Money) strict {
+    label de official "angegebenes pauschal besteuertes Arbeitsentgelt ohne Angabe der Aufwendungen";
+    label en unofficial "declared flat-rate taxed wages without expenses";
+    when de.tax.income_for_wohngeld::arbeitsentgelt_40a_pauschal_besteuert(x, b) and not_known(aufwendungen_40a_bestimmt(x));
+    then einkommensangabe_unvollstaendig(x);
+}
+
+relation einkuenfte_arbeit_bestimmt(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "Einkünfte aus nichtselbständiger Arbeit sind ermittelt";
+    label en unofficial "employment income determined";
+}
+
+relation sonstige_einkuenfte_bestimmt(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "sonstige Einkünfte aus der Leibrente sind ermittelt";
+    label en unofficial "pension income determined";
+}
+
+relation aufwendungen_40a_bestimmt(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "Aufwendungen für pauschal besteuertes Arbeitsentgelt sind angegeben";
+    label en unofficial "expenses for flat-rate taxed wages declared";
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule EinkuenfteArbeitBestimmt(x: de.tax.income_for_wohngeld::Person, e: Money) strict {
+    label de official "Einkünfte aus nichtselbständiger Arbeit ermittelt";
+    label en unofficial "employment income determined";
+    when de.tax.income_for_wohngeld::einkuenfte_nichtselbstaendige_arbeit(x, e);
+    then einkuenfte_arbeit_bestimmt(x);
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule SonstigeEinkuenfteBestimmt(x: de.tax.income_for_wohngeld::Person, e: Money) strict {
+    label de official "sonstige Einkünfte ermittelt";
+    label en unofficial "pension income determined";
+    when de.tax.income_for_wohngeld::sonstige_einkuenfte_leibrente(x, e);
+    then sonstige_einkuenfte_bestimmt(x);
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule Aufwendungen40aBestimmt(x: de.tax.income_for_wohngeld::Person, a: Money) strict {
+    label de official "Aufwendungen für pauschal besteuertes Arbeitsentgelt angegeben";
+    label en unofficial "expenses declared";
+    when aufwendungen_pauschal_besteuertes_arbeitsentgelt(x, a);
+    then aufwendungen_40a_bestimmt(x);
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026, WOGG_15_ABS1_ED2023, WOGG_15_ABS1_ED2025, WOGG_15_ABS1_ED2026)
+rule SummeEinnahmen14(x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 14 Absatz 1, 2: Summe der positiven Einkünfte zuzüglich der Einnahmen nach Absatz 2";
+    label en unofficial "sum of positive income and additional receipts";
+    when einkommensangaben_vollstaendig(x) and not_known(einkommensangabe_unvollstaendig(x));
+    then summe_einnahmen_14(x, sum(collect all b: Money, art: Einnahmeart where einnahmeposten_14(x, art, b)));
+}
+
+// --- § 16 -------------------------------------------------------------------
+
+function abzugsfaktor_16(st: JaNein, kv: JaNein, rv: JaNein) -> Decimal =
+    1.0 - 10 percent * ((match st { JA => 1; NEIN => 0; }) + (match kv { JA => 1; NEIN => 0; })
+                       + (match rv { JA => 1; NEIN => 0; }));
+
+@source(WOGG_16_ED2023, WOGG_16_ED2025, WOGG_16_ED2026, WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule Jahreseinkommen(x: de.tax.income_for_wohngeld::Person, s: Money, st: JaNein, kv: JaNein, rv: JaNein) strict {
+    label de official "§ 16 Satz 1: von dem Betrag nach §§ 14 und 15 sind jeweils 10 Prozent abzuziehen, wenn Steuern vom Einkommen, Pflichtbeiträge zur Kranken- und Pflegeversicherung, zur Rentenversicherung zu leisten sind";
+    label en unofficial "10 percent deducted for each of income tax, health/care and pension contributions";
+    when summe_einnahmen_14(x, s) and abzugsmerkmale_16(x, st, kv, rv);
+    then jahreseinkommen(x, s * abzugsfaktor_16(st, kv, rv));
+}
+
+// --- § 17 -------------------------------------------------------------------
+
+@source(WOGG_17_ED2023, WOGG_17_ED2025, WOGG_17_ED2026)
+rule FreibetragSchwerbehinderungGradHundert(h: Haushalt, x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 17 Nummer 1 Buchstabe a: 1 800 Euro für jedes schwerbehinderte zu berücksichtigende Haushaltsmitglied mit einem Grad der Behinderung von 100";
+    label en unofficial "EUR 1,800 for each severely disabled member with degree 100";
+    when zu_beruecksichtigendes_haushaltsmitglied(h, x) and schwerbehinderung(x, 100);
+    then abzug_13(h, SCHWERBEHINDERUNG_17_NR1, x, 1800 EUR);
+}
+
+@source(WOGG_17_ED2023, WOGG_17_ED2025, WOGG_17_ED2026)
+rule FreibetragSchwerbehinderungMitPflege(h: Haushalt, x: de.tax.income_for_wohngeld::Person, g: Integer) strict {
+    label de official "§ 17 Nummer 1 Buchstabe b: 1 800 Euro bei einem Grad der Behinderung von unter 100 bei Pflegebedürftigkeit und häuslicher oder teilstationärer Pflege oder Kurzzeitpflege";
+    label en unofficial "EUR 1,800 for degree under 100 with need of care at home";
+    when zu_beruecksichtigendes_haushaltsmitglied(h, x) and schwerbehinderung(x, g) and g < 100
+        and pflegebeduerftig_mit_haeuslicher_pflege(x);
+    then abzug_13(h, SCHWERBEHINDERUNG_17_NR1, x, 1800 EUR);
+}
+
+@source(WOGG_17_ED2023, WOGG_17_ED2025, WOGG_17_ED2026)
+rule FreibetragNsVerfolgung(h: Haushalt, x: de.tax.income_for_wohngeld::Person) strict {
+    label de official "§ 17 Nummer 2: 750 Euro für jedes zu berücksichtigende Haushaltsmitglied, das Opfer der nationalsozialistischen Verfolgung oder ihm gleichgestellt ist";
+    label en unofficial "EUR 750 for victims of Nazi persecution";
+    when zu_beruecksichtigendes_haushaltsmitglied(h, x) and ns_verfolgte_person(x);
+    then abzug_13(h, NS_VERFOLGUNG_17_NR2, x, 750 EUR);
+}
+
+@source(WOGG_17_ED2023, WOGG_17_ED2025, WOGG_17_ED2026)
+rule FreibetragAlleinerziehend(h: Haushalt, m: de.tax.income_for_wohngeld::Person, k: de.tax.income_for_wohngeld::Person, a: Integer) strict {
+    label de official "§ 17 Nummer 3: 1 320 Euro, wenn ein zu berücksichtigendes Haushaltsmitglied ausschließlich mit einem Kind oder mehreren Kindern Wohnraum gemeinsam bewohnt und mindestens eines dieser Kinder noch nicht 18 Jahre alt ist und für dieses Kindergeld gewährt wird";
+    label en unofficial "EUR 1,320 for a single parent living only with children, one under 18 with child benefit";
+    when zu_beruecksichtigendes_haushaltsmitglied(h, m)
+        and lebensmittelpunkt_im_wohnraum(h, k) and kind_von(k, m) and alter_in_vollendeten_jahren(k, a) and a < 18
+        and kindergeld_gewaehrt(k)
+        and (count(collect y: de.tax.income_for_wohngeld::Person where lebensmittelpunkt_im_wohnraum(h, y)))
+            == 1 + (count(collect c: de.tax.income_for_wohngeld::Person where lebensmittelpunkt_im_wohnraum(h, c) and kind_von(c, m)));
+    then abzug_13(h, ALLEINERZIEHEND_17_NR3, m, 1320 EUR);
+}
+
+@source(WOGG_17_ED2023, WOGG_17_ED2025, WOGG_17_ED2026)
+rule ErwerbseinnahmeArbeitslohn(x: de.tax.income_for_wohngeld::Person, b: Money) strict {
+    label de official "§ 17 Nummer 4: eigene Einnahmen aus Erwerbstätigkeit — Arbeitslohn";
+    label en unofficial "own earnings: wages";
+    when de.tax.income_for_wohngeld::einnahmen_nichtselbstaendige_arbeit(x, b);
+    then erwerbseinnahme(x, POSITIVE_EINKUENFTE_NICHTSELBSTAENDIGE_ARBEIT, b);
+}
+
+@source(WOGG_17_ED2023, WOGG_17_ED2025, WOGG_17_ED2026)
+rule ErwerbseinnahmePauschalBesteuert(x: de.tax.income_for_wohngeld::Person, b: Money) strict {
+    label de official "§ 17 Nummer 4: eigene Einnahmen aus Erwerbstätigkeit — pauschal besteuertes Arbeitsentgelt";
+    label en unofficial "own earnings: flat-rate taxed wages";
+    when de.tax.income_for_wohngeld::pauschal_besteuerter_arbeitslohn_40a(x, b);
+    then erwerbseinnahme(x, PAUSCHAL_BESTEUERTES_ARBEITSENTGELT, b);
+}
+
+@source(WOGG_17_ED2023, WOGG_17_ED2025, WOGG_17_ED2026)
+rule FreibetragErwerbseinkommenKind(h: Haushalt, k: de.tax.income_for_wohngeld::Person, e: de.tax.income_for_wohngeld::Person, a: Integer, art: Einnahmeart, b: Money) strict {
+    label de official "§ 17 Nummer 4: ein Betrag in Höhe der eigenen Einnahmen aus Erwerbstätigkeit jedes Kindes eines Haushaltsmitgliedes, höchstens 1 200 Euro, wenn das Kind zu berücksichtigen und noch nicht 25 Jahre alt ist";
+    label en unofficial "child's own earnings up to EUR 1,200 if under 25";
+    when zu_beruecksichtigendes_haushaltsmitglied(h, k) and kind_von(k, e) and haushaltsmitglied(h, e)
+        and alter_in_vollendeten_jahren(k, a) and a < 25 and erwerbseinnahme(k, art, b);
+    then abzug_13(h, ERWERBSEINKOMMEN_KIND_17_NR4, k,
+        min(sum(collect all v: Money, t: Einnahmeart where erwerbseinnahme(k, t, v)), 1200 EUR));
+}
+
+// --- § 18 -------------------------------------------------------------------
+
+function unterhalt_hoechstbetrag(art: Unterhaltsart) -> Money = match art {
+    NR1_AUSWAERTS_WEGEN_BERUFSAUSBILDUNG => 3000 EUR;
+    NR2_KIND_BEIM_ANDEREN_ELTERNTEIL => 3000 EUR;
+    NR3_FRUEHERER_ODER_GETRENNT_LEBENDER_EHEGATTE => 6000 EUR;
+    NR4_SONSTIGE_PERSON => 3000 EUR;
+};
+
+@source(WOGG_18_ED2023, WOGG_18_ED2025, WOGG_18_ED2026)
+rule AbzugUnterhaltOhneTitel(h: Haushalt, e: de.tax.income_for_wohngeld::Person, art: Unterhaltsart, b: Money, t: Money) strict {
+    label de official "§ 18 Satz 1: abzuziehen sind die zu erwartenden Aufwendungen zur Erfüllung gesetzlicher Unterhaltsverpflichtungen bis zu 3 000 oder 6 000 Euro jährlich";
+    label en unofficial "maintenance payments up to the statutory caps";
+    when unterhaltsaufwendung_18(h, e, art, b, NEIN, t);
+    then abzug_13(h, UNTERHALT_18, e, min(b, unterhalt_hoechstbetrag(art)));
+}
+
+@source(WOGG_18_ED2023, WOGG_18_ED2025, WOGG_18_ED2026)
+rule AbzugUnterhaltMitTitel(h: Haushalt, e: de.tax.income_for_wohngeld::Person, art: Unterhaltsart, b: Money, t: Money) strict {
+    label de official "§ 18 Satz 2: liegt eine notariell beurkundete Unterhaltsvereinbarung, ein Unterhaltstitel oder ein Bescheid vor, sind die Aufwendungen bis zu dem darin festgelegten Betrag abzuziehen";
+    label en unofficial "with a maintenance title, up to the fixed amount";
+    when unterhaltsaufwendung_18(h, e, art, b, JA, t);
+    then abzug_13(h, UNTERHALT_18, e, min(b, t));
+}
+
+@source(WOGG_13_ABS1_ED2023, WOGG_13_ABS1_ED2025, WOGG_13_ABS1_ED2026)
+rule KeineWeiterenAbzuege(h: Haushalt, p: de.tax.income_for_wohngeld::Person, z: Zuschussart) strict {
+    label de official "§ 13 Absatz 1: die Angaben zu Freibeträgen und Abzugsbeträgen sind vollständig";
+    label en unofficial "declared allowances are complete";
+    when angaben_freibetraege_vollstaendig(h) and wohngeldantrag(h, p, z);
+    then abzug_13(h, KEINE_WEITEREN, p, 0 EUR);
+}
+
+// --- § 13 -------------------------------------------------------------------
+
+@source(WOGG_13_ABS1_ED2023, WOGG_13_ABS1_ED2025, WOGG_13_ABS1_ED2026)
+rule Gesamteinkommen(h: Haushalt, n: Integer) strict {
+    label de official "§ 13 Absatz 1: Summe der Jahreseinkommen der zu berücksichtigenden Haushaltsmitglieder abzüglich der Freibeträge und der Abzugsbeträge für Unterhaltsleistungen";
+    label en unofficial "sum of members' annual incomes less allowances and maintenance deductions";
+    when anzahl_zu_beruecksichtigende_haushaltsmitglieder(h, n) and n >= 1
+        and angaben_freibetraege_vollstaendig(h)
+        and forall x in (collect z: de.tax.income_for_wohngeld::Person where zu_beruecksichtigendes_haushaltsmitglied(h, z)) satisfies jahreseinkommen_bestimmt(x);
+    then gesamteinkommen(h,
+        sum(collect all j: Money, x: de.tax.income_for_wohngeld::Person where zu_beruecksichtigendes_haushaltsmitglied(h, x) and jahreseinkommen(x, j))
+        - sum(collect all b: Money, g: Abzugsgrund, y: de.tax.income_for_wohngeld::Person where abzug_13(h, g, y, b)));
+}
+
+relation jahreseinkommen_bestimmt(x: de.tax.income_for_wohngeld::Person) kind institutional {
+    label de official "das Jahreseinkommen der Person ist ermittelt";
+    label en unofficial "annual income determined";
+}
+
+@source(WOGG_14_ABS1_ED2023, WOGG_14_ABS1_ED2025, WOGG_14_ABS1_ED2026)
+rule JahreseinkommenBestimmt(x: de.tax.income_for_wohngeld::Person, j: Money) strict {
+    label de official "Jahreseinkommen ermittelt";
+    label en unofficial "annual income determined";
+    when jahreseinkommen(x, j);
+    then jahreseinkommen_bestimmt(x);
+}
+
+@source(WOGG_13_ABS2_ED2023, WOGG_13_ABS2_ED2025, WOGG_13_ABS2_ED2026, WOGG_19_ABS2_ED2023, WOGG_19_ABS2_ED2025, WOGG_19_ABS2_ED2026)
+rule MonatlichesGesamteinkommen(h: Haushalt, g: Money) strict {
+    label de official "§ 13 Absatz 2: das monatliche Gesamteinkommen ist ein Zwölftel des Gesamteinkommens";
+    label en unofficial "monthly total income is one twelfth";
+    when gesamteinkommen(h, g);
+    then monatliches_gesamteinkommen(h, div_round(g, 12.0, 10, "HALF_UP"));
+}

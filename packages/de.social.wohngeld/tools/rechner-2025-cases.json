@@ -1,0 +1,16 @@
+[
+ {"id": "r01-single-I", "householdMembers": 1, "rentLevel": 1, "rent": 300, "members": [{"income": 1400, "deductions": 102.5, "health": true, "pension": true}]},
+ {"id": "r02-single-VII-cap", "householdMembers": 1, "rentLevel": 7, "rent": 900, "members": [{"income": 1800, "deductions": 102.5, "tax": true, "health": true, "pension": true}]},
+ {"id": "r03-couple-II-cap", "householdMembers": 2, "rentLevel": 2, "rent": 520, "members": [{"income": 2300, "deductions": 102.5, "health": true, "pension": true}, {"income": 0}]},
+ {"id": "r04-singleparent-V", "householdMembers": 3, "rentLevel": 5, "rent": 800, "singleParent": true, "members": [{"income": 1700, "deductions": 102.5, "health": true, "pension": true}, {"income": 0}, {"income": 0}]},
+ {"id": "r05-five-VI-cap", "householdMembers": 5, "rentLevel": 6, "rent": 1300, "members": [{"income": 3200, "deductions": 102.5, "tax": true, "health": true, "pension": true}, {"income": 0}, {"income": 0}, {"income": 0}, {"income": 0}]},
+ {"id": "r06-six-IV", "householdMembers": 6, "rentLevel": 4, "rent": 1000, "members": [{"income": 3500, "deductions": 102.5, "tax": true, "health": true, "pension": true}, {"income": 0}, {"income": 0}, {"income": 0}, {"income": 0}, {"income": 0}]},
+ {"id": "r07-eight-III", "householdMembers": 8, "rentLevel": 3, "rent": 1400, "members": [{"income": 4200, "deductions": 102.5, "tax": true, "health": true, "pension": true}, {"income": 0}, {"income": 0}, {"income": 0}, {"income": 0}, {"income": 0}, {"income": 0}, {"income": 0}]},
+ {"id": "r08-pensioners-disabled-II", "householdMembers": 2, "rentLevel": 2, "rent": 450, "disabled": 1, "members": [{"income": 1250, "deductions": 8.5, "health": true}, {"income": 700, "deductions": 8.5, "health": true}]},
+ {"id": "r09-heim-II", "householdMembers": 1, "rentLevel": 2, "homeResident": true, "rent": 0, "members": [{"income": 1100, "deductions": 8.5, "health": true}]},
+ {"id": "r10-three-one-excluded-V", "householdMembers": 3, "excluded": 1, "rentLevel": 5, "rent": 900, "members": [{"income": 1900, "deductions": 102.5, "health": true, "pension": true}, {"income": 0}]},
+ {"id": "r11-threshold-10", "householdMembers": 1, "rentLevel": 3, "rent": 400, "members": [{"income": 1925.34, "deductions": 102.5, "health": true, "pension": true}]},
+ {"id": "r12-threshold-9", "householdMembers": 1, "rentLevel": 3, "rent": 400, "members": [{"income": 1925.35, "deductions": 102.5, "health": true, "pension": true}]},
+ {"id": "r13-child-minijob", "householdMembers": 3, "rentLevel": 3, "rent": 700, "members": [{"income": 2600, "deductions": 102.5, "tax": true, "health": true, "pension": true}, {"income": 0}, {"income": 150, "deductions": 0, "workingChild": true}]},
+ {"id": "r14-child-arbeitslohn-divergenz", "householdMembers": 3, "rentLevel": 3, "rent": 700, "members": [{"income": 2600, "deductions": 102.5, "tax": true, "health": true, "pension": true}, {"income": 0}, {"income": 150, "deductions": 102.5, "health": true, "pension": true, "workingChild": true}]}
+]

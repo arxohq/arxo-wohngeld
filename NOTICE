@@ -1,0 +1,42 @@
+# NOTICE
+
+This repository carries THIRD-PARTY pinned texts. The code licence does not
+extend to them: every publisher sets its own terms of reproduction.
+
+## Terms of reproduction
+
+Not declared by the package yet. The publishers' terms for the pinned texts below must be checked before this repository is opened.
+
+They are the same for every package of this set; below is which bytes each
+package pins.
+
+## de.social.wohngeld_verordnung — Wohngeldverordnung (WoGV): состав Miete (§§ 1, 2, 6 — Betriebskosten, Pauschbeträge) и Anlage к § 1 Abs. 3 — Mietenstufen всех Gemeinden и Kreise с 1 января 2023 года, сверенные с BGBl. I 2022 S. 2166 ff. и BGBl. 2023 I Nr. 102
+
+| Publication | URI | content_hash | Retrieved |
+|---|---|---|---|
+| `WOGV_ED2023_TEXT` | https://www.gesetze-im-internet.de/wogv/xml.zip | `sha256:4fcfa3caf4e86df0…` | 2026-09-15T00:00:00Z |
+| `WPG_ART5_TEXT` | https://media.offenegesetze.de/bgbl1/2022/bgbl1_2022_48.pdf | `sha256:8692b53b771a7550…` | 2026-09-15T00:00:00Z |
+| `DREIZEHNTE_WOGV_AENDVO_TEXT` | https://www.recht.bund.de/bgbl/1/2023/102/regelungstext.pdf | `sha256:2de3e9d27410f1e3…` | 2026-09-15T00:00:00Z |
+| `ZWEITE_WOGFV_ART2_TEXT` | https://www.recht.bund.de/bgbl/1/2024/314/regelungstext.pdf | `sha256:57e7dd387c154cf9…` | 2026-09-15T00:00:00Z |
+
+## de.tax.income_for_wohngeld — Einkommensteuergesetz (EStG): нормы, которые читает Wohngeld — виды дохода § 2, Einnahmen § 8, Werbungskosten § 9 и паушали § 9a, Arbeitslohn § 19, Leibrenten § 22, ALG I § 32b, мини-джоб § 40a
+
+| Publication | URI | content_hash | Retrieved |
+|---|---|---|---|
+| `ESTG_ED2023_TEXT` | https://www.gesetze-im-internet.de/estg/xml.zip | `sha256:bdc796f9adfc3a0c…` | 2026-09-15T00:00:00Z |
+| `JSTG_2022_TEXT` | https://media.offenegesetze.de/bgbl1/2022/bgbl1_2022_51.pdf | `sha256:1ad392d4386f26e7…` | 2026-09-15T00:00:00Z |
+
+## de.social.wohngeld — Wohngeldgesetz (WoGG): Mietzuschuss — домохозяйство и исключения (§§ 3–8), Miete и Höchstbeträge с Heizkosten- и Klimakomponente (§§ 9, 11, 12), Gesamteinkommen (§§ 13–18), формула § 19 с Anlagen 1–3 в редакциях Wohngeld-Plus-Gesetz (2023) и 2. WoGFV (2025), §§ 20–21
+
+| Publication | URI | content_hash | Retrieved |
+|---|---|---|---|
+| `WOGG_ED2023_TEXT` | https://web.archive.org/web/20240718113126/https://www.gesetze-im-internet.de/wogg/xml.zip | `sha256:4b3a253c1778225f…` | 2026-09-15T00:00:00Z |
+| `WOGG_ED2025_TEXT` | https://web.archive.org/web/20250601214822/https://www.gesetze-im-internet.de/wogg/xml.zip | `sha256:d2d44bb73ee8aaab…` | 2026-09-15T00:00:00Z |
+| `WOGG_ED2026_TEXT` | https://www.gesetze-im-internet.de/wogg/xml.zip | `sha256:f8ac2d0d891325db…` | 2026-09-15T00:00:00Z |
+| `ERSTE_WOGFV_TEXT` | https://media.offenegesetze.de/bgbl1/2021/bgbl1_2021_28.pdf | `sha256:8842905a7865448c…` | 2026-09-15T00:00:00Z |
+| `WPG_TEXT` | https://media.offenegesetze.de/bgbl1/2022/bgbl1_2022_48.pdf | `sha256:8692b53b771a7550…` | 2026-09-15T00:00:00Z |
+| `ZWEITE_WOGFV_TEXT` | https://www.recht.bund.de/bgbl/1/2024/314/regelungstext.pdf | `sha256:57e7dd387c154cf9…` | 2026-09-15T00:00:00Z |
+| `DREIZEHNTES_SGB2_AENDG_TEXT` | https://www.recht.bund.de/bgbl/1/2026/107/regelungstext.pdf | `sha256:8948b685d3cc4cdd…` | 2026-09-15T00:00:00Z |
+| `BMWSB_RECHENBEISPIELE_2023_TEXT` | https://www.bmwsb.bund.de/SharedDocs/downloads/DE/veroeffentlichungen/wohnen/wohngeld-2023/rechenbeispiele-2023.pdf | `sha256:6743b98c79a198ad…` | 2026-09-15T00:00:00Z |
+| `BMWSB_RECHENBEISPIELE_2025_TEXT` | https://www.bmwsb.bund.de/SharedDocs/downloads/DE/veroeffentlichungen/wohnen/wohngeld-2025/rechenbeispiele-2025.pdf | `sha256:b10b6bea28c8f821…` | 2026-09-15T00:00:00Z |
+| `BMWSB_WOHNGELDRECHNER_2025_TEXT` | https://www.bmwsb.bund.de/SiteGlobals/Frontend/JavaScript/init/global.js?v=12 | `sha256:75c997d2bb540b1d…` | 2026-09-15T00:00:00Z |

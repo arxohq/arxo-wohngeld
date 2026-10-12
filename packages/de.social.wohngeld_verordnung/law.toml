@@ -1,0 +1,35 @@
+# Манифест §10 — маркер корня пакета (DECISION-0033).
+[package]
+name = "de.social.wohngeld_verordnung"
+version = "0.1.0"
+language = "0.2"
+namespace = "urn:de:social:clir:wohngeld-verordnung"
+
+[features]
+semanticLayer = "L1"
+
+# Каталожная метадата (DECISION-0051).
+[metadata]
+act = "de-wohngeld-verordnung"
+title = "Wohngeldverordnung (WoGV): состав Miete (§§ 1, 2, 6 — Betriebskosten, Pauschbeträge) и Anlage к § 1 Abs. 3 — Mietenstufen всех Gemeinden и Kreise с 1 января 2023 года, сверенные с BGBl. I 2022 S. 2166 ff. и BGBl. 2023 I Nr. 102"
+primarySource = "WOGV"
+jurisdiction = "DE"
+instrument = "regulation"
+sourceFidelity = "pinned_unofficial_copy"
+# issuer: постановление Федерального правительства с согласия Бундесрата
+# по § 38 WoGG; Anlage в редакции закона (Art. 5 Wohngeld-Plus-Gesetz).
+issuer = "Bundesregierung mit Zustimmung des Bundesrates (§ 38 WoGG); Anlage i. d. F. des Art. 5 Wohngeld-Plus-Gesetz vom 5. Dezember 2022"
+legalStatus = "in_force"
+# verifiedAgainstSource: сводный текст — выдача портала; Anlage сверена
+# генератором с копией BGBl. I 2022 Nr. 48 (OffeneGesetze.de) и официальными
+# байтами BGBl. 2023 I Nr. 102, но §§ 1, 2, 6 — только по порталу.
+verifiedAgainstSource = false
+
+[[tests]]
+family = "de.social.wohngeld_verordnung#miete-und-mietenstufen"
+regression = true
+suites = ["tests/miete-und-mietenstufen.lawtest"]
+world = ["de.social.wohngeld_verordnung"]
+
+[authoring]
+local_imports = "explicit"

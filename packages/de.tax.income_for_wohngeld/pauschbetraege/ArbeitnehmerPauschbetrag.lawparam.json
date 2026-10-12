@@ -1,0 +1,60 @@
+{
+  "labels": [
+    {
+      "language": "de",
+      "status": "unofficial",
+      "text": "Arbeitnehmer-Pauschbetrag (§ 9a Satz 1 Nr. 1 Buchst. a EStG)"
+    },
+    {
+      "language": "en",
+      "status": "unofficial",
+      "text": "employee lump sum for income-related expenses"
+    }
+  ],
+  "schemaVersion": "law.params/0.1",
+  "kind": "parameter-dataset",
+  "id": "urn:de:tax:clir:income-for-wohngeld:param:ArbeitnehmerPauschbetrag",
+  "parameter": "urn:de:tax:clir:income-for-wohngeld#ArbeitnehmerPauschbetrag",
+  "valueType": {
+    "name": "urn:law:std#Money"
+  },
+  "timeAxis": "legal_time",
+  "granularity": "date",
+  "coverage": {
+    "start": "2023-01-01",
+    "endExclusive": null
+  },
+  "values": [
+    {
+      "id": "urn:de:tax:clir:income-for-wohngeld:param:ArbeitnehmerPauschbetrag#2023-01-01",
+      "valid": {
+        "start": "2023-01-01",
+        "endExclusive": null
+      },
+      "value": {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "1230",
+        "currency": "EUR"
+      },
+      "anchors": [
+        "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_ART4_NR3",
+        "urn:de:tax:clir:income-for-wohngeld#ESTG_9A_S1_NR1A"
+      ],
+      "labels": [
+        {
+          "language": "de",
+          "status": "unofficial",
+          "text": "Arbeitnehmer-Pauschbetrag (§ 9a Satz 1 Nr. 1 Buchst. a EStG): Wert ab 2023-01-01"
+        },
+        {
+          "language": "en",
+          "status": "unofficial",
+          "text": "employee lump sum for income-related expenses: value from 2023-01-01"
+        }
+      ]
+    }
+  ]
+}

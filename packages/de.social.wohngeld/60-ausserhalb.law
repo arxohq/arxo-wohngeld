@@ -1,0 +1,88 @@
+// Вне модели: факты дела, при которых пакет суммы не выдаёт, потому что нужная
+// норма в область первого выпуска не вошла (README.ru.md, «Что не входит»).
+// Флаг — не вывод о праве: он говорит, почему числа нет.
+
+language "law.core" version "0.2";
+package de.social.wohngeld version "0.1.0";
+namespace "urn:de:social:clir:wohngeld";
+
+use self::{
+    Aufenthaltsstatus,
+    Haushalt,
+    Nutzungsgrundlage,
+    WOGG_11_ABS1_ED2023,
+    WOGG_11_ABS1_ED2025,
+    WOGG_11_ABS1_ED2026,
+    WOGG_1_ABS2_ED2023,
+    WOGG_1_ABS2_ED2025,
+    WOGG_1_ABS2_ED2026,
+    WOGG_3_ABS1_ED2023,
+    WOGG_3_ABS1_ED2025,
+    WOGG_3_ABS1_ED2026,
+    WOGG_3_ABS5_ED2023,
+    WOGG_3_ABS5_ED2025,
+    WOGG_3_ABS5_ED2026,
+    WOGG_5_ABS3_ED2023,
+    WOGG_5_ABS3_ED2025,
+    WOGG_5_ABS3_ED2026,
+    WOGG_9_ABS3_ED2023,
+    WOGG_9_ABS3_ED2025,
+    WOGG_9_ABS3_ED2026,
+    Zuschussart,
+    aufenthaltsrechtlicher_status,
+    lebensmittelpunkt_im_wohnraum,
+    nutzungsgrundlage,
+    wohngeldantrag,
+};
+
+pub enum AusserhalbGrund {
+    LASTENZUSCHUSS, MIETWERT_EIGENES_HAUS, AUFENTHALTSTITEL_3_ABS5_SATZ3,
+    MITBEWOHNER_OHNE_HAUSHALTSMITGLIEDSCHAFT;
+    label de unofficial "Grund, aus dem der Fall außerhalb des modellierten Bereichs liegt";
+    label en unofficial "reason the case lies outside the modelled scope";
+}
+
+pub relation ausserhalb_des_modells(h: Haushalt, grund: AusserhalbGrund) kind institutional {
+    label de unofficial "der Fall liegt außerhalb des modellierten Bereichs; ein Betrag wird nicht ermittelt";
+    label en unofficial "case outside the modelled scope; no amount is computed";
+}
+
+@source(WOGG_1_ABS2_ED2023, WOGG_1_ABS2_ED2025, WOGG_1_ABS2_ED2026)
+rule AusserhalbLastenzuschuss(h: Haushalt, p: de.tax.income_for_wohngeld::Person) strict {
+    label de unofficial "§ 1 Absatz 2, § 3 Absatz 2, § 10: Lastenzuschuss ist nicht modelliert";
+    label en unofficial "charges subsidy for owners is not modelled";
+    when wohngeldantrag(h, p, LASTENZUSCHUSS);
+    then ausserhalb_des_modells(h, LASTENZUSCHUSS);
+}
+
+@source(WOGG_3_ABS1_ED2023, WOGG_3_ABS1_ED2025, WOGG_3_ABS1_ED2026, WOGG_9_ABS3_ED2023, WOGG_9_ABS3_ED2025, WOGG_9_ABS3_ED2026)
+rule AusserhalbMietwert(h: Haushalt, p: de.tax.income_for_wohngeld::Person) strict {
+    label de unofficial "§ 3 Absatz 1 Satz 2 Nummer 2, § 9 Absatz 3 Satz 1: Mietwert im eigenen Haus ist nicht modelliert";
+    label en unofficial "imputed rent in one's own multi-dwelling house is not modelled";
+    when nutzungsgrundlage(h, p, EIGENES_HAUS_MEHR_ALS_ZWEI_WOHNUNGEN);
+    then ausserhalb_des_modells(h, MIETWERT_EIGENES_HAUS);
+}
+
+@source(WOGG_3_ABS5_ED2023, WOGG_3_ABS5_ED2025, WOGG_3_ABS5_ED2026)
+rule AusserhalbAufenthaltstitelSatzDrei(h: Haushalt, x: de.tax.income_for_wohngeld::Person) strict {
+    label de unofficial "§ 3 Absatz 5 Satz 3 („in der Regel nicht wohngeldberechtigt“) ist nicht modelliert";
+    label en unofficial "the 'as a rule not entitled' clause of sec. 3(5) sentence 3 is not modelled";
+    when lebensmittelpunkt_im_wohnraum(h, x) and aufenthaltsrechtlicher_status(x, TITEL_NACH_3_ABS5_SATZ3);
+    then ausserhalb_des_modells(h, AUFENTHALTSTITEL_3_ABS5_SATZ3);
+}
+
+@source(WOGG_5_ABS3_ED2023, WOGG_5_ABS3_ED2025, WOGG_5_ABS3_ED2026, WOGG_11_ABS1_ED2023, WOGG_11_ABS1_ED2025, WOGG_11_ABS1_ED2026)
+rule AusserhalbMitbewohnerOhneStatus(h: Haushalt, x: de.tax.income_for_wohngeld::Person) strict {
+    label de unofficial "ausländische Mitbewohner ohne Stellung nach § 3 Absatz 5 sind keine Haushaltsmitglieder (§ 5 Absatz 3); ihr Mietanteil (§ 11 Absatz 2 Nummer 3) ist nicht modelliert";
+    label en unofficial "co-residents who are not household members (sec. 11(2) no. 3) are not modelled";
+    when lebensmittelpunkt_im_wohnraum(h, x) and aufenthaltsrechtlicher_status(x, KEIN_STATUS_NACH_3_ABS5);
+    then ausserhalb_des_modells(h, MITBEWOHNER_OHNE_HAUSHALTSMITGLIEDSCHAFT);
+}
+
+@source(WOGG_5_ABS3_ED2023, WOGG_5_ABS3_ED2025, WOGG_5_ABS3_ED2026, WOGG_11_ABS1_ED2023, WOGG_11_ABS1_ED2025, WOGG_11_ABS1_ED2026)
+rule AusserhalbMitbewohnerBefreit(h: Haushalt, x: de.tax.income_for_wohngeld::Person) strict {
+    label de unofficial "nach § 3 Absatz 5 Satz 2 befreite ausländische Mitbewohner sind keine Haushaltsmitglieder; ihr Mietanteil ist nicht modelliert";
+    label en unofficial "exempted foreign co-residents are not household members; not modelled";
+    when lebensmittelpunkt_im_wohnraum(h, x) and aufenthaltsrechtlicher_status(x, VON_DEUTSCHEN_SOZIALVORSCHRIFTEN_BEFREIT);
+    then ausserhalb_des_modells(h, MITBEWOHNER_OHNE_HAUSHALTSMITGLIEDSCHAFT);
+}

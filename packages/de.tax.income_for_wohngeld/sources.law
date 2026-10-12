@@ -1,0 +1,193 @@
+language "law.core" version "0.2";
+package de.tax.income_for_wohngeld version "0.1.0";
+namespace "urn:de:tax:clir:income-for-wohngeld";
+
+// ПОРОЖДЁННЫЙ ФАЙЛ. Правится только corpus/tools/sources/sync/sync_de_wohngeld.py;
+// байты кладёт corpus/tools/sources/fetch/fetch_de_wohngeld_texts.py.
+
+
+// EStG — сводный текст портала (build 2026-08-04, «zuletzt geändert durch
+// Art. 7 G v. 29.6.2026 I Nr. 197»), одна редакция с окном [01.01.2023, ∞).
+// Фрагменты — короткие части предложений, которые читает Wohngeld; каждая
+// сверена по истории изменений: § 9a S. 1 Nr. 1 Buchst. a изменён JStG 2022
+// (1 230 € с 01.01.2023) и далее не менялся; § 9a S. 3 добавлен
+// Steueränderungsgesetz 2025 с 01.01.2026 — вне области пакета. Выдача портала
+// не есть BGBl: verifiedAgainstSource = false.
+
+source ESTG {
+    kind statute;
+    jurisdiction DE;
+    number "BGBl. I 2009 S. 3366, 3862";
+    label de official "Einkommensteuergesetz (EStG)";
+    label en unofficial "Income Tax Act (EStG)";
+}
+
+edition ESTG_ED2023 of ESTG {
+    language de;
+    officiality official;
+    materialization_status PINNED_UNOFFICIAL_COPY;
+    adopted @2009-10-08;
+    in_force [@2023-01-01, infinity);
+    label de official "Einkommensteuergesetz in der Fassung der Bekanntmachung vom 8. Oktober 2009, konsolidierte Fassung (gesetze-im-internet.de, zuletzt geändert durch Art. 7 G v. 29.6.2026 I Nr. 197); modellierte Satzteile anzuwenden ab 1. Januar 2023";
+    label en unofficial "Income Tax Act, consolidated text (last amended 29.6.2026); modelled sentence parts applicable from 1 January 2023";
+}
+
+source JSTG_2022 {
+    kind statute;
+    jurisdiction DE;
+    number "BGBl. I 2022 S. 2294";
+    label de official "Jahressteuergesetz 2022 (JStG 2022) vom 16. Dezember 2022";
+    label en unofficial "Annual Tax Act 2022";
+}
+
+edition JSTG_2022_ED of JSTG_2022 {
+    language de;
+    officiality official;
+    materialization_status PINNED_UNOFFICIAL_COPY;
+    adopted @2022-12-16;
+    in_force [@2023-01-01, infinity);
+    label de official "Bundesgesetzblatt Jahrgang 2022 Teil I Nr. 51, ausgegeben zu Bonn am 20. Dezember 2022, S. 2294";
+    label en unofficial "Federal Law Gazette 2022 Part I No. 51, p. 2294 (OffeneGesetze.de copy)";
+}
+
+publication ESTG_ED2023_TEXT of ESTG_ED2023 {
+    media_type "text/plain; charset=utf-8";
+    uri "https://www.gesetze-im-internet.de/estg/xml.zip";
+    retrieved_at @2026-09-15T00:00:00Z;
+    content_hash "sha256:bdc796f9adfc3a0c68994b25a76c274bdb4eb449073ef50f0490cd3b73f8e88c";
+    local_path "sources/gii/estg-2026-08-04.de.txt";
+}
+
+publication JSTG_2022_TEXT of JSTG_2022_ED {
+    media_type "text/plain; charset=utf-8";
+    uri "https://media.offenegesetze.de/bgbl1/2022/bgbl1_2022_51.pdf";
+    retrieved_at @2026-09-15T00:00:00Z;
+    content_hash "sha256:1ad392d4386f26e71b8541286dfbb688309cb4b7c088d6a5bb2e3f2f531ec413";
+    local_path "sources/bgbl/bgbl-2022-I-51.txt";
+}
+
+fragment ESTG_2_ABS1_S1_NR4 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/2/1/1/4";
+    text de official """4. Einkünfte aus nichtselbständiger Arbeit,""";
+    content_hash "sha256:d550b628d8a56b88ee1fc4451abc10e0c1502e09d7c21688d6d570315fb0c676";
+}
+
+fragment ESTG_2_ABS1_S1_NR7 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/2/1/1/7";
+    text de official """7. sonstige Einkünfte im Sinne des § 22,""";
+    content_hash "sha256:bf1773d78d00231ddc7b30a7eef9a63cab557134f79036843c2830b6b0f32e80";
+}
+
+fragment ESTG_2_ABS2_S1_NR2 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/2/2/1/2";
+    text de official """2. bei den anderen Einkunftsarten der Überschuss der Einnahmen über die Werbungskosten (§§ 8 bis 9a).""";
+    content_hash "sha256:fe1f13817a2f9f7334acf641137fdb5d2c517f751a0ef443868bea143d8d6121";
+}
+
+fragment ESTG_8_ABS1_S1 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/8/1/1";
+    text de official """(1) 1Einnahmen sind alle Güter, die in Geld oder Geldeswert bestehen und dem Steuerpflichtigen im Rahmen einer der Einkunftsarten des § 2 Absatz 1 Satz 1 Nummer 4 bis 7 zufließen.""";
+    content_hash "sha256:1f8e6eb62ff036c5c755bccd3e2c4fc29bf8e0404c3c6079fd3e015d413213f0";
+}
+
+fragment ESTG_9_ABS1_S1 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/9/1/1";
+    text de official """(1) 1Werbungskosten sind Aufwendungen zur Erwerbung, Sicherung und Erhaltung der Einnahmen.""";
+    content_hash "sha256:18368d0105852cc09a41a8c09f2cf854002ced4b226ac39529aa5e316bd2430b";
+}
+
+fragment ESTG_9A_S1_NR1A in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/9a/1/1/a";
+    text de official """1Für Werbungskosten sind bei der Ermittlung der Einkünfte die folgenden Pauschbeträge abzuziehen, wenn nicht höhere Werbungskosten nachgewiesen werden: 1. a) von den Einnahmen aus nichtselbständiger Arbeit vorbehaltlich Buchstabe b:ein Arbeitnehmer-Pauschbetrag von 1 230 Euro;""";
+    content_hash "sha256:30b57315ad62d2f7aaef8a6d90edc5f3ff1253ed199e77118d9767b7cae92b3f";
+}
+
+fragment ESTG_9A_S1_NR3 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/9a/1/3";
+    text de official """3. von den Einnahmen im Sinne des § 22 Nummer 1, 1a und 5:ein Pauschbetrag von insgesamt 102 Euro.""";
+    content_hash "sha256:a1326892ebe2802c011538e9019da69a268b3021be91c633b78a86cb4094add5";
+}
+
+fragment ESTG_9A_S2 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/9a/2";
+    text de official """die Pauschbeträge nach Satz 1 Nummer 1 Buchstabe a und Nummer 3 dürfen nur bis zur Höhe der Einnahmen abgezogen werden.""";
+    content_hash "sha256:b152bba28d1f9913f3b4dc76915d9003ae9516bcb5cd6f577fd18f3dd801d851";
+}
+
+fragment ESTG_19_ABS1_S1_NR1 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/19/1/1/1";
+    text de official """(1) 1Zu den Einkünften aus nichtselbständiger Arbeit gehören 1. Gehälter, Löhne, Gratifikationen, Tantiemen und andere Bezüge und Vorteile für eine Beschäftigung im öffentlichen oder privaten Dienst;""";
+    content_hash "sha256:7d75292dd53d50087ac40a17ecab9ca0175a6ff9feb3453bc99f82b751658aa5";
+}
+
+fragment ESTG_22_NR1_S3_A_AA in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/22/1/3/a/aa";
+    text de official """a) Leibrenten und andere Leistungen, aa) die aus den gesetzlichen Rentenversicherungen,""";
+    content_hash "sha256:011594e8334ec20b7ed2f43954bccd682abfdc62101ac16b02ac84f7c5a9fcff";
+}
+
+fragment ESTG_32B_ABS1_S1_NR1_A in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/32b/1/1/1/a";
+    text de official """1. a) Arbeitslosengeld, Teilarbeitslosengeld,""";
+    content_hash "sha256:c2e9dd6f8943895b4a8d791679f5844d456e51a40cb98ca6f6c43d597ffe15b1";
+}
+
+fragment ESTG_40_ABS3_S3 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/40/3/3";
+    text de official """3Der pauschal besteuerte Arbeitslohn und die pauschale Lohnsteuer bleiben bei einer Veranlagung zur Einkommensteuer und beim Lohnsteuer-Jahresausgleich außer Ansatz.""";
+    content_hash "sha256:d31395135c39c8e434006fabfed2af01386e7ba44468cbc58c450ad9fd7eb9dd";
+}
+
+fragment ESTG_40A_ABS2 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/40a/2";
+    text de official """(2) Der Arbeitgeber kann unter Verzicht auf den Abruf von elektronischen Lohnsteuerabzugsmerkmalen (§ 39e Absatz 4 Satz 2) oder die Vorlage einer Bescheinigung für den Lohnsteuerabzug (§ 39 Absatz 3 oder § 39e Absatz 7 oder Absatz 8) die Lohnsteuer einschließlich Solidaritätszuschlag und Kirchensteuern (einheitliche Pauschsteuer) für das Arbeitsentgelt aus geringfügigen Beschäftigungen im Sinne des § 8 Absatz 1 Nummer 1 oder des § 8a des Vierten Buches Sozialgesetzbuch, für das er Beiträge nach § 168 Absatz 1 Nummer 1b oder 1c (geringfügig versicherungspflichtig Beschäftigte) oder nach § 172 Absatz 3 oder 3a (versicherungsfrei oder von der Versicherungspflicht befreite geringfügig Beschäftigte) oder nach § 276a Absatz 1 (versicherungsfrei geringfügig Beschäftigte) des Sechsten Buches Sozialgesetzbuch zu entrichten hat, mit einem einheitlichen Pauschsteuersatz in Höhe von insgesamt 2 Prozent des Arbeitsentgelts erheben.""";
+    content_hash "sha256:c92eebcca1059cb60ed663153e769fc15ff4876cb6fa06bfd50c4d906f36fb77";
+}
+
+fragment ESTG_40A_ABS5_S1 in ESTG_ED2023 {
+    kind provision;
+    locator "paragraph/40a/5/1";
+    text de official """(5) 1Auf die Pauschalierungen nach den Absätzen 1 bis 3 und 7 ist § 40 Absatz 3 anzuwenden.""";
+    content_hash "sha256:1b946588ccdef5668c7b7a55e1abf1393163348860306a1e8f8a32667f0b68f1";
+}
+
+fragment JSTG_2022_ART4_NR3 in JSTG_2022_ED {
+    kind provision;
+    locator "article/4/3";
+    text de official """3. In § 9a Satz 1 Nummer 1 Buchstabe a wird die
+Angabe „1 200 Euro“ durch die Angabe „1 230
+Euro“ ersetzt.""";
+    content_hash "sha256:387f6057fa236f874b5e566cb43c43af504b9737d285e70e0cb77f2dae58f76c";
+}
+
+fragment JSTG_2022_INKRAFT in JSTG_2022_ED {
+    kind provision;
+    locator "article/13/1";
+    text de official """(1) Dieses Gesetz tritt vorbehaltlich der Absätze 2
+bis 4 am 1. Januar 2023 in Kraft.
+(2) Artikel 1 Nummer 2 Buchstabe a bis c, Nummer 3a, Nummer 5 Buchstabe c, Nummer 7 bis 11,
+14 bis 17, Nummer 18 Buchstabe b, Nummer 20, 22,
+28, 32 Buchstabe a Doppelbuchstabe aa, Nummer 38
+Buchstabe b Doppelbuchstabe aa und Nummer 44
+Buchstabe a, Artikel 2 Nummer 1 Buchstabe b, c und e,
+
+2351
+
+Nummer 4, 6 bis 9 und 12, Artikel 4 Nummer 3a, 4a
+und 7a, die Artikel 11 und 12 Absatz 1 Nummer 2,
+Absatz 2 bis 4 und 14 Nummer 1 Buchstabe a Doppelbuchstabe aa Dreifachbuchstabe ccc treten am 1.""";
+    content_hash "sha256:4f0a0eb1a1669e62d06147f1f9128a4f04930b9f113c305a904bbc80e9c3c90d";
+}
