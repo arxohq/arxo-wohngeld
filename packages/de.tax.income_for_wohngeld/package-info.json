@@ -1,0 +1,6 @@
+{
+  "format": "law.package-info/0.1",
+  "license": "Apache-2.0 (see LICENSE) for the model, its scenarios and case collections. Pinned texts of German statutes and ordinances from gesetze-im-internet.de (also as archived through the Internet Archive) and the Bundesgesetzblatt on recht.bund.de are official works without copyright protection under § 5 (1) UrhG (checked 2026-10-12). Copies of Bundesgesetzblatt issues before 2023 taken from offenegesetze.de reproduce official texts, but the former publisher claimed rights in its gazette database; and publications of the Federal Ministry for Housing (bmwsb.bund.de: Wohngeld tables, the worked example and the script of its Wohngeld calculator) remain under the ministry's terms — both to be confirmed before the repository is opened. Not affiliated with the German Federal Government or any Wohngeld authority.",
+  "maintainer": "Rifat Dzhumagulov (hi@arxo.io)",
+  "repository": "https://github.com/arxohq/arxo-wohngeld"
+}
