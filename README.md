@@ -50,7 +50,4 @@ Code and model: see `LICENSE`. The pinned texts of the publishers keep their
 own terms of reproduction, listed per package in `NOTICE`; those terms are
 not covered by the code licence.
 
-The terms of reproduction of the pinned texts are not declared by `de.social.wohngeld`, `de.social.wohngeld_verordnung`, `de.tax.income_for_wohngeld`:
-they are checked against the publication addresses in `NOTICE` before this repository is opened.
-
 Maintainer: Rifat Dzhumagulov (hi@arxo.io). Address: https://github.com/arxohq/arxo-wohngeld.

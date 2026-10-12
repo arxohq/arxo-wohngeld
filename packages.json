@@ -1,6 +1,6 @@
 {
   "format": "law.package-set/0.1",
-  "generatedAt": "2026-10-12T19:07:22+00:00",
+  "generatedAt": "2026-10-12T19:48:21+00:00",
   "dependencyMode": "vendored",
   "language": "en",
   "ci": "private-hosted",
@@ -42,10 +42,5 @@
     "registryId": "arxo",
     "packages": 3,
     "resources": 2
-  },
-  "termsPending": [
-    "de.social.wohngeld",
-    "de.social.wohngeld_verordnung",
-    "de.tax.income_for_wohngeld"
-  ]
+  }
 }
