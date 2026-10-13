@@ -1,0 +1,41 @@
+{
+  "format": "arxo.wohngeld-readme-assets/1",
+  "worldHash": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2",
+  "tree": {
+    "predicate": "wohngeld_monatlich",
+    "depth": 2,
+    "lang": "en",
+    "quote": 0,
+    "caseSelected": false
+  },
+  "files": {
+    "cover.svg": {
+      "bytes": 2204,
+      "sha256": "sha256:e595f93dcf6103fb1c8a1ab03ffafd2ce4d89c423d0d380f9f1d8ac6f36971da"
+    },
+    "model-to-answer.svg": {
+      "bytes": 3117,
+      "sha256": "sha256:d20ca563276113f7fe493a270bd1cdf7d0e2b1cf2bd05dc0bceedd1ba8ead7b7"
+    },
+    "amount-and-claim.svg": {
+      "bytes": 2402,
+      "sha256": "sha256:dd0283a57245d0c88043682f5cea2c32800fdced2b1cffb7b96944b60104f996"
+    },
+    "knows-wohngeld.svg": {
+      "bytes": 9175,
+      "sha256": "sha256:a8ef597c1cdbf14fc79384ecf92fbb0440bc01a0356ce2e5fff9f95c65969bf1"
+    },
+    "wohngeld-unfold.json": {
+      "bytes": 37270,
+      "sha256": "sha256:9a8ea0745cc07b33bb2b57e092f7d0b7e673308dcd88da521245e12a00874f5f"
+    },
+    "example-evidence.json": {
+      "bytes": 3370,
+      "sha256": "sha256:32126624412a462e365a36930ffb84b5fbf5691abb400ee2fcf414e75b131cd8"
+    },
+    "formalization-depth.json": {
+      "bytes": 131544,
+      "sha256": "sha256:778b087c8c52465a7b49d5b39a3a1e773f362b6c09e84f085137aec9e46ccb92"
+    }
+  }
+}

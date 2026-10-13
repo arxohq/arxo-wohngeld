@@ -1,0 +1,78 @@
+{
+  "name": "@arxo/canon-de-wohngeld",
+  "version": "0.1.0",
+  "description": "Pinned German housing-benefit models and book cases for Node.js, executed by @arxo/law.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "node": "./src/index.js"
+    },
+    "./package.json": "./package.json",
+    "./source-pin.json": "./source-pin.json",
+    "./wohngeld": {
+      "types": "./types/wohngeld.d.ts",
+      "node": "./src/wohngeld.js"
+    },
+    "./wohngeld-verordnung": {
+      "types": "./types/wohngeld-verordnung.d.ts",
+      "node": "./src/wohngeld-verordnung.js"
+    },
+    "./income-for-wohngeld": {
+      "types": "./types/income-for-wohngeld.d.ts",
+      "node": "./src/income-for-wohngeld.js"
+    },
+    "./examples/familie-weimar": {
+      "types": "./examples/familie-weimar.d.ts",
+      "node": "./examples/familie-weimar.js"
+    }
+  },
+  "files": [
+    "src",
+    "types",
+    "data",
+    "models.json",
+    "index.d.ts",
+    "source-pin.json",
+    "canon-packages.json",
+    "examples",
+    "assets",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "PUBLICATION-BOUNDARY.json",
+    "PUBLISHING.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "@arxo/law": "0.4.2"
+  },
+  "devDependencies": {
+    "@arxo/law": "0.4.2",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:types": "tsc --noEmit --strict --target ES2022 --module NodeNext --moduleResolution NodeNext --lib ES2022,DOM,ESNext.Disposable test/types.fixture.ts",
+    "candidate": "node tools/prepare-candidate.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arxohq/arxo-wohngeld.git",
+    "directory": "npm"
+  },
+  "keywords": [
+    "arxo",
+    "law-as-code",
+    "germany",
+    "wohngeld",
+    "housing-benefit",
+    "proof"
+  ]
+}

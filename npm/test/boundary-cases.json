@@ -1,0 +1,2691 @@
+[
+  {
+    "case": {
+      "assertions": [
+        {
+          "contentHash": "sha256:ff552f8b360e91a00eebae0d62b6a2e1af3c63650425ea7875a360983d0bef01",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#antrag",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETZUSCHUSS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeldantrag"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:088a4ad61efa277716dd1c44feeed7a9988c7bd8ce2edf4349f76466256c2dbc",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#grundlage",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETVERHAELTNIS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#nutzungsgrundlage"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:173ed6760c2fa060cf8380ab7d0e148341d65eebb63518aad6ac9a5edf74aed2",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#mv",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#mietverhaeltnis_des_haushalts"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:03ec24e068d628005b1994c2bf812f3a4f5091c1cd83fd767ee413bd0936dd0a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#entgelt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:mietverhaeltnis",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "580"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#vereinbartes_entgelt"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:da2ac20bf47d4ea4f8f9750ca0bd9247367714cbd0a5b3054c5f4bd8e4641cef",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#bafoeg",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#ausbildungsfoerderung_20_abs2"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:e4d80b4c94ccc7dfe3ab93e2e122415148e54ea8db4aeb6b2a914c77c2ade4c3",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#miete-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_zur_miete_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:5787d980c0a76c57b4cb864751213b10777842662be7366b44e4ae503789c11e",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#freibetraege-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_freibetraege_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:e4aea44314ae64bcf1ac14f819c64c78a7d2b05b55e5839bda2c9f4cdfbe23a6",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#behoerde-21-nr3",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "negative",
+            "predicate": "urn:de:social:clir:wohngeld#missbraeuchliche_inanspruchnahme"
+          },
+          "origin": "adjudicated",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:0ba7bd4e8d3d1606bd86d4eba949610a39e85fdb8b18b647f5d88b5ae547a8a7",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:ca2ce2c15bfaf4a88dd764511c542fb730ff31d58ce35a0a32ae6ef2e5473a99",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:5b8073c52358ed6089da5565a09b0dfa3b20435700c57b70f322c39540994f07",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:5ef9e4e4acc36258b17f33974725d515b532bd5c2ff2712fa5e614504ee88fc6",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:2afdc1d2f997326af1618a634322d8f23446282b38803d39178da43984e920e6",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:ac9deaf92ffbc4efba9fa02550c514f6bb6ed7da8b2078e0517eca8af67a0633",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-lohn",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "26880"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#arbeitslohn_in_geld"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:5bce8fd4176f4f2aaded79dd3347990dc452e6ee259a0a86c6d4141aa2844aff",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-werbungskosten",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "0"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#nachgewiesene_werbungskosten_arbeit"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:a3bd1feb340754671d2632d9784bf6ba85bf90ed6cc5e9b7503bf62fd425f3a4",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehemann",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:b825bcb782ad0267fe89e9cf048d3d5a0b5272c1adeac9c43b7c623fd6a15467",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:b2dbfd0b892bd0b847f4402a387ea4edbd02650330f281554d2e15f42c18a9c6",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:e90bd4c8f5a48106506743e03517867ea508fbe1f28bdac187eaa62892b59f65",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-beziehung",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#EHEGATTE_NICHT_DAUERND_GETRENNT",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#beziehung"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:b5d53bc8c51805a1e5bc84c732f02f42529033324b3203fbad6db4059ade86c1",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:042a922dab797dcfb47b1545e58b22dddfb9c4e1b6b2312e56a32cd724fbfe9a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:ehemann",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        }
+      ],
+      "context": {
+        "decisionTime": "2025-03-01T09:00:00Z",
+        "knowledgeTime": "2025-03-01T09:00:00Z",
+        "legalTime": "2025-03-01",
+        "timezone": "Europe/Berlin"
+      },
+      "options": {}
+    },
+    "expectations": [
+      {
+        "field": "truth_status",
+        "op": "eq",
+        "value": "TRUE_ONLY"
+      },
+      {
+        "field": "evaluation_status",
+        "op": "eq",
+        "value": "COMPUTED"
+      }
+    ],
+    "query": {
+      "kind": "truth",
+      "literal": {
+        "args": [
+          {
+            "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+            "kind": "entity_ref"
+          },
+          {
+            "currency": "EUR",
+            "kind": "value",
+            "type": {
+              "name": "urn:law:std#Money"
+            },
+            "value": "1710"
+          }
+        ],
+        "kind": "literal",
+        "polarity": "positive",
+        "predicate": "urn:de:social:clir:wohngeld#monatliches_gesamteinkommen"
+      },
+      "queryId": "urn:de:social:clir:wohngeld#test/unzureichende%20Tatsachen%3A%20ohne%20Wohnort%20keine%20Mietenstufe%20und%20kein%20Wohngeld%20%28nicht%200%29/query/0"
+    },
+    "steps": [
+      {
+        "expectations": [
+          {
+            "field": "truth_status",
+            "op": "eq",
+            "value": "TRUE_ONLY"
+          },
+          {
+            "field": "evaluation_status",
+            "op": "eq",
+            "value": "COMPUTED"
+          }
+        ],
+        "query": {
+          "kind": "truth",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "1710"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#monatliches_gesamteinkommen"
+          },
+          "queryId": "urn:de:social:clir:wohngeld#test/unzureichende%20Tatsachen%3A%20ohne%20Wohnort%20keine%20Mietenstufe%20und%20kein%20Wohngeld%20%28nicht%200%29/query/0"
+        }
+      },
+      {
+        "expectations": [
+          {
+            "field": "truth_status",
+            "op": "eq",
+            "value": "NEITHER"
+          },
+          {
+            "field": "evaluation_status",
+            "op": "eq",
+            "value": "COMPUTED"
+          }
+        ],
+        "query": {
+          "kind": "truth",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:ohne-wohnort:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "0"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeld_monatlich"
+          },
+          "queryId": "urn:de:social:clir:wohngeld#test/unzureichende%20Tatsachen%3A%20ohne%20Wohnort%20keine%20Mietenstufe%20und%20kein%20Wohngeld%20%28nicht%200%29/query/1"
+        }
+      }
+    ],
+    "title": "unzureichende Tatsachen: ohne Wohnort keine Mietenstufe und kein Wohngeld (nicht 0)"
+  },
+  {
+    "case": {
+      "assertions": [
+        {
+          "contentHash": "sha256:0247899327f24733ce8dc1e8dd596eb44d75cad55fc6c61da8dcaef6942d86dc",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#antrag",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETZUSCHUSS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeldantrag"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:f6bbf74911c69955f97615d64001eb198fc7cd0cb53855802cdef1f9b60159b4",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#grundlage",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETVERHAELTNIS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#nutzungsgrundlage"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:afdd093665b205a158863da383239b4d2b452afe13ec340f03c7c80cc0f9c1f0",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#fact-wohnort",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Text"
+                },
+                "value": "Thüringen"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Text"
+                },
+                "value": "Weimar, Stadt"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohnort"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:e66b521e7c7a0d54f852c0702747e422c74a9f936fc2f12d51ad0eb31389e3fd",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#mv",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#mietverhaeltnis_des_haushalts"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:4a6d12a7559dbed5a037227f9971c4ad33a9399404ad5a7a7ae392afc75579dc",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#entgelt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:mietverhaeltnis",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "580"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#vereinbartes_entgelt"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:ed59a48c2c77e5d200b0a455897293648e1277e99a96b006a2bbf66ba575abb6",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#bafoeg",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#ausbildungsfoerderung_20_abs2"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:04422cc491a5122d151e89824913bde3b26e89f8a0d6adbc140079679a8dc86a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#miete-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_zur_miete_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:adead2925a1fe28be7199d0c2a0f8dac2c3a22ec65e57475ea411d94a8689a9f",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#freibetraege-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_freibetraege_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:f33fc3387114e8ca54000b8ef4581b269a685d654d25c2eb27918c5ec8fecc49",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#behoerde-21-nr3",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "negative",
+            "predicate": "urn:de:social:clir:wohngeld#missbraeuchliche_inanspruchnahme"
+          },
+          "origin": "adjudicated",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:3f4677b56f6ee14d40f8c2761a804f9d750309254041b35ffc834771efc858d1",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:65eef291c71b71fe944808f049d1475e7f05586c43bc650f839ff93ad990a5e3",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:96efa1ba8ac461e4fe63ec37633076bdb559b4b006263178a4dba6f633484fcc",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:730a61af05b5b0c497775b3270cdba98faa82f621eab939f09165ac424cfcbe9",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:9e23c4666c751dab60b900dd58c07780cf978ebd415771c667a0a0a02b1d04c6",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:0d5d3355a15b664d3a57636a72214391f994546b4a452508db2d006b8980982a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-lohn",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "26880"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#arbeitslohn_in_geld"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:90abd8e230f40904e507900e0fe204b8a6246a627fb32c7223081243ef0c442f",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehefrau-werbungskosten",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "0"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#nachgewiesene_werbungskosten_arbeit"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:1abc672ed1ea80ffa95043eb02c9dab7f6612ea7061fe1bcaefbe4c35d4a6e18",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:36214ef9f710d3abab80e9154ce6996b75a56bd6084807b7c4e7ed268d97426d",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:8af574da83964b9398633764bb2a244f1bd4d3ff42dd232af2271d43e8fc77f1",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:36d5f47e94c4597fe9664201e147202ff72d882c6c30f4e1aa87a580c1d8dad6",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-beziehung",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehefrau",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#EHEGATTE_NICHT_DAUERND_GETRENNT",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#beziehung"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:edc687c42c90c4b7efc4dd1dfd21cc92c5f7a62eb3aedb3fb1367cdf91706895",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:d7ae49e720ff2288f676439dd81374c9c329212fbd83df5784406a380c649466",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#ehemann-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:0368e305a4b1d40e982d8a44a43a69e3ac355a8566dcafbc22bfd7710e7e1feb",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#extra-0",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "negative",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        }
+      ],
+      "context": {
+        "decisionTime": "2025-03-01T09:00:00Z",
+        "knowledgeTime": "2025-03-01T09:00:00Z",
+        "legalTime": "2025-03-01",
+        "timezone": "Europe/Berlin"
+      },
+      "options": {}
+    },
+    "expectations": [
+      {
+        "field": "truth_status",
+        "op": "eq",
+        "value": "BOTH"
+      }
+    ],
+    "query": {
+      "kind": "truth",
+      "literal": {
+        "args": [
+          {
+            "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:haushalt",
+            "kind": "entity_ref"
+          },
+          {
+            "id": "urn:de:example:wohngeld:widerspruch-lebensmittelpunkt:ehemann",
+            "kind": "entity_ref"
+          }
+        ],
+        "kind": "literal",
+        "polarity": "positive",
+        "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+      },
+      "queryId": "urn:de:social:clir:wohngeld#test/widerspr%C3%BCchliche%20Tatsachen%3A%20Lebensmittelpunkt%20des%20Ehemanns%20zugleich%20behauptet%20und%20bestritten%20%E2%80%94%20BOTH/query/0"
+    },
+    "title": "widersprüchliche Tatsachen: Lebensmittelpunkt des Ehemanns zugleich behauptet und bestritten — BOTH"
+  },
+  {
+    "case": {
+      "assertions": [
+        {
+          "contentHash": "sha256:070ec5739cdf40d86813b66b45989711157e18f24fe6af4bb893e728281e2b9b",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#antrag",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETZUSCHUSS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeldantrag"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:98ee3f7f21d74e9e16c0f2d1b00f174be98643f4c42b88279aba3951fba6e36c",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#grundlage",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETVERHAELTNIS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#nutzungsgrundlage"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:b4c6e2f5d4f1f595c48fbe1d9966f40593f75687dc64ec21c06293a9f6888305",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#fact-wohnort",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Text"
+                },
+                "value": "Rheinland-Pfalz"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Text"
+                },
+                "value": "Ludwigshafen am Rhein, Stadt"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohnort"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:865e0a9065363c8f020a3e4b311a373f89e8785661b92ebf46ace0fe6d35646a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#mv",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#mietverhaeltnis_des_haushalts"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:7cad8afd7634270e041fca6f80ae56c1d31729bd88e31646ad72d099ebab9e76",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#entgelt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:mietverhaeltnis",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "440.49"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#vereinbartes_entgelt"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:6bbaefe65844062eb00770ad4cb2411e82544d4119000e689d3c23ac0f3eb725",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#bafoeg",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#ausbildungsfoerderung_20_abs2"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:68aef15aec643afd2bd1e9366d853987e6a984058e82fc8d07b1232ba9bf21a3",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#miete-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_zur_miete_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:75d26b0d3ae86a54b8bea4cbac9540141bcc09641c38f5588566a391e57a1aa1",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#freibetraege-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_freibetraege_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:081c458e843dc3d03e456c0f0e5760788608571f09c7efc515045e650249ad0c",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#behoerde-21-nr3",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "negative",
+            "predicate": "urn:de:social:clir:wohngeld#missbraeuchliche_inanspruchnahme"
+          },
+          "origin": "adjudicated",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:882968355ac8239fe3de11e750fdae6a2e81341a882b8eb4f909f619c8bc37f1",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:2d51b82fb919a32636939bacd34a5efd6fb3238fac41d09b885e9d2703225ec4",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:9af648f728f94bdb939f919664e67a01aa06676bf2b6614c1136a29b9cf8927c",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:3c5ff2e0b437a5ba347c3b3d4b1998dd552cf7b07fc3728947769aa852a4fe3c",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:3a75c415e1d793fc3fa581eb219d7f9fda7edd83631a7fff39f54e170dcd627a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:28bfdcf9b65554de2ab6e5b01eb7e34b56744146bd7b4d0eee84c9f35204f095",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-lohn",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "25200"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#arbeitslohn_in_geld"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:99f455db617e1074d37880bb6fd1199934036e53e336d682438cd1f809affc57",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-werbungskosten",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "0"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#nachgewiesene_werbungskosten_arbeit"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:b2f250d4cfd75f437de066e7e7960f7fd97540a02889a459b91ea6aa9513ea8a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:partner",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:27606e1d5ee46d80d2bcac0496efb46ed3c961a4bcecadc005e91ba364cb83bf",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:225918065e2e5e7f00681a35ae79f434493a06d930f8fe3d99b5c28ed9051f4f",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:6eb30315592bdb89991e58e9e8c17a381fdaabd135432441dd424f06443f78c0",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-beziehung",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#EHEGATTE_NICHT_DAUERND_GETRENNT",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#beziehung"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:6e448aedadcd576c2887d9403d263ec19525efb8f692351a78f7aca5993e3ef1",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:8aff01691eb5d768f9bf51d751813c4c46848cfc589a7724bccf2f7022704bb0",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:partner",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        }
+      ],
+      "context": {
+        "decisionTime": "2025-03-01T09:00:00Z",
+        "knowledgeTime": "2025-03-01T09:00:00Z",
+        "legalTime": "2025-03-01",
+        "timezone": "Europe/Berlin"
+      },
+      "options": {}
+    },
+    "expectations": [
+      {
+        "field": "truth_status",
+        "op": "eq",
+        "value": "TRUE_ONLY"
+      },
+      {
+        "field": "evaluation_status",
+        "op": "eq",
+        "value": "COMPUTED"
+      }
+    ],
+    "query": {
+      "kind": "truth",
+      "literal": {
+        "args": [
+          {
+            "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+            "kind": "entity_ref"
+          },
+          {
+            "kind": "value",
+            "type": {
+              "name": "urn:law:std#Decimal"
+            },
+            "value": "143.4999657097"
+          }
+        ],
+        "kind": "literal",
+        "polarity": "positive",
+        "predicate": "urn:de:social:clir:wohngeld#wohngeld_ungerundet"
+      },
+      "queryId": "urn:de:social:clir:wohngeld#test/Rundung%20Anlage%203%20Nr.%203%3A%20z4%20%3D%20143%2C4999657097%20wird%20auf%20143%20EUR%20abgerundet/query/0"
+    },
+    "steps": [
+      {
+        "expectations": [
+          {
+            "field": "truth_status",
+            "op": "eq",
+            "value": "TRUE_ONLY"
+          },
+          {
+            "field": "evaluation_status",
+            "op": "eq",
+            "value": "COMPUTED"
+          }
+        ],
+        "query": {
+          "kind": "truth",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Decimal"
+                },
+                "value": "143.4999657097"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeld_ungerundet"
+          },
+          "queryId": "urn:de:social:clir:wohngeld#test/Rundung%20Anlage%203%20Nr.%203%3A%20z4%20%3D%20143%2C4999657097%20wird%20auf%20143%20EUR%20abgerundet/query/0"
+        }
+      },
+      {
+        "expectations": [
+          {
+            "field": "truth_status",
+            "op": "eq",
+            "value": "TRUE_ONLY"
+          },
+          {
+            "field": "evaluation_status",
+            "op": "eq",
+            "value": "COMPUTED"
+          }
+        ],
+        "query": {
+          "kind": "truth",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-ab:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "143"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeld_monatlich"
+          },
+          "queryId": "urn:de:social:clir:wohngeld#test/Rundung%20Anlage%203%20Nr.%203%3A%20z4%20%3D%20143%2C4999657097%20wird%20auf%20143%20EUR%20abgerundet/query/1"
+        }
+      }
+    ],
+    "title": "Rundung Anlage 3 Nr. 3: z4 = 143,4999657097 wird auf 143 EUR abgerundet"
+  },
+  {
+    "case": {
+      "assertions": [
+        {
+          "contentHash": "sha256:6cf8ec5c26d7cb69baa5c6b257abbaf387455c84aa7bd294e20af1a5e7510298",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#antrag",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETZUSCHUSS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeldantrag"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:8dbde91c689a5bb8964e78242a6a1b1a6ea90357a7d368955101b59d832faa31",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#grundlage",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#MIETVERHAELTNIS",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#nutzungsgrundlage"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:1288ba9b456822572245823b175b4b2dbbff0ed69359a3291918b4e701626c8a",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#fact-wohnort",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Text"
+                },
+                "value": "Rheinland-Pfalz"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Text"
+                },
+                "value": "Ludwigshafen am Rhein, Stadt"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohnort"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:de2f92521cf21cdfb3fc7e74f4077ad4105a6a4c387f5a691d3e64ba1114575e",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#mv",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#mietverhaeltnis_des_haushalts"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:7310db97c96028a8eb2e59151dad701c2c18b1b7cb3db6acffae5508bda5c3f9",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#entgelt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:mietverhaeltnis",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "543.78"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#vereinbartes_entgelt"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:4beae59a3b36b81dda261bddc66d8771aea36c413af8f3dcee1836216fb0f7fb",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#bafoeg",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#ausbildungsfoerderung_20_abs2"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:259d94fc94447ff89694e512b7bd63846bc6e1b75d3a892f374261473ee35d87",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#miete-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:mietverhaeltnis",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_zur_miete_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:436e1453de6c36c5c50bdbdd675796d95c2b00c6749c1a2b366a9744241fdb4e",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#freibetraege-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#angaben_freibetraege_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:451082fc29bf083246d0beb80f775572a5bf0f6cd5a86773229116841b3b8cae",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#behoerde-21-nr3",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "negative",
+            "predicate": "urn:de:social:clir:wohngeld#missbraeuchliche_inanspruchnahme"
+          },
+          "origin": "adjudicated",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:75578361df2720bd40d3f5c56a477a3b3d2ca300370aafc5d52763ed1877a960",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:e9e30602bc7697a4a7e03b1bcb478c85d18952ab4801377be1ff0b36cb5a98bb",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:80a9f7232f499b529db2814f5222677e2baf53e0ee506bc3d12d23b9cd0eb2f3",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:2917f6467e272e112da2dd6647fbc1c5fee78b4894e63e0825a8d6307beff3ce",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#JA",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:3ef49a993f24937955b3283713ef8a9385b867900a5c9c2b51bc24782b0fed8f",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:0e2b0ab9c2f8c4512266405f947810eb0672193a011bc83bac85aada4a0b84d9",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-lohn",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "25200"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#arbeitslohn_in_geld"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:e0c4d9b8f0a167da4ecd1aa86478e48ffa8f3d288d13ed7bb1eae312f077741c",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#person-werbungskosten",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "0"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:tax:clir:income-for-wohngeld#nachgewiesene_werbungskosten_arbeit"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:31793f21083bc494f7b7e1434b81f7e1c3a3b6fdb3e7d380f03ffd792bf1b6fc",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-lebensmittelpunkt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:partner",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#lebensmittelpunkt_im_wohnraum"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:d58d0f94c04b6a3b56c9a520ff91f3265df4d7b2e52a63656a04bf86dc1b536b",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-aufenthalt",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEIN_AUSLAENDER",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#aufenthaltsrechtlicher_status"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:b7fa5fa2129377a2c6f829524ca3c99a2e193322a4fbf5bc45d734acd661f9e7",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-leistung7",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#KEINE",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#leistungsbezug_7"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:bb365451d1e2964af7728d03fc51c9d9b589f5c70ca959fbda6ea749f2e8c8e9",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-beziehung",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:person",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#EHEGATTE_NICHT_DAUERND_GETRENNT",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#beziehung"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:c6ee67ffffc35ce2f70ae903a0af52bacbdbb5e14fcb6ec517ceb9add025df7e",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-abzug16",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:partner",
+                "kind": "entity_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              },
+              {
+                "id": "urn:de:social:clir:wohngeld#NEIN",
+                "kind": "const_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#abzugsmerkmale_16"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        },
+        {
+          "contentHash": "sha256:3fad74b20f3146fe856e389bb703aa95574ecbf8c925a1b580aba0510e975fe4",
+          "evidence": [],
+          "id": "urn:de:social:clir:wohngeld#partner-einkommen-vollstaendig",
+          "kind": "assertion",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:partner",
+                "kind": "entity_ref"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#einkommensangaben_vollstaendig"
+          },
+          "origin": "case_input",
+          "package": "urn:de:social:clir:wohngeld"
+        }
+      ],
+      "context": {
+        "decisionTime": "2025-03-01T09:00:00Z",
+        "knowledgeTime": "2025-03-01T09:00:00Z",
+        "legalTime": "2025-03-01",
+        "timezone": "Europe/Berlin"
+      },
+      "options": {}
+    },
+    "expectations": [
+      {
+        "field": "truth_status",
+        "op": "eq",
+        "value": "TRUE_ONLY"
+      },
+      {
+        "field": "evaluation_status",
+        "op": "eq",
+        "value": "COMPUTED"
+      }
+    ],
+    "query": {
+      "kind": "truth",
+      "literal": {
+        "args": [
+          {
+            "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+            "kind": "entity_ref"
+          },
+          {
+            "kind": "value",
+            "type": {
+              "name": "urn:law:std#Decimal"
+            },
+            "value": "194.5001603254"
+          }
+        ],
+        "kind": "literal",
+        "polarity": "positive",
+        "predicate": "urn:de:social:clir:wohngeld#wohngeld_ungerundet"
+      },
+      "queryId": "urn:de:social:clir:wohngeld#test/Rundung%20Anlage%203%20Nr.%203%3A%20z4%20%3D%20194%2C5001603254%20wird%20auf%20195%20EUR%20aufgerundet/query/0"
+    },
+    "steps": [
+      {
+        "expectations": [
+          {
+            "field": "truth_status",
+            "op": "eq",
+            "value": "TRUE_ONLY"
+          },
+          {
+            "field": "evaluation_status",
+            "op": "eq",
+            "value": "COMPUTED"
+          }
+        ],
+        "query": {
+          "kind": "truth",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Decimal"
+                },
+                "value": "194.5001603254"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeld_ungerundet"
+          },
+          "queryId": "urn:de:social:clir:wohngeld#test/Rundung%20Anlage%203%20Nr.%203%3A%20z4%20%3D%20194%2C5001603254%20wird%20auf%20195%20EUR%20aufgerundet/query/0"
+        }
+      },
+      {
+        "expectations": [
+          {
+            "field": "truth_status",
+            "op": "eq",
+            "value": "TRUE_ONLY"
+          },
+          {
+            "field": "evaluation_status",
+            "op": "eq",
+            "value": "COMPUTED"
+          }
+        ],
+        "query": {
+          "kind": "truth",
+          "literal": {
+            "args": [
+              {
+                "id": "urn:de:example:wohngeld:rundung-auf:haushalt",
+                "kind": "entity_ref"
+              },
+              {
+                "currency": "EUR",
+                "kind": "value",
+                "type": {
+                  "name": "urn:law:std#Money"
+                },
+                "value": "195"
+              }
+            ],
+            "kind": "literal",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeld_monatlich"
+          },
+          "queryId": "urn:de:social:clir:wohngeld#test/Rundung%20Anlage%203%20Nr.%203%3A%20z4%20%3D%20194%2C5001603254%20wird%20auf%20195%20EUR%20aufgerundet/query/1"
+        }
+      }
+    ],
+    "title": "Rundung Anlage 3 Nr. 3: z4 = 194,5001603254 wird auf 195 EUR aufgerundet"
+  }
+]

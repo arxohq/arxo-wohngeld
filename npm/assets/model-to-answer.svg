@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="570" viewBox="0 0 1000 570" role="img" aria-labelledby="title desc"><title id="title">From pinned model and case to answer</title><desc id="desc">Model, facts and legal date enter the common engine. Amount and claim are separate queries. The canonical document retains proof and parameter-row evidence.</desc><style>text{font-family:Arial,Helvetica,sans-serif}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}</style><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#315d84"/></marker></defs><rect x="0" y="0" width="1000" height="570" rx="16" fill="#f8f4eb"/><text x="38" y="53" font-size="31" font-weight="700" fill="#122d4c">One model. Explicit inputs. Inspectable results.</text>
+<rect x="38" y="90" width="285" height="120" rx="16" fill="#e8ecef"/>
+<text x="57" y="126" font-size="23" font-weight="650" fill="#315d84" class="mono">loadModel()</text>
+<text x="57" y="160" font-size="21" font-weight="400" fill="#122d4c">Pinned world + 2 imports</text>
+<text x="57" y="191" font-size="19" font-weight="400" fill="#51657c">Original bytes checked</text>
+<rect x="358" y="90" width="604" height="120" rx="16" fill="#e8ecef"/>
+<text x="380" y="126" font-size="23" font-weight="650" fill="#315d84" class="mono">getCaseInput('Familie2025')</text>
+<text x="380" y="163" font-size="21" font-weight="400" fill="#122d4c">Facts · legal date · adjudicated judgment</text>
+<text x="380" y="191" font-size="19" font-weight="400" fill="#51657c">2025-01-01 · Europe/Berlin</text>
+<path d="M180 214 L180 250" fill="none" stroke="#315d84" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M660 214 L660 250" fill="none" stroke="#315d84" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="260" width="924" height="85" rx="16" fill="#dce6ef"/>
+<text x="62" y="297" font-size="25" font-weight="650" fill="#315d84" class="mono">@arxo/law → open(... local.packages)</text>
+<text x="62" y="325" font-size="19" font-weight="400" fill="#51657c">Offline WebAssembly execution · model formulas and rounding</text>
+<path d="M279 350 L279 385" fill="none" stroke="#315d84" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M732 350 L732 385" fill="none" stroke="#315d84" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="398" width="448" height="130" rx="16" fill="#e6f1eb"/>
+<rect x="514" y="398" width="448" height="130" rx="16" fill="#e6f1eb"/>
+<text x="62" y="434" font-size="21" font-weight="600" fill="#14644b" class="mono">wohngeld_monatlich</text>
+<text x="62" y="481" font-size="34" font-weight="700" fill="#14644b">485 EUR</text>
+<text x="62" y="511" font-size="19" font-weight="600" fill="#14644b" class="mono">COMPUTED</text>
+<text x="538" y="434" font-size="21" font-weight="600" fill="#14644b" class="mono">wohngeldanspruch</text>
+<text x="538" y="477" font-size="27" font-weight="700" fill="#14644b" class="mono">TRUE_ONLY</text>
+<text x="538" y="512" font-size="18" font-weight="400" fill="#14644b">document · proof · A3 selections · hashes</text></svg>
