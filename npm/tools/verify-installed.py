@@ -4,6 +4,7 @@ import argparse,hashlib,json,os,re,shutil,subprocess,tarfile
 from pathlib import Path
 ap=argparse.ArgumentParser(description=__doc__)
 ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--node',type=Path,required=True);ap.add_argument('--out',type=Path,required=True)
+ap.add_argument('--examples-readme',type=Path)
 a=ap.parse_args();a.candidate=a.candidate.resolve();a.node=a.node.resolve();a.out=a.out.resolve()
 npm=Path(__file__).resolve().parents[1]
 if a.out.exists():raise ValueError('consumer output must be new')
@@ -32,7 +33,7 @@ run('install',['npm','install','--ignore-scripts','--no-audit','--no-fund'])
 shutil.copytree(npm/'test',a.out/'test')
 run('runtime',[str(a.node),'--test','test/load.test.mjs','test/runtime.test.mjs'])
 run('types',[str(a.node),'node_modules/typescript/bin/tsc','--noEmit','--strict','--target','ES2022','--module','NodeNext','--moduleResolution','NodeNext','--lib','ES2022,DOM,ESNext.Disposable','test/types.fixture.ts'])
-docs=[('npm-readme',npm/'README.md'),('canon-readme',npm.parent/'README.md'),('examples-readme',npm.parent.parent/'law-as-code-germany-examples/README.md')]
+docs=[('npm-readme',npm/'README.md'),('canon-readme',npm.parent/'README.md'),('examples-readme',a.examples_readme or npm.parent.parent/'law-as-code-germany-examples/README.md')]
 for name,doc in docs:
  blocks=re.findall(r'```js\n(.*?)```',doc.read_text(),re.S)
  for i,block in enumerate(blocks):

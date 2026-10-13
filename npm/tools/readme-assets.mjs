@@ -1,6 +1,8 @@
 /** SVGs from admitted SDK answers and native unfold, without subject arithmetic. */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { open } from '@arxo/law';
 import { loadModel } from '../src/wohngeld.js';
@@ -37,7 +39,7 @@ write('cover.svg',svg(1200,620,'German Housing Benefit on Arxo','Three pinned Ge
   box(764,111,380,345,C.ink),text(795,162,'FAMILIE2025',20,'#d8e5ed',600,true),
   text(793,273,`€${amount}`,84,'#ffffff',750),text(797,315,'monthly model amount',23,'#d8e5ed'),
   text(797,387,evidence[0].claim.truthStatus,23,'#bce3cd',650,true),text(797,424,'Claim includes an explicit judgment',17,'#d8e5ed'),
-  text(58,590,'PRIVATE CANDIDATE  /  DEMONSTRATION  /  PUBLIC SOURCE TERMS UNCONFIRMED',16,C.muted,600),
+  text(58,590,'OPEN SOURCE  /  NONCOMMERCIAL TEACHING DEMONSTRATION  /  PINNED MODELS',16,C.muted,600),
 ]));
 write('model-to-answer.svg',svg(1000,570,'From pinned model and case to answer','Model, facts and legal date enter the common engine. Amount and claim are separate queries. The canonical document retains proof and parameter-row evidence.',[
   text(38,53,'One model. Explicit inputs. Inspectable results.',31,C.ink,700),
@@ -72,8 +74,11 @@ write('knows-wohngeld.svg',svg(1100,150+rows.length*33,'What the model knows: wo
   box(24,94,1052,38,C.greenSoft),text(40,120,'question  wohngeld_monatlich',21,C.green,650,true),
   ...rows.map((r,i)=>text(36+r.depth*25,161+i*33,(r.prefix+r.name).slice(0,82-r.depth*3),17,r.producer?'#5149a1':C.ink,r.producer?650:400,true)+text(920,161+i*33,r.anchor,13,'#8b5a1b')),
 ]));
-const files=['cover.svg','model-to-answer.svg','amount-and-claim.svg','knows-wohngeld.svg','wohngeld-unfold.json','example-evidence.json','formalization-depth.json'];
+const images=['cover','model-to-answer','amount-and-claim','knows-wohngeld'];
+for (const name of images) execFileSync('rsvg-convert', [fileURLToPath(new URL(name+'.svg',assets)), '-o', fileURLToPath(new URL(name+'.png',assets))]);
+const files=['cover.svg','model-to-answer.svg','amount-and-claim.svg','knows-wohngeld.svg','wohngeld-unfold.json','example-evidence.json','formalization-depth.json',...images.map(name=>name+'.png')];
 write('manifest.json',JSON.stringify({format:'arxo.wohngeld-readme-assets/1',worldHash:model.pin.worldHash,
+ publicAssets:{repository:'arxohq/law-releases',tag:'canon-de-wohngeld-assets-v0.1.0'},
  tree:{predicate:'wohngeld_monatlich',depth:2,lang:'en',quote:0,caseSelected:false},
  files:Object.fromEntries(files.map(f=>{const b=readFileSync(new URL(f,assets));return[f,{bytes:b.length,sha256:'sha256:'+createHash('sha256').update(b).digest('hex')}]}))},null,2)+'\n');
 console.log('SVGs generated from SDK evidence and native unfold.');

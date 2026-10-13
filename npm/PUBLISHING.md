@@ -1,8 +1,9 @@
 # Maintain and deliver the Wohngeld candidate
 
 The wrapper is maintained only in this repository's `npm/`. Models and registry
-remain unchanged. This candidate is local and private: no push, release upload,
-npm publication, visibility change or public catalog registration is authorized.
+remain unchanged. The first npm release was authorized by the maintainer on 13 October 2026.
+Use the existing CI channel; do not publish from a workstation. Source repository
+visibility and public catalog registration are separate actions.
 
 ## Frozen inputs
 
@@ -56,6 +57,14 @@ Source scenarios are a separate, addressed check. Run once per pinned package:
 Expected totals: 18, 12 and 87. Original recorded export outcomes are historical
 evidence, distinct from this execution. Do not run the full corpus or general
 completion gates, or modify models/expectations to make the SDK check pass.
+
+## Public README visuals
+
+`node tools/readme-assets.mjs` generates SVG sources from SDK evidence and uses
+`rsvg-convert` to render their PNG previews. The PNGs are immutable assets in
+`arxohq/law-releases`, tag `canon-de-wohngeld-assets-v0.1.0`. Verify their anonymous
+download SHA-256 before publishing the npm README that references them. The SVGs,
+PNGs, evidence and asset manifest are also bundled in npm.
 
 ## Static depth
 
@@ -112,8 +121,8 @@ The one-package helper creates a new tarball, `inventory.json` and
 `facade-npm.json` (`arxo.npm-candidate/1`) outside Git. It does not overwrite the
 monorepository's shared manifest, add an npm publisher or publish locally.
 
-Before any public action, resolve the terms listed by original NOTICE and
-`PUBLICATION-BOUNDARY.json` (BMWSB and pre-2023 BGBl database copies). Review all
+The original rights review is recorded by NOTICE and
+`PUBLICATION-BOUNDARY.json` (BMWSB and pre-2023 BGBl database copies). The maintainer explicitly authorized distribution of the original model bytes for the noncommercial demonstration. Retain all
 16 source files and 30 embedded fragment texts, and verify the intended public
 asset URLs. Do not assume Apache-2.0 licenses publisher texts or remove text by
 silently changing the pinned model.
@@ -133,7 +142,4 @@ With a separate explicit delivery assignment:
 5. Only after publication register docs/catalog in the independent public
    **`arxohq/law`** checkout. Do not publish `@arxo/docs-mcp`.
 
-Local success retains `published: false`, `releaseVerified: false`, full corpus
-`not_checked`. Public installation, dist-tags, CDN and anonymous private-repository
-links have not been checked. Rights and subject acceptance remain separate from
-runtime and archive checks.
+Local preparation retains `published: false` in the candidate manifest; only observed npm publication changes that record. `releaseVerified: false` and full corpus `not_checked` remain. Public installation, dist-tags and assets must be verified after publication. Source repository access and subject acceptance remain separate from runtime/archive delivery.

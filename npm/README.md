@@ -1,23 +1,23 @@
-![German Housing Benefit on Arxo](assets/cover.svg)
+![German Housing Benefit on Arxo](https://github.com/arxohq/law-releases/releases/download/canon-de-wohngeld-assets-v0.1.0/cover.png)
 
 # German Housing Benefit on Arxo
 
 **Load a pinned Wohngeld model, ask it about a fictional household, and inspect the answer.**
 Three model entries and nine complete cases from *Law as Code in Practice: German Housing Benefit (Wohngeld)*, Volume 2.
 
-**Private candidate · Node.js 20+ · ESM · `@arxo/law@0.4.2` · models `0.1.0`**
+**Node.js 20+ · ESM · `@arxo/law@0.4.2` · models `0.1.0` · Apache-2.0 code**
 
-[Start](#start-with-the-local-candidate) · [Choose a model](#choose-a-model) · [Book cases](#explore-the-book-cases) · [Evidence](#inspect-the-evidence) · [Depth](#formalization-depth) · [Reproduce](#reproduce-the-candidate)
+[Start](#start-in-nodejs) · [Choose a model](#choose-a-model) · [Book cases](#explore-the-book-cases) · [Evidence](#inspect-the-evidence) · [Depth](#formalization-depth) · [Reproduce](#reproduce-the-candidate)
 
-This is an independent teaching demonstration of Mietzuschuss. It does not claim legal accuracy or completeness, and is not an implementation by or for a German authority. For an actual application, use the official texts and the competent Wohngeld office.
+This is an independent open-source, noncommercial teaching and research demonstration of Mietzuschuss. It does not claim legal accuracy or completeness, and is not an implementation by or for a German authority. For an actual application, use the official texts and the competent Wohngeld office.
 
-## Start with the local candidate
+## Start in Node.js
 
-The package is **not published**. In a new directory, install the delivered tarball and the exact SDK:
+In a new directory, install the pinned release and exact SDK:
 
 ```sh
 npm init -y
-npm install --ignore-scripts /absolute/path/arxo-canon-de-wohngeld-0.1.0.tgz @arxo/law@0.4.2
+npm install --ignore-scripts @arxo/canon-de-wohngeld@0.1.0 @arxo/law@0.4.2
 ```
 
 Save this as `example.mjs`, then run `node example.mjs`:
@@ -49,7 +49,7 @@ console.log(claim.evaluationStatus, claim.truthStatus);
 
 The model returns **€485** as Money (`value: '485'`, `currency: 'EUR'`); the claim is `COMPUTED / TRUE_ONLY`. The formula, rounding and selection of parameter editions run inside Arxo. There is no benefit formula in the loader.
 
-Installation by npm name, dist-tags, CDN assets and anonymous GitHub access remain unverified steps of a future publication. The bundled relative images are for local preview; public immutable asset URLs have not been established.
+The package runs locally after installation. Source repository links may require access; all model and example data needed for execution are bundled in npm.
 
 ## Choose a model
 
@@ -73,7 +73,7 @@ Always pass `local.packages` to `open`, as above. Installation alone does not re
 
 Versionless or unknown specs fail with `MODEL_NOT_FOUND`. Missing, damaged or inconsistent active assets fail with `MODEL_INTEGRITY`, before parsing unchecked bytes. There is no network fallback. Inspect `model.descriptor` for the original registry descriptor; `model.package.meta.contentHash` is the **world** hash, while `packageContentHash` is the original **package** hash.
 
-![Pinned model and explicit inputs lead to separate queries](assets/model-to-answer.svg)
+![Pinned model and explicit inputs lead to separate queries](https://github.com/arxohq/law-releases/releases/download/canon-de-wohngeld-assets-v0.1.0/model-to-answer.png)
 
 ## Explore the book cases
 
@@ -88,7 +88,7 @@ console.log(input.context, input.assertions);
 
 The baseline is the fictional Vogt family in Weimar: four members, annual wage €26,880, contractual monthly rent €580, monthly model income €1,710 and counted rent €777.80. Context retains legal date `2025-01-01`, decision and knowledge times `2026-09-15T09:00:00Z`, and `Europe/Berlin`. Money and Decimal values are strings, not JavaScript floating-point inputs.
 
-The assertions include an explicit **negative** `missbraeuchliche_inanspruchnahme` with `origin: 'adjudicated'`. The case without assessment does not receive that assertion. See [complete bundled inputs](examples/familie-weimar-cases.json) and [capture provenance](examples/provenance.json).
+The assertions include an explicit **negative** `missbraeuchliche_inanspruchnahme` with `origin: 'adjudicated'`. The case without assessment does not receive that assertion. See [complete bundled inputs](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/examples/familie-weimar-cases.json) and [capture provenance](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/examples/provenance.json).
 
 | Case | What changes | Verified behavior | Book chapters |
 |---|---|---|---|
@@ -108,7 +108,7 @@ For 2027, this SDK reports `evaluationStatus: 'COMPUTED'` together with an empty
 
 ## An amount and a claim are different questions
 
-![The amount is known while a claim may require judgment](assets/amount-and-claim.svg)
+![The amount is known while a claim may require judgment](https://github.com/arxohq/law-releases/releases/download/canon-de-wohngeld-assets-v0.1.0/amount-and-claim.png)
 
 Changing only the case to `FamilieOhneWuerdigung` still gives €485. Its `wohngeldanspruch` query returns `NEITHER / REQUIRES_JUDGMENT`, with a canonical `judgmentRequests` entry addressed to the Wohngeldbehörde. The loader does not make that assessment.
 
@@ -139,9 +139,9 @@ Original model/world hashes, program/result hashes and tarball SHA-256 identify 
 <details>
 <summary>What the model knows: native unfold at depth 2</summary>
 
-![Native producer tree for wohngeld_monatlich](assets/knows-wohngeld.svg)
+![Native producer tree for wohngeld_monatlich](https://github.com/arxohq/law-releases/releases/download/canon-de-wohngeld-assets-v0.1.0/knows-wohngeld.png)
 
-This is the SDK's native model tree, without a selected case. [Full tree and text](assets/wohngeld-unfold.json); [verified diagram inputs](assets/example-evidence.json). Recursion depth 2 controls the picture; it is unrelated to formalization depth.
+This is the SDK's native model tree, without a selected case. [Full tree and text](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/assets/wohngeld-unfold.json); [verified diagram inputs](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/assets/example-evidence.json). Recursion depth 2 controls the picture; it is unrelated to formalization depth.
 
 </details>
 
@@ -157,7 +157,7 @@ Existing `boundaries.depth` measures **German paragraph editions in consolidated
 
 The denominator is the complete recognized paragraph inventory of each pinned consolidated text, not just the chosen model scope. `NONE` means no anchored implementation under this measure. `INTERPRETED` and `ANCHORED` are zero here. Annex tables, amendment publications, worked examples and scripts have unsupported or unmeasured units and do not contribute invented percentages. In particular, this paragraph measure does not grade the completeness of WoGG Anlagen 1–3 or the WoGV Mietenstufen annex.
 
-[Machine-readable unit report](assets/formalization-depth.json) records editions, denominators, package/world/source hashes, original implementation hashes and every unmeasured publication. Static executable depth, number of scenarios and subject acceptance are separate claims.
+[Machine-readable unit report](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/assets/formalization-depth.json) records editions, denominators, package/world/source hashes, original implementation hashes and every unmeasured publication. Static executable depth, number of scenarios and subject acceptance are separate claims.
 
 ## Scope, source pins and reproduction rights
 
@@ -170,7 +170,7 @@ The model covers selected Mietzuschuss household and exclusion rules (§§ 3–8
 | Model identities | Three versions `0.1.0`, semantics `law.core/0.2.11` |
 | SDK / engine | `@arxo/law@0.4.2` / `@arxo/law-engine@0.5.2` |
 
-See [source pin](source-pin.json), [LICENSE](LICENSE), [original NOTICE](NOTICE) and [publication boundary](PUBLICATION-BOUNDARY.json). The code/model licence does not automatically license publisher texts. Existing NOTICE leaves BMWSB materials and pre-2023 BGBl database terms **unconfirmed for public distribution**. The inventory lists 16 affected source files and 30 embedded fragment texts. Necessary private inputs are retained; model bytes have not been altered to remove texts. Both source repositories remain private.
+See [source pin](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/source-pin.json), [LICENSE](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/LICENSE), [original NOTICE](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/NOTICE) and [publication boundary](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/PUBLICATION-BOUNDARY.json). The code/model licence does not automatically license publisher texts. The original NOTICE records separate publisher-text terms. This release retains attributed official worked examples and the calculator excerpt under the maintainer’s explicit distribution decision; the publication-boundary record preserves the original rights inventory and review status. The inventory lists 16 source files and 30 embedded fragment texts; raw publisher documents are not shipped. Original model bytes are unchanged. Source repository access is separate from installing and using this npm release.
 
 ## Reproduce the candidate
 
@@ -184,8 +184,8 @@ npm run test:types
 node tools/prepare-candidate.mjs --out /absolute/path/new-candidate-directory
 ```
 
-The build verifies original pinned bytes and generates Node entries and relation types. It neither downloads models nor compiles the live corpus. The candidate helper packs **only this package**, writes `arxo.npm-candidate/1`, and performs no publication. Archive and verification outputs belong outside Git. [Maintainer instructions](PUBLISHING.md) explain source capture, static depth and future CI delivery.
+The build verifies original pinned bytes and generates Node entries and relation types. It neither downloads models nor compiles the live corpus. The candidate helper packs **only this package**, writes `arxo.npm-candidate/1`, and performs no publication. Archive and verification outputs belong outside Git. [Maintainer instructions](https://cdn.jsdelivr.net/npm/@arxo/canon-de-wohngeld@0.1.0/PUBLISHING.md) explain source capture, static depth and future CI delivery.
 
 The original export records **87 + 18 + 12 passed scenarios**. A new addressed CLI 0.2.2 check also passed all 117. New SDK checks separately cover the nine book cases, A3 selections and source anchors, judgment requests, existing unknown/conflicting facts and rounding boundaries. Strict TypeScript uses 5.9.3 with `ES2022`, `DOM`, `ESNext.Disposable`, without `skipLibCheck`; relation names, qualified imports and exact specs are generated from pinned declarations.
 
-These local checks do not mark a release or full subject corpus accepted: `published: false`, `releaseVerified: false`, corpus `not_checked`. No full corpus or general completion gates are run.
+Delivery checks and full subject acceptance remain separate: `releaseVerified: false`, corpus `not_checked`. No full corpus or general completion gates are run.

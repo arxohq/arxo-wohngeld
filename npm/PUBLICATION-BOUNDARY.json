@@ -1,13 +1,13 @@
 {
   "format": "arxo.wohngeld-publication-boundary/1",
   "publicReady": false,
-  "status": "terms_unconfirmed",
+  "status": "maintainer_authorized_distribution",
   "basis": {
     "path": "NOTICE",
     "sha256": "sha256:1bf62774b660bc870a7ed4348895872a7d87ac259b79a32704fb4919992524f3",
     "sourceRevision": "d1887e87da88682930460b10deb9f52870ef5d54"
   },
-  "note": "Private candidate retains necessary inputs. BMWSB and pre-2023 gazette database terms remain unconfirmed for public distribution. No model bytes were removed or changed.",
+  "note": "Original source/embedded-text inventory retained. Raw publisher documents are excluded from npm. Original model bytes, source attribution and NOTICE remain intact; publication is explicitly authorized by the maintainer.",
   "sourceFiles": [
     {
       "path": "packages/de.social.wohngeld/sources/bmwsb/rechenbeispiele-2023.pdf",
@@ -433,5 +433,12 @@
       "path": "data/income-for-wohngeld/world.lawir.json",
       "sha256": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003"
     }
-  ]
+  ],
+  "publicationDecision": {
+    "date": "2026-10-13",
+    "actor": "maintainer",
+    "decision": "Publish original model bytes in the open-source noncommercial demonstration",
+    "authorization": "Explicit user instruction in the publication task",
+    "termsStatus": "Not all publisher terms independently confirmed; no permission from BMWSB is asserted"
+  }
 }

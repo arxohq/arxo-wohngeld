@@ -74,5 +74,6 @@
     "wohngeld",
     "housing-benefit",
     "proof"
-  ]
+  ],
+  "homepage": "https://www.npmjs.com/package/@arxo/canon-de-wohngeld"
 }
