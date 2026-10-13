@@ -119,7 +119,6 @@
     "typescript": "5.9.3",
     "@arxo/cli": "0.2.2"
   },
-  "published": false,
   "releaseVerified": false,
   "corpus": "not_checked",
   "models": [
@@ -266,5 +265,6 @@
       "bytes": 92047,
       "sha256": "sha256:6bba9400ac6404a7510d2c36cad1eb75dc0bf7a666fe18679c1e118146cdb15b"
     }
-  }
+  },
+  "distributionPurpose": "Noncommercial open-source teaching and research demonstration"
 }

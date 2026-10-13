@@ -10,8 +10,8 @@
   },
   "files": {
     "cover.svg": {
-      "bytes": 2204,
-      "sha256": "sha256:e595f93dcf6103fb1c8a1ab03ffafd2ce4d89c423d0d380f9f1d8ac6f36971da"
+      "bytes": 2203,
+      "sha256": "sha256:a512356e7bfab44f13c1bb53053b0e2cac809be5fa72906192ad3ee708aedfb3"
     },
     "model-to-answer.svg": {
       "bytes": 3117,
@@ -36,6 +36,26 @@
     "formalization-depth.json": {
       "bytes": 131544,
       "sha256": "sha256:778b087c8c52465a7b49d5b39a3a1e773f362b6c09e84f085137aec9e46ccb92"
+    },
+    "model-to-answer.png": {
+      "bytes": 97649,
+      "sha256": "sha256:11f13102846c2f312c40b9ac4f840b8269986a3df6f72d9f7a0795c53322f316"
+    },
+    "amount-and-claim.png": {
+      "bytes": 82225,
+      "sha256": "sha256:a0a2fe3186f8d945f85fecfb66190b73c855c41a448240050475432396694424"
+    },
+    "cover.png": {
+      "bytes": 104643,
+      "sha256": "sha256:dc1d3796b83d5f6ff1e3401c6ff3a8680afb1aa4995356191607e0b72a676cb5"
+    },
+    "knows-wohngeld.png": {
+      "bytes": 257453,
+      "sha256": "sha256:79c77fad19769dbc5b02a19160dcfc9d91fa883fc7d5ed1cad39d4adfece61ae"
     }
+  },
+  "publicAssets": {
+    "repository": "arxohq/law-releases",
+    "tag": "canon-de-wohngeld-assets-v0.1.0"
   }
 }
