@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc"><title id="title">German Housing Benefit on Arxo</title><desc id="desc">Three pinned German models and nine book cases. Demonstration for Node.js, with explicit facts, dates and judgments.</desc><style>text{font-family:Arial,Helvetica,sans-serif}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}</style><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#315d84"/></marker></defs><rect x="0" y="0" width="1200" height="620" rx="16" fill="#f8f4eb"/><text x="56" y="67" font-size="19" font-weight="650" fill="#51657c">ARXO  /  LAW AS CODE BY COUNTRY · VOLUME 2</text>
+<text x="56" y="166" font-size="60" font-weight="750" fill="#122d4c">German Housing</text>
+<text x="56" y="236" font-size="60" font-weight="750" fill="#122d4c">Benefit on Arxo</text>
+<text x="58" y="302" font-size="24" font-weight="400" fill="#51657c">Wohngeld · pinned models · inspectable answers</text>
+<rect x="57" y="351" width="602" height="67" rx="16" fill="#e8ecef"/>
+<text x="81" y="394" font-size="23" font-weight="600" fill="#315d84" class="mono">Node.js 20+   /   @arxo/law 0.4.2</text>
+<text x="58" y="490" font-size="28" font-weight="700" fill="#122d4c">3 model entries</text>
+<text x="58" y="533" font-size="22" font-weight="400" fill="#51657c">9 fictional cases from the German book</text>
+<rect x="764" y="111" width="380" height="345" rx="16" fill="#122d4c"/>
+<text x="795" y="162" font-size="20" font-weight="600" fill="#d8e5ed" class="mono">FAMILIE2025</text>
+<text x="793" y="273" font-size="84" font-weight="750" fill="#ffffff">€485</text>
+<text x="797" y="315" font-size="23" font-weight="400" fill="#d8e5ed">monthly model amount</text>
+<text x="797" y="387" font-size="23" font-weight="650" fill="#bce3cd" class="mono">TRUE_ONLY</text>
+<text x="797" y="424" font-size="17" font-weight="400" fill="#d8e5ed">Claim includes an explicit judgment</text>
+<text x="58" y="590" font-size="16" font-weight="600" fill="#51657c">OPEN SOURCE  /  NONCOMMERCIAL TEACHING DEMONSTRATION  /  PINNED MODELS</text></svg>

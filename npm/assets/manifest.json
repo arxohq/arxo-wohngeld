@@ -1,0 +1,61 @@
+{
+  "format": "arxo.wohngeld-readme-assets/1",
+  "worldHash": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2",
+  "tree": {
+    "predicate": "wohngeld_monatlich",
+    "depth": 2,
+    "lang": "en",
+    "quote": 0,
+    "caseSelected": false
+  },
+  "files": {
+    "cover.svg": {
+      "bytes": 2203,
+      "sha256": "sha256:a512356e7bfab44f13c1bb53053b0e2cac809be5fa72906192ad3ee708aedfb3"
+    },
+    "model-to-answer.svg": {
+      "bytes": 3117,
+      "sha256": "sha256:d20ca563276113f7fe493a270bd1cdf7d0e2b1cf2bd05dc0bceedd1ba8ead7b7"
+    },
+    "amount-and-claim.svg": {
+      "bytes": 2402,
+      "sha256": "sha256:dd0283a57245d0c88043682f5cea2c32800fdced2b1cffb7b96944b60104f996"
+    },
+    "knows-wohngeld.svg": {
+      "bytes": 9175,
+      "sha256": "sha256:a8ef597c1cdbf14fc79384ecf92fbb0440bc01a0356ce2e5fff9f95c65969bf1"
+    },
+    "wohngeld-unfold.json": {
+      "bytes": 37270,
+      "sha256": "sha256:9a8ea0745cc07b33bb2b57e092f7d0b7e673308dcd88da521245e12a00874f5f"
+    },
+    "example-evidence.json": {
+      "bytes": 3370,
+      "sha256": "sha256:32126624412a462e365a36930ffb84b5fbf5691abb400ee2fcf414e75b131cd8"
+    },
+    "formalization-depth.json": {
+      "bytes": 131544,
+      "sha256": "sha256:778b087c8c52465a7b49d5b39a3a1e773f362b6c09e84f085137aec9e46ccb92"
+    },
+    "model-to-answer.png": {
+      "bytes": 97649,
+      "sha256": "sha256:11f13102846c2f312c40b9ac4f840b8269986a3df6f72d9f7a0795c53322f316"
+    },
+    "amount-and-claim.png": {
+      "bytes": 82225,
+      "sha256": "sha256:a0a2fe3186f8d945f85fecfb66190b73c855c41a448240050475432396694424"
+    },
+    "cover.png": {
+      "bytes": 104643,
+      "sha256": "sha256:dc1d3796b83d5f6ff1e3401c6ff3a8680afb1aa4995356191607e0b72a676cb5"
+    },
+    "knows-wohngeld.png": {
+      "bytes": 257453,
+      "sha256": "sha256:79c77fad19769dbc5b02a19160dcfc9d91fa883fc7d5ed1cad39d4adfece61ae"
+    }
+  },
+  "publicAssets": {
+    "repository": "arxohq/law-releases",
+    "tag": "canon-de-wohngeld-assets-v0.1.0"
+  }
+}

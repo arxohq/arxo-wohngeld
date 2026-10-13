@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="460" viewBox="0 0 1000 460" role="img" aria-labelledby="title desc"><title id="title">Amount and claim are separate</title><desc id="desc">Both cases compute EUR 485. The case with an adjudicated negative misuse judgment establishes the claim. The other requires judgment.</desc><style>text{font-family:Arial,Helvetica,sans-serif}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}</style><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#315d84"/></marker></defs><rect x="0" y="0" width="1000" height="460" rx="16" fill="#f8f4eb"/><text x="38" y="56" font-size="29" font-weight="700" fill="#122d4c">An amount is available before a claim is established.</text>
+<rect x="38" y="90" width="444" height="335" rx="16" fill="#e6f1eb"/>
+<text x="62" y="131" font-size="23" font-weight="650" fill="#122d4c" class="mono">Familie2025</text>
+<text x="62" y="174" font-size="29" font-weight="700" fill="#14644b">485 EUR · amount</text>
+<text x="62" y="218" font-size="23" font-weight="650" fill="#14644b" class="mono">TRUE_ONLY</text>
+<text x="62" y="252" font-size="21" font-weight="600" fill="#14644b" class="mono">COMPUTED</text>
+<text x="62" y="310" font-size="21" font-weight="600" fill="#122d4c">Explicit negative assertion</text>
+<text x="62" y="346" font-size="18" font-weight="600" fill="#51657c" class="mono">origin: adjudicated</text>
+<text x="62" y="392" font-size="16" font-weight="400" fill="#51657c">missbraeuchliche_inanspruchnahme</text>
+<rect x="518" y="90" width="444" height="335" rx="16" fill="#fbefd9"/>
+<text x="542" y="131" font-size="23" font-weight="650" fill="#122d4c" class="mono">FamilieOhneWuerdigung</text>
+<text x="542" y="174" font-size="29" font-weight="700" fill="#875617">485 EUR · amount</text>
+<text x="542" y="218" font-size="23" font-weight="650" fill="#875617" class="mono">NEITHER</text>
+<text x="542" y="252" font-size="21" font-weight="600" fill="#875617" class="mono">REQUIRES_JUDGMENT</text>
+<text x="542" y="310" font-size="21" font-weight="600" fill="#122d4c">Judgment is absent</text>
+<text x="542" y="346" font-size="18" font-weight="400" fill="#51657c">Wohngeldbehörde must assess § 21 Nr. 3</text>
+<text x="542" y="392" font-size="16" font-weight="400" fill="#51657c">No judgment is invented by the loader</text></svg>
