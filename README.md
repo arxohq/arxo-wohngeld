@@ -4,19 +4,19 @@
 
 **Three pinned models for exploring German Mietzuschuss, with nine fictional cases from the German Law as Code book.** Load a model in Node.js, ask for an amount or claim, then inspect its canonical evidence.
 
-**Private staging · npm candidate 0.1.0 · models 0.1.0 · semantics law.core/0.2.11**
+**Public source · npm 0.1.0 · models 0.1.0 · semantics law.core/0.2.11**
 
-[Node.js quick start](npm/README.md#start-with-the-local-candidate) · [Models](#models-and-formalization-depth) · [Book cases](https://github.com/arxohq/law-as-code-germany-examples) · [Evidence](npm/README.md#inspect-the-evidence) · [Reproduction](npm/PUBLISHING.md)
+[Node.js quick start](npm/README.md#start-in-nodejs) · [Models](#models-and-formalization-depth) · [Book cases](https://github.com/arxohq/law-as-code-germany-examples) · [Evidence](npm/README.md#inspect-the-evidence) · [Reproduction](npm/PUBLISHING.md)
 
-This independent teaching demonstration does not claim legal accuracy or completeness and is not an implementation by or for a German authority. For an actual application, rely on official texts and the competent Wohngeld office.
+This independent open-source, noncommercial teaching and research demonstration does not claim legal accuracy or completeness and is not an implementation by or for a German authority. For an actual application, rely on official texts and the competent Wohngeld office.
 
-## Run the Node.js candidate
+## Run the published Node.js package
 
-The npm package is not published. In a fresh directory, install the delivered local tarball:
+In a fresh directory, install the published model distribution and exact SDK:
 
 ```sh
 npm init -y
-npm install --ignore-scripts /absolute/path/arxo-canon-de-wohngeld-0.1.0.tgz @arxo/law@0.4.2
+npm install --ignore-scripts @arxo/canon-de-wohngeld@0.1.0 @arxo/law@0.4.2
 ```
 
 Save as `example.mjs`, then run `node example.mjs`:
@@ -77,11 +77,11 @@ Preserve `answer.document` as canonical bytes. For these SDK queries, `answer.so
 
 </details>
 
-## Candidate source and public boundary
+## Source pins and provenance
 
 Models: `d1887e87da88682930460b10deb9f52870ef5d54` in this repository. Cases: `9575dcba842d1b7da310300e2bcfbe3f1cb87ff9` in `law-as-code-germany-examples`. [Source pin](npm/source-pin.json) records them separately and preserves original CLIR/world/descriptor/catalog bytes.
 
-Both repositories remain private. Push, release uploads, npm publication and public catalog registration are outside this candidate. BMWSB materials and pre-2023 BGBl database terms are unconfirmed for public distribution under the existing NOTICE; [inventory](npm/PUBLICATION-BOUNDARY.json) lists 16 source files and 30 embedded texts. Code licensing does not settle those source terms. Public immutable image URLs and anonymous source access are not checked.
+The public companion repositories retain the original source pins, model bytes and attribution. [npm release](https://www.npmjs.com/package/@arxo/canon-de-wohngeld) 0.1.0 was delivered through [CI](https://github.com/arxo-io/law/actions/runs/38434723524); its public archive, anonymous installation, SDK examples, strict types and visual assets were checked. The [source inventory](npm/PUBLICATION-BOUNDARY.json) preserves the original publisher-text review and the maintainer’s distribution decision. Publisher texts keep the terms described in NOTICE; the code licence does not replace them.
 
 ## Existing CLI and registry workflow
 

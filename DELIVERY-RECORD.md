@@ -30,3 +30,10 @@ SVG cover, flow, judgment comparison and native depth-2 tree were rendered and v
 Original NOTICE leaves BMWSB materials and pre-2023 BGBl database terms unconfirmed. The inventory identifies 16 source files and 30 embedded fragment texts; necessary private inputs are retained and original model bytes preserved. No statement of public readiness is made.
 
 Local candidate verification does not change acceptance: `published: false`, `releaseVerified: false`, corpus `not_checked`. Future delivery instructions use CI in `arxo-io/law`; public docs/catalog in `arxohq/law` remain untouched.
+
+
+## Subsequent public delivery — 13 October 2026
+
+`@arxo/canon-de-wohngeld@0.1.0` was published through [CI](https://github.com/arxo-io/law/actions/runs/38434723524), with `latest` 0.1.0. The published archive is 1,361,173 bytes, SHA-256 `6b6c5902906ad3f4e54d241e10e50dfb60ceb758d18f8946f9ac85b798c74bfb`. Its anonymous installation, runtime, README examples, strict TypeScript and public assets were checked. Original models/loader/types/examples and original LICENSE/NOTICE bytes match the local candidate above. Public metadata and visual PNGs account for the archive change.
+
+The maintainer separately authorized making `arxo-wohngeld` and `law-as-code-germany-examples` public, merging the prepared changes and registering the npm package in `arxohq/law` on 13 October 2026. The initial private-candidate statements above describe the earlier preparation stage. Full subject acceptance remains separate: releaseVerified false, corpus not_checked.
