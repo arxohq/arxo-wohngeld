@@ -1,0 +1,92 @@
+{
+  "format": "arxo.wohngeld-readme-evidence/1",
+  "spec": "de.social.wohngeld@0.1.0",
+  "worldHash": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2",
+  "sdk": "@arxo/law@0.4.2",
+  "engine": "@arxo/law-engine@0.5.2",
+  "cases": [
+    {
+      "name": "Familie2025",
+      "legalTime": "2025-01-01",
+      "amount": {
+        "evaluationStatus": "COMPUTED",
+        "value": [
+          {
+            "currency": "EUR",
+            "kind": "value",
+            "type": {
+              "name": "urn:law:std#Money"
+            },
+            "value": "485"
+          }
+        ],
+        "hashes": {
+          "program": "sha256:da65039cd97e61e0e8007c00128faffb95fe1d9ba1432cc789c45f6f7b1f6b62",
+          "semantic": "sha256:9b456f9af8a97768758017e6fdf6c894b8c56fff4639155968b5182cd663f7fe",
+          "result": "sha256:e64ccdc22edaf21ca49ae56be2e1fbefd545e7f7d8ed9e7fbd31eb60eb202d29"
+        },
+        "proofNodes": 167
+      },
+      "claim": {
+        "evaluationStatus": "COMPUTED",
+        "truthStatus": "TRUE_ONLY",
+        "judgmentRequests": [],
+        "hashes": {
+          "program": "sha256:da65039cd97e61e0e8007c00128faffb95fe1d9ba1432cc789c45f6f7b1f6b62",
+          "semantic": "sha256:9b456f9af8a97768758017e6fdf6c894b8c56fff4639155968b5182cd663f7fe",
+          "result": "sha256:b87e5282b6f01608212283f6029ecca795d27e7e19efd49322797dc1fcbd1d4a"
+        }
+      }
+    },
+    {
+      "name": "FamilieOhneWuerdigung",
+      "legalTime": "2025-01-01",
+      "amount": {
+        "evaluationStatus": "COMPUTED",
+        "value": [
+          {
+            "currency": "EUR",
+            "kind": "value",
+            "type": {
+              "name": "urn:law:std#Money"
+            },
+            "value": "485"
+          }
+        ],
+        "hashes": {
+          "program": "sha256:da65039cd97e61e0e8007c00128faffb95fe1d9ba1432cc789c45f6f7b1f6b62",
+          "semantic": "sha256:26cef28899c05892cf00afb191b3dd5ce8a089af462fc0b74a8cdaefea0cbea0",
+          "result": "sha256:8a2673dbf6482d8ede5a2fd7af1d0362ba9650e39d20511c4c2154a98002136f"
+        },
+        "proofNodes": 165
+      },
+      "claim": {
+        "evaluationStatus": "REQUIRES_JUDGMENT",
+        "truthStatus": "NEITHER",
+        "judgmentRequests": [
+          {
+            "authority": "urn:de:social:clir:wohngeld#Wohngeldbehoerde",
+            "id": "urn:judgment:wohngeld#case/Case/query/wohngeldanspruch:0",
+            "predicate": "urn:de:social:clir:wohngeld#missbraeuchliche_inanspruchnahme",
+            "proof": "urn:proof:judgment:wohngeld#case/Case/query/wohngeldanspruch:7a4f22a94f2353eedbfa870c7ea6288207e0bc39a612c4e00223d598c5773d90",
+            "request": {
+              "args": [
+                {
+                  "id": "urn:de:example:wohngeld:familie-weimar:haushalt",
+                  "kind": "entity_ref"
+                }
+              ],
+              "polarity": "negative",
+              "relation": "urn:de:social:clir:wohngeld#missbraeuchliche_inanspruchnahme"
+            }
+          }
+        ],
+        "hashes": {
+          "program": "sha256:da65039cd97e61e0e8007c00128faffb95fe1d9ba1432cc789c45f6f7b1f6b62",
+          "semantic": "sha256:26cef28899c05892cf00afb191b3dd5ce8a089af462fc0b74a8cdaefea0cbea0",
+          "result": "sha256:9d86d182b5ce46abf5c6175b72d3549494e1fbb5fdce1394a6e50f00e79a8cc5"
+        }
+      }
+    }
+  ]
+}

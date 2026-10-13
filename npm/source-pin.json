@@ -1,0 +1,270 @@
+{
+  "format": "arxo.wohngeld-source-pin/1",
+  "repository": "https://github.com/arxohq/arxo-wohngeld",
+  "revision": "d1887e87da88682930460b10deb9f52870ef5d54",
+  "examplesSource": {
+    "repository": "https://github.com/arxohq/law-as-code-germany-examples",
+    "revision": "9575dcba842d1b7da310300e2bcfbe3f1cb87ff9",
+    "files": {
+      "familie-weimar/cases/allein-grundsicherung.lawcase": {
+        "bytes": 3148,
+        "sha256": "sha256:3403a87f657627ad2ba8b6ba299a90e816704dada3a30a354245fd44ebf65494"
+      },
+      "familie-weimar/cases/familie-2024-12-31.lawcase": {
+        "bytes": 9517,
+        "sha256": "sha256:68f6203ecc4d7c1829c35ed8ae9cd2dde89a75eec7ae29ded772fc1191899342"
+      },
+      "familie-weimar/cases/familie-2025-01-01.lawcase": {
+        "bytes": 9685,
+        "sha256": "sha256:61d70c82e3b586fc41e041b754a08ef3937bbcbb3dbd028f148323b2a367f374"
+      },
+      "familie-weimar/cases/familie-ohne-wuerdigung.lawcase": {
+        "bytes": 9226,
+        "sha256": "sha256:7b8826964b6a53d5b5097eefd29e359eab471d5c6ab860295ee6af3533edff53"
+      },
+      "familie-weimar/law.lock": {
+        "bytes": 3166,
+        "sha256": "sha256:b3a9fe774d71fc9d3af38f8dacd69372eacec656c347e2bdc7c1a7f6765f3745"
+      },
+      "familie-weimar/law.toml": {
+        "bytes": 982,
+        "sha256": "sha256:9c31e1a19ff4c0a8cdbe0168a24b4d073dac6f5493da66aca11a303c5feafd39"
+      },
+      "familie-weimar/package.law": {
+        "bytes": 302,
+        "sha256": "sha256:2b4c5f35f957f69e385d76b4081badd0158a853585d7c7ea7d484860a77bd809"
+      },
+      "familie-weimar/queries/anspruch-485.json": {
+        "bytes": 476,
+        "sha256": "sha256:2bf707d9ae193eac1d279dadc69debeda5333153f4048009d37776292b4d353b"
+      },
+      "familie-weimar/queries/einkommen-1710.json": {
+        "bytes": 493,
+        "sha256": "sha256:38df582126c517a1dcb87ecbaf83d0b5ffa4300126544ca9ba8cd7bf427b390e"
+      },
+      "familie-weimar/queries/kein-anspruch-alle-ausgeschlossen.json": {
+        "bytes": 460,
+        "sha256": "sha256:be6ff4d86b494c1456a711a4524cacd2bd6859becfdc116f52b2b9a9494c36cb"
+      },
+      "familie-weimar/queries/miete-777-80.json": {
+        "bytes": 490,
+        "sha256": "sha256:3f4304697bccb801bff4b8b3cf7a6a490bc1cec3f8e265f7ac6d5c611820908a"
+      },
+      "familie-weimar/queries/wohngeld-463.json": {
+        "bytes": 478,
+        "sha256": "sha256:0098ce188cdd5a1facd07c256872b433835f86ed0e0de6c236eda9ed323e45ac"
+      },
+      "familie-weimar/queries/wohngeld-485.json": {
+        "bytes": 478,
+        "sha256": "sha256:45d211a5ccf90338f3562f6c05c8b46902dbe879972f1ce5166912c928db301e"
+      },
+      "familie-weimar-varianten/cases/2027-01-01.lawcase": {
+        "bytes": 9703,
+        "sha256": "sha256:f84d0f9ba75c4db7134e620d8491898e49f43b38c0aaccdb2a8d3671bd040471"
+      },
+      "familie-weimar-varianten/cases/einkommensteuer.lawcase": {
+        "bytes": 9699,
+        "sha256": "sha256:10a8bb4e43f3303b7a735017a5bf85abaa98d14cd529c525cbc7e5de7a008465"
+      },
+      "familie-weimar-varianten/cases/miete-850.lawcase": {
+        "bytes": 9703,
+        "sha256": "sha256:a1380b6709723d829b2ef6168250fae5b282ed29b11a0048889ae7dd45e4934c"
+      },
+      "familie-weimar-varianten/cases/ohne-lebensmittelpunkt.lawcase": {
+        "bytes": 9472,
+        "sha256": "sha256:05723ba3b8ad7bea037f82fd08eeaa39c5da4e9bbea86ee7e77d5485327e9851"
+      },
+      "familie-weimar-varianten/cases/werbungskosten-2000.lawcase": {
+        "bytes": 9709,
+        "sha256": "sha256:bcf75e49be20a1b6aacb736883ece6fff6694173e6758ec5d5d6460aa82fadb9"
+      },
+      "familie-weimar-varianten/law.lock": {
+        "bytes": 3216,
+        "sha256": "sha256:7b9113b6d0751c275f4004a78a5de3c306172fa4418a2d9575e9e52c32b61579"
+      },
+      "familie-weimar-varianten/law.toml": {
+        "bytes": 800,
+        "sha256": "sha256:8f6b6b50b72dc4614102d93ad64971ae0995cd594b7274d37acd2a92ea918cb3"
+      },
+      "familie-weimar-varianten/package.law": {
+        "bytes": 321,
+        "sha256": "sha256:219f5e871c35e9f42f2b5453a4e59c4d926141bab84e11d6bac3bb380cf825a1"
+      },
+      "familie-weimar-varianten/queries/collect-m.json": {
+        "bytes": 670,
+        "sha256": "sha256:a78401fd52e38ae498ff1bc6cb4776e821552a8d94a16e18976d78437bb7b1be"
+      },
+      "familie-weimar-varianten/queries/collect-n.json": {
+        "bytes": 693,
+        "sha256": "sha256:06aafdd7730830ebabf2994b7d37c9386b0a212c910aa0c9c23a893f17a3cc33"
+      },
+      "familie-weimar-varianten/queries/collect-w.json": {
+        "bytes": 661,
+        "sha256": "sha256:fcdf4aac072ff5c9b1319f2466590a08d4c346b8902a53fdc5586ba3769047f6"
+      },
+      "familie-weimar-varianten/queries/collect-y.json": {
+        "bytes": 670,
+        "sha256": "sha256:efc0108e1d1444f4a822725b3409c356184bd236ce608588966730c8466b16b2"
+      },
+      "familie-weimar-varianten/queries/wohngeld-485.json": {
+        "bytes": 478,
+        "sha256": "sha256:45d211a5ccf90338f3562f6c05c8b46902dbe879972f1ce5166912c928db301e"
+      }
+    }
+  },
+  "runtime": {
+    "node": ">=20",
+    "@arxo/law": "0.4.2",
+    "@arxo/law-engine": "0.5.2",
+    "typescript": "5.9.3",
+    "@arxo/cli": "0.2.2"
+  },
+  "releaseVerified": false,
+  "corpus": "not_checked",
+  "models": [
+    {
+      "spec": "de.social.wohngeld@0.1.0",
+      "name": "de.social.wohngeld",
+      "version": "0.1.0",
+      "subpath": "wohngeld",
+      "namespace": "urn:de:social:clir:wohngeld",
+      "worldHash": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2",
+      "packageHash": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9",
+      "languageSemantics": "law.core/0.2.11",
+      "questionCatalogHash": "sha256:ab19013b1e3334e95af8393d5677dbde2457d87d289f910e1357cf1354626b0d",
+      "dependencies": [
+        {
+          "contentHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+          "name": "de.social.wohngeld_verordnung",
+          "namespace": "urn:de:social:clir:wohngeld-verordnung",
+          "registryId": "arxo",
+          "version": "0.1.0"
+        },
+        {
+          "contentHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+          "name": "de.tax.income_for_wohngeld",
+          "namespace": "urn:de:tax:clir:income-for-wohngeld",
+          "registryId": "arxo",
+          "version": "0.1.0"
+        }
+      ]
+    },
+    {
+      "spec": "de.social.wohngeld_verordnung@0.1.0",
+      "name": "de.social.wohngeld_verordnung",
+      "version": "0.1.0",
+      "subpath": "wohngeld-verordnung",
+      "namespace": "urn:de:social:clir:wohngeld-verordnung",
+      "worldHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+      "packageHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+      "languageSemantics": "law.core/0.2.11",
+      "questionCatalogHash": "sha256:fd16c3dee7601c8b77d5a29135dd96816c8135f6211fcd0aac634b9df5e82ba2",
+      "dependencies": []
+    },
+    {
+      "spec": "de.tax.income_for_wohngeld@0.1.0",
+      "name": "de.tax.income_for_wohngeld",
+      "version": "0.1.0",
+      "subpath": "income-for-wohngeld",
+      "namespace": "urn:de:tax:clir:income-for-wohngeld",
+      "worldHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+      "packageHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+      "languageSemantics": "law.core/0.2.11",
+      "questionCatalogHash": null,
+      "dependencies": []
+    }
+  ],
+  "files": {
+    "data/wohngeld/descriptor.json": {
+      "from": "registry/p/de.social.wohngeld/0.1.0.json",
+      "bytes": 1221,
+      "sha256": "sha256:93b45d4145f4ddf2fda5e6e5cfe1b20f923308049fe42b710cdd659b9693d3f5"
+    },
+    "data/wohngeld/package.lawir.json": {
+      "from": "registry/p/de.social.wohngeld/0.1.0/package.lawir.json",
+      "bytes": 1351642,
+      "sha256": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9"
+    },
+    "data/wohngeld/world.lawir.json": {
+      "from": "registry/p/de.social.wohngeld/0.1.0/world.lawir.json",
+      "bytes": 4382224,
+      "sha256": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2"
+    },
+    "data/resources/ab19013b1e3334e95af8393d5677dbde2457d87d289f910e1357cf1354626b0d.json": {
+      "from": "registry/r/sha256/ab19013b1e3334e95af8393d5677dbde2457d87d289f910e1357cf1354626b0d",
+      "bytes": 26415,
+      "sha256": "sha256:ab19013b1e3334e95af8393d5677dbde2457d87d289f910e1357cf1354626b0d"
+    },
+    "data/wohngeld-verordnung/descriptor.json": {
+      "from": "registry/p/de.social.wohngeld_verordnung/0.1.0.json",
+      "bytes": 737,
+      "sha256": "sha256:e4433a253eaa3b667e1aa38e59f484b7998623aa1265908af4ab68529e1ad7f2"
+    },
+    "data/wohngeld-verordnung/package.lawir.json": {
+      "from": "registry/p/de.social.wohngeld_verordnung/0.1.0/package.lawir.json",
+      "bytes": 2980633,
+      "sha256": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c"
+    },
+    "data/wohngeld-verordnung/world.lawir.json": {
+      "from": "registry/p/de.social.wohngeld_verordnung/0.1.0/world.lawir.json",
+      "bytes": 2980633,
+      "sha256": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c"
+    },
+    "data/resources/fd16c3dee7601c8b77d5a29135dd96816c8135f6211fcd0aac634b9df5e82ba2.json": {
+      "from": "registry/r/sha256/fd16c3dee7601c8b77d5a29135dd96816c8135f6211fcd0aac634b9df5e82ba2",
+      "bytes": 9246,
+      "sha256": "sha256:fd16c3dee7601c8b77d5a29135dd96816c8135f6211fcd0aac634b9df5e82ba2"
+    },
+    "data/income-for-wohngeld/descriptor.json": {
+      "from": "registry/p/de.tax.income_for_wohngeld/0.1.0.json",
+      "bytes": 649,
+      "sha256": "sha256:18f5fb8478a2f077ed05ae7acb2fdd7cf3c1e2e67c219efb1f39f4aef34a19fb"
+    },
+    "data/income-for-wohngeld/package.lawir.json": {
+      "from": "registry/p/de.tax.income_for_wohngeld/0.1.0/package.lawir.json",
+      "bytes": 51794,
+      "sha256": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003"
+    },
+    "data/income-for-wohngeld/world.lawir.json": {
+      "from": "registry/p/de.tax.income_for_wohngeld/0.1.0/world.lawir.json",
+      "bytes": 51794,
+      "sha256": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003"
+    },
+    "LICENSE": {
+      "from": "LICENSE",
+      "bytes": 11358,
+      "sha256": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "NOTICE": {
+      "from": "NOTICE",
+      "bytes": 4685,
+      "sha256": "sha256:1bf62774b660bc870a7ed4348895872a7d87ac259b79a32704fb4919992524f3"
+    },
+    "canon-packages.json": {
+      "from": "packages.json",
+      "bytes": 1263,
+      "sha256": "sha256:96895c97eba62e8c4c444d90bbc9f3902062619a4cb0f0f7cec02a26b2ae862f"
+    }
+  },
+  "verificationSources": {
+    "packages/de.social.wohngeld/tests/tatsachen.lawtest": {
+      "bytes": 32879,
+      "sha256": "sha256:514f566fabf91ff84bf9a964fa601f58a9932113d8af20ad4e44011eeaa99ac4"
+    },
+    "packages/de.social.wohngeld/tests/grenzen.lawtest": {
+      "bytes": 91583,
+      "sha256": "sha256:1e4f6aec4c143e41e25f8f0eb6d4348fefb0f6ce80f9b3ca2a58e0790762ab8f"
+    }
+  },
+  "derivedFixtures": {
+    "examples/familie-weimar-cases.json": {
+      "bytes": 312171,
+      "sha256": "sha256:de1c07f09a88ec56daff64216493725dac93d2846018e017dded41279b1844d4"
+    },
+    "test/boundary-cases.json": {
+      "bytes": 92047,
+      "sha256": "sha256:6bba9400ac6404a7510d2c36cad1eb75dc0bf7a666fe18679c1e118146cdb15b"
+    }
+  },
+  "distributionPurpose": "Noncommercial open-source teaching and research demonstration"
+}
