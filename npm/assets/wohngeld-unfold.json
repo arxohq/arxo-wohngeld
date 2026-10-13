@@ -1,0 +1,688 @@
+{
+  "text": "• wohngeld_monatlich (wohngeld, institutional): monthly housing benefit under sec. 19\n  ⇐ WohngeldGerundetBisZwoelf (wohngeld): rounded to the nearest full euro, 0.50 rounded up\n      § WOGG_19_ABS2_ED2023 (paragraph/19/2)\n      § WOGG_19_ABS2_ED2025 (paragraph/19/2)\n      § WOGG_19_ABS2_ED2026 (paragraph/19/2)\n    • anzahl_zu_beruecksichtigende_haushaltsmitglieder (wohngeld, institutional): number of household members to be taken into account\n      ⇐ AnzahlZuBeruecksichtigenderHaushaltsmitglieder (wohngeld): number of members taken into account\n          § WOGG_6_ABS1_ED2023 (paragraph/6/1)\n          § WOGG_6_ABS1_ED2025 (paragraph/6/1)\n          § WOGG_6_ABS1_ED2026 (paragraph/6/1)\n          § WOGG_4_ED2023 (paragraph/4)\n          § WOGG_4_ED2025 (paragraph/4)\n          § WOGG_4_ED2026 (paragraph/4)\n        • haushalt_festgestellt (wohngeld, institutional): household composition and exclusion statuses are fully established\n            … producers exist, depth exhausted\n    • ⟨comparison⟩ {\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v2\"},\"op\":\"le\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"12/1\"}}\n    • wohngeld_ungerundet (wohngeld, institutional): unrounded monthly housing benefit z4\n      ⇐ WohngeldUngerundet (wohngeld): formula steps z1 to z4 with ten decimal places\n          § WOGG_19_ABS1_ED2023 (paragraph/19/1)\n          § WOGG_19_ABS1_ED2025 (paragraph/19/1)\n          § WOGG_19_ABS1_ED2026 (paragraph/19/1)\n          § WOGG_19_ABS2_ED2023 (paragraph/19/2)\n          § WOGG_19_ABS2_ED2025 (paragraph/19/2)\n          § WOGG_19_ABS2_ED2026 (paragraph/19/2)\n        • m_nach_anlage3 (wohngeld, institutional): value M after annex 3 no. 1\n            … producers exist, depth exhausted\n        • anzahl_zu_beruecksichtigende_haushaltsmitglieder (wohngeld, institutional): number of household members to be taken into account\n            … producers exist, depth exhausted\n        • y_nach_anlage3 (wohngeld, institutional): value Y after annex 3 no. 1\n            … producers exist, depth exhausted\n  ⇐ WohngeldUeberZwoelfMitglieder (wohngeld): increase per 13th and further member, capped at the rent\n      § WOGG_19_ABS3_ED2023 (paragraph/19/3)\n      § WOGG_19_ABS3_ED2025 (paragraph/19/3)\n      § WOGG_19_ABS3_ED2026 (paragraph/19/3)\n      § WOGG_19_ABS2_ED2023 (paragraph/19/2)\n      § WOGG_19_ABS2_ED2025 (paragraph/19/2)\n      § WOGG_19_ABS2_ED2026 (paragraph/19/2)\n    • anzahl_zu_beruecksichtigende_haushaltsmitglieder (wohngeld, institutional): number of household members to be taken into account\n      ⇐ AnzahlZuBeruecksichtigenderHaushaltsmitglieder (wohngeld): number of members taken into account\n          § WOGG_6_ABS1_ED2023 (paragraph/6/1)\n          § WOGG_6_ABS1_ED2025 (paragraph/6/1)\n          § WOGG_6_ABS1_ED2026 (paragraph/6/1)\n          § WOGG_4_ED2023 (paragraph/4)\n          § WOGG_4_ED2025 (paragraph/4)\n          § WOGG_4_ED2026 (paragraph/4)\n        • haushalt_festgestellt (wohngeld, institutional): household composition and exclusion statuses are fully established\n            … producers exist, depth exhausted\n    • ⟨comparison⟩ {\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v2\"},\"op\":\"gt\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"12/1\"}}\n    • zu_beruecksichtigende_miete (wohngeld, institutional): monthly rent to be taken into account (M)\n      ⇐ ZuBeruecksichtigendeMiete (wohngeld): rent capped at maximum plus climate component, plus heating relief, pro rata if members are excluded\n          § WOGG_11_ABS1_ED2023 (paragraph/11/1)\n          § WOGG_11_ABS1_ED2025 (paragraph/11/1)\n          § WOGG_11_ABS1_ED2026 (paragraph/11/1)\n          § WOGG_11_ABS3_ED2023 (paragraph/11/3)\n          § WOGG_11_ABS3_ED2025 (paragraph/11/3)\n          § WOGG_11_ABS3_ED2026 (paragraph/11/3)\n        • wohngeldberechtigt (wohngeld, institutional): person entitled to rent subsidy\n            … producers exist, depth exhausted\n        • anzahl_zu_beruecksichtigende_haushaltsmitglieder (wohngeld, institutional): number of household members to be taken into account\n            … producers exist, depth exhausted\n        • heizkostenentlastung (wohngeld, institutional): heating cost relief for the total number of members\n            … producers exist, depth exhausted\n        • mietzuschuss_grundlage (wohngeld, institutional): basis of use entitling to rent subsidy and computed in this package\n            … producers exist, depth exhausted\n        • gesamtzahl_haushaltsmitglieder (wohngeld, institutional): total number of household members\n            … producers exist, depth exhausted\n        • miete_aus_vertrag_grundlage (wohngeld, institutional): basis of use where the rent is taken from the agreement\n            … producers exist, depth exhausted\n        • nutzungsgrundlage (wohngeld, empirical): the person uses the living space themselves on this basis\n        • ⟨comparison⟩ {\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v6\"},\"op\":\"ge\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"1/1\"}}\n        • miete_nach_9 (wohngeld, institutional): rent under sec. 9 (monthly)\n            … producers exist, depth exhausted\n        • hoechstbetrag_mit_klimakomponente (wohngeld, institutional): maximum amount plus climate component for the total number of members\n            … producers exist, depth exhausted\n      ⇐ ZuBeruecksichtigendeMieteImHeim (wohngeld): care home residents: maximum amount plus heating relief and climate component\n          § WOGG_9_ABS3_ED2023 (paragraph/9/3)\n          § WOGG_9_ABS3_ED2025 (paragraph/9/3)\n          § WOGG_9_ABS3_ED2026 (paragraph/9/3)\n          § WOGG_11_ABS1_ED2023 (paragraph/11/1)\n          § WOGG_11_ABS1_ED2025 (paragraph/11/1)\n          § WOGG_11_ABS1_ED2026 (paragraph/11/1)\n          § WOGG_11_ABS3_ED2023 (paragraph/11/3)\n          § WOGG_11_ABS3_ED2025 (paragraph/11/3)\n          § WOGG_11_ABS3_ED2026 (paragraph/11/3)\n          § WOGG_3_ABS1_ED2023 (paragraph/3/1)\n          § WOGG_3_ABS1_ED2025 (paragraph/3/1)\n          § WOGG_3_ABS1_ED2026 (paragraph/3/1)\n        • wohngeldberechtigt (wohngeld, institutional): person entitled to rent subsidy\n            … producers exist, depth exhausted\n        • gesamtzahl_haushaltsmitglieder (wohngeld, institutional): total number of household members\n            … producers exist, depth exhausted\n        • hoechstbetrag_mit_klimakomponente (wohngeld, institutional): maximum amount plus climate component for the total number of members\n            … producers exist, depth exhausted\n        • ⟨comparison⟩ {\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v4\"},\"op\":\"ge\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"1/1\"}}\n        • heizkostenentlastung (wohngeld, institutional): heating cost relief for the total number of members\n            … producers exist, depth exhausted\n        • anzahl_zu_beruecksichtigende_haushaltsmitglieder (wohngeld, institutional): number of household members to be taken into account\n            … producers exist, depth exhausted\n        • nutzungsgrundlage (wohngeld, empirical): the person uses the living space themselves on this basis\n    • wohngeld_ungerundet (wohngeld, institutional): unrounded monthly housing benefit z4\n      ⇐ WohngeldUngerundet (wohngeld): formula steps z1 to z4 with ten decimal places\n          § WOGG_19_ABS1_ED2023 (paragraph/19/1)\n          § WOGG_19_ABS1_ED2025 (paragraph/19/1)\n          § WOGG_19_ABS1_ED2026 (paragraph/19/1)\n          § WOGG_19_ABS2_ED2023 (paragraph/19/2)\n          § WOGG_19_ABS2_ED2025 (paragraph/19/2)\n          § WOGG_19_ABS2_ED2026 (paragraph/19/2)\n        • m_nach_anlage3 (wohngeld, institutional): value M after annex 3 no. 1\n            … producers exist, depth exhausted\n        • anzahl_zu_beruecksichtigende_haushaltsmitglieder (wohngeld, institutional): number of household members to be taken into account\n            … producers exist, depth exhausted\n        • y_nach_anlage3 (wohngeld, institutional): value Y after annex 3 no. 1\n            … producers exist, depth exhausted\n",
+  "tree": {
+    "anchors": [],
+    "label": "monthly housing benefit under sec. 19",
+    "name": "wohngeld_monatlich",
+    "package": "wohngeld",
+    "predicate": "urn:de:social:clir:wohngeld#wohngeld_monatlich",
+    "producers": [
+      {
+        "anchors": [
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2023",
+            "locator": "paragraph/19/2",
+            "quote": []
+          },
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2025",
+            "locator": "paragraph/19/2",
+            "quote": []
+          },
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2026",
+            "locator": "paragraph/19/2",
+            "quote": []
+          }
+        ],
+        "headPolarity": "positive",
+        "label": "rounded to the nearest full euro, 0.50 rounded up",
+        "name": "WohngeldGerundetBisZwoelf",
+        "package": "wohngeld",
+        "premises": [
+          {
+            "anchors": [],
+            "label": "number of household members to be taken into account",
+            "name": "anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+            "package": "wohngeld",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+            "producers": [
+              {
+                "anchors": [
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_6_ABS1_ED2023",
+                    "locator": "paragraph/6/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_6_ABS1_ED2025",
+                    "locator": "paragraph/6/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_6_ABS1_ED2026",
+                    "locator": "paragraph/6/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_4_ED2023",
+                    "locator": "paragraph/4",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_4_ED2025",
+                    "locator": "paragraph/4",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_4_ED2026",
+                    "locator": "paragraph/4",
+                    "quote": []
+                  }
+                ],
+                "headPolarity": "positive",
+                "label": "number of members taken into account",
+                "name": "AnzahlZuBeruecksichtigenderHaushaltsmitglieder",
+                "package": "wohngeld",
+                "premises": [
+                  {
+                    "anchors": [],
+                    "label": "household composition and exclusion statuses are fully established",
+                    "name": "haushalt_festgestellt",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#haushalt_festgestellt",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  }
+                ],
+                "rule": "urn:de:social:clir:wohngeld#AnzahlZuBeruecksichtigenderHaushaltsmitglieder",
+                "strength": "strict"
+              }
+            ],
+            "relationKind": "institutional"
+          },
+          {
+            "opaque": "comparison",
+            "text": "{\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v2\"},\"op\":\"le\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"12/1\"}}"
+          },
+          {
+            "anchors": [],
+            "label": "unrounded monthly housing benefit z4",
+            "name": "wohngeld_ungerundet",
+            "package": "wohngeld",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeld_ungerundet",
+            "producers": [
+              {
+                "anchors": [
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS1_ED2023",
+                    "locator": "paragraph/19/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS1_ED2025",
+                    "locator": "paragraph/19/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS1_ED2026",
+                    "locator": "paragraph/19/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2023",
+                    "locator": "paragraph/19/2",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2025",
+                    "locator": "paragraph/19/2",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2026",
+                    "locator": "paragraph/19/2",
+                    "quote": []
+                  }
+                ],
+                "headPolarity": "positive",
+                "label": "formula steps z1 to z4 with ten decimal places",
+                "name": "WohngeldUngerundet",
+                "package": "wohngeld",
+                "premises": [
+                  {
+                    "anchors": [],
+                    "label": "value M after annex 3 no. 1",
+                    "name": "m_nach_anlage3",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#m_nach_anlage3",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "number of household members to be taken into account",
+                    "name": "anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "value Y after annex 3 no. 1",
+                    "name": "y_nach_anlage3",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#y_nach_anlage3",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  }
+                ],
+                "rule": "urn:de:social:clir:wohngeld#WohngeldUngerundet",
+                "strength": "strict"
+              }
+            ],
+            "relationKind": "institutional"
+          }
+        ],
+        "rule": "urn:de:social:clir:wohngeld#WohngeldGerundetBisZwoelf",
+        "strength": "strict"
+      },
+      {
+        "anchors": [
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS3_ED2023",
+            "locator": "paragraph/19/3",
+            "quote": []
+          },
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS3_ED2025",
+            "locator": "paragraph/19/3",
+            "quote": []
+          },
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS3_ED2026",
+            "locator": "paragraph/19/3",
+            "quote": []
+          },
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2023",
+            "locator": "paragraph/19/2",
+            "quote": []
+          },
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2025",
+            "locator": "paragraph/19/2",
+            "quote": []
+          },
+          {
+            "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2026",
+            "locator": "paragraph/19/2",
+            "quote": []
+          }
+        ],
+        "headPolarity": "positive",
+        "label": "increase per 13th and further member, capped at the rent",
+        "name": "WohngeldUeberZwoelfMitglieder",
+        "package": "wohngeld",
+        "premises": [
+          {
+            "anchors": [],
+            "label": "number of household members to be taken into account",
+            "name": "anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+            "package": "wohngeld",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+            "producers": [
+              {
+                "anchors": [
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_6_ABS1_ED2023",
+                    "locator": "paragraph/6/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_6_ABS1_ED2025",
+                    "locator": "paragraph/6/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_6_ABS1_ED2026",
+                    "locator": "paragraph/6/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_4_ED2023",
+                    "locator": "paragraph/4",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_4_ED2025",
+                    "locator": "paragraph/4",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_4_ED2026",
+                    "locator": "paragraph/4",
+                    "quote": []
+                  }
+                ],
+                "headPolarity": "positive",
+                "label": "number of members taken into account",
+                "name": "AnzahlZuBeruecksichtigenderHaushaltsmitglieder",
+                "package": "wohngeld",
+                "premises": [
+                  {
+                    "anchors": [],
+                    "label": "household composition and exclusion statuses are fully established",
+                    "name": "haushalt_festgestellt",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#haushalt_festgestellt",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  }
+                ],
+                "rule": "urn:de:social:clir:wohngeld#AnzahlZuBeruecksichtigenderHaushaltsmitglieder",
+                "strength": "strict"
+              }
+            ],
+            "relationKind": "institutional"
+          },
+          {
+            "opaque": "comparison",
+            "text": "{\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v2\"},\"op\":\"gt\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"12/1\"}}"
+          },
+          {
+            "anchors": [],
+            "label": "monthly rent to be taken into account (M)",
+            "name": "zu_beruecksichtigende_miete",
+            "package": "wohngeld",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#zu_beruecksichtigende_miete",
+            "producers": [
+              {
+                "anchors": [
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS1_ED2023",
+                    "locator": "paragraph/11/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS1_ED2025",
+                    "locator": "paragraph/11/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS1_ED2026",
+                    "locator": "paragraph/11/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS3_ED2023",
+                    "locator": "paragraph/11/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS3_ED2025",
+                    "locator": "paragraph/11/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS3_ED2026",
+                    "locator": "paragraph/11/3",
+                    "quote": []
+                  }
+                ],
+                "headPolarity": "positive",
+                "label": "rent capped at maximum plus climate component, plus heating relief, pro rata if members are excluded",
+                "name": "ZuBeruecksichtigendeMiete",
+                "package": "wohngeld",
+                "premises": [
+                  {
+                    "anchors": [],
+                    "label": "person entitled to rent subsidy",
+                    "name": "wohngeldberechtigt",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#wohngeldberechtigt",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "number of household members to be taken into account",
+                    "name": "anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "heating cost relief for the total number of members",
+                    "name": "heizkostenentlastung",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#heizkostenentlastung",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "basis of use entitling to rent subsidy and computed in this package",
+                    "name": "mietzuschuss_grundlage",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#mietzuschuss_grundlage",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "total number of household members",
+                    "name": "gesamtzahl_haushaltsmitglieder",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#gesamtzahl_haushaltsmitglieder",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "basis of use where the rent is taken from the agreement",
+                    "name": "miete_aus_vertrag_grundlage",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#miete_aus_vertrag_grundlage",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "the person uses the living space themselves on this basis",
+                    "name": "nutzungsgrundlage",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#nutzungsgrundlage",
+                    "producers": [],
+                    "relationKind": "empirical",
+                    "truncated": false
+                  },
+                  {
+                    "opaque": "comparison",
+                    "text": "{\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v6\"},\"op\":\"ge\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"1/1\"}}"
+                  },
+                  {
+                    "anchors": [],
+                    "label": "rent under sec. 9 (monthly)",
+                    "name": "miete_nach_9",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#miete_nach_9",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "maximum amount plus climate component for the total number of members",
+                    "name": "hoechstbetrag_mit_klimakomponente",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#hoechstbetrag_mit_klimakomponente",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  }
+                ],
+                "rule": "urn:de:social:clir:wohngeld#ZuBeruecksichtigendeMiete",
+                "strength": "strict"
+              },
+              {
+                "anchors": [
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_9_ABS3_ED2023",
+                    "locator": "paragraph/9/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_9_ABS3_ED2025",
+                    "locator": "paragraph/9/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_9_ABS3_ED2026",
+                    "locator": "paragraph/9/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS1_ED2023",
+                    "locator": "paragraph/11/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS1_ED2025",
+                    "locator": "paragraph/11/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS1_ED2026",
+                    "locator": "paragraph/11/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS3_ED2023",
+                    "locator": "paragraph/11/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS3_ED2025",
+                    "locator": "paragraph/11/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_11_ABS3_ED2026",
+                    "locator": "paragraph/11/3",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_3_ABS1_ED2023",
+                    "locator": "paragraph/3/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_3_ABS1_ED2025",
+                    "locator": "paragraph/3/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_3_ABS1_ED2026",
+                    "locator": "paragraph/3/1",
+                    "quote": []
+                  }
+                ],
+                "headPolarity": "positive",
+                "label": "care home residents: maximum amount plus heating relief and climate component",
+                "name": "ZuBeruecksichtigendeMieteImHeim",
+                "package": "wohngeld",
+                "premises": [
+                  {
+                    "anchors": [],
+                    "label": "person entitled to rent subsidy",
+                    "name": "wohngeldberechtigt",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#wohngeldberechtigt",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "total number of household members",
+                    "name": "gesamtzahl_haushaltsmitglieder",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#gesamtzahl_haushaltsmitglieder",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "maximum amount plus climate component for the total number of members",
+                    "name": "hoechstbetrag_mit_klimakomponente",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#hoechstbetrag_mit_klimakomponente",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "opaque": "comparison",
+                    "text": "{\"kind\":\"comparison\",\"left\":{\"kind\":\"var\",\"var\":\"v4\"},\"op\":\"ge\",\"right\":{\"kind\":\"value\",\"type\":{\"name\":\"urn:law:std#Number\"},\"value\":\"1/1\"}}"
+                  },
+                  {
+                    "anchors": [],
+                    "label": "heating cost relief for the total number of members",
+                    "name": "heizkostenentlastung",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#heizkostenentlastung",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "number of household members to be taken into account",
+                    "name": "anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "the person uses the living space themselves on this basis",
+                    "name": "nutzungsgrundlage",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#nutzungsgrundlage",
+                    "producers": [],
+                    "relationKind": "empirical",
+                    "truncated": false
+                  }
+                ],
+                "rule": "urn:de:social:clir:wohngeld#ZuBeruecksichtigendeMieteImHeim",
+                "strength": "strict"
+              }
+            ],
+            "relationKind": "institutional"
+          },
+          {
+            "anchors": [],
+            "label": "unrounded monthly housing benefit z4",
+            "name": "wohngeld_ungerundet",
+            "package": "wohngeld",
+            "polarity": "positive",
+            "predicate": "urn:de:social:clir:wohngeld#wohngeld_ungerundet",
+            "producers": [
+              {
+                "anchors": [
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS1_ED2023",
+                    "locator": "paragraph/19/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS1_ED2025",
+                    "locator": "paragraph/19/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS1_ED2026",
+                    "locator": "paragraph/19/1",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2023",
+                    "locator": "paragraph/19/2",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2025",
+                    "locator": "paragraph/19/2",
+                    "quote": []
+                  },
+                  {
+                    "id": "urn:de:social:clir:wohngeld#WOGG_19_ABS2_ED2026",
+                    "locator": "paragraph/19/2",
+                    "quote": []
+                  }
+                ],
+                "headPolarity": "positive",
+                "label": "formula steps z1 to z4 with ten decimal places",
+                "name": "WohngeldUngerundet",
+                "package": "wohngeld",
+                "premises": [
+                  {
+                    "anchors": [],
+                    "label": "value M after annex 3 no. 1",
+                    "name": "m_nach_anlage3",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#m_nach_anlage3",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "number of household members to be taken into account",
+                    "name": "anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#anzahl_zu_beruecksichtigende_haushaltsmitglieder",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  },
+                  {
+                    "anchors": [],
+                    "label": "value Y after annex 3 no. 1",
+                    "name": "y_nach_anlage3",
+                    "package": "wohngeld",
+                    "polarity": "positive",
+                    "predicate": "urn:de:social:clir:wohngeld#y_nach_anlage3",
+                    "producers": [],
+                    "relationKind": "institutional",
+                    "truncated": true
+                  }
+                ],
+                "rule": "urn:de:social:clir:wohngeld#WohngeldUngerundet",
+                "strength": "strict"
+              }
+            ],
+            "relationKind": "institutional"
+          }
+        ],
+        "rule": "urn:de:social:clir:wohngeld#WohngeldUeberZwoelfMitglieder",
+        "strength": "strict"
+      }
+    ],
+    "relationKind": "institutional"
+  }
+}

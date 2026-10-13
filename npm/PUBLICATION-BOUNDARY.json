@@ -1,0 +1,437 @@
+{
+  "format": "arxo.wohngeld-publication-boundary/1",
+  "publicReady": false,
+  "status": "terms_unconfirmed",
+  "basis": {
+    "path": "NOTICE",
+    "sha256": "sha256:1bf62774b660bc870a7ed4348895872a7d87ac259b79a32704fb4919992524f3",
+    "sourceRevision": "d1887e87da88682930460b10deb9f52870ef5d54"
+  },
+  "note": "Private candidate retains necessary inputs. BMWSB and pre-2023 gazette database terms remain unconfirmed for public distribution. No model bytes were removed or changed.",
+  "sourceFiles": [
+    {
+      "path": "packages/de.social.wohngeld/sources/bmwsb/rechenbeispiele-2023.pdf",
+      "bytes": 29154,
+      "sha256": "sha256:cfc7ce8e468161f584547c456ddbb18f8a77905079c2647944901bdb3cf2cd7e",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bmwsb/rechenbeispiele-2025.pdf",
+      "bytes": 40516,
+      "sha256": "sha256:9093c90febd6862b3d6dbf98ef0fe5b55ce8caf0d33c324376e4926abeb7184e",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bmwsb/rechenbeispiele-2023.txt",
+      "bytes": 10193,
+      "sha256": "sha256:6743b98c79a198ad704f4fc10f04f13cfc7c49e42afe2c05d1d4f4c4dc286a03",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bmwsb/rechenbeispiele-2025.txt",
+      "bytes": 14094,
+      "sha256": "sha256:b10b6bea28c8f8216aa65a9dffd51a6d716f1568c7da21bc1306a7b878499d6d",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bmwsb/global.js",
+      "bytes": 977175,
+      "sha256": "sha256:6fb8a76e0cc0f778f43e959c74ca655566e85a35813d93b8a24c16e02198445f",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bmwsb/wohngeldrechner-2025.module.js",
+      "bytes": 15171,
+      "sha256": "sha256:75c997d2bb540b1d72df63865509e62faff95b282089a0b4bad753e49d279445",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bgbl/bgbl-2022-I-48.txt",
+      "bytes": 186044,
+      "sha256": "sha256:8692b53b771a755006a4bf6e417e904ed7a063c349e49bab5f373a26c5100a85",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bgbl/bgbl-2022-I-48.pdf",
+      "bytes": 710877,
+      "sha256": "sha256:2f7ae25e9d6babff5b3f3f0a637b95b6cdbccb8f0df1c749422f003af5677e4f",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bgbl/bgbl-2022-I-51.pdf",
+      "bytes": 581568,
+      "sha256": "sha256:1e3cdc2dc0145764c33d68667766a8d326dd6b1a0a3ebf3c9783dcc72ec531ab",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bgbl/bgbl-2021-I-28.pdf",
+      "bytes": 871427,
+      "sha256": "sha256:2b2ebf1e719c13e7bbb277daba59836511ed34c99cf8e2fea3fb49e762916709",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bgbl/bgbl-2021-I-28.txt",
+      "bytes": 531796,
+      "sha256": "sha256:8842905a7865448c47184d7bcae347788f48e7bc31845591a3567f589d849a83",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld/sources/bgbl/bgbl-2022-I-51.txt",
+      "bytes": 319236,
+      "sha256": "sha256:1ad392d4386f26e71b8541286dfbb688309cb4b7c088d6a5bb2e3f2f531ec413",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld_verordnung/sources/bgbl/bgbl-2022-I-48.txt",
+      "bytes": 186044,
+      "sha256": "sha256:8692b53b771a755006a4bf6e417e904ed7a063c349e49bab5f373a26c5100a85",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.social.wohngeld_verordnung/sources/bgbl/bgbl-2022-I-48.pdf",
+      "bytes": 710877,
+      "sha256": "sha256:2f7ae25e9d6babff5b3f3f0a637b95b6cdbccb8f0df1c749422f003af5677e4f",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.tax.income_for_wohngeld/sources/bgbl/bgbl-2022-I-51.pdf",
+      "bytes": 581568,
+      "sha256": "sha256:1e3cdc2dc0145764c33d68667766a8d326dd6b1a0a3ebf3c9783dcc72ec531ab",
+      "shippedInNpm": false
+    },
+    {
+      "path": "packages/de.tax.income_for_wohngeld/sources/bgbl/bgbl-2022-I-51.txt",
+      "bytes": 319236,
+      "sha256": "sha256:1ad392d4386f26e71b8541286dfbb688309cb4b7c088d6a5bb2e3f2f531ec413",
+      "shippedInNpm": false
+    }
+  ],
+  "embeddedTexts": [
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP1",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:a972822b177820b1651fc489b4634ac2a844a75894b6cc93a8fa994f0663d072",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP10",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:3d67a066ff4ead318c726493808c0fa93a6a03a49a10c1644f03c5aca7f31c16",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP2",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:df88b2cb1365bd6d132937373f1ab5945d69b6495c3e77fa7db681e0f643e510",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP3",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:333c89ad239edc94b2b25118bd0a6df48806727e78892d2fbb5ced62412e5dac",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP4",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:de6b3cdce205ce87055799b4bd3aaa3e869474be1c45f43c1b9f5ff4e5eb344d",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP5",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:738ff4d468aaa429c50460bc5b561cfc0c93f9c5d36c637f35e0767dd4adf9f6",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP6",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:824e8ad8fc405375166ad69cfad1ee0742b8df5bb6747341fc503876064804e3",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP7",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:96bc25bac5fb93e2baf7b5aa6a6a3d0830dbc65c2b980f5066465da29b8c3991",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP8",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:d18bca0164e652c5b532b530793bfca12717bb2e62c583c853e8609316f64490",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2023_BSP9",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED",
+      "language": "de",
+      "textHash": "sha256:564d7381f66649b72931a7f8173bc477054e973ccb2fb38a6efe102a79854326",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP1",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:f238991d268dd8a97a61de802e3969c8e832b6da45e9556f45e00fd57f1425d7",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP10",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:b180e73d9fb3afd0af3b086d9cac45f486c634bd276e912b188bb5719efac667",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP11",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:8a6d0a670c6158a7cca071628c0362d37cd7cba65ab70fd073fc1fa74e935086",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP2",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:ed73dcd85d5025e1754b35a06acf8958d8fca601991cd4397595461929a47891",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP3",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:f4ec69399fece590969285dab660d613f9544a773e6bc18ce624d8f9d6e57afd",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP4",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:ef0dd6e9a0e2a183fef40794be0810b6f1faa68e80424b058d48b12b59d907a4",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP5",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:e6bc6688a693802ad71c18641b47e811d03ab0e2d832021879a37932cb937240",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP6",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:4e4f53e339cc54f8ff4c7bc7da768d8709ffc6766278883974799eaa7ddedfd4",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP7",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:28dd9b54a39f7f3538d59f172ba0b408d870dd60023785e2cb3f49c044c1fa76",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP8",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:f55653db34ad5c416fbde57042f08e1f58c377a163ba72163a86002822e3c019",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#BMWSB_2025_BSP9",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED",
+      "language": "de",
+      "textHash": "sha256:ef6dde616661a7f26c773e332dadc5bb2427b01975c16ce65d8f83b8bc858379",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#ERSTE_WOGFV_ANLAGE1",
+      "edition": "urn:de:social:clir:wohngeld#ERSTE_WOGFV_ED",
+      "language": "de",
+      "textHash": "sha256:be677bf464c4a97a18c6f22488a338d537339336bdd305fe876f989015ec2789",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#ERSTE_WOGFV_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#ERSTE_WOGFV_INKRAFT",
+      "edition": "urn:de:social:clir:wohngeld#ERSTE_WOGFV_ED",
+      "language": "de",
+      "textHash": "sha256:4ac091d8bde8c69a395fec2570f2a5192876c7f1805c0718cd05422d9d660fbf",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#ERSTE_WOGFV_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#RECHNER_2025_BERECHNUNG",
+      "edition": "urn:de:social:clir:wohngeld#BMWSB_WOHNGELDRECHNER_2025_ED",
+      "language": "de",
+      "textHash": "sha256:b436056051c36c3bbfc42364514241eeabda5e3301cf1623d4a6ef3c4f484bc6",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#BMWSB_WOHNGELDRECHNER_2025_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#WPG_19_ABS3",
+      "edition": "urn:de:social:clir:wohngeld#WPG_ED",
+      "language": "de",
+      "textHash": "sha256:964fa9a7fe1651db4b6a9a1ac279d3483472694a97b13620e4e7dc32a95abcba",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#WPG_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#WPG_ANLAGEN_2_3",
+      "edition": "urn:de:social:clir:wohngeld#WPG_ED",
+      "language": "de",
+      "textHash": "sha256:5f10d855ad0a5a59ceb823097a32514f1c49f79e119016376dd54f3896577f1c",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#WPG_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld",
+      "fragment": "urn:de:social:clir:wohngeld#WPG_INKRAFT",
+      "edition": "urn:de:social:clir:wohngeld#WPG_ED",
+      "language": "de",
+      "textHash": "sha256:028341f31abc30ee56de78784f2b3c8fa6eb7a301abea6db58d130a7d4d64642",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld#WPG_TEXT"
+      ]
+    },
+    {
+      "package": "de.social.wohngeld_verordnung",
+      "fragment": "urn:de:social:clir:wohngeld-verordnung#WPG_ART5_ANLAGE_KOPF",
+      "edition": "urn:de:social:clir:wohngeld-verordnung#WPG_ART5_ED",
+      "language": "de",
+      "textHash": "sha256:6950666aefe89f7cb40f461079cadaf93411bac1b6baa5fd694ed047e398fcd4",
+      "publicationIds": [
+        "urn:de:social:clir:wohngeld-verordnung#WPG_ART5_TEXT"
+      ]
+    },
+    {
+      "package": "de.tax.income_for_wohngeld",
+      "fragment": "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_ART4_NR3",
+      "edition": "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_ED",
+      "language": "de",
+      "textHash": "sha256:387f6057fa236f874b5e566cb43c43af504b9737d285e70e0cb77f2dae58f76c",
+      "publicationIds": [
+        "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_TEXT"
+      ]
+    },
+    {
+      "package": "de.tax.income_for_wohngeld",
+      "fragment": "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_INKRAFT",
+      "edition": "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_ED",
+      "language": "de",
+      "textHash": "sha256:4f0a0eb1a1669e62d06147f1f9128a4f04930b9f113c305a904bbc80e9c3c90d",
+      "publicationIds": [
+        "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_TEXT"
+      ]
+    }
+  ],
+  "affectedNpmAssets": [
+    {
+      "path": "data/wohngeld/package.lawir.json",
+      "sha256": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9"
+    },
+    {
+      "path": "data/wohngeld/world.lawir.json",
+      "sha256": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2"
+    },
+    {
+      "path": "data/wohngeld-verordnung/package.lawir.json",
+      "sha256": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c"
+    },
+    {
+      "path": "data/wohngeld-verordnung/world.lawir.json",
+      "sha256": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c"
+    },
+    {
+      "path": "data/income-for-wohngeld/package.lawir.json",
+      "sha256": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003"
+    },
+    {
+      "path": "data/income-for-wohngeld/world.lawir.json",
+      "sha256": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003"
+    }
+  ]
+}

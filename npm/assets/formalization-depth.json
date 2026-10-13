@@ -1,0 +1,4114 @@
+{
+  "format": "arxo.canon-depth-snapshot/0.1",
+  "source": {
+    "repository": "https://github.com/arxohq/arxo-wohngeld",
+    "revision": "d1887e87da88682930460b10deb9f52870ef5d54"
+  },
+  "method": {
+    "implementation": "boundaries.depth",
+    "implementationHashes": {
+      ".claude/skills/formalize-act/scripts/boundaries.py": "sha256:4138459861a438324c7fdbdbb7ac192f1a996ff83354836484397de18e2451e6",
+      "corpus/tools/lib/act_split.py": "sha256:3289fb03603fe85293054b5966db860ebde93353cc41e5f2f5feb644b9d6de54",
+      "corpus/lib/lawbin.py": "sha256:1ce73ab0067413112bafec7fa0c15ebd8f658a476403e61be9a97073965a4816",
+      "engines/lawref/lawref/editions/applicability.py": "sha256:72c85d6e851b190c8b4d2c8e4fd48003ccc74e8e867fe9b182da3d9f2ad7847c"
+    },
+    "implementationRevisions": {
+      "corpus": "30b247f6e9aae8eb08ca6057b413c9f0133945d3",
+      "core": "32d3fcb02ef0fc91cdfa1cf90ae0e68f945e4d00"
+    },
+    "adapter": "static import resolver only; original applicability and depth code unchanged",
+    "adapterHash": "sha256:0cf001f3df9f5f1dac6b262d0ba413117b4d00afa4474537706a9ec16a45083d",
+    "unit": "German paragraph edition for GII consolidated statutes; identical document bytes deduplicated per package",
+    "imports": "excluded; own package nodes only",
+    "unmeasuredAreas": [
+      "Annexes and table rows within consolidated sources are outside the paragraph denominator"
+    ],
+    "levels": [
+      "EXECUTABLE",
+      "INTERPRETED",
+      "ANCHORED",
+      "SOURCE_ONLY",
+      "NONE"
+    ],
+    "completeness": "not assessed",
+    "scenarios": "recorded export outcomes; fresh CLI/SDK checks are separate",
+    "releaseVerified": false,
+    "corpus": "not_checked"
+  },
+  "packages": [
+    {
+      "name": "de.social.wohngeld",
+      "spec": "de.social.wohngeld@0.1.0",
+      "packageHash": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9",
+      "worldHash": "sha256:3976045e03b81bc074166b2747cfccb56569f8b258cd0043c328b430e2640cd2",
+      "status": "partial",
+      "units": 157,
+      "levels": {
+        "EXECUTABLE": 57,
+        "INTERPRETED": 0,
+        "ANCHORED": 0,
+        "SOURCE_ONLY": 9,
+        "NONE": 91
+      },
+      "ownRules": 142,
+      "ownFragments": 167,
+      "recordedScenarios": 87,
+      "recordedOutcome": "passed",
+      "documents": [
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#WOGG_ED2023_TEXT"
+          ],
+          "documentHash": "sha256:4b3a253c1778225f3ba9cd9237da81ec41808f43431fbb6c05d59af9248c47e5",
+          "paths": [
+            "packages/de.social.wohngeld/sources/gii/wogg-2024-01-31.de.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#WOGG_ED2023"
+          ],
+          "unit": "de_paragraph",
+          "denominator": 52,
+          "reportUnitConvention": "de_paragraph",
+          "reportUnitReason": "original GII headings use §; existing measure requires this explicit convention",
+          "declarationHash": "sha256:73f73692fbf38ec3fe1930d15169ed6993adcb3bb6485b1cebea3d5413befdab",
+          "units": [
+            {
+              "article": "1",
+              "title": "Zweck des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "2",
+              "title": "Wohnraum",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "3",
+              "title": "Wohngeldberechtigung",
+              "level": "EXECUTABLE",
+              "deriving": 18,
+              "interpreted": 0,
+              "anchoring": 18,
+              "defeasible": 0
+            },
+            {
+              "article": "4",
+              "title": "Berechnungsgrößen des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "5",
+              "title": "Haushaltsmitglieder",
+              "level": "EXECUTABLE",
+              "deriving": 16,
+              "interpreted": 0,
+              "anchoring": 16,
+              "defeasible": 0
+            },
+            {
+              "article": "6",
+              "title": "Zu berücksichtigende Haushaltsmitglieder",
+              "level": "EXECUTABLE",
+              "deriving": 3,
+              "interpreted": 0,
+              "anchoring": 3,
+              "defeasible": 0
+            },
+            {
+              "article": "7",
+              "title": "Ausschluss vom Wohngeld",
+              "level": "EXECUTABLE",
+              "deriving": 19,
+              "interpreted": 0,
+              "anchoring": 19,
+              "defeasible": 0
+            },
+            {
+              "article": "8",
+              "title": "Dauer des Ausschlusses vom Wohngeld und Verzicht auf Leistungen",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "9",
+              "title": "Miete",
+              "level": "EXECUTABLE",
+              "deriving": 17,
+              "interpreted": 0,
+              "anchoring": 17,
+              "defeasible": 0
+            },
+            {
+              "article": "10",
+              "title": "Belastung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "11",
+              "title": "Zu berücksichtigende Miete und Belastung",
+              "level": "EXECUTABLE",
+              "deriving": 9,
+              "interpreted": 0,
+              "anchoring": 9,
+              "defeasible": 0
+            },
+            {
+              "article": "12",
+              "title": "Höchstbeträge für Miete und Belastung sowie Entlastung bei den Heizkosten und die Klimakomponente",
+              "level": "EXECUTABLE",
+              "deriving": 43,
+              "interpreted": 0,
+              "anchoring": 55,
+              "defeasible": 0
+            },
+            {
+              "article": "13",
+              "title": "Gesamteinkommen",
+              "level": "EXECUTABLE",
+              "deriving": 3,
+              "interpreted": 0,
+              "anchoring": 3,
+              "defeasible": 0
+            },
+            {
+              "article": "14",
+              "title": "Jahreseinkommen",
+              "level": "EXECUTABLE",
+              "deriving": 19,
+              "interpreted": 0,
+              "anchoring": 19,
+              "defeasible": 0
+            },
+            {
+              "article": "15",
+              "title": "Ermittlung des Jahreseinkommens",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "16",
+              "title": "Abzugsbeträge für Steuern und Sozialversicherungsbeiträge",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "17",
+              "title": "Freibeträge",
+              "level": "EXECUTABLE",
+              "deriving": 7,
+              "interpreted": 0,
+              "anchoring": 7,
+              "defeasible": 0
+            },
+            {
+              "article": "17a",
+              "title": "Freibetrag für zu berücksichtigende Haushaltsmitglieder mit Grundrentenzeiten oder entsprechenden Zeiten aus anderweitigen Alterssicherungssystemen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "18",
+              "title": "Abzugsbeträge für Unterhaltsleistungen",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "19",
+              "title": "Höhe des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 11,
+              "interpreted": 0,
+              "anchoring": 13,
+              "defeasible": 0
+            },
+            {
+              "article": "20",
+              "title": "Gesetzeskonkurrenz",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 4,
+              "defeasible": 0
+            },
+            {
+              "article": "21",
+              "title": "Sonstige Gründe",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 4,
+              "defeasible": 0
+            },
+            {
+              "article": "22",
+              "title": "Wohngeldantrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "23",
+              "title": "Auskunftspflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "24",
+              "title": "Wohngeldbehörde und Entscheidung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "25",
+              "title": "Bewilligungszeitraum",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26",
+              "title": "Zahlung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26a",
+              "title": "Vorläufige Zahlung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "27",
+              "title": "Änderung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "28",
+              "title": "Unwirksamkeit des Bewilligungsbescheides und Wegfall des Wohngeldanspruchs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "29",
+              "title": "Haftung, Aufrechnung, Verrechnung und vorläufige Zahlungseinstellung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "30",
+              "title": "Rücküberweisung und Erstattung im Todesfall",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "30a",
+              "title": "Bagatellgrenze bei Rückforderungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "31",
+              "title": "Rücknahme eines rechtswidrigen nicht begünstigenden Wohngeldbescheides",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "32",
+              "title": "Erstattung des Wohngeldes durch den Bund",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "33",
+              "title": "Datenabgleich",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34",
+              "title": "Zweck der Wohngeldstatistik, Auskunfts- und Hinweispflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "35",
+              "title": "Erhebungs- und Hilfsmerkmale",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "36",
+              "title": "Erhebungszeitraum und Zusatzaufbereitungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "37",
+              "title": "Bußgeld",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "38",
+              "title": "Verordnungsermächtigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39",
+              "title": "Wohngeld- und Mietenbericht; Bericht über die Lage und Entwicklung der Wohnungs- und Immobilienwirtschaft in Deutschland",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "40",
+              "title": "Einkommen bei anderen Sozialleistungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "41",
+              "title": "Auswirkung von Rechtsänderungen auf die Wohngeldentscheidung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42",
+              "title": "Gesetz zur Neuregelung des Wohngeldrechts und zur Änderung des Sozialgesetzbuches",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42a",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Reform des Wohngeldrechts und zur Änderung des Wohnraumförderungsgesetzes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42b",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Stärkung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42c",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Entlastung bei den Heizkosten im Wohngeld im Kontext der CO2-Bepreisung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42d",
+              "title": "Übergangsregelung aus Anlass des Wohngeld-Plus-Gesetzes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "43",
+              "title": "Fortschreibung des Wohngeldes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "44",
+              "title": "Übergangsregelung bei Fortschreibung des Wohngeldes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Regelung des Sozialen Entschädigungsrechts",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            }
+          ],
+          "unresolvedAnchors": 129
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#WOGG_ED2025_TEXT"
+          ],
+          "documentHash": "sha256:d2d44bb73ee8aaabaf0223b5fae67242e30111cead95bac50067e460b40dc198",
+          "paths": [
+            "packages/de.social.wohngeld/sources/gii/wogg-2025-01-21.de.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#WOGG_ED2025"
+          ],
+          "unit": "de_paragraph",
+          "denominator": 52,
+          "reportUnitConvention": "de_paragraph",
+          "reportUnitReason": "original GII headings use §; existing measure requires this explicit convention",
+          "declarationHash": "sha256:73f73692fbf38ec3fe1930d15169ed6993adcb3bb6485b1cebea3d5413befdab",
+          "units": [
+            {
+              "article": "1",
+              "title": "Zweck des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "2",
+              "title": "Wohnraum",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "3",
+              "title": "Wohngeldberechtigung",
+              "level": "EXECUTABLE",
+              "deriving": 18,
+              "interpreted": 0,
+              "anchoring": 18,
+              "defeasible": 0
+            },
+            {
+              "article": "4",
+              "title": "Berechnungsgrößen des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "5",
+              "title": "Haushaltsmitglieder",
+              "level": "EXECUTABLE",
+              "deriving": 16,
+              "interpreted": 0,
+              "anchoring": 16,
+              "defeasible": 0
+            },
+            {
+              "article": "6",
+              "title": "Zu berücksichtigende Haushaltsmitglieder",
+              "level": "EXECUTABLE",
+              "deriving": 3,
+              "interpreted": 0,
+              "anchoring": 3,
+              "defeasible": 0
+            },
+            {
+              "article": "7",
+              "title": "Ausschluss vom Wohngeld",
+              "level": "EXECUTABLE",
+              "deriving": 19,
+              "interpreted": 0,
+              "anchoring": 19,
+              "defeasible": 0
+            },
+            {
+              "article": "8",
+              "title": "Dauer des Ausschlusses vom Wohngeld und Verzicht auf Leistungen",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "9",
+              "title": "Miete",
+              "level": "EXECUTABLE",
+              "deriving": 17,
+              "interpreted": 0,
+              "anchoring": 17,
+              "defeasible": 0
+            },
+            {
+              "article": "10",
+              "title": "Belastung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "11",
+              "title": "Zu berücksichtigende Miete und Belastung",
+              "level": "EXECUTABLE",
+              "deriving": 9,
+              "interpreted": 0,
+              "anchoring": 9,
+              "defeasible": 0
+            },
+            {
+              "article": "12",
+              "title": "Höchstbeträge für Miete und Belastung sowie Entlastung bei den Heizkosten und die Klimakomponente",
+              "level": "EXECUTABLE",
+              "deriving": 43,
+              "interpreted": 0,
+              "anchoring": 55,
+              "defeasible": 0
+            },
+            {
+              "article": "13",
+              "title": "Gesamteinkommen",
+              "level": "EXECUTABLE",
+              "deriving": 3,
+              "interpreted": 0,
+              "anchoring": 3,
+              "defeasible": 0
+            },
+            {
+              "article": "14",
+              "title": "Jahreseinkommen",
+              "level": "EXECUTABLE",
+              "deriving": 19,
+              "interpreted": 0,
+              "anchoring": 19,
+              "defeasible": 0
+            },
+            {
+              "article": "15",
+              "title": "Ermittlung des Jahreseinkommens",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "16",
+              "title": "Abzugsbeträge für Steuern und Sozialversicherungsbeiträge",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "17",
+              "title": "Freibeträge",
+              "level": "EXECUTABLE",
+              "deriving": 7,
+              "interpreted": 0,
+              "anchoring": 7,
+              "defeasible": 0
+            },
+            {
+              "article": "17a",
+              "title": "Freibetrag für zu berücksichtigende Haushaltsmitglieder mit Grundrentenzeiten oder entsprechenden Zeiten aus anderweitigen Alterssicherungssystemen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "18",
+              "title": "Abzugsbeträge für Unterhaltsleistungen",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "19",
+              "title": "Höhe des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 11,
+              "interpreted": 0,
+              "anchoring": 13,
+              "defeasible": 0
+            },
+            {
+              "article": "20",
+              "title": "Gesetzeskonkurrenz",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 4,
+              "defeasible": 0
+            },
+            {
+              "article": "21",
+              "title": "Sonstige Gründe",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 4,
+              "defeasible": 0
+            },
+            {
+              "article": "22",
+              "title": "Wohngeldantrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "23",
+              "title": "Auskunftspflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "24",
+              "title": "Wohngeldbehörde und Entscheidung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "25",
+              "title": "Bewilligungszeitraum",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26",
+              "title": "Zahlung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26a",
+              "title": "Vorläufige Zahlung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "27",
+              "title": "Änderung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "28",
+              "title": "Unwirksamkeit des Bewilligungsbescheides und Wegfall des Wohngeldanspruchs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "29",
+              "title": "Haftung, Aufrechnung, Verrechnung und vorläufige Zahlungseinstellung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "30",
+              "title": "Rücküberweisung und Erstattung im Todesfall",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "30a",
+              "title": "Bagatellgrenze bei Rückforderungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "31",
+              "title": "Rücknahme eines rechtswidrigen nicht begünstigenden Wohngeldbescheides",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "32",
+              "title": "Erstattung des Wohngeldes durch den Bund",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "33",
+              "title": "Datenabgleich",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34",
+              "title": "Zweck der Wohngeldstatistik, Auskunfts- und Hinweispflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "35",
+              "title": "Erhebungs- und Hilfsmerkmale",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "36",
+              "title": "Erhebungszeitraum und Zusatzaufbereitungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "37",
+              "title": "Bußgeld",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "38",
+              "title": "Verordnungsermächtigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39",
+              "title": "Wohngeld- und Mietenbericht; Bericht über die Lage und Entwicklung der Wohnungs- und Immobilienwirtschaft in Deutschland",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "40",
+              "title": "Einkommen bei anderen Sozialleistungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "41",
+              "title": "Auswirkung von Rechtsänderungen auf die Wohngeldentscheidung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42",
+              "title": "Gesetz zur Neuregelung des Wohngeldrechts und zur Änderung des Sozialgesetzbuches",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42a",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Reform des Wohngeldrechts und zur Änderung des Wohnraumförderungsgesetzes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42b",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Stärkung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42c",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Entlastung bei den Heizkosten im Wohngeld im Kontext der CO2-Bepreisung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42d",
+              "title": "Übergangsregelung aus Anlass des Wohngeld-Plus-Gesetzes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "43",
+              "title": "Fortschreibung des Wohngeldes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "44",
+              "title": "Übergangsregelung bei Fortschreibung des Wohngeldes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Regelung des Sozialen Entschädigungsrechts",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            }
+          ],
+          "unresolvedAnchors": 111
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#WOGG_ED2026_TEXT"
+          ],
+          "documentHash": "sha256:f8ac2d0d891325dbe8fdf790d96f6620afa98a9d4dca6214f1a8b7e36bf474aa",
+          "paths": [
+            "packages/de.social.wohngeld/sources/gii/wogg-2026-06-30.de.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#WOGG_ED2026"
+          ],
+          "unit": "de_paragraph",
+          "denominator": 53,
+          "reportUnitConvention": "de_paragraph",
+          "reportUnitReason": "original GII headings use §; existing measure requires this explicit convention",
+          "declarationHash": "sha256:73f73692fbf38ec3fe1930d15169ed6993adcb3bb6485b1cebea3d5413befdab",
+          "units": [
+            {
+              "article": "1",
+              "title": "Zweck des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "2",
+              "title": "Wohnraum",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "3",
+              "title": "Wohngeldberechtigung",
+              "level": "EXECUTABLE",
+              "deriving": 18,
+              "interpreted": 0,
+              "anchoring": 18,
+              "defeasible": 0
+            },
+            {
+              "article": "4",
+              "title": "Berechnungsgrößen des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "5",
+              "title": "Haushaltsmitglieder",
+              "level": "EXECUTABLE",
+              "deriving": 16,
+              "interpreted": 0,
+              "anchoring": 16,
+              "defeasible": 0
+            },
+            {
+              "article": "6",
+              "title": "Zu berücksichtigende Haushaltsmitglieder",
+              "level": "EXECUTABLE",
+              "deriving": 3,
+              "interpreted": 0,
+              "anchoring": 3,
+              "defeasible": 0
+            },
+            {
+              "article": "7",
+              "title": "Ausschluss vom Wohngeld",
+              "level": "EXECUTABLE",
+              "deriving": 19,
+              "interpreted": 0,
+              "anchoring": 19,
+              "defeasible": 0
+            },
+            {
+              "article": "8",
+              "title": "Dauer des Ausschlusses vom Wohngeld und Verzicht auf Leistungen",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "9",
+              "title": "Miete",
+              "level": "EXECUTABLE",
+              "deriving": 17,
+              "interpreted": 0,
+              "anchoring": 17,
+              "defeasible": 0
+            },
+            {
+              "article": "10",
+              "title": "Belastung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "11",
+              "title": "Zu berücksichtigende Miete und Belastung",
+              "level": "EXECUTABLE",
+              "deriving": 9,
+              "interpreted": 0,
+              "anchoring": 9,
+              "defeasible": 0
+            },
+            {
+              "article": "12",
+              "title": "Höchstbeträge für Miete und Belastung sowie Entlastung bei den Heizkosten und die Klimakomponente",
+              "level": "EXECUTABLE",
+              "deriving": 43,
+              "interpreted": 0,
+              "anchoring": 55,
+              "defeasible": 0
+            },
+            {
+              "article": "13",
+              "title": "Gesamteinkommen",
+              "level": "EXECUTABLE",
+              "deriving": 3,
+              "interpreted": 0,
+              "anchoring": 3,
+              "defeasible": 0
+            },
+            {
+              "article": "14",
+              "title": "Jahreseinkommen",
+              "level": "EXECUTABLE",
+              "deriving": 19,
+              "interpreted": 0,
+              "anchoring": 19,
+              "defeasible": 0
+            },
+            {
+              "article": "15",
+              "title": "Ermittlung des Jahreseinkommens",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "16",
+              "title": "Abzugsbeträge für Steuern und Sozialversicherungsbeiträge",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "17",
+              "title": "Freibeträge",
+              "level": "EXECUTABLE",
+              "deriving": 7,
+              "interpreted": 0,
+              "anchoring": 7,
+              "defeasible": 0
+            },
+            {
+              "article": "17a",
+              "title": "Freibetrag für zu berücksichtigende Haushaltsmitglieder mit Grundrentenzeiten oder entsprechenden Zeiten aus anderweitigen Alterssicherungssystemen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "18",
+              "title": "Abzugsbeträge für Unterhaltsleistungen",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "19",
+              "title": "Höhe des Wohngeldes",
+              "level": "EXECUTABLE",
+              "deriving": 11,
+              "interpreted": 0,
+              "anchoring": 13,
+              "defeasible": 0
+            },
+            {
+              "article": "20",
+              "title": "Gesetzeskonkurrenz",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 4,
+              "defeasible": 0
+            },
+            {
+              "article": "21",
+              "title": "Sonstige Gründe",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 4,
+              "defeasible": 0
+            },
+            {
+              "article": "22",
+              "title": "Wohngeldantrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "23",
+              "title": "Auskunftspflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "24",
+              "title": "Wohngeldbehörde und Entscheidung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "25",
+              "title": "Bewilligungszeitraum",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26",
+              "title": "Zahlung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26a",
+              "title": "Vorläufige Zahlung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "27",
+              "title": "Änderung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "28",
+              "title": "Unwirksamkeit des Bewilligungsbescheides und Wegfall des Wohngeldanspruchs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "29",
+              "title": "Haftung, Aufrechnung, Verrechnung und vorläufige Zahlungseinstellung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "30",
+              "title": "Rücküberweisung und Erstattung im Todesfall",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "30a",
+              "title": "Bagatellgrenze bei Rückforderungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "31",
+              "title": "Rücknahme eines rechtswidrigen nicht begünstigenden Wohngeldbescheides",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "32",
+              "title": "Erstattung des Wohngeldes durch den Bund",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "33",
+              "title": "Datenabgleich",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34",
+              "title": "Zweck der Wohngeldstatistik, Auskunfts- und Hinweispflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "35",
+              "title": "Erhebungs- und Hilfsmerkmale",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "36",
+              "title": "Erhebungszeitraum und Zusatzaufbereitungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "37",
+              "title": "Bußgeld",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "38",
+              "title": "Verordnungsermächtigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39",
+              "title": "Wohngeld- und Mietenbericht; Bericht über die Lage und Entwicklung der Wohnungs- und Immobilienwirtschaft in Deutschland",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "40",
+              "title": "Einkommen bei anderen Sozialleistungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "41",
+              "title": "Auswirkung von Rechtsänderungen auf die Wohngeldentscheidung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42",
+              "title": "Gesetz zur Neuregelung des Wohngeldrechts und zur Änderung des Sozialgesetzbuches",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42a",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Reform des Wohngeldrechts und zur Änderung des Wohnraumförderungsgesetzes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42b",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Stärkung des Wohngeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42c",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Entlastung bei den Heizkosten im Wohngeld im Kontext der CO2-Bepreisung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42d",
+              "title": "Übergangsregelung aus Anlass des Wohngeld-Plus-Gesetzes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "43",
+              "title": "Fortschreibung des Wohngeldes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "44",
+              "title": "Übergangsregelung bei Fortschreibung des Wohngeldes",
+              "level": "SOURCE_ONLY",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45",
+              "title": "Übergangsregelung aus Anlass des Gesetzes zur Regelung des Sozialen Entschädigungsrechts",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "46",
+              "title": "Übergangsregelung zu § 33",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            }
+          ],
+          "unresolvedAnchors": 111
+        }
+      ],
+      "unmeasuredDocuments": [
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_TEXT"
+          ],
+          "documentHash": "sha256:6743b98c79a198ad704f4fc10f04f13cfc7c49e42afe2c05d1d4f4c4dc286a03",
+          "paths": [
+            "packages/de.social.wohngeld/sources/bmwsb/rechenbeispiele-2023.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2023_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_TEXT"
+          ],
+          "documentHash": "sha256:b10b6bea28c8f8216aa65a9dffd51a6d716f1568c7da21bc1306a7b878499d6d",
+          "paths": [
+            "packages/de.social.wohngeld/sources/bmwsb/rechenbeispiele-2025.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#BMWSB_RECHENBEISPIELE_2025_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#BMWSB_WOHNGELDRECHNER_2025_TEXT"
+          ],
+          "documentHash": "sha256:75c997d2bb540b1d72df63865509e62faff95b282089a0b4bad753e49d279445",
+          "paths": [
+            "packages/de.social.wohngeld/sources/bmwsb/wohngeldrechner-2025.module.js"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#BMWSB_WOHNGELDRECHNER_2025_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#DREIZEHNTES_SGB2_AENDG_TEXT"
+          ],
+          "documentHash": "sha256:8948b685d3cc4cdd1a8093a674fe60a42dd96d377cdc05173e385bd1178a2f8d",
+          "paths": [
+            "packages/de.social.wohngeld/sources/bgbl/bgbl-2026-I-107.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#DREIZEHNTES_SGB2_AENDG_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#ERSTE_WOGFV_TEXT"
+          ],
+          "documentHash": "sha256:8842905a7865448c47184d7bcae347788f48e7bc31845591a3567f589d849a83",
+          "paths": [
+            "packages/de.social.wohngeld/sources/bgbl/bgbl-2021-I-28.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#ERSTE_WOGFV_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#WPG_TEXT"
+          ],
+          "documentHash": "sha256:8692b53b771a755006a4bf6e417e904ed7a063c349e49bab5f373a26c5100a85",
+          "paths": [
+            "packages/de.social.wohngeld/sources/bgbl/bgbl-2022-I-48.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#WPG_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld#ZWEITE_WOGFV_TEXT"
+          ],
+          "documentHash": "sha256:57e7dd387c154cf97931fe411086629c46ff5497e2877d0438f2d2cd03f0418c",
+          "paths": [
+            "packages/de.social.wohngeld/sources/bgbl/bgbl-2024-I-314.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld#ZWEITE_WOGFV_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        }
+      ]
+    },
+    {
+      "name": "de.social.wohngeld_verordnung",
+      "spec": "de.social.wohngeld_verordnung@0.1.0",
+      "packageHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+      "worldHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+      "status": "partial",
+      "units": 22,
+      "levels": {
+        "EXECUTABLE": 3,
+        "INTERPRETED": 0,
+        "ANCHORED": 0,
+        "SOURCE_ONLY": 0,
+        "NONE": 19
+      },
+      "ownRules": 1899,
+      "ownFragments": 40,
+      "recordedScenarios": 18,
+      "recordedOutcome": "passed",
+      "documents": [
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld-verordnung#WOGV_ED2023_TEXT"
+          ],
+          "documentHash": "sha256:4fcfa3caf4e86df06ac1873af4e31d5249be17b2465b2dda93efa019522a8d97",
+          "paths": [
+            "packages/de.social.wohngeld_verordnung/sources/gii/wogv-2026-05-06.de.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld-verordnung#WOGV_ED2023"
+          ],
+          "unit": "de_paragraph",
+          "denominator": 22,
+          "reportUnitConvention": "de_paragraph",
+          "reportUnitReason": "original GII headings use §; existing measure requires this explicit convention",
+          "declarationHash": "sha256:73f73692fbf38ec3fe1930d15169ed6993adcb3bb6485b1cebea3d5413befdab",
+          "units": [
+            {
+              "article": "1",
+              "title": "Anwendungsbereich",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "2",
+              "title": "Miete",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "3",
+              "title": "Mietvorauszahlungen und Mieterdarlehen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4",
+              "title": "Sach- und Dienstleistungen des Mieters",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "5",
+              "title": "Nicht feststehende Betriebskosten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "6",
+              "title": "Außer Betracht bleibende Kosten und Vergütungen",
+              "level": "EXECUTABLE",
+              "deriving": 16,
+              "interpreted": 0,
+              "anchoring": 16,
+              "defeasible": 0
+            },
+            {
+              "article": "7",
+              "title": "Mietwert",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "8",
+              "title": "Aufstellung der Wohngeld-Lastenberechnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "9",
+              "title": "Gegenstand und Inhalt der Wohngeld-Lastenberechnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10",
+              "title": "Fremdmittel",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "11",
+              "title": "Ausweisung der Fremdmittel",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "12",
+              "title": "Belastung aus dem Kapitaldienst",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "13",
+              "title": "Belastung aus der Bewirtschaftung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "14",
+              "title": "Nutzungsentgelte und Wärmelieferungskosten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "15",
+              "title": "Außer Betracht bleibende Belastung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "16",
+              "title": "Anwendungsbereich",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "17",
+              "title": "Abgleichszeitraum und Übermittlungsverfahren",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "18",
+              "title": "Einzelheiten des automatisierten Datenabgleichs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "19",
+              "title": "Anforderungen an die Datenübermittlung und Datenspeicherung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "20",
+              "title": "Weiterverwendung der Antwortdatensätze",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "21",
+              "title": "Verfahrensgrundsätze",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "22",
+              "title": "Kosten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            }
+          ],
+          "unresolvedAnchors": 1882
+        }
+      ],
+      "unmeasuredDocuments": [
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld-verordnung#DREIZEHNTE_WOGV_AENDVO_TEXT"
+          ],
+          "documentHash": "sha256:2de3e9d27410f1e37c7b8154385f3f3f73365cae2b5a0956cd050d74d2631bf8",
+          "paths": [
+            "packages/de.social.wohngeld_verordnung/sources/bgbl/bgbl-2023-I-102.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld-verordnung#DREIZEHNTE_WOGV_AENDVO_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld-verordnung#WPG_ART5_TEXT"
+          ],
+          "documentHash": "sha256:8692b53b771a755006a4bf6e417e904ed7a063c349e49bab5f373a26c5100a85",
+          "paths": [
+            "packages/de.social.wohngeld_verordnung/sources/bgbl/bgbl-2022-I-48.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld-verordnung#WPG_ART5_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        },
+        {
+          "publications": [
+            "urn:de:social:clir:wohngeld-verordnung#ZWEITE_WOGFV_ART2_TEXT"
+          ],
+          "documentHash": "sha256:57e7dd387c154cf97931fe411086629c46ff5497e2877d0438f2d2cd03f0418c",
+          "paths": [
+            "packages/de.social.wohngeld_verordnung/sources/bgbl/bgbl-2024-I-314.txt"
+          ],
+          "editions": [
+            "urn:de:social:clir:wohngeld-verordnung#ZWEITE_WOGFV_ART2_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        }
+      ]
+    },
+    {
+      "name": "de.tax.income_for_wohngeld",
+      "spec": "de.tax.income_for_wohngeld@0.1.0",
+      "packageHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+      "worldHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+      "status": "partial",
+      "units": 239,
+      "levels": {
+        "EXECUTABLE": 9,
+        "INTERPRETED": 0,
+        "ANCHORED": 0,
+        "SOURCE_ONLY": 0,
+        "NONE": 230
+      },
+      "ownRules": 8,
+      "ownFragments": 16,
+      "recordedScenarios": 12,
+      "recordedOutcome": "passed",
+      "documents": [
+        {
+          "publications": [
+            "urn:de:tax:clir:income-for-wohngeld#ESTG_ED2023_TEXT"
+          ],
+          "documentHash": "sha256:bdc796f9adfc3a0c68994b25a76c274bdb4eb449073ef50f0490cd3b73f8e88c",
+          "paths": [
+            "packages/de.tax.income_for_wohngeld/sources/gii/estg-2026-08-04.de.txt"
+          ],
+          "editions": [
+            "urn:de:tax:clir:income-for-wohngeld#ESTG_ED2023"
+          ],
+          "unit": "de_paragraph",
+          "denominator": 239,
+          "reportUnitConvention": "de_paragraph",
+          "reportUnitReason": "original GII headings use §; existing measure requires this explicit convention",
+          "declarationHash": "sha256:73f73692fbf38ec3fe1930d15169ed6993adcb3bb6485b1cebea3d5413befdab",
+          "units": [
+            {
+              "article": "1",
+              "title": "Steuerpflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "1a",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "2",
+              "title": "Umfang der Besteuerung, Begriffsbestimmungen",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 4,
+              "defeasible": 0
+            },
+            {
+              "article": "2a",
+              "title": "Negative Einkünfte mit Bezug zu Drittstaaten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "3",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "3a",
+              "title": "Sanierungserträge",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "3b",
+              "title": "Steuerfreiheit von Zuschlägen für Sonntags-, Feiertags- oder Nachtarbeit",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "3c",
+              "title": "Anteilige Abzüge",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4",
+              "title": "Gewinnbegriff im Allgemeinen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4a",
+              "title": "Gewinnermittlungszeitraum, Wirtschaftsjahr",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4b",
+              "title": "Direktversicherung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4c",
+              "title": "Zuwendungen an Pensionskassen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4d",
+              "title": "Zuwendungen an Unterstützungskassen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4e",
+              "title": "Beiträge an Pensionsfonds",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4f",
+              "title": "Verpflichtungsübernahmen, Schuldbeitritte und Erfüllungsübernahmen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4g",
+              "title": "Bildung eines Ausgleichspostens bei Entnahme nach § 4 Absatz 1 Satz 3",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4h",
+              "title": "Betriebsausgabenabzug für Zinsaufwendungen (Zinsschranke)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4i",
+              "title": "Sonderbetriebsausgabenabzug bei Vorgängen mit Auslandsbezug",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4j",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "4k",
+              "title": "Betriebsausgabenabzug bei Besteuerungsinkongruenzen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "5",
+              "title": "Gewinn bei Kaufleuten und bei bestimmten anderen Gewerbetreibenden",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "5a",
+              "title": "Gewinnermittlung bei Handelsschiffen im internationalen Verkehr",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "5b",
+              "title": "Elektronische Übermittlung von Bilanzen sowie Gewinn- und Verlustrechnungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "6",
+              "title": "Bewertung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "6a",
+              "title": "Pensionsrückstellung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "6b",
+              "title": "Übertragung stiller Reserven bei der Veräußerung bestimmter Anlagegüter",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "6c",
+              "title": "Übertragung stiller Reserven bei der Veräußerung bestimmter Anlagegüter bei der Ermittlung des Gewinns nach § 4 Absatz 3 oder nach Durchschnittssätzen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "6d",
+              "title": "Euroumrechnungsrücklage",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "6e",
+              "title": "Fondsetablierungskosten als Anschaffungskosten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7",
+              "title": "Absetzung für Abnutzung oder Substanzverringerung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7a",
+              "title": "Gemeinsame Vorschriften für erhöhte Absetzungen und Sonderabschreibungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7b",
+              "title": "Sonderabschreibung für Mietwohnungsneubau",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7e",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7f",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7g",
+              "title": "Investitionsabzugsbeträge und Sonderabschreibungen zur Förderung kleiner und mittlerer Betriebe",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7h",
+              "title": "Erhöhte Absetzungen bei Gebäuden in Sanierungsgebieten und städtebaulichen Entwicklungsbereichen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7i",
+              "title": "Erhöhte Absetzungen bei Baudenkmalen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "7k",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "8",
+              "title": "Einnahmen",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "9",
+              "title": "Werbungskosten",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "9a",
+              "title": "Pauschbeträge für Werbungskosten",
+              "level": "EXECUTABLE",
+              "deriving": 4,
+              "interpreted": 0,
+              "anchoring": 6,
+              "defeasible": 0
+            },
+            {
+              "article": "9b",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10a",
+              "title": "Zusätzliche Altersvorsorge",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10b",
+              "title": "Steuerbegünstigte Zwecke",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10c",
+              "title": "Sonderausgaben-Pauschbetrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10d",
+              "title": "Verlustabzug",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10e",
+              "title": "Steuerbegünstigung der zu eigenen Wohnzwecken genutzten Wohnung im eigenen Haus",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10f",
+              "title": "Steuerbegünstigung für zu eigenen Wohnzwecken genutzte Baudenkmale und Gebäude in Sanierungsgebieten und städtebaulichen Entwicklungsbereichen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10g",
+              "title": "Steuerbegünstigung für schutzwürdige Kulturgüter, die weder zur Einkunftserzielung noch zu eigenen Wohnzwecken genutzt werden",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10h",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "10i",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "11",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "11a",
+              "title": "Sonderbehandlung von Erhaltungsaufwand bei Gebäuden in Sanierungsgebieten und städtebaulichen Entwicklungsbereichen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "11b",
+              "title": "Sonderbehandlung von Erhaltungsaufwand bei Baudenkmalen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "12",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "13",
+              "title": "Einkünfte aus Land- und Forstwirtschaft",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "13a",
+              "title": "Ermittlung des Gewinns aus Land- und Forstwirtschaft nach Durchschnittssätzen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "13b",
+              "title": "Gemeinschaftliche Tierhaltung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "14",
+              "title": "Veräußerung des Betriebs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "14a",
+              "title": "Vergünstigungen bei der Veräußerung bestimmter land- und forstwirtschaftlicher Betriebe",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "15",
+              "title": "Einkünfte aus Gewerbebetrieb",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "15a",
+              "title": "Verluste bei beschränkter Haftung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "15b",
+              "title": "Verluste im Zusammenhang mit Steuerstundungsmodellen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "16",
+              "title": "Veräußerung des Betriebs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "17",
+              "title": "Veräußerung von Anteilen an Kapitalgesellschaften",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "18",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "19",
+              "title": "",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "19a",
+              "title": "Sondervorschrift für Einkünfte aus nichtselbständiger Arbeit bei Vermögensbeteiligungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "20",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "21",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "22",
+              "title": "Arten der sonstigen Einkünfte",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "22a",
+              "title": "Rentenbezugsmitteilungen an die zentrale Stelle",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "23",
+              "title": "Private Veräußerungsgeschäfte",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "24",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "24a",
+              "title": "Altersentlastungsbetrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "24b",
+              "title": "Entlastungsbetrag für Alleinerziehende",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "25",
+              "title": "Veranlagungszeitraum, Steuererklärungspflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26",
+              "title": "Veranlagung von Ehegatten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26a",
+              "title": "Einzelveranlagung von Ehegatten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "26b",
+              "title": "Zusammenveranlagung von Ehegatten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "27",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "28",
+              "title": "Besteuerung bei fortgesetzter Gütergemeinschaft",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "31",
+              "title": "Familienleistungsausgleich",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "32",
+              "title": "Kinder, Freibeträge für Kinder",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "32a",
+              "title": "Einkommensteuertarif",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "32b",
+              "title": "Progressionsvorbehalt",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "32c",
+              "title": "Tarifermäßigung bei Einkünften aus Land- und Forstwirtschaft",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "32d",
+              "title": "Gesonderter Steuertarif für Einkünfte aus Kapitalvermögen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "33",
+              "title": "Außergewöhnliche Belastungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "33a",
+              "title": "Außergewöhnliche Belastung in besonderen Fällen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "33b",
+              "title": "Pauschbeträge für Menschen mit Behinderungen, Hinterbliebene und Pflegepersonen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34",
+              "title": "Außerordentliche Einkünfte",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34a",
+              "title": "Begünstigung der nicht entnommenen Gewinne",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34b",
+              "title": "Steuersätze bei Einkünften aus außerordentlichen Holznutzungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34c",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34d",
+              "title": "Ausländische Einkünfte",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34e",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34f",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "34g",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "35",
+              "title": "",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "35a",
+              "title": "Steuerermäßigung bei Aufwendungen für haushaltsnahe Beschäftigungsverhältnisse, haushaltsnahe Dienstleistungen und Handwerkerleistungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "35b",
+              "title": "Steuerermäßigung bei Belastung mit Erbschaftsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "35c",
+              "title": "Steuerermäßigung für energetische Maßnahmen bei zu eigenen Wohnzwecken genutzten Gebäuden",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "36",
+              "title": "Entstehung und Tilgung der Einkommensteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "36a",
+              "title": "Beschränkung der Anrechenbarkeit der Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "37",
+              "title": "Einkommensteuer-Vorauszahlung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "37a",
+              "title": "Pauschalierung der Einkommensteuer durch Dritte",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "37b",
+              "title": "Pauschalierung der Einkommensteuer bei Sachzuwendungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "38",
+              "title": "Erhebung der Lohnsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "38a",
+              "title": "Höhe der Lohnsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "38b",
+              "title": "Lohnsteuerklassen, Zahl der Kinderfreibeträge",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39",
+              "title": "Lohnsteuerabzugsmerkmale",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39a",
+              "title": "Freibetrag und Hinzurechnungsbetrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39b",
+              "title": "Einbehaltung der Lohnsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39c",
+              "title": "Einbehaltung der Lohnsteuer ohne Lohnsteuerabzugsmerkmale",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39d",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39e",
+              "title": "Verfahren zur Bildung und Anwendung der elektronischen Lohnsteuerabzugsmerkmale",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "39f",
+              "title": "Faktorverfahren anstelle Steuerklassenkombination III/V",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "40",
+              "title": "Pauschalierung der Lohnsteuer in besonderen Fällen",
+              "level": "EXECUTABLE",
+              "deriving": 1,
+              "interpreted": 0,
+              "anchoring": 1,
+              "defeasible": 0
+            },
+            {
+              "article": "40a",
+              "title": "Pauschalierung der Lohnsteuer für Teilzeitbeschäftigte und geringfügig Beschäftigte",
+              "level": "EXECUTABLE",
+              "deriving": 2,
+              "interpreted": 0,
+              "anchoring": 2,
+              "defeasible": 0
+            },
+            {
+              "article": "40b",
+              "title": "Pauschalierung der Lohnsteuer bei bestimmten Zukunftssicherungsleistungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "41",
+              "title": "Aufzeichnungspflichten beim Lohnsteuerabzug",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "41a",
+              "title": "Anmeldung und Abführung der Lohnsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "41b",
+              "title": "Abschluss des Lohnsteuerabzugs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "41c",
+              "title": "Änderung des Lohnsteuerabzugs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42b",
+              "title": "Lohnsteuer-Jahresausgleich durch den Arbeitgeber",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42c",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42d",
+              "title": "Haftung des Arbeitgebers und Haftung bei Arbeitnehmerüberlassung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42e",
+              "title": "Anrufungsauskunft",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42f",
+              "title": "Lohnsteuer-Außenprüfung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "42g",
+              "title": "Lohnsteuer-Nachschau",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "43",
+              "title": "Kapitalerträge mit Steuerabzug",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "43a",
+              "title": "Bemessung der Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "43b",
+              "title": "Bemessung der Kapitalertragsteuer bei bestimmten Gesellschaften",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "44",
+              "title": "Entrichtung der Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "44a",
+              "title": "Abstandnahme vom Steuerabzug",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "44b",
+              "title": "Erstattung der Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45",
+              "title": "Ausschluss der Erstattung von Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45a",
+              "title": "Anmeldung und Bescheinigung der Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45b",
+              "title": "Angaben zur Bescheinigung und Abführung der Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45c",
+              "title": "Zusammengefasste Mitteilung zur Bescheinigung und Abführung der Kapitalertragsteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45d",
+              "title": "Mitteilungen an das Bundeszentralamt für Steuern",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "45e",
+              "title": "Ermächtigung für Zinsinformationsverordnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "46",
+              "title": "Veranlagung bei Bezug von Einkünften aus nichtselbständiger Arbeit",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "47",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "48",
+              "title": "Steuerabzug",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "48a",
+              "title": "Verfahren",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "48b",
+              "title": "Freistellungsbescheinigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "48c",
+              "title": "Anrechnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "48d",
+              "title": "Besonderheiten im Fall von Doppelbesteuerungsabkommen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "49",
+              "title": "Beschränkt steuerpflichtige Einkünfte",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50",
+              "title": "Sondervorschriften für beschränkt Steuerpflichtige",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50a",
+              "title": "Steuerabzug bei beschränkt Steuerpflichtigen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50b",
+              "title": "Prüfungsrecht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50c",
+              "title": "Entlastung vom Steuerabzug in bestimmten Fällen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50d",
+              "title": "Anwendung von Abkommen zur Vermeidung der Doppelbesteuerung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50e",
+              "title": "Bußgeldvorschriften; Nichtverfolgung von Steuerstraftaten bei geringfügiger Beschäftigung in Privathaushalten",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50f",
+              "title": "Bußgeldvorschriften",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50g",
+              "title": "Entlastung vom Steuerabzug bei Zahlungen von Zinsen und Lizenzgebühren zwischen verbundenen Unternehmen verschiedener Mitgliedstaaten der Europäischen Union",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50h",
+              "title": "Bestätigung für Zwecke der Entlastung von Quellensteuern in einem anderen Mitgliedstaat der Europäischen Union oder der Schweizerischen Eidgenossenschaft",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50i",
+              "title": "Besteuerung bestimmter Einkünfte und Anwendung von Doppelbesteuerungsabkommen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "50j",
+              "title": "Versagung der Entlastung von Kapitalertragsteuern in bestimmten Fällen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "51",
+              "title": "Ermächtigungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "51a",
+              "title": "Festsetzung und Erhebung von Zuschlagsteuern",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "52",
+              "title": "Anwendungsvorschriften",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "52a",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "52b",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "53",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "54",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "55",
+              "title": "Schlussvorschriften (Sondervorschriften für die Gewinnermittlung nach § 4 oder nach Durchschnittssätzen bei vor dem 1. Juli 1970 angeschafftem Grund und Boden)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "56",
+              "title": "Sondervorschriften für Steuerpflichtige in dem in Artikel 3 des Einigungsvertrages genannten Gebiet",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "57",
+              "title": "Besondere Anwendungsregeln aus Anlass der Herstellung der Einheit Deutschlands",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "58",
+              "title": "Weitere Anwendung von Rechtsvorschriften, die vor Herstellung der Einheit Deutschlands in dem in Artikel 3 des Einigungsvertrages genannten Gebiet gegolten haben",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "62",
+              "title": "Anspruchsberechtigte",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "63",
+              "title": "Kinder",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "64",
+              "title": "Zusammentreffen mehrerer Ansprüche",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "65",
+              "title": "Andere Leistungen für Kinder",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "66",
+              "title": "Höhe des Kindergeldes, Zahlungszeitraum",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "67",
+              "title": "Antrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "68",
+              "title": "Besondere Mitwirkungspflichten und Offenbarungsbefugnis",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "69",
+              "title": "Datenübermittlung an die Familienkassen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "70",
+              "title": "Festsetzung und Zahlung des Kindergeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "71",
+              "title": "Vorläufige Einstellung der Zahlung des Kindergeldes",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "72",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "73",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "74",
+              "title": "Zahlung des Kindergeldes in Sonderfällen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "75",
+              "title": "Aufrechnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "76",
+              "title": "Pfändung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "76a",
+              "title": "(weggefallen)",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "77",
+              "title": "Erstattung von Kosten im Vorverfahren",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "78",
+              "title": "Übergangsregelungen",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "79",
+              "title": "Zulageberechtigte",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "80",
+              "title": "Anbieter",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "81",
+              "title": "Zentrale Stelle",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "81a",
+              "title": "Zuständige Stelle",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "82",
+              "title": "Altersvorsorgebeiträge",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "83",
+              "title": "Altersvorsorgezulage",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "84",
+              "title": "Grundzulage",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "85",
+              "title": "Kinderzulage",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "86",
+              "title": "Mindesteigenbeitrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "87",
+              "title": "Zusammentreffen mehrerer Verträge",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "88",
+              "title": "Entstehung des Anspruchs auf Zulage",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "89",
+              "title": "Antrag",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "90",
+              "title": "Verfahren",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "91",
+              "title": "Datenerhebung und Datenabgleich",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "92",
+              "title": "Bescheinigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "92a",
+              "title": "Verwendung für eine selbst genutzte Wohnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "92b",
+              "title": "Verfahren bei Verwendung für eine selbst genutzte Wohnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "93",
+              "title": "Schädliche Verwendung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "94",
+              "title": "Verfahren bei schädlicher Verwendung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "95",
+              "title": "Sonderfälle der Rückzahlung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "96",
+              "title": "Anwendung der Abgabenordnung, allgemeine Vorschriften",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "97",
+              "title": "Übertragbarkeit",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "98",
+              "title": "Rechtsweg",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "99",
+              "title": "Ermächtigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "100",
+              "title": "Förderbetrag zur betrieblichen Altersversorgung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "101",
+              "title": "Bemessungsgrundlage und Höhe der Mobilitätsprämie",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "102",
+              "title": "Anspruchsberechtigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "103",
+              "title": "Entstehung der Mobilitätsprämie",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "104",
+              "title": "Antrag auf die Mobilitätsprämie",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "105",
+              "title": "Festsetzung und Auszahlung der Mobilitätsprämie",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "106",
+              "title": "Ertragsteuerliche Behandlung der Mobilitätsprämie",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "107",
+              "title": "Anwendung der Abgabenordnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "108",
+              "title": "Anwendung von Straf- und Bußgeldvorschriften der Abgabenordnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "109",
+              "title": "Verordnungsermächtigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "110",
+              "title": "Anpassung von Vorauszahlungen für den Veranlagungszeitraum 2019",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "111",
+              "title": "Vorläufiger Verlustrücktrag für 2020 und 2021",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "112",
+              "title": "Veranlagungszeitraum, Höhe",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "113",
+              "title": "Anspruchsberechtigung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "114",
+              "title": "Entstehung des Anspruchs",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "115",
+              "title": "Festsetzung mit der Einkommensteuerveranlagung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "116",
+              "title": "Anrechnung auf die Einkommensteuer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "117",
+              "title": "Auszahlung an Arbeitnehmer",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "118",
+              "title": "Energiepreispauschale im Einkommensteuer-Vorauszahlungsverfahren",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "119",
+              "title": "Steuerpflicht",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "120",
+              "title": "Anwendung der Abgabenordnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "121",
+              "title": "Anwendung von Straf- und Bußgeldvorschriften der Abgabenordnung",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            },
+            {
+              "article": "122",
+              "title": "Nichtberücksichtigung als Einkommen bei Sozialleistungen, Unpfändbarkeit",
+              "level": "NONE",
+              "deriving": 0,
+              "interpreted": 0,
+              "anchoring": 0,
+              "defeasible": 0
+            }
+          ],
+          "unresolvedAnchors": 0
+        }
+      ],
+      "unmeasuredDocuments": [
+        {
+          "publications": [
+            "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_TEXT"
+          ],
+          "documentHash": "sha256:1ad392d4386f26e71b8541286dfbb688309cb4b7c088d6a5bb2e3f2f531ec413",
+          "paths": [
+            "packages/de.tax.income_for_wohngeld/sources/bgbl/bgbl-2022-I-51.txt"
+          ],
+          "editions": [
+            "urn:de:tax:clir:income-for-wohngeld#JSTG_2022_ED"
+          ],
+          "reason": "division of amendment, table, worked example or script not measured by this report"
+        }
+      ]
+    }
+  ]
+}
